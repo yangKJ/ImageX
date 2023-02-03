@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GIFDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7Q-0Q-1Li">
+                                <rect key="frame" x="174.33333333333334" y="714.66666666666663" width="44.333333333333343" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RFs-Xt-kGX">
+                                <rect key="frame" x="20" y="341.66666666666674" width="353" height="353"/>
+                                <color key="backgroundColor" red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="0.44251175432015727" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RFs-Xt-kGX" secondAttribute="height" multiplier="1:1" id="HGz-wt-68h"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuW-5d-DV7" customClass="GIFView" customModule="GIFDemo" customModuleProvider="target">
+                                <rect key="frame" x="20" y="122.99999999999999" width="353" height="198.66666666666663"/>
+                                <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.52072355763012212" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fuW-5d-DV7" secondAttribute="height" multiplier="16:9" id="YtO-bR-pqL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fuW-5d-DV7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="64" id="0Mz-ZF-9BZ"/>
+                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8D7-jl-Rzi"/>
+                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="top" secondItem="fuW-5d-DV7" secondAttribute="bottom" constant="20" id="9aj-hG-TiY"/>
+                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9mu-Od-x3o"/>
+                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DLZ-Lp-DlW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RFs-Xt-kGX" secondAttribute="trailing" constant="20" id="SVP-A0-sDo"/>
+                            <constraint firstItem="fuW-5d-DV7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Sbn-yn-8IY"/>
+                            <constraint firstItem="Z7Q-0Q-1Li" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hDQ-Tm-uL9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fuW-5d-DV7" secondAttribute="trailing" constant="20" id="nhW-67-vWD"/>
+                            <constraint firstItem="Z7Q-0Q-1Li" firstAttribute="top" secondItem="RFs-Xt-kGX" secondAttribute="bottom" constant="20" id="zMx-12-cIU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="animatedView" destination="fuW-5d-DV7" id="bFo-YU-kmj"/>
+                        <outlet property="imageView" destination="RFs-Xt-kGX" id="KqV-BS-Rcu"/>
+                        <outlet property="label" destination="Z7Q-0Q-1Li" id="YAU-Mt-qQg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="-34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

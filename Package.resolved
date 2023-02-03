@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Harbeth",
+        "repositoryURL": "https://github.com/yangKJ/Harbeth.git",
+        "state": {
+          "branch": null,
+          "revision": "d2100763c4a5ca3c42c444b9418deac253970424",
+          "version": "0.6.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

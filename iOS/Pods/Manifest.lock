@@ -1,0 +1,34 @@
+PODS:
+  - Harbeth (0.6.0):
+    - Harbeth/Basic (= 0.6.0)
+    - Harbeth/Collector (= 0.6.0)
+    - Harbeth/Compute (= 0.6.0)
+    - Harbeth/CoreImage (= 0.6.0)
+  - Harbeth/Basic (0.6.0)
+  - Harbeth/Collector (0.6.0):
+    - Harbeth/Basic
+  - Harbeth/Compute (0.6.0):
+    - Harbeth/Basic
+  - Harbeth/CoreImage (0.6.0):
+    - Harbeth/Basic
+  - Wintersweet (0.0.1):
+    - Harbeth
+
+DEPENDENCIES:
+  - Wintersweet (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Harbeth
+
+EXTERNAL SOURCES:
+  Wintersweet:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Harbeth: 8f75535ea475e7ab0fd7944967119042f83f64be
+  Wintersweet: 75657366c30491e7dc24c32232e75615be006ce9
+
+PODFILE CHECKSUM: 2255f9796ecbc17c7b04dc36fded3b835eabd89d
+
+COCOAPODS: 1.11.3
