@@ -9,7 +9,7 @@ import Foundation
 import QuartzCore
 import Harbeth
 
-public class Animator {
+final class Animator {
     
     /// A delegate responsible for displaying the GIF frames.
     weak var delegate: AsAnimatable!
@@ -36,7 +36,7 @@ public class Animator {
     /// Creates a new animator with a delegate.
     /// - parameter view: A view object that implements the `AsAnimatable` protocol.
     /// - returns: A new animator instance.
-    public init(withDelegate delegate: AsAnimatable) {
+    init(withDelegate delegate: AsAnimatable) {
         self.delegate = delegate
     }
     

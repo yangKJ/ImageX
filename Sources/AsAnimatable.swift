@@ -15,18 +15,7 @@ public typealias AnimatedCallback = ((_ loopDuration: TimeInterval) -> Void)
 public typealias FailedCallback = ((_ error: Error?) -> Void)
 
 /// The protocol that view classes need to conform to to enable animated GIF support.
-public protocol AsAnimatable: NSObjectProtocol {
-    /// Responsible for managing the animation frames.
-    var animator: Animator? { get set }
-    
-    /// View frame used for resizing the frames.
-    var frame: CGRect { get set }
-    
-    #if !os(macOS)
-    /// Notifies the instance that it needs display.
-    var layer: CALayer { get }
-    #endif
-    
+public protocol AsAnimatable: HasAnimatable {    
     /// Total duration of one animation loop
     var loopDuration: TimeInterval { get }
     

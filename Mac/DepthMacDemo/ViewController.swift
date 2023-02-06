@@ -8,6 +8,10 @@
 import Cocoa
 import Wintersweet
 
+class GIFImageView: NSImageView {
+    
+}
+
 class ViewController: NSViewController {
     
     @IBOutlet weak var imageView: GIFImageView!
@@ -30,8 +34,4 @@ class ViewController: NSViewController {
             // Update the view, if already loaded.
         }
     }
-}
-
-class GIFImageView: NSImageView, AsAnimatable, ImageContainer {
-    lazy var animator: Wintersweet.Animator? = Animator(withDelegate: self)
 }

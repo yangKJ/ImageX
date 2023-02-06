@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870DBCBC2990966D000A36F6 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DBCBB2990966D000A36F6 /* GifViewController.swift */; };
 		8746B70A2968168800477A32 /* cycling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8746B7092968168800477A32 /* cycling.gif */; };
 		8790C59429669B1D00950059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59329669B1D00950059 /* AppDelegate.swift */; };
 		8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59529669B1D00950059 /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		870DBCBB2990966D000A36F6 /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		8746B7092968168800477A32 /* cycling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cycling.gif; sourceTree = "<group>"; };
 		8790C59029669B1D00950059 /* DepthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DepthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8790C59329669B1D00950059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				8790C59329669B1D00950059 /* AppDelegate.swift */,
 				8790C59529669B1D00950059 /* SceneDelegate.swift */,
 				8790C59729669B1D00950059 /* ViewController.swift */,
+				870DBCBB2990966D000A36F6 /* GifViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
 				8746B7092968168800477A32 /* cycling.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
@@ -213,6 +216,7 @@
 				8790C59829669B1D00950059 /* ViewController.swift in Sources */,
 				8790C59429669B1D00950059 /* AppDelegate.swift in Sources */,
 				8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */,
+				870DBCBC2990966D000A36F6 /* GifViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

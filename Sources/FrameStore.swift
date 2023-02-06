@@ -10,7 +10,7 @@ import ImageIO
 import Harbeth
 
 /// Responsible for storing and updating the frames of a single GIF.
-class FrameStore {
+final class FrameStore {
     /// Desired number of loops, <= 0 for infinite loop
     private let loopCount: Int
     /// Harbeth filters apply to GIF frame.

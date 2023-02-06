@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ulb-Bo-Rxg">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -11,56 +11,74 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GIFDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DepthDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7Q-0Q-1Li">
-                                <rect key="frame" x="174.33333333333334" y="714.66666666666663" width="44.333333333333343" height="21"/>
+                                <rect key="frame" x="174.33333333333334" y="576" width="44.333333333333343" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RFs-Xt-kGX">
-                                <rect key="frame" x="20" y="341.66666666666674" width="353" height="353"/>
+                                <rect key="frame" x="20" y="203" width="353" height="353"/>
                                 <color key="backgroundColor" red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="0.44251175432015727" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="RFs-Xt-kGX" secondAttribute="height" multiplier="1:1" id="HGz-wt-68h"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuW-5d-DV7" customClass="GIFView" customModule="GIFDemo" customModuleProvider="target">
-                                <rect key="frame" x="20" y="122.99999999999999" width="353" height="198.66666666666663"/>
-                                <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.52072355763012212" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="fuW-5d-DV7" secondAttribute="height" multiplier="16:9" id="YtO-bR-pqL"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-oe-DJG">
+                                <rect key="frame" x="158.66666666666666" y="627" width="76" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Go GIF"/>
+                                <connections>
+                                    <action selector="goGIF:" destination="BYZ-38-t0r" eventType="touchUpInside" id="anL-tb-4iY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fuW-5d-DV7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="64" id="0Mz-ZF-9BZ"/>
+                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1TF-Oq-Ow8"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8D7-jl-Rzi"/>
-                            <constraint firstItem="RFs-Xt-kGX" firstAttribute="top" secondItem="fuW-5d-DV7" secondAttribute="bottom" constant="20" id="9aj-hG-TiY"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9mu-Od-x3o"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DLZ-Lp-DlW"/>
+                            <constraint firstItem="cQJ-oe-DJG" firstAttribute="top" secondItem="Z7Q-0Q-1Li" secondAttribute="bottom" constant="30" id="MTx-vD-0so"/>
+                            <constraint firstItem="cQJ-oe-DJG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O8N-I4-L60"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RFs-Xt-kGX" secondAttribute="trailing" constant="20" id="SVP-A0-sDo"/>
-                            <constraint firstItem="fuW-5d-DV7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Sbn-yn-8IY"/>
                             <constraint firstItem="Z7Q-0Q-1Li" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hDQ-Tm-uL9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fuW-5d-DV7" secondAttribute="trailing" constant="20" id="nhW-67-vWD"/>
                             <constraint firstItem="Z7Q-0Q-1Li" firstAttribute="top" secondItem="RFs-Xt-kGX" secondAttribute="bottom" constant="20" id="zMx-12-cIU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="gTH-Y9-SA6"/>
                     <connections>
-                        <outlet property="animatedView" destination="fuW-5d-DV7" id="bFo-YU-kmj"/>
                         <outlet property="imageView" destination="RFs-Xt-kGX" id="KqV-BS-Rcu"/>
                         <outlet property="label" destination="Z7Q-0Q-1Li" id="YAU-Mt-qQg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-34"/>
+            <point key="canvasLocation" x="1057.2519083969464" y="-34.507042253521128"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oYP-6T-PmR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ulb-Bo-Rxg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c08-qh-di8">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="YOc-lO-GG6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kwl-mf-zmg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
         </scene>
     </scenes>
     <resources>

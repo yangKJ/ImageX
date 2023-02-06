@@ -80,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		870DBCAC2990929B000A36F6 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
+		870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		876D4B132984C28C00A06282 /* DepthDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthDemo.xcworkspace; sourceTree = "<group>"; };
 		876D4B1F2984C28C00A06282 /* DepthDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthDemo.xcodeproj; sourceTree = "<group>"; };
 		876D4B232984C28C00A06282 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
@@ -1660,6 +1662,7 @@
 				876D4DB72984C29D00A06282 /* FrameImage.swift */,
 				876D4DA82984C29D00A06282 /* FrameStore.swift */,
 				876D4DB62984C29D00A06282 /* ImageContainer.swift */,
+				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1682,6 +1685,7 @@
 			children = (
 				876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */,
 				876D4DB42984C29D00A06282 /* Collection+Ext.swift */,
+				870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
