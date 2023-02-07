@@ -21,6 +21,6 @@ struct FrameImage {
 extension FrameImage {
     /// Whether this frame instance contains an image or not.
     var isPlaceholder: Bool {
-        image == nil
+        image == .none
     }
 }

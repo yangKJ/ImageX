@@ -9,6 +9,7 @@ import Foundation
 import QuartzCore
 import Harbeth
 
+/// Responsible for parsing GIF data and decoding the individual frames.
 final class Animator {
     
     /// A delegate responsible for displaying the GIF frames.

@@ -21,7 +21,7 @@ public protocol HasAnimatable: NSObjectProtocol {
 }
 
 fileprivate struct AssociatedKeys {
-    static var AnimatorKey = "condy.gif.animator.key"
+    static var AnimatorKey = "condy.wintersweet.gif.animator.key"
 }
 
 extension HasAnimatable {
@@ -29,15 +29,16 @@ extension HasAnimatable {
     weak var animator: Animator? {
         get {
             return synchronizedAnimator {
-                if let animator = objc_getAssociatedObject(self, &AssociatedKeys.AnimatorKey) as? Animator {
-                    return animator
-                }
                 guard let weakself = self as? AsAnimatable else {
                     return nil
                 }
-                let animator = Animator(withDelegate: weakself)
-                self.animator = animator
-                return animator
+                if let animator = objc_getAssociatedObject(weakself, &AssociatedKeys.AnimatorKey) as? Animator {
+                    return animator
+                } else {
+                    let animator = Animator(withDelegate: weakself)
+                    objc_setAssociatedObject(weakself, &AssociatedKeys.AnimatorKey, animator, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    return animator
+                }
             }
         }
         set {
