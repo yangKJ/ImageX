@@ -8,13 +8,13 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a library that quickly allows controls to play gifs and add filters.
+[**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
 
-### Features
+## Features
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
 
 - Support full platform system，macOS、iOS、tvOS、watchOS.
-- Support add [Harbeth](https://github.com/yangKJ/Harbeth) filter.
+- Support add [Harbeth](https://github.com/yangKJ/Harbeth) filter to gif.
 - Support local and network play gif animated.
 - Support any control and used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
 - Support six content filling modes.
@@ -22,9 +22,24 @@
 
 ------
 
-### Used
+## Requirements
 
-1. local gif
+| iOS Target | macOS Target | Xcode Version | Swift Version |
+|:---:|:---:|:---:|:---:|
+| iOS 10.0+ | macOS 10.13+ | Xcode 12.4+ | Swift 5.0+ |
+
+## Support the Project
+Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?frequency=one-time&sponsor=yangKJ).
+
+<a href="https://www.buymeacoffee.com/yangkj3102">
+<img width=25% alt="yellow-button" src="https://user-images.githubusercontent.com/1888355/146226808-eb2e9ee0-c6bd-44a2-a330-3bbc8a6244cf.png">
+</a>
+
+------
+
+## Used
+
+1. Local gif source.
 
 ```
 func setup(imageName: String) {
@@ -43,7 +58,7 @@ func setup(imageName: String) {
 }
 ```
 
-2. network url gif
+2. Network url gif source.
 
 ```
 func setupNetworkGif() {
@@ -55,7 +70,7 @@ func setupNetworkGif() {
 }
 ```
 
-3. Any control implementation protocol ``AsAnimatable`` can support GIF playback.
+3. Any control implementation protocol ``AsAnimatable`` can support gif animated playback.
 
 ```
 class GIFView: UIView, AsAnimatable {
@@ -97,13 +112,13 @@ public protocol AsAnimatable: HasAnimatable {
 }
 ```
 
-public two methods to play gif animated:
+Public two methods to play gif animated:
 
 ```
-/// Prepare for animation and start play GIF.
+/// Prepare for animation and start play gif.
 /// - Parameters:
 ///   - GIFData: GIF image data.
-///   - filters: Wintersweet filters apply to GIF frame.
+///   - filters: Wintersweet filters apply to gif frame.
 ///   - loop: Desired number of loops. Default  is ``forever``.
 ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
 ///   - bufferCount: The number of frames to buffer. Default is 50.
@@ -119,13 +134,13 @@ public func play(withGIFData data: Data,
     ...
 }
 
-/// Prepare for animation and start play GIF.
+/// Prepare for animation and start play gif.
 /// - Parameters:
 ///   - GIFURL: GIF image url.
-///   - filters: Wintersweet filters apply to GIF frame.
+///   - filters: Wintersweet filters apply to gif frame.
 ///   - loop: Desired number of loops. Default  is ``forever``.
 ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
-///   - cacheOption: Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
+///   - cacheOption: Weather or not we should cache the URL response.
 ///   - bufferCount: The number of frames to buffer. Default is 50.
 ///   - preparation: Ready to play time callback.
 ///   - animated: Be played GIF.
@@ -165,35 +180,13 @@ public enum ContentMode {
 }
 ```
 
-- scaleToFill: Pull up the picture to fit the size of the control, and the image will deform.
+| original | scaleToFill | scaleAspectFit |
+| --- | --- | --- |
+|<img width=300px src="Images/original.png" />|<img width=300px src="Images/scaleToFill.png" />|<img width=300px src="Images/scaleAspectFit.png" />|
 
-<p align="left">
-<img src="Images/scaleToFill.png" width="400" hspace="15px">
-</p>
-
-- scaleAspectFit: Maintain the image width and height ratio and adapt to the maximum size of the control.
-
-<p align="left">
-<img src="Images/scaleAspectFit.png" width="400" hspace="15px">
-</p>
-
-- scaleAspectFill: Maintain the aspect ratio of the image, take the minimum edge of the image to display, and the excess surroundings will be reduced.
-
-<p align="left">
-<img src="Images/scaleAspectFill.png" width="400" hspace="15px">
-</p>
-
-- scaleAspectBottomRight: Maintain the aspect ratio of the image, take the minimum edge of the image to display, and the redundant top or left part will be reduced.
-
-<p align="left">
-<img src="Images/scaleAspectBottomRight.png" width="400" hspace="15px">
-</p>
-
-- scaleAspectTopLeft: Maintain the aspect ratio of the image and display the minimum edge of the image, and the redundant bottom or right part will be reduced.
-
-<p align="left">
-<img src="Images/scaleAspectTopLeft.png" width="400" hspace="15px">
-</p>
+| scaleAspectFill | scaleAspectBottomRight | scaleAspectTopLeft |
+| --- | --- | --- |
+|<img width=300px src="Images/scaleAspectFill.png" />|<img width=300px src="Images/scaleAspectBottomRight.png" />|<img width=300px src="Images/scaleAspectTopLeft.png" />|
 
 ### Cached
 
@@ -207,20 +200,20 @@ public static let disableMemoryCacheWrites = Options(rawValue: 1 << 1)
 /// Read and write memory cache.
 public static let usedMemoryCache = Options(rawValue: 1 << 2)
 /// Disables both memory cache reads and writes.
-public static let disableMemoryCache: Options = [.disableMemoryCacheReads, .disableMemoryCacheWrites]
+public static let disableMemoryCache: Options = //
 ```
 
 ### Loop
 
-- Number of GIF cycles.
+- Gif animated played count.
 
 ```
 public enum Loop {
-    /// Infinite cycle
+    /// Incessant cycle.
     case forever
     /// Play it once.
     case never
-    /// Loop the specified ``count`` times
+    /// Loop the specified ``count`` times.
     case count(_ count: Int)
 }
 ```
@@ -244,69 +237,15 @@ extension AsAnimatable where Self: ImageContainer {
 }
 ```
 
-### AssetType
+## Installation
 
-- Obtain the data type and unify the type identifier UTI.
+**CocoaPods**
 
-```
-public enum AssetType: String, Hashable, Sendable {
-    /// Unknown format. Either not enough data, or we just don't support this format.
-    case unknow = "public.unknow"
-    
-    case jpeg = "public.jpeg"
-    case png = "public.png"
-    case gif = "com.compuserve.gif"
-    case tiff = "public.tiff"
-    
-    /// Native decoding support only available on the following platforms: macOS 11, iOS 14, watchOS 7, tvOS 14.
-    case webp = "public.webp"
-    
-    /// HEIF (High Efficiency Image Format) by Apple.
-    case heic = "public.heic"
-    case heif = "public.heif"
-    
-    /// The M4V file format is a video container format developed by Apple and is very similar to the MP4 format.
-    /// The primary difference is that M4V files may optionally be protected by DRM copy protection.
-    case mp4 = "public.mp4"
-    case m4v = "public.m4v"
-    case mov = "public.mov"
-}
-```
-
-Determines a type of the image based on the given data.
-
-```
-extension AssetType {
-    /// Determines a type of the image based on the given data.
-    public init(data: Data?) {
-        guard let data = data else {
-            self = .unknow
-            return
-        }
-        self = AssetType.make(data: data)
-    }
-    
-    public var isVideo: Bool {
-        self == .mp4 || self == .m4v || self == .mov
-    }
-}
-```
-
-### CocoaPods
-
-- If you want to import [**Wintersweet**](https://github.com/yangKJ/Wintersweet) image module, you need in your Podfile: 
-
-```
+```ruby
 pod 'Wintersweet'
 ```
 
-### Swift Package Manager
-
-[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
-
-> Xcode 11+ is required to build [Wintersweet](https://github.com/yangKJ/Wintersweet) using Swift Package Manager.
-
-To integrate Wintersweet into your Xcode project using Swift Package Manager, add it to the dependencies value of your `Package.swift`:
+**Swift Package Manager**
 
 ```swift
 dependencies: [
