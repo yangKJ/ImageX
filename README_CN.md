@@ -1,16 +1,10 @@
 # Wintersweet
 
-<p align="left">
+<p align="center">
 <img src="Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
 </p>
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/Wintersweet)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
-![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
-
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加过滤器的框架。
-
-核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧。
+[**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加过滤器的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧。
 
 -------
 
@@ -229,81 +223,19 @@ public enum Loop {
 }
 ```
 
-### ImageContainer
-
-- 动画类可以选择遵守的单属性协议，一般具有``image``属性的控件需要实现该协议
-
-```
-public protocol ImageContainer {
-    /// 用于显示动画帧
-    var image: C7Image? { get set }
-}
-
-extension AsAnimatable where Self: ImageContainer {
-    /// 根据图像的大小返回内在内容大小
-    public var intrinsicContentSize: CGSize {
-        return image?.size ?? CGSize.zero
-    }
-}
-```
-
-### AssetType
-
-- 获取数据data类型，统一类型标识符UTI；
-
-```
-public enum AssetType: String, Hashable, Sendable {
-    /// Unknown format. Either not enough data, or we just don't support this format.
-    case unknow = "public.unknow"
-    
-    case jpeg = "public.jpeg"
-    case png = "public.png"
-    case gif = "com.compuserve.gif"
-    case tiff = "public.tiff"
-    
-    /// Native decoding support only available on the following platforms: macOS 11, iOS 14, watchOS 7, tvOS 14.
-    case webp = "public.webp"
-    
-    /// HEIF (High Efficiency Image Format) by Apple.
-    case heic = "public.heic"
-    case heif = "public.heif"
-    
-    /// The M4V file format is a video container format developed by Apple and is very similar to the MP4 format.
-    /// The primary difference is that M4V files may optionally be protected by DRM copy protection.
-    case mp4 = "public.mp4"
-    case m4v = "public.m4v"
-    case mov = "public.mov"
-}
-```
-
-根据给定的数据确定图像的类型
-
-```
-extension AssetType {
-    /// Determines a type of the image based on the given data.
-    public init(data: Data?) {
-        guard let data = data else {
-            self = .unknow
-            return
-        }
-        self = AssetType.make(data: data)
-    }
-    
-    public var isVideo: Bool {
-        self == .mp4 || self == .m4v || self == .mov
-    }
-}
-```
-
 -----
 
 > 外部需要使用到的类和协议先简单介绍出来，关于内部使用到的类和协议后续再慢慢介绍！！  
 > 
 > 觉得有帮助的铁子，就给我点个星🌟支持一哈，谢谢铁子们～  
-> GIF动态图框架传送门 [**Wintersweet**](https://github.com/yangKJ/Wintersweet) 地址。  
 > 有什么问题也可以直接联系我，邮箱[yangkj310@gmail.com](yangkj310@gmail.com)
 
-### License
-Wintersweet is available under the [MIT](LICENSE) license. See the [LICENSE](LICENSE) file for more info.
+### 关于作者
+- 🎷 **邮箱地址：[ykj310@126.com](ykj310@126.com) 🎷**
+- 🎸 **GitHub地址：[yangKJ](https://github.com/yangKJ) 🎸**
+- 🎺 **掘金地址：[茶底世界之下](https://juejin.cn/user/1987535102554472/posts) 🎺**
+- 🚴🏻 **简书地址：[77___](https://www.jianshu.com/u/c84c00476ab6) 🚴🏻**
+
+🫰.
 
 -----
