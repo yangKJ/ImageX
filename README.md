@@ -10,6 +10,10 @@
 
 [**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
 
+-------
+
+English | [**简体中文**](README_CN.md)
+
 ## Features
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
 
