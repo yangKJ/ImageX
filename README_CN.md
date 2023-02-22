@@ -1,8 +1,8 @@
 # Wintersweet
 
-<p align="center">
-<img src="Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
-</p>
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/Wintersweet)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
+![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
 [**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加过滤器的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧。
 
@@ -223,13 +223,6 @@ public enum Loop {
 }
 ```
 
------
-
-> 外部需要使用到的类和协议先简单介绍出来，关于内部使用到的类和协议后续再慢慢介绍！！  
-> 
-> 觉得有帮助的铁子，就给我点个星🌟支持一哈，谢谢铁子们～  
-> 有什么问题也可以直接联系我，邮箱[yangkj310@gmail.com](yangkj310@gmail.com)
-
 ### 关于作者
 - 🎷 **邮箱地址：[ykj310@126.com](ykj310@126.com) 🎷**
 - 🎸 **GitHub地址：[yangKJ](https://github.com/yangKJ) 🎸**
@@ -237,5 +230,7 @@ public enum Loop {
 - 🚴🏻 **简书地址：[77___](https://www.jianshu.com/u/c84c00476ab6) 🚴🏻**
 
 🫰.
+
+- 觉得有帮助的铁子，就给我点个星🌟支持一哈，谢谢铁子们～
 
 -----
