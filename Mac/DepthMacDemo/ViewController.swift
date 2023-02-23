@@ -26,7 +26,7 @@ class ViewController: NSViewController {
             C7Storyboard(ranks: 2),
         ]
         let URL = URL(string: "https://raw.githubusercontent.com/yangKJ/KJBannerViewDemo/master/KJBannerViewDemo/Resources/IMG_0139.GIF")!
-        imageView.play(withGIFURL: URL, filters: filters, contentMode: .original)
+        imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
     }
     
     override var representedObject: Any? {
