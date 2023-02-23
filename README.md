@@ -1,7 +1,7 @@
 # Wintersweet
 
 <p align="left">
-<img src="Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
+<img src="https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
 </p>
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/Wintersweet)
@@ -30,7 +30,7 @@ English | [**简体中文**](README_CN.md)
 
 | iOS Target | macOS Target | Xcode Version | Swift Version |
 |:---:|:---:|:---:|:---:|
-| iOS 10.0+ | macOS 10.13+ | Xcode 12.4+ | Swift 5.0+ |
+| iOS 10.0+ | macOS 10.13+ | Xcode 10.0+ | Swift 5.0+ |
 
 ## Support the Project
 Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?frequency=one-time&sponsor=yangKJ).
@@ -41,11 +41,11 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 
 ------
 
-## Used
+## Usage
 
-1. Local gif source.
+- Use local gif diagram use cases.
 
-```
+```swift
 func setup(imageName: String) {
     guard let imagePath = Bundle.main.url(forResource: imageName, withExtension: "gif"),
           let data = try? Data(contentsOf: imagePath) else {
@@ -62,23 +62,23 @@ func setup(imageName: String) {
 }
 ```
 
-2. Network url gif source.
+- Use network gif link use cases.
 
-```
+```swift
 func setupNetworkGif() {
     let URL = URL(string: ``URL Link``)!
     animatedView.play(withGIFURL: URL, filters: [
         C7WhiteBalance(temperature: 5555),
         C7LookupTable(image: R.image("lut_x"))
-    ], loop: .count(5), cacheOption: Cached.Options.usedMemoryCache)
+    ], loop: .count(5), contentMode: .scaleToFill, cacheOption: .usedMemoryCache)
 }
 ```
 
-3. Any control implementation protocol ``AsAnimatable`` can support gif animated playback.
+- Any control implementation protocol ``AsAnimatable`` can support gif animated playback.
 
-```
+```swift
 class GIFView: UIView, AsAnimatable {
-    
+    ...
 }
 ```
 
@@ -88,7 +88,7 @@ class GIFView: UIView, AsAnimatable {
 
 - The protocol that view classes need to conform to to enable gif animated support.
 
-```
+```swift
 public protocol AsAnimatable: HasAnimatable {    
     /// Total duration of one animation loop
     var loopDuration: TimeInterval { get }
@@ -118,7 +118,7 @@ public protocol AsAnimatable: HasAnimatable {
 
 Public two methods to play gif animated:
 
-```
+```swift
 /// Prepare for animation and start play gif.
 /// - Parameters:
 ///   - GIFData: GIF image data.
@@ -166,31 +166,14 @@ public func play(withGIFURL: URL,
 
 - Mainly for the image filling content to change the size.
 
-```
-/// Mainly for the image filling content to change the size.
-public enum ContentMode {
-    /// Dimensions of the original image.Do nothing with it.
-    case original
-    /// The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.
-    case scaleToFill
-    /// Contents scaled to fit with fixed aspect. remainder is transparent.
-    case scaleAspectFit
-    /// Contents scaled to fill with fixed aspect. some portion of content may be clipped.
-    case scaleAspectFill
-    /// Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.
-    case scaleAspectBottomRight
-    /// Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.
-    case scaleAspectTopLeft
-}
-```
-
-| original | scaleToFill | scaleAspectFit |
-| --- | --- | --- |
-|<img width=300px src="Images/original.png" />|<img width=300px src="Images/scaleToFill.png" />|<img width=300px src="Images/scaleAspectFit.png" />|
-
-| scaleAspectFill | scaleAspectBottomRight | scaleAspectTopLeft |
-| --- | --- | --- |
-|<img width=300px src="Images/scaleAspectFill.png" />|<img width=300px src="Images/scaleAspectBottomRight.png" />|<img width=300px src="Images/scaleAspectTopLeft.png" />|
+Example | ContentMode
+---- | ---------
+![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`imageView.play(... contentMode: .original)`
+![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`imageView.play(... contentMode: .scaleToFill)`
+![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`imageView.play(... contentMode: .scaleAspectFit)`
+![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectFill)`
+![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectBottomRight)`
+![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectTopLeft)`
 
 ### Cached
 
@@ -257,23 +240,13 @@ dependencies: [
 ]
 ```
 
-### Remarks
-
-> The general process is almost like this, the Demo is also written in great detail, you can check it out for yourself.🎷
->
-> [**WintersweetDemo**](https://github.com/yangKJ/Wintersweet)
->
-> Tip: If you find it helpful, please help me with a star. If you have any questions or needs, you can also issue.
->
-> Thanks.🎇
-
-### About the author
+## Contact
 - 🎷 **E-mail address: [yangkj310@gmail.com](yangkj310@gmail.com) 🎷**
 - 🎸 **GitHub address: [yangKJ](https://github.com/yangKJ) 🎸**
 
 -----
 
-### License
+## License
 Wintersweet is available under the [MIT](LICENSE) license. See the [LICENSE](LICENSE) file for more info.
 
 -----
