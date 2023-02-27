@@ -114,48 +114,18 @@ class GIFView: UIView, AsAnimatable {
 
 **GIF animated support has been implemented here for [ImageView](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Extensions/ImageView%2BExt.swift), so you can use it directly.✌️**
 
-### AsAnimatable
+### ContentMode
 
-- The protocol that view classes need to conform to to enable gif animated support.
+- Mainly for the image filling content to change the size.
 
-```swift
-public protocol AsAnimatable: HasAnimatable {
-    
-    /// Total duration of one animation loop
-    var loopDuration: TimeInterval { get }
-    
-    /// The first frame of the current GIF.
-    var fristFrame: C7Image? { get }
-    
-    /// Returns the active frame if available.
-    var activeFrame: C7Image? { get }
-    
-    /// Total frame count of the GIF.
-    var frameCount: Int { get }
-    
-    /// Introspect whether the instance is animating.
-    var isAnimatingGIF: Bool { get }
-    
-    /// Bitmap memory cost with bytes.
-    var cost: Int { get }
-    
-    /// Stop animating and free up GIF data from memory.
-    func prepareForReuseGIF()
-    
-    /// Start animating GIF.
-    func startAnimatingGIF()
-    
-    /// Stop animating GIF.
-    func stopAnimatingGIF()
-    
-    /// Prepare for animation and start play GIF.
-    /// - Parameters:
-    ///   - data: gif data.
-    ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
-    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
-}
-```
+Example | ContentMode
+---- | ---------
+![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`AnimatedOptions(contentMode: .original)`
+![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`AnimatedOptions(contentMode: .scaleToFill)`
+![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFit)`
+![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFill)`
+![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectBottomRight)`
+![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectTopLeft)`
 
 ### AnimatedOptions
 
@@ -201,18 +171,48 @@ extension AnimatedOptions {
 }
 ```
 
-### ContentMode
+### AsAnimatable
 
-- Mainly for the image filling content to change the size.
+- The protocol that view classes need to conform to to enable gif animated support.
 
-Example | ContentMode
----- | ---------
-![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`AnimatedOptions(contentMode: .original)`
-![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`AnimatedOptions(contentMode: .scaleToFill)`
-![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFit)`
-![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFill)`
-![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectBottomRight)`
-![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectTopLeft)`
+```swift
+public protocol AsAnimatable: HasAnimatable {
+    
+    /// Total duration of one animation loop
+    var loopDuration: TimeInterval { get }
+    
+    /// The first frame of the current GIF.
+    var fristFrame: C7Image? { get }
+    
+    /// Returns the active frame if available.
+    var activeFrame: C7Image? { get }
+    
+    /// Total frame count of the GIF.
+    var frameCount: Int { get }
+    
+    /// Introspect whether the instance is animating.
+    var isAnimatingGIF: Bool { get }
+    
+    /// Bitmap memory cost with bytes.
+    var cost: Int { get }
+    
+    /// Stop animating and free up GIF data from memory.
+    func prepareForReuseGIF()
+    
+    /// Start animating GIF.
+    func startAnimatingGIF()
+    
+    /// Stop animating GIF.
+    func stopAnimatingGIF()
+    
+    /// Prepare for animation and start play GIF.
+    /// - Parameters:
+    ///   - data: gif data.
+    ///   - filters: Harbeth filters apply to image or gif frame.
+    ///   - options: Represents gif playback creating options used in Wintersweet.
+    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
+}
+```
 
 ### Cached
 
