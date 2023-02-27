@@ -14,8 +14,9 @@ extension NSViewController {
         guard let window = view.window else {
             return
         }
-        let origin = CGPoint(x: window.frame.midX - viewController.view.frame.width / 2.0, y: window.frame.midY - viewController.view.frame.height / 2.0)
-        let windowFrame = CGRect(origin: origin, size: viewController.view.frame.size)
+        let x = window.frame.midX - viewController.view.frame.width / 2.0
+        let y = window.frame.midY - viewController.view.frame.height / 2.0
+        let windowFrame = CGRect(origin: CGPoint(x: x, y: y), size: viewController.view.frame.size)
         guard !NSWorkspace.shared.accessibilityDisplayShouldReduceMotion else {
             window.makeFirstResponder(viewController)
             // The delay is needed to prevent weird UI race issues on macOS 12. For example, it caused the video in the editor to not show up.

@@ -44,6 +44,36 @@ extension AssetType {
     public var isVideo: Bool {
         self == .mp4 || self == .m4v || self == .mov
     }
+    
+    /// Determines a type and image size of the image based on the given data.
+    /// - Parameter data: Data.
+    /// - Returns: AssetType and Image size.
+    public func imageSizeAndAssetType(data: Data?) -> (type: AssetType, size: CGSize) {
+        guard let data = data else {
+            return (.unknow, .zero)
+        }
+        let type = AssetType(data: data)
+        var size: CGSize = .zero
+        switch type {
+        case .jpeg where data.count > 2:
+            var size_: CGSize?
+            repeat {
+                size_ = AssetType.ImageParser.parse(data, offset: 2, segment: .nextSegment)
+            } while size_ == nil
+            size = size_ ?? .zero
+        case .png where data.count >= 25:
+            var size_ = AssetType.ImageParser.UInt32Size()
+            (data as NSData).getBytes(&size_, range: NSRange(location: 16, length: 8))
+            size = CGSize(width: Double(CFSwapInt32(size_.width)), height: Double(CFSwapInt32(size_.height)))
+        case .gif where data.count >= 11:
+            var size_ = AssetType.ImageParser.UInt16Size()
+            (data as NSData).getBytes(&size_, range: NSRange(location: 6, length: 4))
+            size = CGSize(width: Double(size_.width), height: Double(size_.height))
+        default:
+            break
+        }
+        return (type, size)
+    }
 }
 
 extension AssetType {
@@ -114,5 +144,90 @@ extension AssetType {
         
         // Either not enough data, or we just don't support this format.
         return .unknow
+    }
+}
+
+extension AssetType {
+    struct ImageParser {
+        enum JPEGHeaderSegment {
+            case nextSegment
+            case sofSegment
+            case skipSegment
+            case parseSegment
+            case eoiSegment
+        }
+        struct UInt16Size { var width: UInt16 = 0, height: UInt16 = 0 }
+        struct UInt32Size { var width: UInt32 = 0, height: UInt32 = 0 }
+    }
+}
+
+extension AssetType.ImageParser {
+    private typealias JPEGParseTuple = (data: Data, offset: Int, segment: JPEGHeaderSegment)
+    
+    private enum JPEGParseResult {
+        case size(CGSize)
+        case tuple(JPEGParseTuple)
+    }
+    
+    private static func parse(JPEG tuple: JPEGParseTuple) -> JPEGParseResult {
+        let data = tuple.data
+        let offset = tuple.offset
+        let segment = tuple.segment
+        if segment == .eoiSegment
+            || (data.count <= offset + 1)
+            || (data.count <= offset + 2) && segment == .skipSegment
+            || (data.count <= offset + 7) && segment == .parseSegment {
+            return .size(CGSize.zero)
+        }
+        switch segment {
+        case .nextSegment:
+            let newOffset = offset + 1
+            var byte = 0x0
+            (data as NSData).getBytes(&byte, range: NSRange(location: newOffset, length: 1))
+            if byte == 0xFF {
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .sofSegment))
+            } else {
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .nextSegment))
+            }
+        case .sofSegment:
+            let newOffset = offset + 1
+            var byte = 0x0
+            (data as NSData).getBytes(&byte, range: NSRange(location: newOffset, length: 1))
+            switch byte {
+            case 0xE0...0xEF:
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .skipSegment))
+            case 0xC0...0xC3, 0xC5...0xC7, 0xC9...0xCB, 0xCD...0xCF:
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .parseSegment))
+            case 0xFF:
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .sofSegment))
+            case 0xD9:
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .eoiSegment))
+            default:
+                return .tuple(JPEGParseTuple(data, offset: newOffset, segment: .skipSegment))
+            }
+        case .skipSegment:
+            var length = UInt16(0)
+            (data as NSData).getBytes(&length, range: NSRange(location: offset + 1, length: 2))
+            let newOffset = offset + Int(CFSwapInt16(length)) - 1
+            return .tuple(JPEGParseTuple(data, offset: Int(newOffset), segment: .nextSegment))
+        case .parseSegment:
+            var size = UInt16Size()
+            (data as NSData).getBytes(&size, range: NSRange(location: offset + 4, length: 4))
+            return .size(CGSize(width: Int(CFSwapInt16(size.width)), height: Int(CFSwapInt16(size.height))))
+        default:
+            return .size(CGSize.zero)
+        }
+    }
+    
+    static func parse(_ JPEGData: Data, offset: Int, segment: JPEGHeaderSegment) -> CGSize {
+        var tuple: JPEGParseResult = .tuple(JPEGParseTuple(JPEGData, offset: offset, segment: segment))
+        while true {
+            switch tuple {
+            case .size(let size):
+                return size
+            case .tuple(let newTuple):
+                tuple = parse(JPEG: newTuple)
+            }
+        }
     }
 }

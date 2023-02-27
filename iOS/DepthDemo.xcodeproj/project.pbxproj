@@ -15,6 +15,7 @@
 		8790C59B29669B1D00950059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59929669B1D00950059 /* Main.storyboard */; };
 		8790C59D29669B1F00950059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59C29669B1F00950059 /* Assets.xcassets */; };
 		8790C5A029669B1F00950059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59E29669B1F00950059 /* LaunchScreen.storyboard */; };
+		87DC267F29AC806500250152 /* pikachu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 87DC267E29AC806500250152 /* pikachu.gif */; };
 		EC112D066285A0D306694649 /* Pods_DepthDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE519F7FDB9258DE65348AB8 /* Pods_DepthDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		8790C59C29669B1F00950059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8790C59F29669B1F00950059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8790C5A129669B1F00950059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87DC267E29AC806500250152 /* pikachu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikachu.gif; sourceTree = "<group>"; };
 		94A69D4D094953C77170AC4A /* Pods-DepthDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.debug.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CE519F7FDB9258DE65348AB8 /* Pods_DepthDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DepthDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12295D3C2126303641F50AC /* Pods-DepthDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.release.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				8790C59729669B1D00950059 /* ViewController.swift */,
 				870DBCBB2990966D000A36F6 /* GifViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
+				87DC267E29AC806500250152 /* pikachu.gif */,
 				8746B7092968168800477A32 /* cycling.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
 				8790C59E29669B1F00950059 /* LaunchScreen.storyboard */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8790C5A029669B1F00950059 /* LaunchScreen.storyboard in Resources */,
+				87DC267F29AC806500250152 /* pikachu.gif in Resources */,
 				8746B70A2968168800477A32 /* cycling.gif in Resources */,
 				8790C59D29669B1F00950059 /* Assets.xcassets in Resources */,
 				8790C59B29669B1D00950059 /* Main.storyboard in Resources */,

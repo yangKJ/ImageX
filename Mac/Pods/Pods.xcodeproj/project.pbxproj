@@ -16,7 +16,6 @@
 		096AAB04244CA0B18B4934E3F1730831 /* C7Pinch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53797F4A8C7191ECDA10C65970A0756 /* C7Pinch.swift */; };
 		0A9A447F935462011D8DA423D70B262A /* C7OverlayBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = CD8D959DDC094C3B7A4BA85F196F9596 /* C7OverlayBlend.metal */; };
 		0CFBB1FBD0505C2284D8587150F309FA /* C7Crosshatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4591784227B3B37E3DA50A024C476 /* C7Crosshatch.swift */; };
-		0F2D0D8D732C5A18B4F90170D6F9EDAD /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435E2454A3E508B4ACA95CE21C782B79 /* Loop.swift */; };
 		1026A9618C1970722B5EA88C6F0C9EA6 /* C7SolidColor.metal in Resources */ = {isa = PBXBuildFile; fileRef = AB3E2295BFCE2D0E61B905C2948FDC7A /* C7SolidColor.metal */; };
 		1125221800E16F5022118EE740157927 /* CoreImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681DA4F3D58C68068B346DBACB8C05F0 /* CoreImage+.swift */; };
 		11BAC7699D9E1D88384BD6764F74DED6 /* C7GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E5F937F0913941BC473D2A8F5A2921 /* C7GaussianBlur.swift */; };
@@ -33,14 +32,12 @@
 		1BBF29CA3ECBF2E0C155D43D3139D7B0 /* Destype.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58F6BC53EE958A788026BC0FEBB1C7A /* Destype.swift */; };
 		1BD93287B80F4B4327A5BB6C761635CC /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FFDE664572B0092C4FDC5EAF059CDC /* Cacheable.swift */; };
 		1D313455FDC2034B61D7AB6367BF0157 /* Pods-DepthMacDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AAC4CE85F055270281B6D450B5C892 /* Pods-DepthMacDemo-dummy.m */; };
-		1D7D5C7AEDB74D926C3185CA7BA30BD1 /* AsAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12333DF06148BF3EA5106AB91FF5F415 /* AsAnimatable.swift */; };
 		1E1F8C32A4D6A892C7455D666CE0788D /* C7ColorPacking.metal in Resources */ = {isa = PBXBuildFile; fileRef = 7994B8C2148B452DCD70414E9A5380CA /* C7ColorPacking.metal */; };
 		20C7A74E79E39B2B23CE4B8A18188E1B /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE51CCB0C43D442D16DA042F7422D4B /* R.swift */; };
 		2150BAC51ACA664D23F1C798E757B8F2 /* C7Swirl.metal in Resources */ = {isa = PBXBuildFile; fileRef = 622796EEC8B46E8D8F2BF8741B2C3ADD /* C7Swirl.metal */; };
 		21CAA2410034220EFD8732083360EB73 /* C7DarkenBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = C638809DD5E3A82CDE8E9C953BEEB226 /* C7DarkenBlend.metal */; };
 		21E19A4C41B557A62886016326102E8F /* Matrix4x5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFFE000EDC5CF1D77ADE045B81365FB /* Matrix4x5.swift */; };
 		23E21E11362F3280141BCB38FB4EFF59 /* C7CollectorVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46348B05EFC2463A4F231174668078 /* C7CollectorVideo.swift */; };
-		25BDBE95CC6F9B03FC2003DBAFFF01B2 /* FrameImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC16D910181B4F8670F50A5D6240C6 /* FrameImage.swift */; };
 		2601D82E54F7C850F1EF046620532BD3 /* C7DivideBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = EC6EB1B7063111E2F7256A0ED8FD0DFC /* C7DivideBlend.metal */; };
 		26365E04B904716A47B1C907CAF3E1E2 /* C7BilateralBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B53379BB5F30DC8323C646DF64E3B78 /* C7BilateralBlur.swift */; };
 		2725F71A313892EEF3EE45EC133BBD3B /* C7Posterize.metal in Resources */ = {isa = PBXBuildFile; fileRef = 40DEEACFF3CD43688986247BEEEE5BAF /* C7Posterize.metal */; };
@@ -65,8 +62,6 @@
 		3B0C27DE2F14F01857AD84010BCB8C87 /* C7CGAColorspace.metal in Resources */ = {isa = PBXBuildFile; fileRef = FA92146F8A655C29412A2CCF200BC04A /* C7CGAColorspace.metal */; };
 		3BC301C4034B719805EAD245018A3FCD /* C7Contrast.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6BAE3597D07C84F4D5394C597BFCDFE1 /* C7Contrast.metal */; };
 		3C22EB8E0B49B0603FB87459379D13C4 /* CVPixelBuffer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9707018667918770FD6C638FC0647C /* CVPixelBuffer+Ext.swift */; };
-		3C8CE6BF68F1BADB19D090984811E85B /* DisplayLinkProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5275418375853D9C1B4DD18ACD8605D /* DisplayLinkProxy.swift */; };
-		3CDCBDB4FEA0C35835326970A3A9580D /* ContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FC4A50BE8038AF6AB81ED4E507687 /* ContentMode.swift */; };
 		3D6E5959D850632DC5BB6CAA485BD770 /* C7LuminanceThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288BB560B7BA97CC9A6DBBD6B763EFCC /* C7LuminanceThreshold.swift */; };
 		3DED49B2BBA02B6B21FD1326B1256FD3 /* C7MonochromeDilation.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6A844B14595A321A16585D06157BCA25 /* C7MonochromeDilation.metal */; };
 		3E37DA7A18C8C2E85C7E222C62C808B3 /* CMSampleBuffer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595A9459EA49FD5BC7BA5501E1837501 /* CMSampleBuffer+Ext.swift */; };
@@ -77,14 +72,14 @@
 		418FC9F79F1080F7D57BCAE39A766662 /* C7Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9411AFD1407ED003477D3F00FE0212E2 /* C7Levels.swift */; };
 		433555A03884E9E14E7A1EA6A5733E1C /* C7OilPainting.metal in Resources */ = {isa = PBXBuildFile; fileRef = 543084D1F8A23E1D6A525682A31C8FFE /* C7OilPainting.metal */; };
 		4548CE359D582FC341F1D606FC19465C /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B36E5FC9023036FA97201937CF92BAB /* Outputable.swift */; };
-		467B243E077D1DE4DB95EA690DD38384 /* ImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F186C8E8B31D4E762C14B59D33AAA1F /* ImageView+Ext.swift */; };
 		46A3058C0F1ECB512522C609ED76A239 /* Point2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10746197B2AFB61AF9992396C3C67FCB /* Point2D.swift */; };
 		498102D5FB5123F23C72FAD3DC77666A /* C7Haze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371240FCDFCA4F9C3CE41FAA25DF3B9E /* C7Haze.swift */; };
-		4A5E1F42AD013371CE4AFEFD810C7C7B /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E9C61C901BFD908D28E463AF09645E /* AssetType.swift */; };
 		4BC718653CAC3E4E2D5E0D9E14BB3AB2 /* C7Rotate.metal in Resources */ = {isa = PBXBuildFile; fileRef = 8AC0E521154A11450B016A021E4A5F8C /* C7Rotate.metal */; };
 		4DF2B07003B6BD9842755F4E04681069 /* C7Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA733A00A1352ACF5BD8105CC46FC4C9 /* C7Resize.swift */; };
 		4E06644866F4126B9B97C5DD2191647B /* C7Sketch.metal in Resources */ = {isa = PBXBuildFile; fileRef = 7C586CA19BA240E330B14934269E7A1A /* C7Sketch.metal */; };
 		4E0B14F7B56B728271E3BD0C7FE3B670 /* C7Storyboard.metal in Resources */ = {isa = PBXBuildFile; fileRef = 5792D126C66C71FD3AAEDB47A4F27F27 /* C7Storyboard.metal */; };
+		4F2BF368AC628450F275E1E2EC606281 /* CGImageSource+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349376AF731978BD869098943C8508AE /* CGImageSource+Ext.swift */; };
+		4F5BF32A0E1E40944F52AFF8CB387948 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76058BEDAB9882EA54AE78DCF9349191 /* Animator.swift */; };
 		50042A79EED4F6E4B2091EA2171FECFA /* C7SoulOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69E3A88AF54B5010E7BA10017D03E5 /* C7SoulOut.swift */; };
 		50AE31800C11398C7552398BBE702943 /* C7HighlightShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CE1C060EB26142A106F5BFA55166D /* C7HighlightShadow.swift */; };
 		51258472EC896BD0FCB2E6536C04FBC5 /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2117EE34C02D06BF04BB8843A4B7A3D3 /* Vector3.swift */; };
@@ -92,10 +87,11 @@
 		523AB643F1242232B67F027E4617CD22 /* C7Kuwahara.metal in Resources */ = {isa = PBXBuildFile; fileRef = 3EB4E1D493645E7BD3B2CDD3BA395434 /* C7Kuwahara.metal */; };
 		52B35093746548A877FA06A7757DD435 /* C7PolarPixellate.metal in Resources */ = {isa = PBXBuildFile; fileRef = 561FEF993C90E85B7AD4D9F055BC2F1B /* C7PolarPixellate.metal */; };
 		52F3DFA8D52B0049CF62FFAC0D9AA44F /* C7Pixellated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DA05C850253F85D430F92D3F747718 /* C7Pixellated.swift */; };
+		54BE6D744CA8AC83E5AD2D24C71DCDB3 /* ImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704597D3874F7D60B711DEE52A2B10D /* ImageView+Ext.swift */; };
 		554DC5588E86C4C36BD3505EFB295C09 /* C7MeanBlur.metal in Resources */ = {isa = PBXBuildFile; fileRef = 30586E6A898881394C763F8D13C79C0A /* C7MeanBlur.metal */; };
 		55512DA9FC3B2C83C833BC331E3630FA /* C7Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA2956C8470E1E66B9FD59BDCF5E8B /* C7Color+Ext.swift */; };
 		559FDC8A00FF98FFEE9D62151012D637 /* C7LookupTable.metal in Resources */ = {isa = PBXBuildFile; fileRef = E760B4A97E70FFE48CD7A5BB192A12C2 /* C7LookupTable.metal */; };
-		569C43D55437FAE6D1D1924561769B27 /* CGImageSource+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5A97F0ECD3886C021F85658B92675 /* CGImageSource+Ext.swift */; };
+		55A8373E473BC821C33E8444E4F7CC1A /* FrameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BED73ECB68474A1B7F17EAC7C30A7 /* FrameStore.swift */; };
 		576098CB6EFEF7880AEA0350755EDB1D /* BoxxIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D12BB103BD2363028A9C7FCAE570E /* BoxxIO.swift */; };
 		583998ED5510DD6A56312635DE0F719A /* C7ColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384CEF9829C61CDDE0DCEEDF13C10D3 /* C7ColorSpace.swift */; };
 		5875B2488F7F2E03778DB1E4B433A480 /* C7Bulge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11063D0D9B57E59F979C86C61B72C44 /* C7Bulge.swift */; };
@@ -112,7 +108,6 @@
 		60B3BC02B88714D5E57FBAB81CC81F1A /* Data+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487158AFC8070368EFD85D040B65F6 /* Data+Ext.swift */; };
 		61A367299E9337467497B2923F6549E4 /* C7Opacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DB876CA966608BCA7EEDF6CC54C88D /* C7Opacity.swift */; };
 		625B7DD4E08AA490F2288A98673A5B20 /* CIHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03386AE6A26CF28E8BCF5BC1948918 /* CIHighlight.swift */; };
-		62A101EB04C3369ED3D48E4BD7FFBCFE /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF518A6FD3574FC2A67D719F8C0050F /* ImageContainer.swift */; };
 		686BDAF24873704661F54EC1019C467D /* C7SoulOut.metal in Resources */ = {isa = PBXBuildFile; fileRef = 59BA83BA003861356E40F7F804080136 /* C7SoulOut.metal */; };
 		68DB68081549FE262BE9C0D87819D06C /* C7FalseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2E493904FC6C4BA7D34D7C1066925 /* C7FalseColor.swift */; };
 		690BFB8206DDEF7286FAE5A9EEFE8916 /* C7ShiftGlitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A8E3F869C09CFAB5BFF35911AD182 /* C7ShiftGlitch.swift */; };
@@ -120,14 +115,12 @@
 		6B69ABE11C596240F4E6AF91A9C2DCA5 /* ParameterRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C296A066C87937F7DAA07D73D5B63 /* ParameterRange.swift */; };
 		6C5BA2D45FFA9475B298306E77A9842A /* C7ColorMatrix4x5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7AD8371A75C3BCDA624F5F32A965A6 /* C7ColorMatrix4x5.swift */; };
 		6C6F9ACC4FDCFC361E1789E946F2A571 /* C7ThresholdSketch.metal in Resources */ = {isa = PBXBuildFile; fileRef = 7DD25A5A8C264DA3BD47FF2E80A22433 /* C7ThresholdSketch.metal */; };
-		6D07138B579AC90A74B97B2DDB3A1F42 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3AD5557FD0B55E5B51E15D9B2F2E0 /* Animator.swift */; };
 		6D36E8ADB5804FDA85931913EB713CF5 /* C7CollectorCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65392E576AF615631D9007960972C65 /* C7CollectorCamera.swift */; };
 		6DC926DBD57F74BD5EA6281AC27AAF57 /* C7ColorMatrix4x4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A8DFB447C3694E489F9E2E030FD37 /* C7ColorMatrix4x4.swift */; };
 		6EFBEBBDD19A705985DE749D519E8650 /* C7ColorPacking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6525312BDFFA98AA6F8F792BB83396E /* C7ColorPacking.swift */; };
 		6F1DDABE1CDD0ED1DCBF99CC106E1F9A /* C7Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDF9E2036D1808AFE646ED54DA2907D /* C7Storyboard.swift */; };
 		6F4798DB9CD625F423E9F4FEBA543943 /* C7SolidColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63B9C058B3BA35E0CC361817706C524 /* C7SolidColor.swift */; };
 		6FCF0EC30F3B682515C30B7321531FF0 /* C7Posterize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723A405CAC88D32734DFF68189D52FB6 /* C7Posterize.swift */; };
-		70048B629A9698E66D1DDC79A70FD97C /* Wintersweet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EE85F3BDF5FF1B3FF21B8FADCD2A11 /* Wintersweet-dummy.m */; };
 		7049F325040E004383BC6046F8E7A9F1 /* C7Pinch.metal in Resources */ = {isa = PBXBuildFile; fileRef = 8D23FEA234EEDDB5B3DBDB7B07AB8DED /* C7Pinch.metal */; };
 		7167CB5C18F14B1F9BD70EFA0F7D4D44 /* C7BilateralBlur.metal in Resources */ = {isa = PBXBuildFile; fileRef = FFDA1FEE5080520C3DA09C956CC79921 /* C7BilateralBlur.metal */; };
 		720CB911F871DC6BF8360730285D2A9D /* C7ColorVector4.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6F656D0B6F3715E8E72A3C9E9D29F808 /* C7ColorVector4.metal */; };
@@ -145,6 +138,7 @@
 		7BA46A1E6958978A703988C575B3DA9F /* C7ChromaKey.metal in Resources */ = {isa = PBXBuildFile; fileRef = F914C78369EB750803F48533EFB29430 /* C7ChromaKey.metal */; };
 		7C1DEA4847CC31D6A4062DB3C12B639B /* C7Resize.metal in Resources */ = {isa = PBXBuildFile; fileRef = AE34922DBA72DF376C6C958AE774DFEF /* C7Resize.metal */; };
 		7C23184120E9BE0CA798D3A590726842 /* C7ComicStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71842CCE2068B2E6119BFB6B829B9DA5 /* C7ComicStrip.swift */; };
+		7DB362D6DA9B4FFBB11EA165596B0B3B /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289CB1AB7A550915FBF23BDA049F6B6 /* Cached.swift */; };
 		7F8ECCFFCEC7FF6F36DB3F1897397E4B /* C7ColorDodgeBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 7D09693F4BB047C3F20816FAD4A0173E /* C7ColorDodgeBlend.metal */; };
 		8070F604418D0CE8C51BB33B85A79617 /* C7MaskBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 39F28CFAC0C6773374F7DC94BAFBFB5C /* C7MaskBlend.metal */; };
 		85AF643563DE3A71FC98A674F5FE2E86 /* C7Toon.metal in Resources */ = {isa = PBXBuildFile; fileRef = 3748F48BAD9637A0E0A2BBBA9F3206E8 /* C7Toon.metal */; };
@@ -153,15 +147,15 @@
 		8B19BE0B52E45BC33D7BC7CA1C4B1E02 /* C7Vignette.metal in Resources */ = {isa = PBXBuildFile; fileRef = 47BA861BD4E8371677CF080AEEE3B667 /* C7Vignette.metal */; };
 		8B5EE2FF3A96613D33854297D0769451 /* C7CGAColorspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A210992DD53E419C8C915C2DE7A4D26 /* C7CGAColorspace.swift */; };
 		8CABDF5C34C00E5CA831027AFD839FAA /* C7LuminanceThreshold.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6423CBB41F84C6551B1C83E6A3A2FA15 /* C7LuminanceThreshold.metal */; };
+		8CEF8EAA325D95EB04D6894FEE472782 /* AnimatedOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE4F221CCF8BA63B9C8C1E3B7955BE /* AnimatedOptions.swift */; };
 		8FAD5D9B20CFD8B1AA39BA7042CBDDA0 /* C7Sepia.metal in Resources */ = {isa = PBXBuildFile; fileRef = 398042B66811A97BC079ECB0D0D8B044 /* C7Sepia.metal */; };
+		8FB66C64E14FA85F1E5EE9DE82F1A0CA /* HasAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B40FA3320C71F1F0FB4A1647BE43B72 /* HasAnimatable.swift */; };
 		90D72340333427A73657E659B747F802 /* C7NormalBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 57C1E0E48018B3730574E6DDB4B64B1E /* C7NormalBlend.metal */; };
 		9126030DE5444E3641FC2E1641D92B88 /* C7ChromaKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88134CB912B81F02668F31E0AA5F52E /* C7ChromaKey.swift */; };
 		91352016FBFB15B318DBA09FA4C2CAB1 /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B308CB58CB3849817FBDDC77391D9 /* URL+Ext.swift */; };
 		91C65FE09271ED21D6DBB0A48E481A6E /* Matrix4x4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F747E0D6A213D51B54D62B4FD0592E23 /* Matrix4x4.swift */; };
 		91FEBD878285C20F29EA36744DD3D702 /* C7Toon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8154AB7940BD3E28005AD494C79A796D /* C7Toon.swift */; };
 		943318C8991C80A87A0BB6EF490698CE /* C7Monochrome.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6DFAC35DD8E0CEC3D9945AE2806CBE3C /* C7Monochrome.metal */; };
-		945780381AF60CBF034A00EBDCDE8013 /* ImageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51237EBEF003E6901CB41AFCDC082D9D /* ImageParser.swift */; };
-		949005E6D32D5A759DB120D489DB6A50 /* FrameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA78B38FC72DE129A499115E622BBC /* FrameStore.swift */; };
 		94C3FCE0B93051BE486410154E96F7B6 /* C7ColorAddBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 97D22B4B6ED95EDB3F1F6659D7A8482E /* C7ColorAddBlend.metal */; };
 		953BFADD7BEF799065B8FF9977F78A83 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9A2BEF59490B350F916F41CEB63751 /* Size.swift */; };
 		971C3B1B9F7E7D8FF1A8DB49CF25EF23 /* C7ColorRGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B16DC67A7F4EF1828EEB10E96987AD /* C7ColorRGBA.swift */; };
@@ -176,7 +170,6 @@
 		A1D2EABD8719D3A150D52A7000D6B512 /* C7ColorMatrix4x4.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6463BA6A92BBFCF93BDF7A2B53BA742B /* C7ColorMatrix4x4.metal */; };
 		A50D334A5A080DEBEAEC6D7A58F0B64A /* C7Image+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670480B21824B92B78DE22B89122CCD /* C7Image+macOS.swift */; };
 		A6DD51AFE1C8BB558C062E241C7A5872 /* Compute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934617709D1F2742210702581CF4C570 /* Compute.swift */; };
-		A6F5091A6B795506AE81098A1FB4CDAF /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB020F55A6F82EADA8B9D994EE1658 /* Collection+Ext.swift */; };
 		A987781CAC0637C19CA32B59C0C1A48B /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = A954B3E1C58D015FC559102586EACFC5 /* Filtering.swift */; };
 		A9B82626E914CABB40FAF97B8C3882DE /* C7SoftLightBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 8E53615D7AE9E1E279A3C9D9379EB407 /* C7SoftLightBlend.metal */; };
 		AC7B7FE11EF28AF76C7B12FCB47257AA /* C7SplitScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A516F5C2C645560A465C5D50DCAE38F3 /* C7SplitScreen.swift */; };
@@ -192,6 +185,7 @@
 		B5A8C9A2081CD486A8EE74B761391658 /* C7Luminance.metal in Resources */ = {isa = PBXBuildFile; fileRef = 54C52AB85BE53795DB66A62881E38F2B /* C7Luminance.metal */; };
 		B698AFD6A01567AB27AD7C1E11216F1C /* C7Brightness.metal in Resources */ = {isa = PBXBuildFile; fileRef = 8ED1EEC1D29C9E3843367756B32C01FA /* C7Brightness.metal */; };
 		B6A267C1D055C38413875AE369410615 /* Pods-DepthMacDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF4650EB9DA5ED63C354E45FEB6BA91 /* Pods-DepthMacDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B6FD7E871E2449116D3170197E05222B /* Wintersweet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1CE0178EC2AA7B94BF2E1279EEC748 /* Wintersweet-dummy.m */; };
 		B74B51054F7181BD733FB207508697A4 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D303362C38BF05543F3692AC84B720D /* Operators.swift */; };
 		B7635BC3AC4561925319D9D9E904B917 /* C7ColorMatrix4x5.metal in Resources */ = {isa = PBXBuildFile; fileRef = 0074BFCBD0AE7A9F8F8825D6D5EF8EB0 /* C7ColorMatrix4x5.metal */; };
 		B806A83F32D4BA165F8C038C56AC4663 /* C7Swirl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1BEF731D98BC45AC03CFED64C0840 /* C7Swirl.swift */; };
@@ -203,7 +197,6 @@
 		BD5E20F2999B57B4459D893CCE23DB8A /* C7ExclusionBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6CCCDB6F1933F14912EE73A0DF974B6E /* C7ExclusionBlend.metal */; };
 		BF47F8BFC12F2EA61E96E95238B93958 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790FC5C92A423A51BE665B8B81A4B85 /* Matrix.swift */; };
 		C01DCD3DB4CF88D37CA67CE9D1D8D61E /* C7EdgeGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1798D3B6D48417A5A87EBE04C5803 /* C7EdgeGlow.swift */; };
-		C0EBBDB27B5DC722B89352B1E4C1E966 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66417CD794B3BEDA3CC5BF6612163768 /* Cached.swift */; };
 		C0FEE7F9F71460BABF9A2E4D8F6FC945 /* C7ReplaceRGBA.metal in Resources */ = {isa = PBXBuildFile; fileRef = B92A1C1340EAFE6AFB9E5F881FF0D092 /* C7ReplaceRGBA.metal */; };
 		C1A62E4AEF56CE7C46D4EA4F565F89AA /* C7Granularity.metal in Resources */ = {isa = PBXBuildFile; fileRef = CE2CC2BAF880B9124FFB58FF007EC368 /* C7Granularity.metal */; };
 		C251D49DECCA86EF0B6AFF1AC02D4533 /* C7GaussianBlur.metal in Resources */ = {isa = PBXBuildFile; fileRef = 14BA772AA4DE1F4DF79D2848E426143F /* C7GaussianBlur.metal */; };
@@ -215,6 +208,7 @@
 		C64A2C57C740D1EC5A2397E4A84F4C56 /* C7Haze.metal in Resources */ = {isa = PBXBuildFile; fileRef = 27F7BFA0ACBD234B4BEE8DFF64D6FDFA /* C7Haze.metal */; };
 		C6E79CC7C05C148B34B7949C43C5AC66 /* Processed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DA8719D5FC0D9A192ECD5DFB76543 /* Processed.swift */; };
 		C70C4E11A6AE9A720513614097759D11 /* BufferIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F29BC11DB9665399EECD52FF73CC1 /* BufferIO.swift */; };
+		C7A6E0B04E42FA5BC01E775488E5584D /* ContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1F10CFBE93375C110889F0173156D /* ContentMode.swift */; };
 		C8CE07221AFEAA4AEBE8DD0E1765C25A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1430F003D39D9906881A6AC724B7931 /* Cocoa.framework */; };
 		CAF901E62B04050D85AE93BCB0777D82 /* C7Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F316F7A238E0AC8706D89E7CC8A5477 /* C7Collector.swift */; };
 		CB12F7C7CC9142330DD371B293782CCE /* C7Halftone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD6C0BE02AA3A296A62CD7C84B8FB2A /* C7Halftone.swift */; };
@@ -224,7 +218,8 @@
 		CE45CE7FAF0AF4CE03AC4F7C346D65BF /* C7ReplaceRGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72842DB7A2CDACD706CE1AC0F434157E /* C7ReplaceRGBA.swift */; };
 		CFC5720BB104C4A0DA784E915A4E470B /* C7Vibrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC923D77B0C0ECD392ED9EDF80746553 /* C7Vibrance.swift */; };
 		D1158E2C7C37B39D9F1AABF6E03762D6 /* C7VoronoiOverlay.metal in Resources */ = {isa = PBXBuildFile; fileRef = DC522D69F9E825451F783132E56C0B4A /* C7VoronoiOverlay.metal */; };
-		D286AE22D963D6B83C5932659FC521E1 /* Wintersweet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 50CEBEFE8A47E1B1EA35ED2014E617E3 /* Wintersweet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D2681A0290C761F16EBBA9EA4602245D /* DisplayLinkProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73B57423180893814591F752CAE9598 /* DisplayLinkProxy.swift */; };
+		D286AE22D963D6B83C5932659FC521E1 /* Wintersweet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 38E13A4969F55D62C61D5110F0495E5C /* Wintersweet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D2E9A0F2A793C282B67C6036F39BFBBC /* C7SplitScreen.metal in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C4ED395DBA1C2C1F46C284631BA66 /* C7SplitScreen.metal */; };
 		D30091D8C8CB82D31848B534F1605166 /* C7Blend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B910FF2221ADAEF8F30C89F10C9D7B3 /* C7Blend.swift */; };
 		D38A72A0301C67502A1A91A49C041D92 /* ShapeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FBCD1E43931C921E4DA5BB28060A6 /* ShapeMode.swift */; };
@@ -243,15 +238,17 @@
 		DF44ACBB81184A37DEFAB0621336CA59 /* C7Sepia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79174984B8F809811EF2763C6BECF61D /* C7Sepia.swift */; };
 		DF5FE8EFBC7C82075367D16A396B310B /* Vector4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59171E3B3A3268271A710E5A7F20BB25 /* Vector4.swift */; };
 		E08D78F47119646748746F100789FE2C /* C7SubtractBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 551ECF1C52AB071D95B33857836B043A /* C7SubtractBlend.metal */; };
+		E13EC0A96878F1FDCE2A23453800B28E /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DB7963A73A5DC66A76974734EBDBA4 /* ImageContainer.swift */; };
 		E1C9A5AFC9C447D78F5B63131E2F57BA /* C7ComicStrip.metal in Resources */ = {isa = PBXBuildFile; fileRef = B312636AB44B7C681DC9993E7BECE0DB /* C7ComicStrip.metal */; };
+		E299E3E24895D7D58A5690399D2438C4 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEF17DBD2C2159E0BD2C40EE98C9975 /* Collection+Ext.swift */; };
 		E42A008CA44DFBD8F2384CC1CF10B6DF /* C7WhiteBalance.metal in Resources */ = {isa = PBXBuildFile; fileRef = 5894D1D984F92F03E19BA6E80552F1EF /* C7WhiteBalance.metal */; };
 		E5BF4ED69073DBC9E46CA99DB944CDEC /* C7Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8B16CF7E80EEFD185357A519A2617 /* C7Rotate.swift */; };
 		E5E910268DAFE909D43D59F5A72B6AC4 /* C7Opacity.metal in Resources */ = {isa = PBXBuildFile; fileRef = 3B550624649682AC077128D9D762F836 /* C7Opacity.metal */; };
 		E5FF886DF2D37804948E1CA60F0ABBCC /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC625196D62111014E40E7AABEE42FF /* Exporter.swift */; };
 		E6285C72C0F2BE6536B19DD4FAE8A56A /* C7HighlightShadowTint.metal in Resources */ = {isa = PBXBuildFile; fileRef = 7D7939B2BD046A3678E471F0BB40316B /* C7HighlightShadowTint.metal */; };
 		E632089062BEBCECD998445C7E3005F7 /* C7ScreenBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = F4D2B97262D036B81B4DC574177F79DA /* C7ScreenBlend.metal */; };
-		E6E380DCA25773F32D0BE452C721FB4A /* HasAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC19C6293422AD0DC7A32EE2B5F0A5 /* HasAnimatable.swift */; };
 		E822ADE198A8858DAAEEA066EA0CACFC /* C7Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC18E38026398F19CF225C488F8F7E /* C7Transform.swift */; };
+		E9AD55012DB4B32EC9A2970F5D19F187 /* AsAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9976CEF0DF60B675F9781047A60DB41 /* AsAnimatable.swift */; };
 		EB06B353139D7C4FF0C6DA90A7A3F766 /* C7ColorSpace.metal in Resources */ = {isa = PBXBuildFile; fileRef = 76CB712D1A502D966B8781C95640ECA9 /* C7ColorSpace.metal */; };
 		EBAC42515FDB65833C20F2A621999933 /* C7Image+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B160E29B82A50C1DD30C343909B77E /* C7Image+iOS.swift */; };
 		EC44025DB8F1DA21D697490705975AE9 /* C7LookupSplit.metal in Resources */ = {isa = PBXBuildFile; fileRef = 8E92B021B9E186FB96E5D3C3E1F270E5 /* C7LookupSplit.metal */; };
@@ -264,10 +261,13 @@
 		F3A23B0FDD15EAFDE562BBD80ACD4022 /* C7WaterRipple.metal in Resources */ = {isa = PBXBuildFile; fileRef = 9652A0AF0C0991E40C7FE5D226F68E1B /* C7WaterRipple.metal */; };
 		F47BA59F573A9F65C510AD04377AC323 /* C7LinearBurnBlend.metal in Resources */ = {isa = PBXBuildFile; fileRef = 3B51C75AA443ED8C6F84DA5C182684F4 /* C7LinearBurnBlend.metal */; };
 		F4BD4D6A5A971DD671C0559BD533014C /* C7Saturation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989A5195EB4636D23EEE581F197794A /* C7Saturation.swift */; };
+		F53F11D0D007BDA48E7A2C6540391A1C /* FrameImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB80B0BB7633F76923F2560DF8E41EC /* FrameImage.swift */; };
 		F68B38C28991852F815F59010438EBB3 /* Matrix3x3.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDFFBF56FFB4F67DFD73F9149FAF193 /* Matrix3x3.swift */; };
 		F6D6D7E46C4D131371641B77E6053091 /* C7RGBADilation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDC0CE21DFDA48650DA501437DC4D61 /* C7RGBADilation.swift */; };
 		F7170518C14894F30CDA2E28A170D906 /* C7Kuwahara.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6648466D8499AA6479AA4D6F2EB9CA /* C7Kuwahara.swift */; };
+		F94BC1BF2D15FF13BB1C8DA49FF65BD2 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AC8CE773FE6D62643DB7B2E46CDF /* AssetType.swift */; };
 		F9FC6D0BAEB900A8E7B981E0A6523C26 /* MTLTexture+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7E503814850712815AD29E089C54C /* MTLTexture+Ext.swift */; };
+		FA33B89A49C5A2D9D4703F2ACA917E41 /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915EEDC10591D0DFB585A77366BB59 /* Loop.swift */; };
 		FE15E04DEAC80073278FCD2489CB1464 /* C7DepthLuminance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A062A775D96428A99EA383A597098E6C /* C7DepthLuminance.swift */; };
 		FF7061C5CE1592BF6212E5048D50EE7A /* C7ColorVector4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE631B7EC974D4B9B4666B286F4A22 /* C7ColorVector4.swift */; };
 /* End PBXBuildFile section */
@@ -307,30 +307,27 @@
 		0074BFCBD0AE7A9F8F8825D6D5EF8EB0 /* C7ColorMatrix4x5.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorMatrix4x5.metal; path = Sources/Compute/Matrix/C7ColorMatrix4x5.metal; sourceTree = "<group>"; };
 		029E19577C03F3E736A820276FEBE439 /* ZeroOneRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroOneRange.swift; path = Sources/Basic/Setup/ZeroOneRange.swift; sourceTree = "<group>"; };
 		029F4E1A9A5FAB1FE2BFF98095A2AF24 /* Wrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Wrapper.swift; path = Sources/Basic/Setup/Wrapper.swift; sourceTree = "<group>"; };
-		040BC9CF15F24FAEBF6B26C018CCEE57 /* Wintersweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Wintersweet.release.xcconfig; sourceTree = "<group>"; };
 		0435D32AA67068A1D2EC631EB7D581A9 /* C7Hue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Hue.swift; path = Sources/Compute/ColorProcess/C7Hue.swift; sourceTree = "<group>"; };
 		0582C9A89A436F8D63F01A7D111888F7 /* C7HighlightShadowTint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7HighlightShadowTint.swift; path = Sources/Compute/ColorProcess/C7HighlightShadowTint.swift; sourceTree = "<group>"; };
+		0704597D3874F7D60B711DEE52A2B10D /* ImageView+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		0989A5195EB4636D23EEE581F197794A /* C7Saturation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Saturation.swift; path = Sources/Compute/ColorProcess/C7Saturation.swift; sourceTree = "<group>"; };
 		0AF4650EB9DA5ED63C354E45FEB6BA91 /* Pods-DepthMacDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DepthMacDemo-umbrella.h"; sourceTree = "<group>"; };
 		0B36E5FC9023036FA97201937CF92BAB /* Outputable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Outputable.swift; path = Sources/Basic/Outputs/Outputable.swift; sourceTree = "<group>"; };
 		0BD49B0D6EEE7F566BEFD53575338770 /* Pods-DepthMacDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DepthMacDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		0BE3AD5557FD0B55E5B51E15D9B2F2E0 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Sources/Animator.swift; sourceTree = "<group>"; };
 		0BF47DB937B87C694DD7118108F47D09 /* C7Vibrance.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Vibrance.metal; path = Sources/Compute/ColorProcess/C7Vibrance.metal; sourceTree = "<group>"; };
-		0DF518A6FD3574FC2A67D719F8C0050F /* ImageContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageContainer.swift; path = Sources/ImageContainer.swift; sourceTree = "<group>"; };
 		0F316F7A238E0AC8706D89E7CC8A5477 /* C7Collector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Collector.swift; path = Sources/Collector/C7Collector.swift; sourceTree = "<group>"; };
+		0FB80B0BB7633F76923F2560DF8E41EC /* FrameImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameImage.swift; path = Sources/FrameImage.swift; sourceTree = "<group>"; };
 		10746197B2AFB61AF9992396C3C67FCB /* Point2D.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Point2D.swift; path = Sources/Basic/Setup/Point2D.swift; sourceTree = "<group>"; };
 		112A8E3F869C09CFAB5BFF35911AD182 /* C7ShiftGlitch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ShiftGlitch.swift; path = Sources/Compute/Visual/C7ShiftGlitch.swift; sourceTree = "<group>"; };
 		112CE1C060EB26142A106F5BFA55166D /* C7HighlightShadow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7HighlightShadow.swift; path = Sources/Compute/ColorProcess/C7HighlightShadow.swift; sourceTree = "<group>"; };
 		1165647976E59F96E3014C6777D0216D /* C7SphereRefraction.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7SphereRefraction.metal; path = Sources/Compute/Effect/C7SphereRefraction.metal; sourceTree = "<group>"; };
-		12333DF06148BF3EA5106AB91FF5F415 /* AsAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AsAnimatable.swift; path = Sources/AsAnimatable.swift; sourceTree = "<group>"; };
+		13CE4F221CCF8BA63B9C8C1E3B7955BE /* AnimatedOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedOptions.swift; path = Sources/AnimatedOptions.swift; sourceTree = "<group>"; };
 		14BA772AA4DE1F4DF79D2848E426143F /* C7GaussianBlur.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7GaussianBlur.metal; path = Sources/Compute/Blur/C7GaussianBlur.metal; sourceTree = "<group>"; };
 		16FD2E73AE334B7C956D5A85FCB5D108 /* C7DifferenceBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7DifferenceBlend.metal; path = Sources/Compute/Blend/C7DifferenceBlend.metal; sourceTree = "<group>"; };
 		17B7E503814850712815AD29E089C54C /* MTLTexture+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MTLTexture+Ext.swift"; path = "Sources/Basic/Extensions/MTLTexture+Ext.swift"; sourceTree = "<group>"; };
-		185FC4A50BE8038AF6AB81ED4E507687 /* ContentMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
 		188F29BC11DB9665399EECD52FF73CC1 /* BufferIO.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BufferIO.swift; path = Sources/Basic/Outputs/BufferIO.swift; sourceTree = "<group>"; };
 		1A886B77B674007F1ED3CC137673696F /* C7Sobel.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Sobel.metal; path = Sources/Compute/Effect/C7Sobel.metal; sourceTree = "<group>"; };
 		1B53379BB5F30DC8323C646DF64E3B78 /* C7BilateralBlur.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7BilateralBlur.swift; path = Sources/Compute/Blur/C7BilateralBlur.swift; sourceTree = "<group>"; };
-		1CA817A4A8344FBDEBB546170B254294 /* Wintersweet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Wintersweet.modulemap; sourceTree = "<group>"; };
 		1D303362C38BF05543F3692AC84B720D /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/Basic/Core/Operators.swift; sourceTree = "<group>"; };
 		1D9707018667918770FD6C638FC0647C /* CVPixelBuffer+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CVPixelBuffer+Ext.swift"; path = "Sources/Basic/Extensions/CVPixelBuffer+Ext.swift"; sourceTree = "<group>"; };
 		203101F99B60E36A59EB43D16F3D8859 /* C7ColorConvert.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorConvert.metal; path = Sources/Compute/ColorProcess/C7ColorConvert.metal; sourceTree = "<group>"; };
@@ -347,15 +344,18 @@
 		2AF8EE171FAA1EE378D3DD5E981B3338 /* C7LuminanceRangeReduction.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7LuminanceRangeReduction.metal; path = Sources/Compute/ColorProcess/C7LuminanceRangeReduction.metal; sourceTree = "<group>"; };
 		2D7AD8371A75C3BCDA624F5F32A965A6 /* C7ColorMatrix4x5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ColorMatrix4x5.swift; path = Sources/Compute/Matrix/C7ColorMatrix4x5.swift; sourceTree = "<group>"; };
 		2E2AE3AC28A5F8224B8F395CA89C0320 /* C7VoronoiOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7VoronoiOverlay.swift; path = Sources/Compute/Visual/C7VoronoiOverlay.swift; sourceTree = "<group>"; };
+		2F1CE0178EC2AA7B94BF2E1279EEC748 /* Wintersweet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Wintersweet-dummy.m"; sourceTree = "<group>"; };
 		2FD9348B43DED19AA2A76FF976FF9DCD /* C7Fluctuate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Fluctuate.swift; path = Sources/Compute/Effect/C7Fluctuate.swift; sourceTree = "<group>"; };
 		30586E6A898881394C763F8D13C79C0A /* C7MeanBlur.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7MeanBlur.metal; path = Sources/Compute/Blur/C7MeanBlur.metal; sourceTree = "<group>"; };
 		31996A70D19D4B12F628BA432AA3631A /* C7Sketch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Sketch.swift; path = Sources/Compute/Effect/C7Sketch.swift; sourceTree = "<group>"; };
 		338212C33A5C87D3D31D392B50CC298D /* C7HighlightShadow.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7HighlightShadow.metal; path = Sources/Compute/ColorProcess/C7HighlightShadow.metal; sourceTree = "<group>"; };
 		33B95EA7F616ED6415E1363F871CD858 /* C7SphereRefraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7SphereRefraction.swift; path = Sources/Compute/Effect/C7SphereRefraction.swift; sourceTree = "<group>"; };
+		349376AF731978BD869098943C8508AE /* CGImageSource+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Ext.swift"; sourceTree = "<group>"; };
 		34AAC4CE85F055270281B6D450B5C892 /* Pods-DepthMacDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DepthMacDemo-dummy.m"; sourceTree = "<group>"; };
 		36FFDE664572B0092C4FDC5EAF059CDC /* Cacheable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cacheable.swift; path = Sources/Basic/Setup/Cacheable.swift; sourceTree = "<group>"; };
 		371240FCDFCA4F9C3CE41FAA25DF3B9E /* C7Haze.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Haze.swift; path = Sources/Compute/ColorProcess/C7Haze.swift; sourceTree = "<group>"; };
 		3748F48BAD9637A0E0A2BBBA9F3206E8 /* C7Toon.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Toon.metal; path = Sources/Compute/Effect/C7Toon.metal; sourceTree = "<group>"; };
+		38E13A4969F55D62C61D5110F0495E5C /* Wintersweet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-umbrella.h"; sourceTree = "<group>"; };
 		38EE6D7EF64E3C7D2A88FC2E56AD2509 /* C7LuminanceRangeReduction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7LuminanceRangeReduction.swift; path = Sources/Compute/ColorProcess/C7LuminanceRangeReduction.swift; sourceTree = "<group>"; };
 		398042B66811A97BC079ECB0D0D8B044 /* C7Sepia.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Sepia.metal; path = Sources/Compute/Matrix/C7Sepia.metal; sourceTree = "<group>"; };
 		3987517BBEDE3F8A8D196BA65B996802 /* C7ColorConvert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ColorConvert.swift; path = Sources/Compute/ColorProcess/C7ColorConvert.swift; sourceTree = "<group>"; };
@@ -365,26 +365,23 @@
 		3B550624649682AC077128D9D762F836 /* C7Opacity.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Opacity.metal; path = Sources/Compute/ColorProcess/C7Opacity.metal; sourceTree = "<group>"; };
 		3C1B120AD60FEC90E919E8045DAD864B /* C7Glitch.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Glitch.metal; path = Sources/Compute/Visual/C7Glitch.metal; sourceTree = "<group>"; };
 		3D67884053A3A764E47075BBE8750F8E /* C7Granularity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Granularity.swift; path = Sources/Compute/ColorProcess/C7Granularity.swift; sourceTree = "<group>"; };
-		3DC22D7B95D51A9440B81BF1799ADF6F /* Wintersweet-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-prefix.pch"; sourceTree = "<group>"; };
+		3DB1032F76DE2777A47E0E53F22BE6E7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		3E0B308CB58CB3849817FBDDC77391D9 /* URL+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URL+Ext.swift"; path = "Sources/Basic/Extensions/URL+Ext.swift"; sourceTree = "<group>"; };
 		3E2BDF670EB691352BB3D4C8ACD1152B /* Pods-DepthMacDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DepthMacDemo-Info.plist"; sourceTree = "<group>"; };
 		3EB4E1D493645E7BD3B2CDD3BA395434 /* C7Kuwahara.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Kuwahara.metal; path = Sources/Compute/Effect/C7Kuwahara.metal; sourceTree = "<group>"; };
 		3FE855044B330FA94427E0E0653417B1 /* CGImage+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGImage+Ext.swift"; path = "Sources/Basic/Extensions/CGImage+Ext.swift"; sourceTree = "<group>"; };
 		40DEEACFF3CD43688986247BEEEE5BAF /* C7Posterize.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Posterize.metal; path = Sources/Compute/ColorProcess/C7Posterize.metal; sourceTree = "<group>"; };
 		423938106CB533C1BB027C6A6CF53B59 /* C7Vignette.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Vignette.swift; path = Sources/Compute/Effect/C7Vignette.swift; sourceTree = "<group>"; };
-		42E9C61C901BFD908D28E463AF09645E /* AssetType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
-		435E2454A3E508B4ACA95CE21C782B79 /* Loop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		43D11488768412E4D8F6537D73902E62 /* C7WaterRipple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7WaterRipple.swift; path = Sources/Compute/Effect/C7WaterRipple.swift; sourceTree = "<group>"; };
 		44C4F656A4B84C45BDA6BC1E9FE69CE8 /* CGSize+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGSize+Ext.swift"; path = "Sources/Basic/Extensions/CGSize+Ext.swift"; sourceTree = "<group>"; };
 		47BA861BD4E8371677CF080AEEE3B667 /* C7Vignette.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Vignette.metal; path = Sources/Compute/Effect/C7Vignette.metal; sourceTree = "<group>"; };
 		4A7D2F94C132CFC4F3902E0F21F3ABCE /* C7DepthLuminance.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7DepthLuminance.metal; path = Sources/Compute/Effect/C7DepthLuminance.metal; sourceTree = "<group>"; };
+		4B40FA3320C71F1F0FB4A1647BE43B72 /* HasAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HasAnimatable.swift; path = Sources/HasAnimatable.swift; sourceTree = "<group>"; };
 		4BBBB4699D43412DF36BC40B83DF3226 /* C7GlassSphere.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7GlassSphere.metal; path = Sources/Compute/Effect/C7GlassSphere.metal; sourceTree = "<group>"; };
 		4C6648466D8499AA6479AA4D6F2EB9CA /* C7Kuwahara.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Kuwahara.swift; path = Sources/Compute/Effect/C7Kuwahara.swift; sourceTree = "<group>"; };
 		4EBE631B7EC974D4B9B4666B286F4A22 /* C7ColorVector4.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ColorVector4.swift; path = Sources/Compute/Matrix/C7ColorVector4.swift; sourceTree = "<group>"; };
 		4ED4591784227B3B37E3DA50A024C476 /* C7Crosshatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Crosshatch.swift; path = Sources/Compute/Effect/C7Crosshatch.swift; sourceTree = "<group>"; };
 		4ED963F6A69BEC73DEBD9426AB58BBB6 /* C7ThresholdSketch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ThresholdSketch.swift; path = Sources/Compute/Effect/C7ThresholdSketch.swift; sourceTree = "<group>"; };
-		50CEBEFE8A47E1B1EA35ED2014E617E3 /* Wintersweet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-umbrella.h"; sourceTree = "<group>"; };
-		51237EBEF003E6901CB41AFCDC082D9D /* ImageParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
 		54025AD1021F28B86ED69C24ACA66815 /* C7Transform.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Transform.metal; path = Sources/Compute/Shape/C7Transform.metal; sourceTree = "<group>"; };
 		543084D1F8A23E1D6A525682A31C8FFE /* C7OilPainting.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7OilPainting.metal; path = Sources/Compute/ColorProcess/C7OilPainting.metal; sourceTree = "<group>"; };
 		54C52AB85BE53795DB66A62881E38F2B /* C7Luminance.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Luminance.metal; path = Sources/Compute/ColorProcess/C7Luminance.metal; sourceTree = "<group>"; };
@@ -403,9 +400,10 @@
 		59BA83BA003861356E40F7F804080136 /* C7SoulOut.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7SoulOut.metal; path = Sources/Compute/Effect/C7SoulOut.metal; sourceTree = "<group>"; };
 		5A210992DD53E419C8C915C2DE7A4D26 /* C7CGAColorspace.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7CGAColorspace.swift; path = Sources/Compute/ColorProcess/C7CGAColorspace.swift; sourceTree = "<group>"; };
 		5A69E3A88AF54B5010E7BA10017D03E5 /* C7SoulOut.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7SoulOut.swift; path = Sources/Compute/Effect/C7SoulOut.swift; sourceTree = "<group>"; };
-		5BBA78B38FC72DE129A499115E622BBC /* FrameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameStore.swift; path = Sources/FrameStore.swift; sourceTree = "<group>"; };
+		5B98F569DA412FDF85EFEB12A17D5029 /* Wintersweet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Wintersweet.modulemap; sourceTree = "<group>"; };
 		5C1B334FEADE3A2C495BE1D77A0867E8 /* DisplayLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DisplayLink.swift; path = Sources/Basic/Setup/DisplayLink.swift; sourceTree = "<group>"; };
 		5C9D27A1AAD32694B1B0726A3242F844 /* C7Sharpen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Sharpen.swift; path = Sources/Compute/Effect/C7Sharpen.swift; sourceTree = "<group>"; };
+		5CE7268A18FEFCF4D2D2F2E263AFAA80 /* Wintersweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Wintersweet.release.xcconfig; sourceTree = "<group>"; };
 		5D070DF4E03DA55AADC21C855AB50D58 /* CATransform3D+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CATransform3D+Ext.swift"; path = "Sources/Basic/Extensions/CATransform3D+Ext.swift"; sourceTree = "<group>"; };
 		5EFFE000EDC5CF1D77ADE045B81365FB /* Matrix4x5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Matrix4x5.swift; path = Sources/Basic/Setup/Matrix4x5.swift; sourceTree = "<group>"; };
 		5FEA2956C8470E1E66B9FD59BDCF5E8B /* C7Color+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "C7Color+Ext.swift"; path = "Sources/Basic/Extensions/C7Color+Ext.swift"; sourceTree = "<group>"; };
@@ -419,7 +417,6 @@
 		64B72ED6C669125946F8C70FF708E7A4 /* C7ZoomBlur.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ZoomBlur.metal; path = Sources/Compute/Blur/C7ZoomBlur.metal; sourceTree = "<group>"; };
 		65019B62F9DB32CA38BB37ED418D431D /* Pods-DepthMacDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DepthMacDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		652C9040FEAAF85D40D262C9D0578B89 /* Harbeth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Harbeth.release.xcconfig; sourceTree = "<group>"; };
-		66417CD794B3BEDA3CC5BF6612163768 /* Cached.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 		672EB84B743281239C0EC2E3E2B7683E /* C7Exposure.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Exposure.swift; path = Sources/Compute/ColorProcess/C7Exposure.swift; sourceTree = "<group>"; };
 		681DA4F3D58C68068B346DBACB8C05F0 /* CoreImage+.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CoreImage+.swift"; path = "Sources/Basic/Core/CoreImage+.swift"; sourceTree = "<group>"; };
 		690EEB7E6E8F490676BBDD1808A069AD /* C7MotionBlur.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7MotionBlur.swift; path = Sources/Compute/Blur/C7MotionBlur.swift; sourceTree = "<group>"; };
@@ -438,7 +435,7 @@
 		71842CCE2068B2E6119BFB6B829B9DA5 /* C7ComicStrip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ComicStrip.swift; path = Sources/Compute/ColorProcess/C7ComicStrip.swift; sourceTree = "<group>"; };
 		723A405CAC88D32734DFF68189D52FB6 /* C7Posterize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Posterize.swift; path = Sources/Compute/ColorProcess/C7Posterize.swift; sourceTree = "<group>"; };
 		72842DB7A2CDACD706CE1AC0F434157E /* C7ReplaceRGBA.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ReplaceRGBA.swift; path = Sources/Compute/Effect/C7ReplaceRGBA.swift; sourceTree = "<group>"; };
-		7686E8DF4184EA5D209B956E53DD40EA /* Wintersweet-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Wintersweet-Info.plist"; sourceTree = "<group>"; };
+		76058BEDAB9882EA54AE78DCF9349191 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Sources/Animator.swift; sourceTree = "<group>"; };
 		76CB712D1A502D966B8781C95640ECA9 /* C7ColorSpace.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorSpace.metal; path = Sources/Compute/ColorProcess/C7ColorSpace.metal; sourceTree = "<group>"; };
 		79174984B8F809811EF2763C6BECF61D /* C7Sepia.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Sepia.swift; path = Sources/Compute/Matrix/C7Sepia.swift; sourceTree = "<group>"; };
 		7994B8C2148B452DCD70414E9A5380CA /* C7ColorPacking.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorPacking.metal; path = Sources/Compute/ColorProcess/C7ColorPacking.metal; sourceTree = "<group>"; };
@@ -454,8 +451,8 @@
 		810221E13BC33FAEA654DC0C6FE5ACDA /* C7DissolveBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7DissolveBlend.metal; path = Sources/Compute/Blend/C7DissolveBlend.metal; sourceTree = "<group>"; };
 		8154AB7940BD3E28005AD494C79A796D /* C7Toon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Toon.swift; path = Sources/Compute/Effect/C7Toon.swift; sourceTree = "<group>"; };
 		848F7B641669D7EB806FF2FBCC0C48D4 /* C7WhiteBalance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7WhiteBalance.swift; path = Sources/Compute/ColorProcess/C7WhiteBalance.swift; sourceTree = "<group>"; };
-		84A2C4B6CF0B1264F442C40A1FD94E87 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		84B4B4E9A93BEAC06937FDA7C75DD95C /* C7OilPainting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7OilPainting.swift; path = Sources/Compute/ColorProcess/C7OilPainting.swift; sourceTree = "<group>"; };
+		8599A12F176BC59EB768D902650890E6 /* Wintersweet.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Wintersweet.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		86167487DEAF2F3455A001D85FAD7132 /* C7ConvolutionMatrix3x3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ConvolutionMatrix3x3.swift; path = Sources/Compute/Matrix/C7ConvolutionMatrix3x3.swift; sourceTree = "<group>"; };
 		8690AEBFC95DB82578BB8542DBC50041 /* C7Image+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "C7Image+Ext.swift"; path = "Sources/Basic/Extensions/C7Image+Ext.swift"; sourceTree = "<group>"; };
 		86A58E0FBFBD6BF9E7889C0808447045 /* C7Halftone.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Halftone.metal; path = Sources/Compute/Effect/C7Halftone.metal; sourceTree = "<group>"; };
@@ -471,7 +468,7 @@
 		8E9A2BEF59490B350F916F41CEB63751 /* Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Size.swift; path = Sources/Basic/Setup/Size.swift; sourceTree = "<group>"; };
 		8ED1EEC1D29C9E3843367756B32C01FA /* C7Brightness.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Brightness.metal; path = Sources/Compute/ColorProcess/C7Brightness.metal; sourceTree = "<group>"; };
 		8FAE8270FC0CF62EC0759D2AAF8A81A8 /* Collectorable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Collectorable.swift; path = Sources/Collector/Collectorable.swift; sourceTree = "<group>"; };
-		8FE3B05FB130A2501AB73582081E7116 /* Wintersweet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Wintersweet.debug.xcconfig; sourceTree = "<group>"; };
+		8FB1F10CFBE93375C110889F0173156D /* ContentMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
 		934617709D1F2742210702581CF4C570 /* Compute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Compute.swift; path = Sources/Basic/Core/Compute.swift; sourceTree = "<group>"; };
 		9411AFD1407ED003477D3F00FE0212E2 /* C7Levels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Levels.swift; path = Sources/Compute/ColorProcess/C7Levels.swift; sourceTree = "<group>"; };
 		949F81000A5F7E64780AAF2DCB934398 /* C7Contrast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Contrast.swift; path = Sources/Compute/ColorProcess/C7Contrast.swift; sourceTree = "<group>"; };
@@ -479,18 +476,14 @@
 		9652A0AF0C0991E40C7FE5D226F68E1B /* C7WaterRipple.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7WaterRipple.metal; path = Sources/Compute/Effect/C7WaterRipple.metal; sourceTree = "<group>"; };
 		9670480B21824B92B78DE22B89122CCD /* C7Image+macOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "C7Image+macOS.swift"; path = "Sources/Basic/Extensions/C7Image+macOS.swift"; sourceTree = "<group>"; };
 		97D22B4B6ED95EDB3F1F6659D7A8482E /* C7ColorAddBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorAddBlend.metal; path = Sources/Compute/Blend/C7ColorAddBlend.metal; sourceTree = "<group>"; };
-		97EE85F3BDF5FF1B3FF21B8FADCD2A11 /* Wintersweet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Wintersweet-dummy.m"; sourceTree = "<group>"; };
 		986FF50F0F057D8B430EB774EB275D73 /* Harbeth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Harbeth-prefix.pch"; sourceTree = "<group>"; };
 		98A777CE9C545B11DB3420C1A1EC9B45 /* C7LookupTable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7LookupTable.swift; path = Sources/Compute/Lookup/C7LookupTable.swift; sourceTree = "<group>"; };
-		98FC16D910181B4F8670F50A5D6240C6 /* FrameImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameImage.swift; path = Sources/FrameImage.swift; sourceTree = "<group>"; };
+		98DB7963A73A5DC66A76974734EBDBA4 /* ImageContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageContainer.swift; path = Sources/ImageContainer.swift; sourceTree = "<group>"; };
 		9B5C296A066C87937F7DAA07D73D5B63 /* ParameterRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterRange.swift; path = Sources/Basic/Setup/ParameterRange.swift; sourceTree = "<group>"; };
 		9B910FF2221ADAEF8F30C89F10C9D7B3 /* C7Blend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Blend.swift; path = Sources/Compute/Blend/C7Blend.swift; sourceTree = "<group>"; };
 		9CC4AA831CC72734A5D75F988C5BA415 /* Rendering.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rendering.swift; path = Sources/Basic/Core/Rendering.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E6CC50E43D80087D3CE8370F7AE2C24 /* C7Saturation.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Saturation.metal; path = Sources/Compute/ColorProcess/C7Saturation.metal; sourceTree = "<group>"; };
-		9EC5A97F0ECD3886C021F85658B92675 /* CGImageSource+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Ext.swift"; sourceTree = "<group>"; };
-		9F186C8E8B31D4E762C14B59D33AAA1F /* ImageView+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
-		9FA5FD948C149A0F7FD60C8A01DA928C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		A062A775D96428A99EA383A597098E6C /* C7DepthLuminance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7DepthLuminance.swift; path = Sources/Compute/Effect/C7DepthLuminance.swift; sourceTree = "<group>"; };
 		A0DB876CA966608BCA7EEDF6CC54C88D /* C7Opacity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Opacity.swift; path = Sources/Compute/ColorProcess/C7Opacity.swift; sourceTree = "<group>"; };
 		A26A5267C00F409106AF8308660B5187 /* Pods-DepthMacDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DepthMacDemo-resources.sh"; sourceTree = "<group>"; };
@@ -500,6 +493,8 @@
 		A56D8FEDCFC7D998BF1D48C4E9083E31 /* Harbeth-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Harbeth-umbrella.h"; sourceTree = "<group>"; };
 		A5E5F937F0913941BC473D2A8F5A2921 /* C7GaussianBlur.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7GaussianBlur.swift; path = Sources/Compute/Blur/C7GaussianBlur.swift; sourceTree = "<group>"; };
 		A60DA837EA9B96177ABB046909B46AF6 /* Harbeth */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Harbeth; path = Harbeth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6E8537FBE9B03090C657E97218939B8 /* Wintersweet-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-prefix.pch"; sourceTree = "<group>"; };
+		A73B57423180893814591F752CAE9598 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
 		A7422334640A54ED29140530746A6C5E /* C7Sobel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Sobel.swift; path = Sources/Compute/Effect/C7Sobel.swift; sourceTree = "<group>"; };
 		A74D12BB103BD2363028A9C7FCAE570E /* BoxxIO.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BoxxIO.swift; path = Sources/Basic/Outputs/BoxxIO.swift; sourceTree = "<group>"; };
 		A7CC18E38026398F19CF225C488F8F7E /* C7Transform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Transform.swift; path = Sources/Compute/Shape/C7Transform.swift; sourceTree = "<group>"; };
@@ -520,16 +515,16 @@
 		B2DA05C850253F85D430F92D3F747718 /* C7Pixellated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Pixellated.swift; path = Sources/Compute/Effect/C7Pixellated.swift; sourceTree = "<group>"; };
 		B312636AB44B7C681DC9993E7BECE0DB /* C7ComicStrip.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ComicStrip.metal; path = Sources/Compute/ColorProcess/C7ComicStrip.metal; sourceTree = "<group>"; };
 		B4DFED7C477A7485B7D12E5DA1366024 /* MPSGaussianBlur.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MPSGaussianBlur.swift; path = Sources/Compute/MPS/MPSGaussianBlur.swift; sourceTree = "<group>"; };
-		B5275418375853D9C1B4DD18ACD8605D /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
-		B637B2497AFE5A2E0B763292CDBB2C60 /* Wintersweet.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Wintersweet.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B63B9C058B3BA35E0CC361817706C524 /* C7SolidColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7SolidColor.swift; path = Sources/Compute/ColorProcess/C7SolidColor.swift; sourceTree = "<group>"; };
 		B65392E576AF615631D9007960972C65 /* C7CollectorCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7CollectorCamera.swift; path = Sources/Collector/C7CollectorCamera.swift; sourceTree = "<group>"; };
 		B790FC5C92A423A51BE665B8B81A4B85 /* Matrix.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Sources/Basic/Setup/Matrix.swift; sourceTree = "<group>"; };
 		B80CDC23B438C09C181227554EC06A25 /* Instruction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Instruction.swift; path = Sources/Basic/Video/Instruction.swift; sourceTree = "<group>"; };
 		B8827B68B306B1146035FC26D68E4963 /* ResourceBundle-Harbeth-Harbeth-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Harbeth-Harbeth-Info.plist"; sourceTree = "<group>"; };
 		B92A1C1340EAFE6AFB9E5F881FF0D092 /* C7ReplaceRGBA.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ReplaceRGBA.metal; path = Sources/Compute/Effect/C7ReplaceRGBA.metal; sourceTree = "<group>"; };
+		BAB9F037638A64F9C0D6E22B9E8EC63F /* Wintersweet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Wintersweet.debug.xcconfig; sourceTree = "<group>"; };
 		BD43E1F4CB8B40E9A8772C00B2637ADF /* C7Luminance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Luminance.swift; path = Sources/Compute/ColorProcess/C7Luminance.swift; sourceTree = "<group>"; };
 		BDDC0CE21DFDA48650DA501437DC4D61 /* C7RGBADilation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7RGBADilation.swift; path = Sources/Compute/Effect/C7RGBADilation.swift; sourceTree = "<group>"; };
+		BDF6BD2087AF243163AEB629BF05FDB8 /* Wintersweet-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Wintersweet-Info.plist"; sourceTree = "<group>"; };
 		BF4380FC6D8CC6CC0D49DAED8E653AEE /* Video.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Video.swift; path = Sources/Basic/Video/Video.swift; sourceTree = "<group>"; };
 		BF5297F9021F6FB6B4BE7E443143DEF6 /* Harbeth.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Harbeth.modulemap; sourceTree = "<group>"; };
 		BFDFFBF56FFB4F67DFD73F9149FAF193 /* Matrix3x3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Matrix3x3.swift; path = Sources/Basic/Setup/Matrix3x3.swift; sourceTree = "<group>"; };
@@ -537,10 +532,11 @@
 		C11063D0D9B57E59F979C86C61B72C44 /* C7Bulge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Bulge.swift; path = Sources/Compute/Effect/C7Bulge.swift; sourceTree = "<group>"; };
 		C1430F003D39D9906881A6AC724B7931 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		C215DDECC1F3608F523AAFB32CFCD89A /* Matrix3x3+Kernel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Matrix3x3+Kernel.swift"; path = "Sources/Basic/Setup/Matrix3x3+Kernel.swift"; sourceTree = "<group>"; };
-		C3EC19C6293422AD0DC7A32EE2B5F0A5 /* HasAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HasAnimatable.swift; path = Sources/HasAnimatable.swift; sourceTree = "<group>"; };
+		C43BED73ECB68474A1B7F17EAC7C30A7 /* FrameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameStore.swift; path = Sources/FrameStore.swift; sourceTree = "<group>"; };
 		C49CF2D6AB1B8A4BAB6F3E6A11D174CF /* C7EdgeGlow.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7EdgeGlow.metal; path = Sources/Compute/Visual/C7EdgeGlow.metal; sourceTree = "<group>"; };
 		C53797F4A8C7191ECDA10C65970A0756 /* C7Pinch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Pinch.swift; path = Sources/Compute/Effect/C7Pinch.swift; sourceTree = "<group>"; };
 		C638809DD5E3A82CDE8E9C953BEEB226 /* C7DarkenBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7DarkenBlend.metal; path = Sources/Compute/Blend/C7DarkenBlend.metal; sourceTree = "<group>"; };
+		CB018EE521C9C941C3696EB383AD8A2E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		CD8D959DDC094C3B7A4BA85F196F9596 /* C7OverlayBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7OverlayBlend.metal; path = Sources/Compute/Blend/C7OverlayBlend.metal; sourceTree = "<group>"; };
 		CDA7D4A181A5CF414083ED8669EC6821 /* C7Hue.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Hue.metal; path = Sources/Compute/ColorProcess/C7Hue.metal; sourceTree = "<group>"; };
 		CE05896C4F0FAED30120C601A67A1D3E /* C7ColorBurnBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ColorBurnBlend.metal; path = Sources/Compute/Blend/C7ColorBurnBlend.metal; sourceTree = "<group>"; };
@@ -549,6 +545,7 @@
 		D2E5D2C8200A22DE1D143D8E217CC3F6 /* C7Flip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Flip.swift; path = Sources/Compute/Shape/C7Flip.swift; sourceTree = "<group>"; };
 		D3BE75431FF4A17E1FA2EF3117034982 /* C7Pixellated.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7Pixellated.metal; path = Sources/Compute/Effect/C7Pixellated.metal; sourceTree = "<group>"; };
 		D60AA3865ADA2499F001B0AB57130821 /* C7MonochromeDilation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7MonochromeDilation.swift; path = Sources/Compute/Blur/C7MonochromeDilation.swift; sourceTree = "<group>"; };
+		D9976CEF0DF60B675F9781047A60DB41 /* AsAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AsAnimatable.swift; path = Sources/AsAnimatable.swift; sourceTree = "<group>"; };
 		DA03386AE6A26CF28E8BCF5BC1948918 /* CIHighlight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CIHighlight.swift; path = Sources/CoreImage/CIHighlight.swift; sourceTree = "<group>"; };
 		DC522D69F9E825451F783132E56C0B4A /* C7VoronoiOverlay.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7VoronoiOverlay.metal; path = Sources/Compute/Visual/C7VoronoiOverlay.metal; sourceTree = "<group>"; };
 		DC923D77B0C0ECD392ED9EDF80746553 /* C7Vibrance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Vibrance.swift; path = Sources/Compute/ColorProcess/C7Vibrance.swift; sourceTree = "<group>"; };
@@ -565,13 +562,16 @@
 		E6C11C6296AE2503C4F326956ACABAFB /* C7ZoomBlur.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7ZoomBlur.swift; path = Sources/Compute/Blur/C7ZoomBlur.swift; sourceTree = "<group>"; };
 		E760B4A97E70FFE48CD7A5BB192A12C2 /* C7LookupTable.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7LookupTable.metal; path = Sources/Compute/Lookup/C7LookupTable.metal; sourceTree = "<group>"; };
 		E8E50E84849CC3C2AC0C148E5BA1315E /* Wintersweet */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Wintersweet; path = Wintersweet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBDB020F55A6F82EADA8B9D994EE1658 /* Collection+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
+		EBD8AC8CE773FE6D62643DB7B2E46CDF /* AssetType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		EC215ED998D7555E48D5A101F8231443 /* C7LuminosityBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7LuminosityBlend.metal; path = Sources/Compute/Blend/C7LuminosityBlend.metal; sourceTree = "<group>"; };
 		EC6EB1B7063111E2F7256A0ED8FD0DFC /* C7DivideBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7DivideBlend.metal; path = Sources/Compute/Blend/C7DivideBlend.metal; sourceTree = "<group>"; };
 		EDC1BEF731D98BC45AC03CFED64C0840 /* C7Swirl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Swirl.swift; path = Sources/Compute/Effect/C7Swirl.swift; sourceTree = "<group>"; };
 		EE487158AFC8070368EFD85D040B65F6 /* Data+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Ext.swift"; path = "Sources/Basic/Extensions/Data+Ext.swift"; sourceTree = "<group>"; };
 		EEB9126D50830CF8C5B8744A7DEBC4C1 /* C7Gamma.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7Gamma.swift; path = Sources/Compute/ColorProcess/C7Gamma.swift; sourceTree = "<group>"; };
+		EFEF17DBD2C2159E0BD2C40EE98C9975 /* Collection+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
 		F03A5BAA728E49B008D944754293C895 /* Typealias.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Typealias.swift; path = Sources/Basic/Setup/Typealias.swift; sourceTree = "<group>"; };
+		F0915EEDC10591D0DFB585A77366BB59 /* Loop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
+		F289CB1AB7A550915FBF23BDA049F6B6 /* Cached.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 		F3E47F9DF5007630A2825C941AFC8340 /* C7PolarPixellate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = C7PolarPixellate.swift; path = Sources/Compute/Effect/C7PolarPixellate.swift; sourceTree = "<group>"; };
 		F4D2B97262D036B81B4DC574177F79DA /* C7ScreenBlend.metal */ = {isa = PBXFileReference; includeInIndex = 1; name = C7ScreenBlend.metal; path = Sources/Compute/Blend/C7ScreenBlend.metal; sourceTree = "<group>"; };
 		F58F6BC53EE958A788026BC0FEBB1C7A /* Destype.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Destype.swift; path = Sources/Basic/Outputs/Destype.swift; sourceTree = "<group>"; };
@@ -689,24 +689,6 @@
 			name = Basic;
 			sourceTree = "<group>";
 		};
-		05DFA44D8E63EA9A648C20B60969984A /* Wintersweet */ = {
-			isa = PBXGroup;
-			children = (
-				0BE3AD5557FD0B55E5B51E15D9B2F2E0 /* Animator.swift */,
-				12333DF06148BF3EA5106AB91FF5F415 /* AsAnimatable.swift */,
-				98FC16D910181B4F8670F50A5D6240C6 /* FrameImage.swift */,
-				5BBA78B38FC72DE129A499115E622BBC /* FrameStore.swift */,
-				C3EC19C6293422AD0DC7A32EE2B5F0A5 /* HasAnimatable.swift */,
-				0DF518A6FD3574FC2A67D719F8C0050F /* ImageContainer.swift */,
-				2B192520767984AABBE1B85C48D13DB3 /* Core */,
-				C7D71EAF986B4D4185920B2454B03347 /* Extensions */,
-				A4C13348E49FC0773D668DC5DC2D79C4 /* Pod */,
-				8C8763DB6ADE67D13057F7E52B51B7CE /* Support Files */,
-			);
-			name = Wintersweet;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		1C15FEA41A737A0102467630F4AD2C53 /* Collector */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,26 +716,15 @@
 			path = "../Target Support Files/Harbeth";
 			sourceTree = "<group>";
 		};
-		2B192520767984AABBE1B85C48D13DB3 /* Core */ = {
+		2B1BD942457DEB2892E1CB8EBAEA3057 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				42E9C61C901BFD908D28E463AF09645E /* AssetType.swift */,
-				66417CD794B3BEDA3CC5BF6612163768 /* Cached.swift */,
-				185FC4A50BE8038AF6AB81ED4E507687 /* ContentMode.swift */,
-				B5275418375853D9C1B4DD18ACD8605D /* DisplayLinkProxy.swift */,
-				51237EBEF003E6901CB41AFCDC082D9D /* ImageParser.swift */,
-				435E2454A3E508B4ACA95CE21C782B79 /* Loop.swift */,
+				349376AF731978BD869098943C8508AE /* CGImageSource+Ext.swift */,
+				EFEF17DBD2C2159E0BD2C40EE98C9975 /* Collection+Ext.swift */,
+				0704597D3874F7D60B711DEE52A2B10D /* ImageView+Ext.swift */,
 			);
-			name = Core;
-			path = Sources/Core;
-			sourceTree = "<group>";
-		};
-		2FF95140670BFF64EC9CD4979E7C3BCA /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				05DFA44D8E63EA9A648C20B60969984A /* Wintersweet */,
-			);
-			name = "Development Pods";
+			name = Extensions;
+			path = Sources/Extensions;
 			sourceTree = "<group>";
 		};
 		634E4E8E2E62682643451DD63070763C /* Harbeth */ = {
@@ -873,21 +844,6 @@
 			name = Compute;
 			sourceTree = "<group>";
 		};
-		8C8763DB6ADE67D13057F7E52B51B7CE /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1CA817A4A8344FBDEBB546170B254294 /* Wintersweet.modulemap */,
-				97EE85F3BDF5FF1B3FF21B8FADCD2A11 /* Wintersweet-dummy.m */,
-				7686E8DF4184EA5D209B956E53DD40EA /* Wintersweet-Info.plist */,
-				3DC22D7B95D51A9440B81BF1799ADF6F /* Wintersweet-prefix.pch */,
-				50CEBEFE8A47E1B1EA35ED2014E617E3 /* Wintersweet-umbrella.h */,
-				8FE3B05FB130A2501AB73582081E7116 /* Wintersweet.debug.xcconfig */,
-				040BC9CF15F24FAEBF6B26C018CCEE57 /* Wintersweet.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "Mac/Pods/Target Support Files/Wintersweet";
-			sourceTree = "<group>";
-		};
 		90FB2A6AF3042D90139F7862BA409F78 /* Pods-DepthMacDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -905,14 +861,27 @@
 			path = "Target Support Files/Pods-DepthMacDemo";
 			sourceTree = "<group>";
 		};
-		A4C13348E49FC0773D668DC5DC2D79C4 /* Pod */ = {
+		99F5C3B1825E8AB4DF6B073E604F5413 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9FA5FD948C149A0F7FD60C8A01DA928C /* LICENSE */,
-				84A2C4B6CF0B1264F442C40A1FD94E87 /* README.md */,
-				B637B2497AFE5A2E0B763292CDBB2C60 /* Wintersweet.podspec */,
+				EDC6AA7BDF732C10AA212F670860F6B2 /* Wintersweet */,
 			);
-			name = Pod;
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		9FB802C9605DF310F8867E4507089516 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B98F569DA412FDF85EFEB12A17D5029 /* Wintersweet.modulemap */,
+				2F1CE0178EC2AA7B94BF2E1279EEC748 /* Wintersweet-dummy.m */,
+				BDF6BD2087AF243163AEB629BF05FDB8 /* Wintersweet-Info.plist */,
+				A6E8537FBE9B03090C657E97218939B8 /* Wintersweet-prefix.pch */,
+				38E13A4969F55D62C61D5110F0495E5C /* Wintersweet-umbrella.h */,
+				BAB9F037638A64F9C0D6E22B9E8EC63F /* Wintersweet.debug.xcconfig */,
+				5CE7268A18FEFCF4D2D2F2E263AFAA80 /* Wintersweet.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Mac/Pods/Target Support Files/Wintersweet";
 			sourceTree = "<group>";
 		};
 		B3F80DC8659A2CFC891843B4B2FC0CC3 /* Products */ = {
@@ -934,22 +903,11 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C7D71EAF986B4D4185920B2454B03347 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				9EC5A97F0ECD3886C021F85658B92675 /* CGImageSource+Ext.swift */,
-				EBDB020F55A6F82EADA8B9D994EE1658 /* Collection+Ext.swift */,
-				9F186C8E8B31D4E762C14B59D33AAA1F /* ImageView+Ext.swift */,
-			);
-			name = Extensions;
-			path = Sources/Extensions;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				2FF95140670BFF64EC9CD4979E7C3BCA /* Development Pods */,
+				99F5C3B1825E8AB4DF6B073E604F5413 /* Development Pods */,
 				E0A1E60606E0BF6E2E10F1F01350DFE8 /* Frameworks */,
 				BDB42F4E700D84B333F0B9C7E00C16E6 /* Pods */,
 				B3F80DC8659A2CFC891843B4B2FC0CC3 /* Products */,
@@ -1072,12 +1030,54 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E22FE910065E515915A2F330BE4CB6C3 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				CB018EE521C9C941C3696EB383AD8A2E /* LICENSE */,
+				3DB1032F76DE2777A47E0E53F22BE6E7 /* README.md */,
+				8599A12F176BC59EB768D902650890E6 /* Wintersweet.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		E2A8756CA1FF5258A0344D53C5C60EC1 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
 				C1430F003D39D9906881A6AC724B7931 /* Cocoa.framework */,
 			);
 			name = "OS X";
+			sourceTree = "<group>";
+		};
+		ECA5FF47575E1E47BD6C9909A0F9C9CB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EBD8AC8CE773FE6D62643DB7B2E46CDF /* AssetType.swift */,
+				F289CB1AB7A550915FBF23BDA049F6B6 /* Cached.swift */,
+				8FB1F10CFBE93375C110889F0173156D /* ContentMode.swift */,
+				A73B57423180893814591F752CAE9598 /* DisplayLinkProxy.swift */,
+				F0915EEDC10591D0DFB585A77366BB59 /* Loop.swift */,
+			);
+			name = Core;
+			path = Sources/Core;
+			sourceTree = "<group>";
+		};
+		EDC6AA7BDF732C10AA212F670860F6B2 /* Wintersweet */ = {
+			isa = PBXGroup;
+			children = (
+				13CE4F221CCF8BA63B9C8C1E3B7955BE /* AnimatedOptions.swift */,
+				76058BEDAB9882EA54AE78DCF9349191 /* Animator.swift */,
+				D9976CEF0DF60B675F9781047A60DB41 /* AsAnimatable.swift */,
+				0FB80B0BB7633F76923F2560DF8E41EC /* FrameImage.swift */,
+				C43BED73ECB68474A1B7F17EAC7C30A7 /* FrameStore.swift */,
+				4B40FA3320C71F1F0FB4A1647BE43B72 /* HasAnimatable.swift */,
+				98DB7963A73A5DC66A76974734EBDBA4 /* ImageContainer.swift */,
+				ECA5FF47575E1E47BD6C9909A0F9C9CB /* Core */,
+				2B1BD942457DEB2892E1CB8EBAEA3057 /* Extensions */,
+				E22FE910065E515915A2F330BE4CB6C3 /* Pod */,
+				9FB802C9605DF310F8867E4507089516 /* Support Files */,
+			);
+			name = Wintersweet;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1115,7 +1115,7 @@
 			buildConfigurationList = 0C4210AE5F9FD6687A713E85AB351AA6 /* Build configuration list for PBXNativeTarget "Wintersweet" */;
 			buildPhases = (
 				51CA014D9F3A42622DF9AE58E5E92338 /* Headers */,
-				3F5B9DC388369FF17965F84CDFD60D42 /* Sources */,
+				A57CEE1E379FEFA4FB39634FD3B4E0D6 /* Sources */,
 				6221E0F075653E699F2B31ABF7CA2E7B /* Frameworks */,
 				1F74D9690FECF6C95D180ED9AD67D3F4 /* Resources */,
 			);
@@ -1347,34 +1347,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3F5B9DC388369FF17965F84CDFD60D42 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6D07138B579AC90A74B97B2DDB3A1F42 /* Animator.swift in Sources */,
-				1D7D5C7AEDB74D926C3185CA7BA30BD1 /* AsAnimatable.swift in Sources */,
-				4A5E1F42AD013371CE4AFEFD810C7C7B /* AssetType.swift in Sources */,
-				C0EBBDB27B5DC722B89352B1E4C1E966 /* Cached.swift in Sources */,
-				569C43D55437FAE6D1D1924561769B27 /* CGImageSource+Ext.swift in Sources */,
-				A6F5091A6B795506AE81098A1FB4CDAF /* Collection+Ext.swift in Sources */,
-				3CDCBDB4FEA0C35835326970A3A9580D /* ContentMode.swift in Sources */,
-				3C8CE6BF68F1BADB19D090984811E85B /* DisplayLinkProxy.swift in Sources */,
-				25BDBE95CC6F9B03FC2003DBAFFF01B2 /* FrameImage.swift in Sources */,
-				949005E6D32D5A759DB120D489DB6A50 /* FrameStore.swift in Sources */,
-				E6E380DCA25773F32D0BE452C721FB4A /* HasAnimatable.swift in Sources */,
-				62A101EB04C3369ED3D48E4BD7FFBCFE /* ImageContainer.swift in Sources */,
-				945780381AF60CBF034A00EBDCDE8013 /* ImageParser.swift in Sources */,
-				467B243E077D1DE4DB95EA690DD38384 /* ImageView+Ext.swift in Sources */,
-				0F2D0D8D732C5A18B4F90170D6F9EDAD /* Loop.swift in Sources */,
-				70048B629A9698E66D1DDC79A70FD97C /* Wintersweet-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7D0A53CD55C10EA45D896C14E56A7BED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1D313455FDC2034B61D7AB6367BF0157 /* Pods-DepthMacDemo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A57CEE1E379FEFA4FB39634FD3B4E0D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CEF8EAA325D95EB04D6894FEE472782 /* AnimatedOptions.swift in Sources */,
+				4F5BF32A0E1E40944F52AFF8CB387948 /* Animator.swift in Sources */,
+				E9AD55012DB4B32EC9A2970F5D19F187 /* AsAnimatable.swift in Sources */,
+				F94BC1BF2D15FF13BB1C8DA49FF65BD2 /* AssetType.swift in Sources */,
+				7DB362D6DA9B4FFBB11EA165596B0B3B /* Cached.swift in Sources */,
+				4F2BF368AC628450F275E1E2EC606281 /* CGImageSource+Ext.swift in Sources */,
+				E299E3E24895D7D58A5690399D2438C4 /* Collection+Ext.swift in Sources */,
+				C7A6E0B04E42FA5BC01E775488E5584D /* ContentMode.swift in Sources */,
+				D2681A0290C761F16EBBA9EA4602245D /* DisplayLinkProxy.swift in Sources */,
+				F53F11D0D007BDA48E7A2C6540391A1C /* FrameImage.swift in Sources */,
+				55A8373E473BC821C33E8444E4F7CC1A /* FrameStore.swift in Sources */,
+				8FB66C64E14FA85F1E5EE9DE82F1A0CA /* HasAnimatable.swift in Sources */,
+				E13EC0A96878F1FDCE2A23453800B28E /* ImageContainer.swift in Sources */,
+				54BE6D744CA8AC83E5AD2D24C71DCDB3 /* ImageView+Ext.swift in Sources */,
+				FA33B89A49C5A2D9D4703F2ACA917E41 /* Loop.swift in Sources */,
+				B6FD7E871E2449116D3170197E05222B /* Wintersweet-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1599,7 +1599,7 @@
 		};
 		278B6AE50A12AC46C4B428F058388947 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 040BC9CF15F24FAEBF6B26C018CCEE57 /* Wintersweet.release.xcconfig */;
+			baseConfigurationReference = 5CE7268A18FEFCF4D2D2F2E263AFAA80 /* Wintersweet.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1908,7 +1908,7 @@
 		};
 		F640B84FB24953D473A2E094F19764A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FE3B05FB130A2501AB73582081E7116 /* Wintersweet.debug.xcconfig */;
+			baseConfigurationReference = BAB9F037638A64F9C0D6E22B9E8EC63F /* Wintersweet.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;

@@ -11,7 +11,7 @@ import Harbeth
 /// A single-property protocol that animatable classes can optionally conform to.
 public protocol ImageContainer {
     /// Used for displaying the animation frames.
-    var image: C7Image? { get set }
+    var image: Harbeth.C7Image? { get set }
 }
 
 extension AsAnimatable where Self: ImageContainer {

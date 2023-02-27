@@ -14,7 +14,7 @@ final class FrameStore {
     /// Desired number of loops, <= 0 for infinite loop
     private let loopCount: Int
     /// Harbeth filters apply to GIF frame.
-    private let filters: [HFilter]
+    private let filters: [Harbeth.C7FilterProtocol]
     /// Maximum duration to increment the frame timer with.
     private let maxTimeStep = 1.0
     /// The target size for all frames.
@@ -57,7 +57,7 @@ final class FrameStore {
             preloadFrameQueue.async { self.updatePreloadedFrames() }
         }
     }
-
+    
     /// The current image frame to show.
     var currentFrameImage: C7Image? {
         return frame(at: currentFrameIndex)
@@ -75,7 +75,7 @@ final class FrameStore {
     ///   - framePreloadCount: Number of frame to buffer.
     ///   - contentMode: The content mode to use when resizing.
     ///   - loopCount: Desired number of loops, <= 0 for infinite loop.
-    init(data: Data, filters: [HFilter], size: CGSize, framePreloadCount: Int, contentMode: Wintersweet.ContentMode, loopCount: Int) {
+    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: Wintersweet.ContentMode, loopCount: Int) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.size = size

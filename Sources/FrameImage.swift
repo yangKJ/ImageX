@@ -12,7 +12,7 @@ import Harbeth
 struct FrameImage {
     
     /// The image to display for this frame. Its value is nil when the frame is removed from the buffer.
-    let image: C7Image?
+    let image: Harbeth.C7Image?
     
     /// The duration that this frame should remain active.
     let duration: TimeInterval

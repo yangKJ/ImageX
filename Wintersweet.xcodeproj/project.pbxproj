@@ -82,6 +82,7 @@
 /* Begin PBXFileReference section */
 		870DBCAC2990929B000A36F6 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
 		870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
+		8739882829A758DA00EE599D /* AnimatedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOptions.swift; sourceTree = "<group>"; };
 		876D4B132984C28C00A06282 /* DepthDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthDemo.xcworkspace; sourceTree = "<group>"; };
 		876D4B1F2984C28C00A06282 /* DepthDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthDemo.xcodeproj; sourceTree = "<group>"; };
 		876D4B232984C28C00A06282 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
@@ -357,7 +358,6 @@
 		876D4DAB2984C29D00A06282 /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 		876D4DAC2984C29D00A06282 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
-		876D4DAF2984C29D00A06282 /* ImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
 		876D4DB02984C29D00A06282 /* ContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
 		876D4DB12984C29D00A06282 /* AsAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsAnimatable.swift; sourceTree = "<group>"; };
 		876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Ext.swift"; sourceTree = "<group>"; };
@@ -420,7 +420,6 @@
 		8770FB5129A6067400AED5CC /* ZeroOneRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroOneRange.swift; sourceTree = "<group>"; };
 		8770FB5229A6067400AED5CC /* ShapeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeMode.swift; sourceTree = "<group>"; };
 		8770FB5329A6067400AED5CC /* Point2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point2D.swift; sourceTree = "<group>"; };
-		8770FB5429A6067400AED5CC /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		8770FB5529A6067400AED5CC /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		8770FB5629A6067400AED5CC /* DisplayLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLink.swift; sourceTree = "<group>"; };
 		8770FB5729A6067400AED5CC /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
@@ -1145,12 +1144,13 @@
 			children = (
 				876D4DA92984C29D00A06282 /* Core */,
 				876D4DB22984C29D00A06282 /* Extensions */,
+				8739882829A758DA00EE599D /* AnimatedOptions.swift */,
 				876D4DB52984C29D00A06282 /* Animator.swift */,
 				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
 				876D4DB72984C29D00A06282 /* FrameImage.swift */,
 				876D4DA82984C29D00A06282 /* FrameStore.swift */,
-				876D4DB62984C29D00A06282 /* ImageContainer.swift */,
 				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
+				876D4DB62984C29D00A06282 /* ImageContainer.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1162,7 +1162,6 @@
 				876D4DAB2984C29D00A06282 /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
-				876D4DAF2984C29D00A06282 /* ImageParser.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 			);
 			path = Core;
@@ -1359,7 +1358,6 @@
 				8770FB5129A6067400AED5CC /* ZeroOneRange.swift */,
 				8770FB5229A6067400AED5CC /* ShapeMode.swift */,
 				8770FB5329A6067400AED5CC /* Point2D.swift */,
-				8770FB5429A6067400AED5CC /* Export.swift */,
 				8770FB5529A6067400AED5CC /* Size.swift */,
 				8770FB5629A6067400AED5CC /* DisplayLink.swift */,
 				8770FB5729A6067400AED5CC /* Typealias.swift */,

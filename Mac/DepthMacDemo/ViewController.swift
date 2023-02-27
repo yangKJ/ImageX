@@ -25,8 +25,16 @@ class ViewController: NSViewController {
             C7ColorConvert(with: .rbga),
             C7Storyboard(ranks: 2),
         ]
-        let URL = URL(string: "https://raw.githubusercontent.com/yangKJ/KJBannerViewDemo/master/KJBannerViewDemo/Resources/IMG_0139.GIF")!
-        imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
+        let links = [
+            "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
+            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
+            //"https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
+        ]
+        let URL = URL(string: links.randomElement() ?? "")!
+        let options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
+        imageView.mt.displayImage(url: URL, filters: filters, options: options)
+        //imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
     }
     
     override var representedObject: Any? {

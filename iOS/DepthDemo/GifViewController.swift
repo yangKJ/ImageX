@@ -26,7 +26,7 @@ class GifViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
-        setupNetworkGif()
+        setupGIF()
     }
     
     func setupUI() {
@@ -40,12 +40,14 @@ class GifViewController: UIViewController {
         ])
     }
     
-    func setupNetworkGif() {
-        let URL = URL(string: "https://raw.githubusercontent.com/yangKJ/KJBannerViewDemo/master/KJBannerViewDemo/Resources/IMG_0139.GIF")!
-        animatedView.play(withGIFURL: URL, filters: [
+    func setupGIF() {
+        let filters: [C7FilterProtocol] = [
             C7WhiteBalance(temperature: 5555),
             C7LookupTable(image: R.image("lut_x"))
-        ], loop: .count(5), cacheOption: Cached.Options.usedMemoryCache)
+        ]
+        let data = AnimatedOptions.gifData("cycling")
+        let options = AnimatedOptions.init(loop: .count(5))
+        animatedView.play(data: data, filters: filters, options: options)
     }
     
     deinit {

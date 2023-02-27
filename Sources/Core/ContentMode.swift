@@ -9,36 +9,36 @@ import Foundation
 import Harbeth
 
 /// Mainly for the image filling content to change the size.
-public enum ContentMode {
-    /// Dimensions of the original image.Do nothing with it.
-    case original
+public enum ContentMode: Int, @unchecked Sendable  {
+    /// Dimensions of the original image. do nothing with it.
+    case original = 0
     /// The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.
-    case scaleToFill
+    case scaleToFill = 1
     /// Contents scaled to fit with fixed aspect. remainder is transparent.
-    case scaleAspectFit
+    case scaleAspectFit = 2
     /// Contents scaled to fill with fixed aspect. some portion of content may be clipped.
-    case scaleAspectFill
+    case scaleAspectFill = 3
     /// Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.
-    case scaleAspectBottomRight
+    case scaleAspectBottomRight = 4
     /// Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.
-    case scaleAspectTopLeft
+    case scaleAspectTopLeft = 5
 }
 
 extension Wintersweet.ContentMode {
     
     /// Resize an image to the specified size. Depending on what fitMode is supplied
     /// - Parameters:
-    ///   - image: Image to Resize.
-    ///   - size: Size to resize the image to.
+    ///   - image: Image to resize.
+    ///   - size: Size to resize the image to. it is `.zero` return original image.
     /// - Returns: Resized image.
-    public func resizeImage(_ image: C7Image?, size: CGSize) -> C7Image? {
+    public func resizeImage(_ image: Harbeth.C7Image?, size: CGSize) -> Harbeth.C7Image? {
         guard let image = image else { return nil }
+        if case .original = self { return image }
+        if size == .zero { return image }
         let horizontalRatio = size.width / image.size.width
         let verticalRatio = size.height / image.size.height
         var rect = CGRect(origin: .zero, size: image.size)
         switch self {
-        case .original:
-            return image
         case .scaleToFill:
             rect.size = size
         case .scaleAspectFit:
@@ -47,6 +47,8 @@ extension Wintersweet.ContentMode {
         case .scaleAspectFill, .scaleAspectBottomRight, .scaleAspectTopLeft:
             let ratio = max(horizontalRatio, verticalRatio)
             rect.size = CGSize(width: rect.size.width * ratio, height: rect.size.height * ratio)
+        default:
+            return image
         }
         let omimage = ContentMode.drawImage(image, rect: rect)
         return cropingImage(omimage, rect: rect, targetSize: size)

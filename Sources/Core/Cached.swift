@@ -9,6 +9,11 @@ import Foundation
 import CoreFoundation
 
 public struct Cached {
+    
+    public static func cacheKey(url: URL) -> AnyObject {
+        url as AnyObject
+    }
+    
     public struct Options: OptionSet, Hashable, Sendable {
         /// Returns a raw value.
         public let rawValue: UInt16

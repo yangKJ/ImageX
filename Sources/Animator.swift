@@ -24,10 +24,10 @@ final class Animator {
     private var displayLinkInitialized: Bool = false
     
     /// Responsible for starting and stopping the animation.
-    private lazy var displayLink: CADisplayLink = {
+    private lazy var displayLink: Harbeth.CADisplayLink = {
         self.displayLinkInitialized = true
         let target = DisplayLinkProxy(target: self)
-        let display = CADisplayLink(target: target, selector: #selector(DisplayLinkProxy.onScreenUpdate(_:)))
+        let display = Harbeth.CADisplayLink(target: target, selector: #selector(DisplayLinkProxy.onScreenUpdate(_:)))
         //displayLink.add(to: .main, forMode: RunLoop.Mode.common)
         display.add(to: .current, forMode: RunLoop.Mode.default)
         display.isPaused = true

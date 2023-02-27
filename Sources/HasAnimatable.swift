@@ -25,6 +25,16 @@ fileprivate struct AssociatedKeys {
 }
 
 extension HasAnimatable {
+    
+    var hasAnimator: Animator? {
+        return synchronizedAnimator {
+            guard let weakself = self as? AsAnimatable else {
+                return nil
+            }
+            return objc_getAssociatedObject(weakself, &AssociatedKeys.AnimatorKey) as? Animator
+        }
+    }
+    
     /// Responsible for managing the animation frames.
     weak var animator: Animator? {
         get {
