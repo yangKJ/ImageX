@@ -88,13 +88,15 @@ extension AnimatedOptions {
         }
         return try? Data(contentsOf: contentURL)
     }
-    
+}
+
+extension AnimatedOptions {
     /// Load image resources
-    public static func image(_ named: String, forResource: String = "Wintersweet") -> C7Image? {
+    static func image(_ named: String) -> C7Image? {
         let imageblock = { (name: String) -> C7Image? in
             return C7Image(named: named)
         }
-        guard let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") else {
+        guard let bundlePath = Bundle.main.path(forResource: "Wintersweet", ofType: "bundle") else {
             return imageblock(named)
         }
         let bundle = Bundle.init(path: bundlePath)

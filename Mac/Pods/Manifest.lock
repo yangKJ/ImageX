@@ -11,7 +11,7 @@ PODS:
     - Harbeth/Basic
   - Harbeth/CoreImage (0.6.1):
     - Harbeth/Basic
-  - Wintersweet (0.0.2):
+  - Wintersweet (0.0.3):
     - Harbeth
 
 DEPENDENCIES:
@@ -27,7 +27,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Harbeth: 38f2ab952a00dc4427dc890668335e3591ecc393
-  Wintersweet: 431f3dec774dc9746a8cc88d51dce9af219bf5bf
+  Wintersweet: ea942d1cfdeaa409a0b19a4bddf09ad2700331da
 
 PODFILE CHECKSUM: e320ae5ec63cde42a2ca7456d2b7d222cf9621e9
 
