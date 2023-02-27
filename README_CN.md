@@ -4,7 +4,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加过滤器的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧。
+[**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加滤镜的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧图。
 
 -------
 
@@ -12,57 +12,62 @@
 
 ### 功能
 
-- 支持全平台系统，macOS、iOS、tvOS、watchOS。
-- 支持添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜到GIF中播放。
-- 支持播放本地和网络GIF动画。
-- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能。
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 内容填充模式。
-- 支持内存缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络GIF数据。
+- 支持全平台系统，macOS、iOS、tvOS、watchOS；
+- 支持播放本地和网络GIF动画；
+- 支持`NSImageView`或`UIImageView`显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
+- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 内容填充模式；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络GIF数据；
 
 ------
 
 ### 简单使用
 
-1. 使用本地gif
+1. `NSImageView`或`UIImageView`显示网络图像或GIF并添加过滤器。
 
-```
-func setup(imageName: String) {
-    guard let imagePath = Bundle.main.url(forResource: imageName, withExtension: "gif"),
-          let data = try? Data(contentsOf: imagePath) else {
-        return
-    }
-    let filters: [C7FilterProtocol] = [
-        C7SoulOut(soul: 0.75),
-        C7ColorConvert(with: .rbga),
-        C7Storyboard(ranks: 2),
-    ]
-    imageView.play(withGIFData: data, filters: filters, preparation: {
-        // do something..
-    })
+```swift
+let links = [``GIF Link URL``, ``Picture Link URL``]
+let URL = URL(string: links.randomElement() ?? "")!
+var options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
+options.setAnimated { loopDuration in
+    // do something..
 }
+imageView.mt.displayImage(url: URL, filters: filters, options: options)
+
+-----------------------------------------------------------------------------------
+😘😘 其他方法:
+
+/// 根据名称显示图像或GIF并添加过滤器
+public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default)
+
+/// 显示数据源data图像或GIF并添加过滤器
+public func displayImage(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) -> AssetType
+
+/// 显示网络图像或GIF并添加过滤器
+public func displayImage(url: URL, filters: [C7FilterProtocol], options: AnimatedOptions = .default, failed: FailedCallback? = nil) -> URLSessionDataTask?
 ```
 
-2. 使用网络gif
+2. 任意控件实现协议`AsAnimatable`均可立刻支持GIF播放，核心其实就是在`layer.contents`显示帧图。
 
-```
-func setupNetworkGif() {
-    let URL = URL(string: ``URL Link``)!
-    animatedView.play(withGIFURL: URL, filters: [
-        C7WhiteBalance(temperature: 5555),
-        C7LookupTable(image: R.image("lut_x"))
-    ], loop: .count(5), cacheOption: Cached.Options.usedMemoryCache)
-}
-```
-
-3. 任意控件实现协议``AsAnimatable``均可支持GIF播放
-
-```
+```swift
+/// 任意控件实现协议``AsAnimatable``均可支持GIF播放
 class GIFView: UIView, AsAnimatable {
-    
+    ...
 }
-```
 
-**这边已经对``ImageView``实现GIF动态图支持，so 直接使用即可。✌️**
+lazy var animatedView: GIFView = {
+    let view = GIFView.init(frame: .zero)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.layer.contentsGravity = .resizeAspect
+    view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+    return view
+}()
+
+let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
+let data = AnimatedOptions.gifData("cycling")
+let options = AnimatedOptions.init(loop: .count(5))
+animatedView.play(data: data, filters: filters, options: options)
+```
 
 ### AsAnimatable
 
@@ -82,8 +87,8 @@ public protocol AsAnimatable: HasAnimatable {
     /// 是否为GIF
     var isAnimatingGIF: Bool { get }
     
-    /// 计算此GIF的帧大小
-    var gifSize: Int { get }
+    /// 位图内存成本，单位字节
+    var cost: Int { get }
     
     /// 停止动画并从内存中释放GIF数据
     func prepareForReuseGIF()
@@ -93,52 +98,13 @@ public protocol AsAnimatable: HasAnimatable {
     
     /// 停止GIF动画
     func stopAnimatingGIF()
-}
-```
 
-对外开放两个播放GIF方法：
-
-```
-/// 准备动画并开始播放GIF
-/// - Parameters：
-///   - withGIFData：GIF图像数据。
-///   - filters：Harbeth过滤器适用于GIF帧。
-///   - loop：所需的循环数量。默认值为``forever``。
-///   - contentMode：用于调整帧大小的内容模式。默认值为``original``。
-///   - bufferCount：要缓冲的帧数。默认值为50。高数字将导致更多的内存使用和更少的CPU负载，反之亦然。
-///   - preparation：准备播放时间回调。
-///   - animated：播放GIF完成回调。
-public func play(withGIFData data: Data,
-                 filters: [HFilter],
-                 loop: Wintersweet.Loop = .forever,
-                 contentMode: Wintersweet.ContentMode = .original,
-                 bufferCount: Int = 50,
-                 preparation: PreparationCallback? = nil,
-                 animated: AnimatedCallback? = nil) {
-    ...
-}
-
-/// 准备动画并开始播放GIF。
-/// - Parameters：
-///   - withGIFURL：GIF图像网址。
-///   - filters：Harbeth过滤器适用于GIF帧。
-///   - loop：所需的循环数量。默认值为``forever``。
-///   - contentMode：用于调整帧大小的内容模式。默认值为``original``。
-///   - cacheOption：无论天气与否，我们都应该缓存URL响应。默认值为``disableMemoryCache``。
-///   - bufferCount：要缓冲的帧数。默认值为50。高数字将导致更多的内存使用和更少的CPU负载，反之亦然。
-///   - preparation：准备播放时间回调。
-///   - animated：播放GIF完成回调。
-///   - failed：网络失败回调。
-public func play(withGIFURL: URL,
-                 filters: [HFilter],
-                 loop: Wintersweet.Loop = .forever,
-                 contentMode: Wintersweet.ContentMode = .original,
-                 cacheOption: Wintersweet.Cached.Options = .disableMemoryCache,
-                 bufferCount: Int = 50,
-                 preparation: PreparationCallback? = nil,
-                 animated: AnimatedCallback? = nil,
-                 failed: FailedCallback? = nil) {
-    ...
+    /// 准备动画并开始播放GIF
+    /// - Parameters:
+    ///   - data: GIF数据源
+    ///   - filters: Harbeth滤镜添加到GIF帧图
+    ///   - options: 使用的GIF播放创建其他参数选项
+    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
 }
 ```
 
@@ -148,7 +114,7 @@ public func play(withGIFURL: URL,
 
 ```
 public enum ContentMode {
-    /// 原始图像的尺寸。不要用它做任何事情
+    /// 原始图像的尺寸
     case original
     /// 必要时通过更改内容的宽高比来缩放内容以适应自身大小的选项
     case scaleToFill

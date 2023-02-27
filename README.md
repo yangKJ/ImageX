@@ -18,11 +18,11 @@ English | [**简体中文**](README_CN.md)
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
 
 - Support full platform system，macOS、iOS、tvOS、watchOS.
-- Support add [Harbeth](https://github.com/yangKJ/Harbeth) filter to gif.
+- Support `NSImageView` or `UIImageView` display network image or gif and add the [Harbeth](https://github.com/yangKJ/Harbeth) filters.
 - Support local and network play gif animated.
 - Support any control and used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
 - Support six content filling modes.
-- Support memory cache network gif data.
+- Support cache network gif data.
 
 ------
 
@@ -43,35 +43,52 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 
 ## Usage
 
-- Use local gif diagram use cases.
+- `NSImageView` or `UIImageView` display network image or gif and add the filters.
 
 ```swift
-func setup(imageName: String) {
-    guard let imagePath = Bundle.main.url(forResource: imageName, withExtension: "gif"),
-          let data = try? Data(contentsOf: imagePath) else {
-        return
-    }
-    let filters: [C7FilterProtocol] = [
-        C7SoulOut(soul: 0.75),
-        C7ColorConvert(with: .rbga),
-        C7Storyboard(ranks: 2),
-    ]
-    imageView.play(withGIFData: data, filters: filters, preparation: {
-        // do something..
-    })
+let links = [``GIF Link URL``, ``Picture Link URL``]
+let URL = URL(string: links.randomElement() ?? "")!
+var options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
+options.setAnimated { loopDuration in
+    // do something..
 }
+imageView.mt.displayImage(url: URL, filters: filters, options: options)
+
+-----------------------------------------------------------------------------------
+😘😘 And other methods:
+
+/// Display image or gif and add the filters.
+/// - Parameters:
+///   - named: Picture or gif name.
+///   - filters: Harbeth filters apply to image or gif frame.
+///   - options: Represents gif playback creating options used in Wintersweet.
+public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default)
+
+/// Display image or gif and add the filters.
+/// - Parameters:
+///   - data: Picture data.
+///   - filters: Harbeth filters apply to image or gif frame.
+///   - options: Represents gif playback creating options used in Wintersweet.
+/// - Returns: A uniform type identifier UTI.
+public func displayImage(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) -> AssetType
+
+/// Display network image or gif and add the filters.
+/// - Parameters:
+///   - url: Link url.
+///   - filters: Harbeth filters apply to image or gif frame.
+///   - options: Represents gif playback creating options used in Wintersweet.
+///   - failed: Network failure callback.
+/// - Returns: Current network URLSessionDataTask.
+public func displayImage(url: URL, filters: [C7FilterProtocol], options: AnimatedOptions = .default, failed: FailedCallback? = nil) -> URLSessionDataTask?
 ```
 
-- Use network gif link use cases.
+- Any control can play the local gif data.
 
 ```swift
-func setupNetworkGif() {
-    let URL = URL(string: ``URL Link``)!
-    animatedView.play(withGIFURL: URL, filters: [
-        C7WhiteBalance(temperature: 5555),
-        C7LookupTable(image: R.image("lut_x"))
-    ], loop: .count(5), contentMode: .scaleToFill, cacheOption: .usedMemoryCache)
-}
+let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
+let data = AnimatedOptions.gifData("cycling")
+let options = AnimatedOptions.init(loop: .count(5))
+animatedView.play(data: data, filters: filters, options: options)
 ```
 
 - Any control implementation protocol ``AsAnimatable`` can support gif animated playback.
@@ -89,9 +106,13 @@ class GIFView: UIView, AsAnimatable {
 - The protocol that view classes need to conform to to enable gif animated support.
 
 ```swift
-public protocol AsAnimatable: HasAnimatable {    
+public protocol AsAnimatable: HasAnimatable {
+    
     /// Total duration of one animation loop
     var loopDuration: TimeInterval { get }
+    
+    /// The first frame of the current GIF.
+    var fristFrame: C7Image? { get }
     
     /// Returns the active frame if available.
     var activeFrame: C7Image? { get }
@@ -102,8 +123,8 @@ public protocol AsAnimatable: HasAnimatable {
     /// Introspect whether the instance is animating.
     var isAnimatingGIF: Bool { get }
     
-    /// Compute frame size for this gif.
-    var gifSize: Int { get }
+    /// Bitmap memory cost with bytes.
+    var cost: Int { get }
     
     /// Stop animating and free up GIF data from memory.
     func prepareForReuseGIF()
@@ -113,52 +134,60 @@ public protocol AsAnimatable: HasAnimatable {
     
     /// Stop animating GIF.
     func stopAnimatingGIF()
+    
+    /// Prepare for animation and start play GIF.
+    /// - Parameters:
+    ///   - data: gif data.
+    ///   - filters: Harbeth filters apply to image or gif frame.
+    ///   - options: Represents gif playback creating options used in Wintersweet.
+    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
 }
 ```
 
-Public two methods to play gif animated:
+### AnimatedOptions
 
-```swift
-/// Prepare for animation and start play gif.
-/// - Parameters:
-///   - GIFData: GIF image data.
-///   - filters: Wintersweet filters apply to gif frame.
-///   - loop: Desired number of loops. Default  is ``forever``.
-///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
-///   - bufferCount: The number of frames to buffer. Default is 50.
-///   - preparation: Ready to play time callback.
-///   - animated: Be played GIF.
-public func play(withGIFData data: Data,
-                 filters: [HFilter],
-                 loop: Wintersweet.Loop = .forever,
-                 contentMode: Wintersweet.ContentMode = .original,
-                 bufferCount: Int = 50,
-                 preparation: PreparationCallback? = nil,
-                 animated: AnimatedCallback? = nil) {
-    ...
+- Other parameters related to GIF playback.
+- Represents gif playback creating options used in Wintersweet.
+
+```
+public struct AnimatedOptions {
+
+    public static let `default`: Wintersweet.AnimatedOptions
+
+    /// Desired number of loops. Default  is ``forever``.
+    public let loop: Wintersweet.Loop
+
+    /// Content mode used for resizing the frames. Default is ``original``.
+    public let contentMode: Wintersweet.ContentMode
+
+    /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
+    public let bufferCount: Int
+
+    /// Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
+    public let cacheOption: Wintersweet.Cached.Options
+
+    /// Placeholder image. default gray picture.
+    public var placeholder: Harbeth.C7Image? { get }
+
+    /// Placeholder image size, default 100 x 100.
+    public var placeholderSize: CGSize
+
+    /// Ready to play time callback.
+    /// - Parameter block: Ready to play time response callback.
+    public mutating func setPreparation(block: @escaping Wintersweet.PreparationCallback)
+
+    /// Be played GIF.
+    /// - Parameter block: Playback complete response callback.
+    public mutating func setAnimated(block: @escaping Wintersweet.AnimatedCallback)
 }
 
-/// Prepare for animation and start play gif.
-/// - Parameters:
-///   - GIFURL: GIF image url.
-///   - filters: Wintersweet filters apply to gif frame.
-///   - loop: Desired number of loops. Default  is ``forever``.
-///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
-///   - cacheOption: Weather or not we should cache the URL response.
-///   - bufferCount: The number of frames to buffer. Default is 50.
-///   - preparation: Ready to play time callback.
-///   - animated: Be played GIF.
-///   - failed: Network failure callback.
-public func play(withGIFURL: URL,
-                 filters: [HFilter],
-                 loop: Wintersweet.Loop = .forever,
-                 contentMode: Wintersweet.ContentMode = .original,
-                 cacheOption: Wintersweet.Cached.Options = .disableMemoryCache,
-                 bufferCount: Int = 50,
-                 preparation: PreparationCallback? = nil,
-                 animated: AnimatedCallback? = nil,
-                 failed: FailedCallback? = nil) {
-    ...
+extension AnimatedOptions {
+
+    /// Load gif data.
+    public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data?
+
+    /// Load image resources
+    public static func image(_ named: String, forResource: String = "Wintersweet") -> Harbeth.C7Image?
 }
 ```
 
