@@ -54,7 +54,7 @@ options.setAnimated { loopDuration in
 }
 imageView.mt.displayImage(url: URL, filters: filters, options: options)
 
------------------------------------------------------------------------------------
+---------------------------------------------
 😘😘 And other methods:
 
 /// Display image or gif and add the filters.
@@ -62,7 +62,11 @@ imageView.mt.displayImage(url: URL, filters: filters, options: options)
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in Wintersweet.
-public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default)
+public func displayImage(
+    named: String, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default
+)
 
 /// Display image or gif and add the filters.
 /// - Parameters:
@@ -70,7 +74,11 @@ public func displayImage(named: String, filters: [C7FilterProtocol], options: An
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in Wintersweet.
 /// - Returns: A uniform type identifier UTI.
-public func displayImage(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) -> AssetType
+public func displayImage(
+    data: Data?, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default
+) -> AssetType
 
 /// Display network image or gif and add the filters.
 /// - Parameters:
@@ -79,7 +87,12 @@ public func displayImage(data: Data?, filters: [C7FilterProtocol], options: Anim
 ///   - options: Represents gif playback creating options used in Wintersweet.
 ///   - failed: Network failure callback.
 /// - Returns: Current network URLSessionDataTask.
-public func displayImage(url: URL, filters: [C7FilterProtocol], options: AnimatedOptions = .default, failed: FailedCallback? = nil) -> URLSessionDataTask?
+public func displayImage(
+    url: URL, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default, 
+    failed: FailedCallback? = nil
+) -> URLSessionDataTask?
 ```
 
 - Any control can play the local gif data.
@@ -160,10 +173,10 @@ public struct AnimatedOptions {
     /// Content mode used for resizing the frames. Default is ``original``.
     public let contentMode: Wintersweet.ContentMode
 
-    /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
+    /// The number of frames to buffer. Default is 50.
     public let bufferCount: Int
 
-    /// Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
+    /// Weather or not we should cache the URL response. Default is ``disableMemoryCache``.
     public let cacheOption: Wintersweet.Cached.Options
 
     /// Placeholder image. default gray picture.
@@ -185,9 +198,6 @@ extension AnimatedOptions {
 
     /// Load gif data.
     public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data?
-
-    /// Load image resources
-    public static func image(_ named: String, forResource: String = "Wintersweet") -> Harbeth.C7Image?
 }
 ```
 
@@ -197,12 +207,12 @@ extension AnimatedOptions {
 
 Example | ContentMode
 ---- | ---------
-![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`imageView.play(... contentMode: .original)`
-![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`imageView.play(... contentMode: .scaleToFill)`
-![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`imageView.play(... contentMode: .scaleAspectFit)`
-![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectFill)`
-![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectBottomRight)`
-![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`imageView.play(... contentMode: .scaleAspectTopLeft)`
+![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`AnimatedOptions(contentMode: .original)`
+![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`AnimatedOptions(contentMode: .scaleToFill)`
+![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFit)`
+![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFill)`
+![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectBottomRight)`
+![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectTopLeft)`
 
 ### Cached
 
