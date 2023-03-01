@@ -16,8 +16,10 @@
 - 支持播放本地和网络GIF动画；
 - 支持`NSImageView`或`UIImageView`显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
 - 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 内容填充模式；
-- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络GIF数据；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据；
+
+😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
 ------
 
@@ -37,14 +39,27 @@ imageView.mt.displayImage(url: URL, filters: filters, options: options)
 -----------------------------------------------------------------------------------
 😘😘 其他方法:
 
-/// 根据名称显示图像或GIF并添加过滤器
-public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default)
+/// 根据名称显示图像或GIF并添加滤镜
+public func displayImage(
+    named: String, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default
+)
 
-/// 显示数据源data图像或GIF并添加过滤器
-public func displayImage(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) -> AssetType
+/// 显示数据源data图像或GIF并添加滤镜
+public func displayImage(
+    data: Data?, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default
+) -> AssetType
 
-/// 显示网络图像或GIF并添加过滤器
-public func displayImage(url: URL, filters: [C7FilterProtocol], options: AnimatedOptions = .default, failed: FailedCallback? = nil) -> URLSessionDataTask?
+/// 显示网络图像或GIF并添加滤镜
+public func displayImage(
+    url: URL, 
+    filters: [C7FilterProtocol], 
+    options: AnimatedOptions = .default,
+    failed: FailedCallback? = nil
+) -> URLSessionDataTask?
 ```
 
 2. 任意控件实现协议`AsAnimatable`均可立刻支持GIF播放，核心其实就是在`layer.contents`显示帧图。
@@ -64,7 +79,7 @@ lazy var animatedView: GIFView = {
 }()
 
 let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
-let data = AnimatedOptions.gifData("cycling")
+let data = R.gifData("cycling")
 let options = AnimatedOptions.init(loop: .count(5))
 animatedView.play(data: data, filters: filters, options: options)
 ```
@@ -88,7 +103,7 @@ public protocol AsAnimatable: HasAnimatable {
     var isAnimatingGIF: Bool { get }
     
     /// 位图内存成本，单位字节
-    var cost: Int { get }
+    var costGIF: Int { get }
     
     /// 停止动画并从内存中释放GIF数据
     func prepareForReuseGIF()
@@ -115,17 +130,17 @@ public protocol AsAnimatable: HasAnimatable {
 ```
 public enum ContentMode {
     /// 原始图像的尺寸
-    case original
+    case original = 0
     /// 必要时通过更改内容的宽高比来缩放内容以适应自身大小的选项
-    case scaleToFill
+    case scaleToFill = 1
     /// 内容缩放以适应固定方面。其余部分是透明的
-    case scaleAspectFit
+    case scaleAspectFit = 2
     /// 内容缩放以填充固定方面。内容的某些部分可能会被剪切.
-    case scaleAspectFill
+    case scaleAspectFill = 3
     /// 内容缩放以填充固定方面。内容的顶部或左侧可以裁剪.
-    case scaleAspectBottomRight
+    case scaleAspectBottomRight = 4
     /// 内容缩放以填充固定方面。内容的底部或右侧部分可以裁剪
-    case scaleAspectTopLeft
+    case scaleAspectTopLeft = 5
 }
 ```
 
@@ -186,6 +201,10 @@ public enum Loop {
     case never
     /// 循环播放指定``count``次
     case count(_ count: Int)
+    /// 只显示第一帧
+    case fristFrame
+    /// 只显示最后一帧
+    case lastFrame
 }
 ```
 

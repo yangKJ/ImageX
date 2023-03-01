@@ -8,7 +8,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
+[**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a powerful library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
 
 -------
 
@@ -17,12 +17,12 @@ English | [**简体中文**](README_CN.md)
 ## Features
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
 
-- Support full platform system，macOS、iOS、tvOS、watchOS.
-- Support `NSImageView` or `UIImageView` display network image or gif and add the [Harbeth](https://github.com/yangKJ/Harbeth) filters.
 - Support local and network play gif animated.
-- Support any control and used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
-- Support six content filling modes.
-- Support cache network gif data.
+- Support asynchronous image or gif displaying and caching.
+- Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
+- Support extension `NSImageView` or `UIImageView` display image or gif and add the filters.
+- Support six image or gif content modes.
+- Support more platform system，macOS、iOS、tvOS、watchOS.
 
 ------
 
@@ -48,13 +48,14 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 ```swift
 let links = [``GIF Link URL``, ``Picture Link URL``]
 let URL = URL(string: links.randomElement() ?? "")!
-var options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
-options.setAnimated { loopDuration in
+let options = AnimatedOptions(contentMode: .scaleAspectFill, preparation: {
     // do something..
-}
+}, animated: { _ in
+    // play is complete and then do something..
+})
 imageView.mt.displayImage(url: URL, filters: filters, options: options)
 
----------------------------------------------
+----------------------------------------------------------------
 😘😘 And other methods:
 
 /// Display image or gif and add the filters.
@@ -99,8 +100,8 @@ public func displayImage(
 
 ```swift
 let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
-let data = AnimatedOptions.gifData("cycling")
-let options = AnimatedOptions.init(loop: .count(5))
+let data = R.gifData(``GIF Name``)
+let options = AnimatedOptions(placeholder: .color(.cyan), loop: .count(5))
 animatedView.play(data: data, filters: filters, options: options)
 ```
 
@@ -132,42 +133,25 @@ Example | ContentMode
 - Other parameters related to GIF playback.
 - Represents gif playback creating options used in Wintersweet.
 
-```
+```swift
 public struct AnimatedOptions {
-
-    public static let `default`: Wintersweet.AnimatedOptions
-
-    /// Desired number of loops. Default  is ``forever``.
+    
+    public static let `default` = AnimatedOptions()
+    
+    /// Desired number of loops. Default is ``forever``.
     public let loop: Wintersweet.Loop
-
+    
     /// Content mode used for resizing the frames. Default is ``original``.
     public let contentMode: Wintersweet.ContentMode
-
+    
     /// The number of frames to buffer. Default is 50.
     public let bufferCount: Int
-
+    
     /// Weather or not we should cache the URL response. Default is ``disableMemoryCache``.
     public let cacheOption: Wintersweet.Cached.Options
-
+    
     /// Placeholder image. default gray picture.
-    public var placeholder: Harbeth.C7Image? { get }
-
-    /// Placeholder image size, default 100 x 100.
-    public var placeholderSize: CGSize
-
-    /// Ready to play time callback.
-    /// - Parameter block: Ready to play time response callback.
-    public mutating func setPreparation(block: @escaping Wintersweet.PreparationCallback)
-
-    /// Be played GIF.
-    /// - Parameter block: Playback complete response callback.
-    public mutating func setAnimated(block: @escaping Wintersweet.AnimatedCallback)
-}
-
-extension AnimatedOptions {
-
-    /// Load gif data.
-    public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data?
+    public let placeholder: Wintersweet.Placeholder
 }
 ```
 
@@ -178,10 +162,10 @@ extension AnimatedOptions {
 ```swift
 public protocol AsAnimatable: HasAnimatable {
     
-    /// Total duration of one animation loop
+    /// Total duration of one animation loop.
     var loopDuration: TimeInterval { get }
     
-    /// The first frame of the current GIF.
+    /// The first frame that is not nil of GIF.
     var fristFrame: C7Image? { get }
     
     /// Returns the active frame if available.
@@ -194,7 +178,7 @@ public protocol AsAnimatable: HasAnimatable {
     var isAnimatingGIF: Bool { get }
     
     /// Bitmap memory cost with bytes.
-    var cost: Int { get }
+    var costGIF: Int { get }
     
     /// Stop animating and free up GIF data from memory.
     func prepareForReuseGIF()
@@ -211,6 +195,23 @@ public protocol AsAnimatable: HasAnimatable {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in Wintersweet.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
+}
+```
+
+#### Placeholder
+
+- Represent a placeholder type which could be set while loading as well as loading finished without getting an image.
+
+```swift
+public enum Placeholder {
+    /// Do not use any placeholder.
+    case none
+    /// Use solid color image as placeholder.
+    case color(C7Color)
+    /// Use image as placeholder.
+    case image(C7Image)
+    /// Use a custom view as placeholder.
+    case view(View)
 }
 ```
 
@@ -241,25 +242,10 @@ public enum Loop {
     case never
     /// Loop the specified ``count`` times.
     case count(_ count: Int)
-}
-```
-
-### ImageContainer
-
-- A single property protocol that animatable classes can optionally conform to. 
-- Generally, controls with `image` attributes need to implement this protocol.
-
-```
-public protocol ImageContainer {
-    /// Used for displaying the animation frames.
-    var image: C7Image? { get set }
-}
-
-extension AsAnimatable where Self: ImageContainer {
-    /// Returns the intrinsic content size based on the size of the image.
-    public var intrinsicContentSize: CGSize {
-        return image?.size ?? CGSize.zero
-    }
+    /// Displayed the first frame.
+    case fristFrame
+    /// Displayed the last frame.
+    case lastFrame
 }
 ```
 
