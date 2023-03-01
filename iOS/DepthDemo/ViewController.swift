@@ -31,11 +31,12 @@ class ViewController: UIViewController {
         C7Storyboard(ranks: 2),
     ]
     func setup(imageName: String) {
-        var options = AnimatedOptions(contentMode: .scaleAspectFit, bufferCount: 10)
-        options.setPreparation { [weak self] in
+        let options = AnimatedOptions(contentMode: .scaleAspectFit, bufferCount: 10, preparation: { [weak self] in
             guard let `self` = self else { return }
             self.label.text = imageName.capitalized + " (\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s)"
-        }
+        }, animated: { _ in
+            print("Played end!!!")
+        })
         imageView.mt.displayImage(named: imageName, filters: filters, options: options)
     }
 }

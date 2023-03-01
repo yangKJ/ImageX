@@ -22,6 +22,15 @@ class GifViewController: UIViewController {
         return view
     }()
     
+    lazy var placeholder: UILabel = {
+        let label = UILabel()
+        label.text = R.text("Condy")
+        label.backgroundColor = .systemCyan
+        label.font = UIFont.systemFont(ofSize: 50)
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -45,8 +54,8 @@ class GifViewController: UIViewController {
             C7WhiteBalance(temperature: 5555),
             C7LookupTable(image: R.image("lut_x"))
         ]
-        let data = AnimatedOptions.gifData("cycling")
-        let options = AnimatedOptions.init(loop: .count(5))
+        let data = R.gifData("cycling")
+        let options = AnimatedOptions(placeholder: .view(placeholder), loop: .count(5))
         animatedView.play(data: data, filters: filters, options: options)
     }
     

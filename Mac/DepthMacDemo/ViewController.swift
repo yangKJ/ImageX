@@ -32,7 +32,7 @@ class ViewController: NSViewController {
             //"https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let URL = URL(string: links.randomElement() ?? "")!
-        let options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
+        let options = AnimatedOptions(placeholder: .image(R.image("IMG_0020")!), contentMode: .scaleAspectBottomRight)
         imageView.mt.displayImage(url: URL, filters: filters, options: options)
         //imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
     }

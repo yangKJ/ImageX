@@ -58,6 +58,11 @@ final class FrameStore {
         }
     }
     
+    /// The first frame that is not nil of GIF.
+    var fristFrame: C7Image? {
+        return animatedFrames.compactMap({ $0.image }).first
+    }
+    
     /// The current image frame to show.
     var currentFrameImage: C7Image? {
         return frame(at: currentFrameIndex)
@@ -66,6 +71,14 @@ final class FrameStore {
     /// Is this image animatable?
     var isAnimatable: Bool {
         return imageSource.mt.isAnimatedGIF
+    }
+    
+    /// Bitmap memory cost with bytes.
+    var cost: Int {
+        guard let image = currentFrameImage else {
+            return 0
+        }
+        return Int(image.size.height * image.size.width * 4) * frameCount / 1_000_000
     }
     
     /// Creates an animator instance from raw GIF image data and an `Animatable` delegate.

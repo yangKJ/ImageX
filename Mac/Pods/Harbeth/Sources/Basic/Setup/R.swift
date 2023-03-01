@@ -15,11 +15,10 @@ import AppKit
 /// 资源文件读取
 public struct R {
     
-    /// Load image resources
-    public static func image(_ named: String, forResource: String = "Harbeth") -> C7Image {
-        let imageblock = { (name: String) -> C7Image in
-            let image = C7Image(named: named)
-            return image ?? C7Image()
+    /// Read image resources
+    public static func image(_ named: String, forResource: String = "Harbeth") -> C7Image? {
+        let imageblock = { (name: String) -> C7Image? in
+            C7Image.init(named: name)
         }
         guard let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") else {
             return imageblock(named)
@@ -36,7 +35,32 @@ public struct R {
         }
         return image
         #else
-        #error("Unsupported Platform")
+        return nil
+        #endif
+    }
+    
+    /// Read multilingual text resources
+    public static func text(_ named: String, forResource: String = "Harbeth", comment: String = "Localizable") -> String {
+        guard let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle"),
+              let bundle = Bundle.init(path: bundlePath) else {
+            return named
+        }
+        return NSLocalizedString(named, tableName: nil, bundle: bundle, value: "", comment: comment)
+    }
+    
+    /// Read color resource
+    @available(iOS 11.0, *, macOS 10.13, *)
+    public static func color(_ named: String, forResource: String = "Harbeth") -> C7Color? {
+        guard let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") else {
+            return C7Color.init(named: named)
+        }
+        let bundle = Bundle.init(path: bundlePath)
+        #if os(iOS) || os(tvOS) || os(watchOS)
+        return C7Color.init(named: named, in: bundle, compatibleWith: nil)
+        #elseif os(macOS)
+        return C7Color.init(named: named, bundle: bundle)
+        #else
+        return nil
         #endif
     }
 }

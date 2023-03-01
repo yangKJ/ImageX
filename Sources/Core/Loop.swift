@@ -8,9 +8,16 @@
 import Foundation
 
 public enum Loop {
+    /// Unlimited loop playback.
     case forever
+    /// Play once.
     case never
+    /// The specified  `count` number of plays.
     case count(_ count: Int)
+    /// Displayed the first frame.
+    case fristFrame
+    /// Displayed the last frame.
+    case lastFrame
 }
 
 extension Wintersweet.Loop {
@@ -24,6 +31,8 @@ extension Wintersweet.Loop {
         case .count(let count):
             assert(count > 0) // disable: this empty_count
             return count
+        case .fristFrame, .lastFrame:
+            return 0
         }
     }
 }

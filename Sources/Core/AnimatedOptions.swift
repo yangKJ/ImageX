@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Harbeth
+@_exported import Harbeth
 
 public typealias PreparationCallback = (() -> Void)
 public typealias AnimatedCallback = ((_ loopDuration: TimeInterval) -> Void)
@@ -18,9 +18,8 @@ public struct AnimatedOptions {
     
     public static let `default` = AnimatedOptions()
     
-    internal var preparation: PreparationCallback?
-    internal var animated: AnimatedCallback?
-    private let placeholderImage: Harbeth.C7Image?
+    public let preparation: PreparationCallback?
+    public let animated: AnimatedCallback?
     
     /// Desired number of loops. Default  is ``forever``.
     public let loop: Wintersweet.Loop
@@ -31,49 +30,53 @@ public struct AnimatedOptions {
     /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     public let bufferCount: Int
     
-    /// Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
+    /// Weather or not we should cache the URL response. Default is ``disableMemoryCache``.
     public let cacheOption: Wintersweet.Cached.Options
     
     /// Placeholder image. default gray picture.
-    public var placeholder: Harbeth.C7Image? {
-        get {
-            return placeholderImage ?? C7Color.gray.mt.colorImage(with: placeholderSize)
-        }
-    }
-    /// Placeholder image size, default 100 x 100.
-    public var placeholderSize: CGSize = CGSize(width: 100, height: 100)
+    public let placeholder: Wintersweet.Placeholder
     
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
-    ///   - placeholder: Placeholder image. Default gray picture.
+    ///   - placeholder: Placeholder information. Default ``none``.
     ///   - loop: Desired number of loops. Default  is ``forever``.
     ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
     ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
-    public init(placeholder: C7Image? = nil, loop: Loop = .forever, contentMode: ContentMode = .original, bufferCount: Int = 50, cacheOption: Cached.Options = .disableMemoryCache) {
+    ///   - preparation: Ready to play time callback.
+    ///   - animated: Be played GIF.
+    public init(placeholder: Placeholder = .none,
+                loop: Loop = .forever,
+                contentMode: ContentMode = .original,
+                bufferCount: Int = 50,
+                cacheOption: Cached.Options = .disableMemoryCache,
+                preparation: PreparationCallback? = nil,
+                animated: AnimatedCallback? = nil) {
         self.loop = loop
         self.contentMode = contentMode
         self.bufferCount = bufferCount
         self.cacheOption = cacheOption
-        self.placeholderImage = placeholder
+        self.placeholder = placeholder
+        self.preparation = preparation
+        self.animated = animated
     }
     
-    /// Ready to play time callback.
-    /// - Parameter block: Ready to play time response callback.
-    public mutating func setPreparation(block: @escaping PreparationCallback) {
-        self.preparation = block
-    }
-    
-    /// Be played GIF.
-    /// - Parameter block: Playback complete response callback.
-    public mutating func setAnimated(block: @escaping AnimatedCallback) {
-        self.animated = block
+    internal var displayed: Bool = false // 防止重复设置占位信息
+    internal func setDisplayed(placeholder displayed: Bool) -> Self {
+        var options = self
+        options.displayed = displayed
+        return options
     }
 }
 
-extension AnimatedOptions {
+extension R {
     
-    /// Load gif data.
+    /// Read image resources
+    public static func image(_ named: String) -> C7Image? {
+        return Harbeth.R.image(named, forResource: "Wintersweet")
+    }
+    
+    /// Read gif data.
     public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data? {
         let bundle: Bundle?
         if let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") {
@@ -87,29 +90,5 @@ extension AnimatedOptions {
             return nil
         }
         return try? Data(contentsOf: contentURL)
-    }
-}
-
-extension AnimatedOptions {
-    /// Load image resources
-    static func image(_ named: String) -> C7Image? {
-        let imageblock = { (name: String) -> C7Image? in
-            return C7Image(named: named)
-        }
-        guard let bundlePath = Bundle.main.path(forResource: "Wintersweet", ofType: "bundle") else {
-            return imageblock(named)
-        }
-        let bundle = Bundle.init(path: bundlePath)
-        #if os(iOS) || os(tvOS) || os(watchOS)
-        guard let image = C7Image(named: named, in: bundle, compatibleWith: nil) else {
-            return imageblock(named)
-        }
-        return image
-        #elseif os(macOS)
-        guard let image = bundle?.image(forResource: named) else {
-            return imageblock(named)
-        }
-        return image
-        #endif
     }
 }

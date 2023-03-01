@@ -16,7 +16,18 @@ public typealias ImageView = NSImageView
 #endif
 
 extension ImageView: AsAnimatable, ImageContainer, C7Compatible {
-    
+    fileprivate func setImage(image: C7Image?, filters: [C7FilterProtocol], options: AnimatedOptions) {
+        if options.displayed == false {
+            options.placeholder.display(to: self, contentMode: options.contentMode)
+        }
+        self.hasAnimator?.prepareForReuse()
+        let resizeImage = options.contentMode.resizeImage(image, size: self.frame.size)
+        let dest = BoxxIO(element: resizeImage, filters: filters)
+        if let outImage = try? dest.output() {
+            options.placeholder.remove(from: self)
+            self.setContentImage(outImage)
+        }
+    }
 }
 
 extension Queen where Base: ImageView {
@@ -27,15 +38,12 @@ extension Queen where Base: ImageView {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in Wintersweet.
     public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default) {
-        if let data = AnimatedOptions.gifData(named) {
+        let options = options.setDisplayed(placeholder: true)
+        options.placeholder.display(to: base, contentMode: options.contentMode)
+        if let data = R.gifData(named) {
             displayImage(data: data, filters: filters, options: options)
-        } else if let image = AnimatedOptions.image(named) {
-            self.base.hasAnimator?.prepareForReuse()
-            let resizeImage = options.contentMode.resizeImage(image, size: base.frame.size)
-            let dest = BoxxIO(element: resizeImage, filters: filters)
-            self.base.image = try? dest.output()
-        } else {
-            self.base.image = options.contentMode.resizeImage(options.placeholder, size: base.frame.size)
+        } else if let image = R.image(named) {
+            base.setImage(image: image, filters: filters, options: options)
         }
     }
     
@@ -53,15 +61,14 @@ extension Queen where Base: ImageView {
         let type = AssetType(data: data)
         switch type {
         case .jpeg, .png, .tiff, .webp, .heic, .heif:
-            self.base.hasAnimator?.prepareForReuse()
-            var image = Harbeth.C7Image.init(data: data!)
-            image = options.contentMode.resizeImage(image, size: base.frame.size)
-            let dest = BoxxIO(element: image, filters: filters)
-            self.base.image = try? dest.output()
+            let image = Harbeth.C7Image.init(data: data!)
+            self.base.setImage(image: image, filters: filters, options: options)
         case .gif:
             self.base.play(data: data, filters: filters, options: options)
         default:
-            self.base.image = options.contentMode.resizeImage(options.placeholder, size: base.frame.size)
+            if options.displayed == false {
+                options.placeholder.display(to: base, contentMode: options.contentMode)
+            }
             self.base.hasAnimator?.prepareForReuse()
             break
         }
@@ -81,7 +88,8 @@ extension Queen where Base: ImageView {
         options: AnimatedOptions = AnimatedOptions.default,
         failed: FailedCallback? = nil
     ) -> URLSessionDataTask? {
-        self.base.image = options.contentMode.resizeImage(options.placeholder, size: base.frame.size)
+        let options = options.setDisplayed(placeholder: true)
+        options.placeholder.display(to: base, contentMode: options.contentMode)
         let key = Cached.cacheKey(url: url)
         if let data: Data = options.cacheOption.read(key: key) {
             self.displayImage(data: data, filters: filters, options: options)

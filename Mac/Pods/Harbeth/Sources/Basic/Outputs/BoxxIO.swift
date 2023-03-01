@@ -3,7 +3,7 @@
 //  Harbeth
 //
 //  Created by Condy on 2022/10/22.
-//
+//  https://github.com/yangKJ/Harbeth
 
 import Foundation
 import MetalKit
@@ -12,12 +12,11 @@ import CoreMedia
 import CoreVideo
 
 /// Quickly add filters to sources.
-/// Support use ``UIImage, CGImage, CIImage, MTLTexture, CMSampleBuffer, CVPixelBuffer``
-/// See: https://github.com/yangKJ/Harbeth
+/// Support use ``UIImage/NSImage, CGImage, CIImage, MTLTexture, CMSampleBuffer, CVPixelBuffer``
 @frozen public struct BoxxIO<Dest> : Destype {
     public typealias Element = Dest
-    public var element: Dest
-    public var filters: [C7FilterProtocol]
+    public let element: Dest
+    public let filters: [C7FilterProtocol]
     
     // Since the camera acquisition generally uses ' kCVPixelFormatType_32BGRA '
     // The pixel format needs to be consistent, otherwise it will appear blue phenomenon.
