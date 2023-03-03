@@ -22,6 +22,7 @@ English | [**简体中文**](README_CN.md)
 - Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
 - Support extension `NSImageView` or `UIImageView` display image or gif and add the filters.
 - Support six image or gif content modes.
+- Support disk and memory cached network data, And the data is compressed by GZip.
 - Support more platform system，macOS、iOS、tvOS、watchOS.
 
 ------
@@ -147,7 +148,7 @@ public struct AnimatedOptions {
     /// The number of frames to buffer. Default is 50.
     public let bufferCount: Int
     
-    /// Weather or not we should cache the URL response. Default is ``disableMemoryCache``.
+    /// Weather or not we should cache the URL response. Default is ``all``.
     public let cacheOption: Wintersweet.Cached.Options
     
     /// Placeholder image. default gray picture.
@@ -217,17 +218,18 @@ public enum Placeholder {
 
 ### Cached
 
-- Network data caching type.
+- Network data caching type. There are two modes: memory and disk storage.
+- Among them, the disk storage uses GZip to compress data, so it will occupy less space.
 
 ```
-/// Disables memory cache reads.
-public static let disableMemoryCacheReads = Options(rawValue: 1 << 0)
-/// Disables memory cache writes.
-public static let disableMemoryCacheWrites = Options(rawValue: 1 << 1)
-/// Read and write memory cache.
-public static let usedMemoryCache = Options(rawValue: 1 << 2)
-/// Disables both memory cache reads and writes.
-public static let disableMemoryCache: Options = //
+/// Do not use any cache.
+public static let none = Options(rawValue: 1 << 0)
+/// Cache the data in memory.
+public static let memory = Options(rawValue: 1 << 1)
+/// Cache the data in disk, Use ``GZip`` to compress data.
+public static let disk = Options(rawValue: 1 << 2)
+/// Use memory and disk cache at the same time to read memory first.
+public static let all: Options = [.memory, .disk]
 ```
 
 ### Loop

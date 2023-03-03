@@ -179,14 +179,14 @@ public enum ContentMode {
 - 网络数据缓存类型
 
 ```
-/// 禁用内存缓存读取
-public static let disableMemoryCacheReads = Options(rawValue: 1 << 0)
-/// 禁用内存缓存写入
-public static let disableMemoryCacheWrites = Options(rawValue: 1 << 1)
-/// 读写内存缓存
-public static let usedMemoryCache = Options(rawValue: 1 << 2)
-/// 禁用内存缓存读取和写入
-public static let disableMemoryCache: Options = [.disableMemoryCacheReads, .disableMemoryCacheWrites]
+/// 不使用缓存
+public static let none = Options(rawValue: 1 << 0)
+/// 使用内存缓存数据
+public static let memory = Options(rawValue: 1 << 1)
+/// 使用磁盘缓存数据
+public static let disk = Options(rawValue: 1 << 2)
+/// 同时使用磁盘和内存缓存，优先读取内存数据
+public static let all: Options = [.memory, .disk]
 ```
 
 ### Loop
