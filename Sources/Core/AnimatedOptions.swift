@@ -30,7 +30,7 @@ public struct AnimatedOptions {
     /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     public let bufferCount: Int
     
-    /// Weather or not we should cache the URL response. Default is ``disableMemoryCache``.
+    /// Weather or not we should cache the URL response. Default is ``all``.
     public let cacheOption: Wintersweet.Cached.Options
     
     /// Placeholder image. default gray picture.
@@ -42,14 +42,14 @@ public struct AnimatedOptions {
     ///   - loop: Desired number of loops. Default  is ``forever``.
     ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
     ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
-    ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``disableMemoryCache``.
+    ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``all``.
     ///   - preparation: Ready to play time callback.
     ///   - animated: Be played GIF.
     public init(placeholder: Placeholder = .none,
                 loop: Loop = .forever,
                 contentMode: ContentMode = .original,
                 bufferCount: Int = 50,
-                cacheOption: Cached.Options = .disableMemoryCache,
+                cacheOption: Cached.Options = .all,
                 preparation: PreparationCallback? = nil,
                 animated: AnimatedCallback? = nil) {
         self.loop = loop

@@ -90,8 +90,7 @@ extension Queen where Base: ImageView {
     ) -> URLSessionDataTask? {
         let options = options.setDisplayed(placeholder: true)
         options.placeholder.display(to: base, contentMode: options.contentMode)
-        let key = Cached.cacheKey(url: url)
-        if let data: Data = options.cacheOption.read(key: key) {
+        if let data = options.cacheOption.read(key: url) {
             self.displayImage(data: data, filters: filters, options: options)
             return nil
         }
@@ -103,7 +102,7 @@ extension Queen where Base: ImageView {
                 DispatchQueue.main.async {
                     self.displayImage(data: data, filters: filters, options: options)
                 }
-                options.cacheOption.write(key: key, value: data as NSData)
+                options.cacheOption.write(key: url, value: data)
             }
         }
         task.resume()

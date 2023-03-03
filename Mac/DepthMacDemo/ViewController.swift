@@ -18,7 +18,6 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         let filters: [C7FilterProtocol] = [
             C7SoulOut(soul: 0.75),
