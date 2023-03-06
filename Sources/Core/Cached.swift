@@ -25,9 +25,10 @@ public struct Cached {
         return SharedCache.shared
     }
     
-    fileprivate static var ioQueue: DispatchQueue {
+    static var backgroundQueue: DispatchQueue {
         struct SharedCache {
-            static var shared: DispatchQueue = DispatchQueue(label: "com.condy.wintersweet.cached.queue")
+            // 自定义后台运行级别并行队列
+            static var shared = DispatchQueue(label: "com.condy.wintersweet.cached.queue", qos: .background, attributes: [.concurrent])
         }
         return SharedCache.shared
     }
@@ -78,7 +79,11 @@ extension Cached.Options {
     /// The longest time duration in second of the cache being stored in disk.
     /// Default is 1 week ``60 * 60 * 24 * 7 seconds``.
     /// Setting this to a negative value will make the disk cache never expiring.
-    public static var maxCachePeriodInSecond: TimeInterval = 60 * 60 * 24 * 7
+    public static var maxCachePeriodInSecond: TimeInterval = 60 * 60 * 24 * 7 {
+        didSet {
+            maxCachePeriodInSecond = max(0, maxCachePeriodInSecond)
+        }
+    }
     
     /// The largest disk size can be taken for the cache. It is the total allocated size of cached files in bytes. Default is no limit.
     public static var maxDiskCacheSize: UInt = 0
@@ -92,14 +97,15 @@ extension Cached.Options {
     }
     
     /// Clear the memory cache.
-    public static func cleanupMemoryCache() {
+    public static func cleanedUpMemoryCache() {
         Cached.memory.removeAllObjects()
+        //Cached.memory.removeObject(forKey: <#T##AnyObject#>)
     }
     
     /// Clear the disk cache.
     /// - Parameter completion: Complete the callback.
-    public static func cleanupDiskCache(completion: (() -> Void)? = nil) {
-        Cached.ioQueue.async {
+    public static func cleanedUpDiskCache(completion: (() -> Void)? = nil) {
+        Cached.backgroundQueue.async {
             guard let docPath = Cached.diskCacheDoc else {
                 return
             }
@@ -110,31 +116,46 @@ extension Cached.Options {
             DispatchQueue.main.async { completion?() }
         }
     }
+    
+    /// Clear the disk data of the expiration time.
+    /// - Parameter completion: Complete the callback.
+    public static func cleanedUpExpiredDiskCache(completion: @escaping ((_ expiredURLs: [URL]) -> Void)) {
+        Cached.backgroundQueue.async {
+            Cached.Options.removeExpiredURLsFromDisk(completion: { expiredURLs in
+                DispatchQueue.main.async {
+                    completion(expiredURLs)
+                }
+            })
+        }
+    }
 }
 
 extension Cached.Options {
     
     func read(key: URL) -> Data? {
+        func memoryCacheData(key: URL) -> Data? {
+            return Cached.memory.object(forKey: key as AnyObject) as? Data
+        }
+        func diskCacheData(key: URL) -> Data? {
+            if let cachePath = Cached.diskCachePath(url: key),
+               let data = try? Data(contentsOf: URL(fileURLWithPath: cachePath)) {
+                return Queen<GZip>.decompress(data: data)
+            }
+            return nil
+        }
         switch self {
         case .none:
             return nil
         case .memory:
-            return Cached.memory.object(forKey: key as AnyObject) as? Data
+            return memoryCacheData(key: key)
         case .disk:
-            if let cachePath = Cached.diskCachePath(url: key),
-               let data = try? Data(contentsOf: URL(fileURLWithPath: cachePath)) {
-                return Queen<GZip>.decompress(data: data)
-            }
-            return nil
+            return diskCacheData(key: key)
         case .all:
-            if let data = Cached.memory.object(forKey: key as AnyObject) as? Data {
+            if let data = memoryCacheData(key: key) {
                 return data
+            } else {
+                return diskCacheData(key: key)
             }
-            if let cachePath = Cached.diskCachePath(url: key),
-               let data = try? Data(contentsOf: URL(fileURLWithPath: cachePath)) {
-                return Queen<GZip>.decompress(data: data)
-            }
-            return nil
         default:
             return nil
         }
@@ -155,7 +176,7 @@ extension Cached.Options {
             let data = Queen<GZip>.compress(data: data)
             Cached.disk.createFile(atPath: cachePath, contents: data, attributes: nil)
         }
-        Cached.ioQueue.async {
+        Cached.backgroundQueue.async {
             switch self {
             case .none:
                 break
@@ -169,6 +190,87 @@ extension Cached.Options {
             default:
                 break
             }
+        }
+    }
+}
+
+extension Cached.Options {
+    
+    /// Get disk cache files and file sizes and expired files.
+    static func getCachedFilesAndExpiredURLs() -> (expiredURLs: [URL], cachedFiles: [URL: URLResourceValues], diskCacheSize: UInt)? {
+        guard let docPath = Cached.diskCacheDoc else {
+            return nil
+        }
+        let resourceKeys: Set<URLResourceKey> = [.isDirectoryKey, .contentAccessDateKey, .totalFileAllocatedSizeKey]
+        guard let fileUrls = (try? Cached.disk.contentsOfDirectory(at: URL(fileURLWithPath: docPath),
+                                                                   includingPropertiesForKeys: Array(resourceKeys),
+                                                                   options: .skipsHiddenFiles)) else {
+            return nil
+        }
+        let expiredDate = Date(timeIntervalSinceNow: -Cached.Options.maxCachePeriodInSecond)
+        var cachedFiles = [URL: URLResourceValues]()
+        var expiredURLs = [URL]()
+        var diskCacheSize: UInt = 0
+        for fileUrl in fileUrls {
+            do {
+                let resourceValues = try fileUrl.resourceValues(forKeys: resourceKeys)
+                // If it is a Directory. Continue to next file URL.
+                if resourceValues.isDirectory == true {
+                    continue
+                }
+                // If this file is expired, add it to URLsToDelete
+                if let lastAccessData = resourceValues.contentAccessDate,
+                   (lastAccessData as NSDate).laterDate(expiredDate) == expiredDate {
+                    expiredURLs.append(fileUrl)
+                    continue
+                }
+                if let fileSize = resourceValues.totalFileAllocatedSize {
+                    diskCacheSize += UInt(fileSize)
+                    cachedFiles[fileUrl] = resourceValues
+                }
+            } catch { }
+        }
+        return (expiredURLs, cachedFiles, diskCacheSize)
+    }
+    
+    /// Remove expired files from disk.
+    /// - Parameter completion: Removed file URLs callback.
+    static func removeExpiredURLsFromDisk(completion: ((_ expiredURLs: [URL]) -> Void)? = nil) {
+        guard let tuple = getCachedFilesAndExpiredURLs() else {
+            return
+        }
+        var expiredURLs = tuple.expiredURLs
+        let cachedFiles = tuple.cachedFiles
+        var diskCacheSize = tuple.diskCacheSize
+        for fileURL in expiredURLs {
+            try? Cached.disk.removeItem(at: fileURL)
+        }
+        typealias Sorted = Dictionary<URL, URLResourceValues>
+        // Sort files by last modify date. We want to clean from the oldest files.
+        func keysSortedByValue(dict: Sorted, isOrderedBefore: (Sorted.Value, Sorted.Value) -> Bool) -> [Sorted.Key] {
+            return Array(dict).sorted{ isOrderedBefore($0.1, $1.1) }.map{ $0.0 }
+        }
+        if Cached.Options.maxDiskCacheSize > 0 && diskCacheSize > Cached.Options.maxDiskCacheSize {
+            let sortedFiles = keysSortedByValue(dict: cachedFiles) { value1, value2 -> Bool in
+                if let date1 = value1.contentAccessDate, let date2 = value2.contentAccessDate {
+                    return date1.compare(date2) == .orderedAscending
+                }
+                // Not valid date information. This should not happen. Just in case.
+                return true
+            }
+            let targetSize = Cached.Options.maxDiskCacheSize / 2
+            for fileURL in sortedFiles {
+                if let _ = try? Cached.disk.removeItem(at: fileURL) {
+                    expiredURLs.append(fileURL)
+                    if let fileSize = cachedFiles[fileURL]?.totalFileAllocatedSize {
+                        diskCacheSize -= UInt(fileSize)
+                    }
+                }
+                if diskCacheSize < targetSize {
+                    break
+                }
+            }
+            completion?(expiredURLs)
         }
     }
 }

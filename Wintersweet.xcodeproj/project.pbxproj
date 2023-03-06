@@ -80,6 +80,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		870373F129B57CD9002D0042 /* RunloopOptimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunloopOptimize.swift; sourceTree = "<group>"; };
 		870DBCAC2990929B000A36F6 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
 		870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		872E2E0529ADA662003F241E /* AnimatedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOptions.swift; sourceTree = "<group>"; };
@@ -1165,6 +1166,7 @@
 				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
+				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

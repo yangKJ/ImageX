@@ -19,4 +19,14 @@ extension Collection {
         //return indices ~= index ? self[index] : nil
         return indices.contains(index) ? self[index] : nil
     }
+    
+    /// Find the first element that meets a specific condition in a reverse array.
+    /// - Parameter predicate: Find the conditions.
+    /// - Returns: Finded element.
+    public func find(where predicate: (Element) throws -> Bool) rethrows -> Element? {
+        for element in reversed() where try predicate(element) {
+            return element
+        }
+        return nil
+    }
 }

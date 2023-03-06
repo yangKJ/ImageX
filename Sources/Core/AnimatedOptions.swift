@@ -59,6 +59,7 @@ public struct AnimatedOptions {
         self.placeholder = placeholder
         self.preparation = preparation
         self.animated = animated
+        AnimatedOptions.setupRunloopOptimizeCleanedUpDiskCached()
     }
     
     internal var displayed: Bool = false // 防止重复设置占位信息
@@ -69,7 +70,37 @@ public struct AnimatedOptions {
     }
 }
 
+extension AnimatedOptions {
+    
+    /// Have you cleaned up the disk cache in your spare time?
+    public private(set) static var cleanedUpDiskCached: Bool = false
+    /// Configure free time to clear the disk cache.
+    public static func setupRunloopOptimizeCleanedUpDiskCached() {
+        if AnimatedOptions.cleanedUpDiskCached {
+            return
+        }
+        Cached.backgroundQueue.async {
+            RunloopOptimize.default.commit { oneself in
+                if AnimatedOptions.cleanedUpDiskCached {
+                    oneself.removeAllTasks()
+                } else {
+                    Cached.Options.cleanedUpExpiredDiskCache { _ in
+                        AnimatedOptions.cleanedUpDiskCached = true
+                    }
+                }
+            }
+        }
+    }
+}
+
 extension R {
+    
+    /// Compare whether the addresses of the two objects are the same.
+    public static func equateable(object1: AnyObject, object2: AnyObject) -> Bool {
+        let str1 = String(describing: Unmanaged<AnyObject>.passUnretained(object1).toOpaque())
+        let str2 = String(describing: Unmanaged<AnyObject>.passUnretained(object2).toOpaque())
+        return str1 == str2
+    }
     
     /// Read image resources
     public static func image(_ named: String) -> C7Image? {
@@ -92,3 +123,53 @@ extension R {
         return try? Data(contentsOf: contentURL)
     }
 }
+
+
+//extension RunloopOptimize {
+//    private func setupNotification() {
+//        #if !os(macOS) && !os(watchOS)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(clearMemoryCache),
+//                                               name: UIApplication.didReceiveMemoryWarningNotification,
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(backgroundCleanExpiredDiskCache),
+//                                               name: UIApplication.didEnterBackgroundNotification,
+//                                               object: nil)
+//        #endif
+//    }
+//}
+//
+//#if !os(macOS) && !os(watchOS)
+//extension RunloopOptimize {
+//
+//    @objc public func clearMemoryCache() {
+//        Cached.Options.cleanedUpMemoryCache()
+//    }
+//
+//    @objc public func backgroundCleanExpiredDiskCache() {
+//        if cleanuped == true {
+//            return
+//        }
+//        let selector = NSSelectorFromString("sharedApplication")
+//        guard UIApplication.responds(to: selector),
+//              let application = UIApplication.perform(selector).takeUnretainedValue() as? UIApplication else {
+//            return
+//        }
+//
+//        func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
+//            application.endBackgroundTask(task)
+//            task = UIBackgroundTaskIdentifier.invalid
+//        }
+//
+//        var backgroundTask: UIBackgroundTaskIdentifier!
+//        backgroundTask = application.beginBackgroundTask {
+//            endBackgroundTask(&backgroundTask)
+//        }
+//
+//        Cached.Options.cleanedUpExpiredDiskCache(completion: {
+//            endBackgroundTask(&backgroundTask)
+//        })
+//    }
+//}
+//#endif
