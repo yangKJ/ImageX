@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Wintersweet'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'GIF animation and support Harbeth filter.'
   
   # This description is used to generate tags and improve search results.
