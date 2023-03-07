@@ -58,18 +58,18 @@ public struct Cached {
         guard let prefix = domains.first else {
             return nil
         }
-        return (prefix as NSString).appendingPathComponent("wintersweet_data_cache")
+        return (prefix as NSString).appendingPathComponent("IkerCached")
     }()
     
     /// The full path of the md5 encrypted file.
     /// - Parameter url: Link.
     /// - Returns: Cache path.
-    static func diskCachePath(url: URL) -> String? {
+    static func diskCachePath(url: URL, crypto: Wintersweet.Crypto) -> String? {
         guard let docPath = diskCacheDoc else {
             return nil
         }
-        let cacheName = Crypto.MD5.md5(string: url.absoluteString)
-        let cachePath = (docPath as NSString).appendingPathComponent(cacheName)
+        let ciphertext = crypto.encryptedString(with: url)
+        let cachePath = (docPath as NSString).appendingPathComponent(ciphertext)
         return (cachePath as NSString).appendingPathExtension(url.pathExtension) ?? cachePath
     }
 }
@@ -132,12 +132,12 @@ extension Cached.Options {
 
 extension Cached.Options {
     
-    func read(key: URL) -> Data? {
+    func read(key: URL, crypto: Wintersweet.Crypto) -> Data? {
         func memoryCacheData(key: URL) -> Data? {
             return Cached.memory.object(forKey: key as AnyObject) as? Data
         }
         func diskCacheData(key: URL) -> Data? {
-            if let cachePath = Cached.diskCachePath(url: key),
+            if let cachePath = Cached.diskCachePath(url: key, crypto: crypto),
                let data = try? Data(contentsOf: URL(fileURLWithPath: cachePath)) {
                 return Queen<GZip>.decompress(data: data)
             }
@@ -161,7 +161,7 @@ extension Cached.Options {
         }
     }
     
-    func write(key: URL, value: Data) {
+    func write(key: URL, value: Data, crypto: Wintersweet.Crypto) {
         func store2Memory(with data: Data, url: URL) {
             Cached.memory.setObject(data as NSData, forKey: url as AnyObject, cost: data.count)
         }
@@ -170,7 +170,7 @@ extension Cached.Options {
                 let url = URL(fileURLWithPath: docPath, isDirectory: true)
                 try? Cached.disk.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
             }
-            guard let cachePath = Cached.diskCachePath(url: url) else {
+            guard let cachePath = Cached.diskCachePath(url: url, crypto: crypto) else {
                 return
             }
             let data = Queen<GZip>.compress(data: data)

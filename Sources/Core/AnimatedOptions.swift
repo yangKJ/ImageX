@@ -36,26 +36,31 @@ public struct AnimatedOptions {
     /// Placeholder image. default gray picture.
     public let placeholder: Wintersweet.Placeholder
     
+    public let cacheCrypto: Wintersweet.Crypto
+    
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
-    ///   - placeholder: Placeholder information. Default ``none``.
     ///   - loop: Desired number of loops. Default  is ``forever``.
+    ///   - placeholder: Placeholder information. Default ``none``.
     ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
     ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``all``.
+    ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
     ///   - preparation: Ready to play time callback.
     ///   - animated: Be played GIF.
-    public init(placeholder: Placeholder = .none,
-                loop: Loop = .forever,
+    public init(loop: Loop = .forever,
+                placeholder: Placeholder = .none,
                 contentMode: ContentMode = .original,
                 bufferCount: Int = 50,
                 cacheOption: Cached.Options = .all,
+                cacheCrypto: Crypto = .md5,
                 preparation: PreparationCallback? = nil,
                 animated: AnimatedCallback? = nil) {
         self.loop = loop
         self.contentMode = contentMode
         self.bufferCount = bufferCount
         self.cacheOption = cacheOption
+        self.cacheCrypto = cacheCrypto
         self.placeholder = placeholder
         self.preparation = preparation
         self.animated = animated
