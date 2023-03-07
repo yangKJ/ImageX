@@ -37,13 +37,21 @@ extension Queen where Base: ImageView {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in Wintersweet.
-    public func displayImage(named: String, filters: [C7FilterProtocol], options: AnimatedOptions = .default) {
-        let options = options.setDisplayed(placeholder: true)
-        options.placeholder.display(to: base, contentMode: options.contentMode)
-        if let data = R.gifData(named) {
-            displayImage(data: data, filters: filters, options: options)
-        } else if let image = R.image(named) {
-            base.setImage(image: image, filters: filters, options: options)
+    public func displayImage(named: String?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) {
+        guard let named = named, named.isEmpty == false else {
+            options.placeholder.display(to: base, contentMode: options.contentMode)
+            return
+        }
+        if R.verifyLink(named), let url = URL(string: named) {
+            displayImage(url: url, filters: filters, options: options)
+        } else {
+            let options = options.setDisplayed(placeholder: true)
+            options.placeholder.display(to: base, contentMode: options.contentMode)
+            if let data = R.gifData(named) {
+                displayImage(data: data, filters: filters, options: options)
+            } else if let image = R.image(named) {
+                base.setImage(image: image, filters: filters, options: options)
+            }
         }
     }
     

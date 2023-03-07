@@ -10,6 +10,7 @@
 		599CDAE255B93E60E36E5B5F /* Pods_DepthMacDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5911509842537A3A3899594F /* Pods_DepthMacDemo.framework */; };
 		8722507F296FFFD8007E35D5 /* NSViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8722507E296FFFD8007E35D5 /* NSViewController+Ext.swift */; };
 		873DC48C296FE8450066EC92 /* DragDestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873DC48B296FE8450066EC92 /* DragDestinationView.swift */; };
+		8742487929B6DDE3002BE7E6 /* pikachu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8742487829B6DDE3002BE7E6 /* pikachu.gif */; };
 		8746B71929681AF100477A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8746B71829681AF100477A32 /* AppDelegate.swift */; };
 		8746B71B29681AF100477A32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8746B71A29681AF100477A32 /* ViewController.swift */; };
 		8746B71D29681AF200477A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8746B71C29681AF200477A32 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		5911509842537A3A3899594F /* Pods_DepthMacDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DepthMacDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8722507E296FFFD8007E35D5 /* NSViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Ext.swift"; sourceTree = "<group>"; };
 		873DC48B296FE8450066EC92 /* DragDestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDestinationView.swift; sourceTree = "<group>"; };
+		8742487829B6DDE3002BE7E6 /* pikachu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikachu.gif; sourceTree = "<group>"; };
 		8746B71529681AF100477A32 /* DepthMacDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DepthMacDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8746B71829681AF100477A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8746B71A29681AF100477A32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				873DC48B296FE8450066EC92 /* DragDestinationView.swift */,
 				8722507E296FFFD8007E35D5 /* NSViewController+Ext.swift */,
 				8746B71C29681AF200477A32 /* Assets.xcassets */,
+				8742487829B6DDE3002BE7E6 /* pikachu.gif */,
 				8746B71E29681AF200477A32 /* Main.storyboard */,
 				8746B72129681AF200477A32 /* DepthMacDemo.entitlements */,
 			);
@@ -153,6 +156,7 @@
 			files = (
 				8746B71D29681AF200477A32 /* Assets.xcassets in Resources */,
 				8746B72029681AF200477A32 /* Main.storyboard in Resources */,
+				8742487929B6DDE3002BE7E6 /* pikachu.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

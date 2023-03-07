@@ -93,37 +93,6 @@ extension AnimatedOptions {
     }
 }
 
-extension R {
-    
-    /// Compare whether the addresses of the two objects are the same.
-    public static func equateable(object1: AnyObject, object2: AnyObject) -> Bool {
-        let str1 = String(describing: Unmanaged<AnyObject>.passUnretained(object1).toOpaque())
-        let str2 = String(describing: Unmanaged<AnyObject>.passUnretained(object2).toOpaque())
-        return str1 == str2
-    }
-    
-    /// Read image resources
-    public static func image(_ named: String) -> C7Image? {
-        return Harbeth.R.image(named, forResource: "Wintersweet")
-    }
-    
-    /// Read gif data.
-    public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data? {
-        let bundle: Bundle?
-        if let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") {
-            bundle = Bundle.init(path: bundlePath)
-        } else {
-            bundle = Bundle.main
-        }
-        guard let contentURL = ["gif", "GIF", "Gif"].compactMap({
-            bundle?.url(forResource: named, withExtension: $0)
-        }).first else {
-            return nil
-        }
-        return try? Data(contentsOf: contentURL)
-    }
-}
-
 
 //extension RunloopOptimize {
 //    private func setupNotification() {

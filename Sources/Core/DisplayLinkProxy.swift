@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Harbeth
 
 /// A proxy class to avoid a retain cycle with the display link.
 final class DisplayLinkProxy: NSObject {

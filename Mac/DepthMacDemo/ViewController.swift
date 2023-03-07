@@ -21,18 +21,20 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         let filters: [C7FilterProtocol] = [
             C7SoulOut(soul: 0.75),
-            C7ColorConvert(with: .rbga),
+            //C7ColorConvert(with: .rbga),
             C7Storyboard(ranks: 2),
+            C7WhiteBalance(temperature: 5555),
         ]
         let links = [
+            "pikachu", "jordan-whitt-54480", "failed_link",
             "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
-            //"https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
+            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
-        let URL = URL(string: links.randomElement() ?? "")!
+        let named = links.randomElement() ?? ""
         let options = AnimatedOptions(placeholder: .image(R.image("IMG_0020")!), contentMode: .scaleAspectBottomRight)
-        imageView.mt.displayImage(url: URL, filters: filters, options: options)
+        imageView.mt.displayImage(named: named, filters: filters, options: options)
         //imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
     }
     

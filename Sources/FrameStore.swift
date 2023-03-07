@@ -27,18 +27,17 @@ final class FrameStore {
     /// A reference to the original image source.
     private let imageSource: CGImageSource
     
+    /// An array of animated frames from a single GIF image.
+    @Locked var animatedFrames = [FrameImage]()
     /// Index of current loop.
     var currentLoop = 0
     /// Total duration of one animation loop.
     var loopDuration: TimeInterval = 0
     /// Flag indicating if number of loops has been reached.
     var isFinished: Bool = false
-    /// An array of animated frames from a single GIF image.
-    var animatedFrames = [FrameImage]()
     /// The total number of frames in the GIF.
     var frameCount = 0
     
-    private let lock = NSLock()
     /// Dispatch queue used for preloading images.
     private lazy var preloadFrameQueue = DispatchQueue(label: "condy.gif.animator.preloadFrameQueue")
     /// Time elapsed since the last frame change. Used to determine when the frame should be updated.
@@ -101,9 +100,7 @@ final class FrameStore {
     /// Loads the frames from an image source, resizes them, then caches them in `animatedFrames`.
     func prepareFrames(_ complete: @escaping () -> Void) {
         frameCount = Int(CGImageSourceGetCount(imageSource))
-        lock.lock()
         animatedFrames.reserveCapacity(frameCount)
-        lock.unlock()
         preloadFrameQueue.async {
             self.setupAnimatedFrames()
             DispatchQueue.main.async { complete() }
@@ -132,8 +129,6 @@ private extension FrameStore {
     /// - parameter index: The index of the frame.
     /// - returns: An optional image at a given frame.
     func frame(at index: Int) -> C7Image? {
-        lock.lock()
-        defer { lock.unlock() }
         return animatedFrames[safe: index]?.image
     }
     
@@ -142,8 +137,6 @@ private extension FrameStore {
     /// - parameter index: The index of the duration.
     /// - returns: The duration of the given frame.
     func duration(at index: Int) -> TimeInterval {
-        lock.lock()
-        defer { lock.unlock() }
         return animatedFrames[safe: index]?.duration ?? TimeInterval.infinity
     }
     
@@ -155,26 +148,20 @@ private extension FrameStore {
     /// Updates the frames by preloading new ones and replacing the previous frame with a placeholder.
     func updatePreloadedFrames() {
         if !(bufferFrameCount < frameCount - 1) { return }
-        lock.lock()
         let frame = animatedFrames[previousFrameIndex]
         let placeholderFrame = FrameImage(image: nil, duration: frame.duration)
         animatedFrames[previousFrameIndex] = placeholderFrame
-        lock.unlock()
         for index in preloadIndexes(withStartingIndex: currentFrameIndex) {
             loadFrameAtIndex(index)
         }
     }
     
     func loadFrameAtIndex(_ index: Int) {
-        lock.lock()
         let frame = animatedFrames[index]
-        lock.unlock()
         if !frame.isPlaceholder { return }
         let image = loadFrame(at: index)
         let loadedFrame = FrameImage(image: image, duration: frame.duration)
-        lock.lock()
         animatedFrames[index] = loadedFrame
-        lock.unlock()
     }
     
     /// Optionally loads a single frame from an image source,  add filter and resizes it if required.
@@ -255,12 +242,10 @@ private extension FrameStore {
         animatedFrames.removeAll()
         var duration: TimeInterval = 0
         (0..<frameCount).forEach { index in
-            lock.lock()
             let frameDuration = imageSource.mt.frameDuration(at: index)
             duration += min(frameDuration, maxTimeStep)
             let frame = FrameImage(image: nil, duration: frameDuration)
             animatedFrames.append(frame)
-            lock.unlock()
             if index > bufferFrameCount { return }
             loadFrameAtIndex(index)
         }

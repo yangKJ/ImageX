@@ -85,6 +85,8 @@
 		870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		872E2E0529ADA662003F241E /* AnimatedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOptions.swift; sourceTree = "<group>"; };
 		872E2E0629ADA662003F241E /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		8742486C29B6D548002BE7E6 /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
+		8742487729B6D593002BE7E6 /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
 		876D4B132984C28C00A06282 /* DepthDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthDemo.xcworkspace; sourceTree = "<group>"; };
 		876D4B1F2984C28C00A06282 /* DepthDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthDemo.xcodeproj; sourceTree = "<group>"; };
 		876D4B232984C28C00A06282 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
@@ -1167,6 +1169,8 @@
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
 				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,
+				8742486C29B6D548002BE7E6 /* R.swift */,
+				8742487729B6D593002BE7E6 /* Locked.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
