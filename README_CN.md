@@ -14,10 +14,11 @@
 
 - 支持全平台系统，macOS、iOS、tvOS、watchOS；
 - 支持播放本地和网络GIF动画；
-- 支持`NSImageView`或`UIImageView`显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
+- 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Extensions/ImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
 - 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
 - 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
-- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
+- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Crypto.swift) 方式；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
@@ -28,13 +29,21 @@
 1. `NSImageView`或`UIImageView`显示网络图像或GIF并添加过滤器。
 
 ```swift
-let links = [``GIF Link URL``, ``Picture Link URL``]
-let URL = URL(string: links.randomElement() ?? "")!
-var options = AnimatedOptions(contentMode: .scaleAspectBottomRight)
-options.setAnimated { loopDuration in
-    // do something..
-}
-imageView.mt.displayImage(url: URL, filters: filters, options: options)
+let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
+let named = links.randomElement() ?? ""
+let options = AnimatedOptions(
+    loop: .count(3), // 循环播放3次
+    placeholder: .image(R.image("IMG_0020")!), // 占位图
+    contentMode: .scaleAspectBottomRight, // 填充模式
+    bufferCount: 20, // 缓存20帧
+    cacheOption: .disk, // 采用磁盘缓存
+    cacheCrypto: .user { "Condy" + $0 }, // 用户自定义加密
+    preparation: {
+        // GIF开始准备播放时刻
+    }, animated: { _ in
+        // GIF播放完成
+    })
+imageView.mt.displayImage(named: named, filters: filters, options: options)
 
 -----------------------------------------------------------------------------------
 😘😘 其他方法:
@@ -177,6 +186,7 @@ public enum ContentMode {
 ### Cached
 
 - 网络数据缓存类型
+- 磁盘存储使用`GZip`压缩数据，因此占用的空间更少。
 
 ```
 /// 不使用缓存
@@ -187,6 +197,17 @@ public static let memory = Options(rawValue: 1 << 1)
 public static let disk = Options(rawValue: 1 << 2)
 /// 同时使用磁盘和内存缓存，优先读取内存数据
 public static let all: Options = [.memory, .disk]
+```
+
+- 考虑到安全问题，命名方式采用多种加密处理，例如md5、sha1、base58，以及用户自定义。
+
+```
+public enum Crypto {
+    case md5
+    case sha1
+    case base58
+    case user(CryptoUserType) //用户自定义
+}
 ```
 
 ### Loop

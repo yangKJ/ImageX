@@ -17,13 +17,15 @@ English | [**简体中文**](README_CN.md)
 ## Features
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
 
+- Support more platform system，macOS、iOS、tvOS、watchOS.
 - Support local and network play gif animated.
 - Support asynchronous image or gif displaying and caching.
 - Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
 - Support extension `NSImageView` or `UIImageView` display image or gif and add the filters.
 - Support six image or gif content modes.
 - Support disk and memory cached network data, And the data is compressed by GZip.
-- Support more platform system，macOS、iOS、tvOS、watchOS.
+- Support clean up disk expired data in your spare time.
+- Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
 
 ------
 
@@ -47,14 +49,21 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 - `NSImageView` or `UIImageView` display network image or gif and add the filters.
 
 ```swift
-let links = [``GIF Link URL``, ``Picture Link URL``]
-let URL = URL(string: links.randomElement() ?? "")!
-let options = AnimatedOptions(contentMode: .scaleAspectFill, preparation: {
-    // do something..
-}, animated: { _ in
-    // play is complete and then do something..
-})
-imageView.mt.displayImage(url: URL, filters: filters, options: options)
+let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
+let named = links.randomElement() ?? ""
+let options = AnimatedOptions(
+    loop: .count(3),
+    placeholder: .image(R.image("IMG_0020")!),
+    contentMode: .scaleAspectBottomRight,
+    bufferCount: 20,
+    cacheOption: .disk,
+    cacheCrypto: .user { "Condy" + $0 },
+    preparation: {
+        // do something..
+    }, animated: { _ in
+        // play is complete and then do something..
+    })
+imageView.mt.displayImage(named: named, filters: filters, options: options)
 
 ----------------------------------------------------------------
 😘😘 And other methods:
@@ -102,7 +111,7 @@ public func displayImage(
 ```swift
 let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
 let data = R.gifData(``GIF Name``)
-let options = AnimatedOptions(placeholder: .color(.cyan), loop: .count(5))
+let options = AnimatedOptions(loop: .count(5), placeholder: .color(.cyan))
 animatedView.play(data: data, filters: filters, options: options)
 ```
 
@@ -230,6 +239,17 @@ public static let memory = Options(rawValue: 1 << 1)
 public static let disk = Options(rawValue: 1 << 2)
 /// Use memory and disk cache at the same time to read memory first.
 public static let all: Options = [.memory, .disk]
+```
+
+- Support setting different types of named encryption methods, such as md5, sha1, base58, And user-defined.
+
+```
+public enum Crypto {
+    case md5
+    case sha1
+    case base58
+    case user(CryptoUserType)
+}
 ```
 
 ### Loop
