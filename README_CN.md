@@ -37,7 +37,8 @@ let options = AnimatedOptions(
     contentMode: .scaleAspectBottomRight, // 填充模式
     bufferCount: 20, // 缓存20帧
     cacheOption: .disk, // 采用磁盘缓存
-    cacheCrypto: .user { "Condy" + $0 }, // 用户自定义加密
+    cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) }, // 自定义加密
+    cacheDataZip: .gzip, // 采用GZip方式压缩数据
     preparation: {
         // GIF开始准备播放时刻
     }, animated: { _ in
@@ -206,7 +207,21 @@ public enum Crypto {
     case md5
     case sha1
     case base58
-    case user(CryptoUserType) //用户自定义
+    /// 用户自定义命名处理，这里不能包含操作符`/`和`.`
+    case user((_ absoluteString: String) -> String)
+}
+```
+
+- 考虑到不同程度的安全程度，所以这里将数据源压缩和解压方式开放出来，该库提供GZip压缩或解压方式，当然用户也可以自定义。
+
+```
+public enum ZipType {
+    /// 不使用任何压缩方式
+    case none
+    /// 采用GZip方式对数据压缩或者解压处理
+    case gzip
+    /// 用户自定义压缩和解压方式
+    case user(compressed: ZipUserType, decompress: ZipUserType)
 }
 ```
 

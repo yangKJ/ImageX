@@ -57,7 +57,8 @@ let options = AnimatedOptions(
     contentMode: .scaleAspectBottomRight,
     bufferCount: 20,
     cacheOption: .disk,
-    cacheCrypto: .user { "Condy" + $0 },
+    cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
+    cacheDataZip: .gzip,
     preparation: {
         // do something..
     }, animated: { _ in
@@ -148,7 +149,7 @@ public struct AnimatedOptions {
     
     public static let `default` = AnimatedOptions()
     
-    /// Desired number of loops. Default is ``forever``.
+    /// Desired number of loops. Default  is ``forever``.
     public let loop: Wintersweet.Loop
     
     /// Content mode used for resizing the frames. Default is ``original``.
@@ -162,6 +163,13 @@ public struct AnimatedOptions {
     
     /// Placeholder image. default gray picture.
     public let placeholder: Wintersweet.Placeholder
+    
+    /// Network data cache naming encryption method, Default is ``md5``.
+    public let cacheCrypto: Wintersweet.CryptoType
+    
+    /// Network data compression or decompression method, default ``gzip``.
+    /// This operation is done in the subthread.
+    public let cacheDataZip: Wintersweet.ZipType
 }
 ```
 
@@ -241,7 +249,7 @@ public static let disk = Options(rawValue: 1 << 2)
 public static let all: Options = [.memory, .disk]
 ```
 
-- Support setting different types of named encryption methods, such as md5, sha1, base58, And user-defined.
+- Support setting different types of named encryption methods, such as md5, sha1, base58, And user defined.
 
 ```
 public enum Crypto {
@@ -249,6 +257,19 @@ public enum Crypto {
     case sha1
     case base58
     case user(CryptoUserType)
+}
+```
+
+- Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) compression or decompression. Of course, users can also customize it.
+
+```
+public enum ZipType {
+    /// There is no processing for Data.
+    case none
+    /// Use GZip to compress or decompress data.
+    case gzip
+    /// User defined compression and decompression methods.
+    case user(compressed: (_ rawData: Data) -> Data, decompress: (_ compressedData: Data) -> Data)
 }
 ```
 
