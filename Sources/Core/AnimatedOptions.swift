@@ -36,7 +36,12 @@ public struct AnimatedOptions {
     /// Placeholder image. default gray picture.
     public let placeholder: Wintersweet.Placeholder
     
-    public let cacheCrypto: Wintersweet.Crypto
+    /// Network data cache naming encryption method, Default is ``md5``.
+    public let cacheCrypto: Wintersweet.CryptoType
+    
+    /// Network data compression or decompression method, default ``gzip``.
+    /// This operation is done in the subthread.
+    public let cacheDataZip: Wintersweet.ZipType
     
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
@@ -46,6 +51,7 @@ public struct AnimatedOptions {
     ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``all``.
     ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
+    ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
     ///   - preparation: Ready to play time callback.
     ///   - animated: Be played GIF.
     public init(loop: Loop = .forever,
@@ -53,7 +59,8 @@ public struct AnimatedOptions {
                 contentMode: ContentMode = .original,
                 bufferCount: Int = 50,
                 cacheOption: Cached.Options = .all,
-                cacheCrypto: Crypto = .md5,
+                cacheCrypto: CryptoType = .md5,
+                cacheDataZip: ZipType = .gzip,
                 preparation: PreparationCallback? = nil,
                 animated: AnimatedCallback? = nil) {
         self.loop = loop
@@ -61,6 +68,7 @@ public struct AnimatedOptions {
         self.bufferCount = bufferCount
         self.cacheOption = cacheOption
         self.cacheCrypto = cacheCrypto
+        self.cacheDataZip = cacheDataZip
         self.placeholder = placeholder
         self.preparation = preparation
         self.animated = animated
@@ -78,9 +86,9 @@ public struct AnimatedOptions {
 extension AnimatedOptions {
     
     /// Have you cleaned up the disk cache in your spare time?
-    public private(set) static var cleanedUpDiskCached: Bool = false
+    private(set) static var cleanedUpDiskCached: Bool = false
     /// Configure free time to clear the disk cache.
-    public static func setupRunloopOptimizeCleanedUpDiskCached() {
+    static func setupRunloopOptimizeCleanedUpDiskCached() {
         if AnimatedOptions.cleanedUpDiskCached {
             return
         }

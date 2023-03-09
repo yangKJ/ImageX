@@ -640,8 +640,9 @@
 		8770FC4B29A606BB00AED5CC /* Wintersweet.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Wintersweet.podspec.json; sourceTree = "<group>"; };
 		879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		87C67B3629B1A2550017D628 /* GZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GZip.swift; sourceTree = "<group>"; };
-		87C67B4129B1A2550017D628 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
+		87EDF06329B9B184007798F9 /* ZipType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipType.swift; sourceTree = "<group>"; };
+		87EDF06E29B9B234007798F9 /* CryptoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -1162,7 +1163,7 @@
 				879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */,
 				876D4DAB2984C29D00A06282 /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
-				87C67B4129B1A2550017D628 /* Crypto.swift */,
+				87EDF06E29B9B234007798F9 /* CryptoType.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
 				87C67B3629B1A2550017D628 /* GZip.swift */,
 				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
@@ -1171,6 +1172,7 @@
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
 				8742486C29B6D548002BE7E6 /* R.swift */,
 				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,
+				87EDF06329B9B184007798F9 /* ZipType.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

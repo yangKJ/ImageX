@@ -46,12 +46,6 @@ import Foundation
     }
 }
 
-extension Locked: CustomStringConvertible {
-    public var description: String {
-        return "\(wrappedValue)"
-    }
-}
-
 extension Locked where Value: Equatable {
     
     public static func == (left: Locked, right: Value) -> Bool {

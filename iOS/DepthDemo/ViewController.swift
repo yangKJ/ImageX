@@ -13,12 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    let imageName: String = "pikachu"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        setup(imageName: imageName)
+        setup()
     }
     
     @IBAction func goGIF(_ sender: Any) {
@@ -30,13 +28,27 @@ class ViewController: UIViewController {
         C7SoulOut(soul: 0.75),
         C7Storyboard(ranks: 2),
     ]
-    func setup(imageName: String) {
-        let options = AnimatedOptions(contentMode: .scaleAspectFit, bufferCount: 10, preparation: { [weak self] in
-            guard let `self` = self else { return }
-            self.label.text = imageName.capitalized + " (\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s)"
-        }, animated: { _ in
-            print("Played end!!!")
-        })
-        imageView.mt.displayImage(named: imageName, filters: filters, options: options)
+    func setup() {
+        let links = [
+            //"pikachu",
+            "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
+        ]
+        let named = links.randomElement() ?? ""
+        let options = AnimatedOptions(
+            loop: .forever,
+            placeholder: .color(.systemGreen),
+            contentMode: .scaleAspectFit,
+            bufferCount: 20,
+            cacheOption: .disk,
+            cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
+            cacheDataZip: .gzip,
+            preparation: { [weak self] in
+                guard let `self` = self else { return }
+                self.label.text = "\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s"
+            }, animated: { _ in
+                print("Played end!!!")
+            })
+        imageView.mt.displayImage(named: named, filters: filters, options: options)
     }
 }

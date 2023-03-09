@@ -30,7 +30,7 @@ public enum Placeholder {
 extension Placeholder {
     
     /// Displayed placeholder on view.
-    public func display(to view: AsAnimatable, contentMode: Wintersweet.ContentMode) {
+    func display(to view: AsAnimatable, contentMode: Wintersweet.ContentMode) {
         switch self {
         case .none:
             break
@@ -56,7 +56,7 @@ extension Placeholder {
     }
     
     /// Remove placeholder from view.
-    public func remove(from view: AsAnimatable) {
+    func remove(from view: AsAnimatable) {
         switch self {
         case .none:
             break

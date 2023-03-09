@@ -1,5 +1,5 @@
 //
-//  Crypto.swift
+//  CryptoType.swift
 //  Wintersweet
 //
 //  Created by Condy on 2023/3/2.
@@ -8,38 +8,36 @@
 import Foundation
 import CommonCrypto
 
-public typealias CryptoUserType = (_ absoluteString: String) -> String
-
-public enum Crypto {
+public enum CryptoType {
     case md5
     case sha1
     case base58
-    case user(CryptoUserType) //用户自定义
+    /// 用户自定义命名处理，这里不能包含操作符`/`和`.`
+    case user((_ key: String) -> String)
 }
 
-extension Crypto {
-    public func encryptedString(with url: URL) -> String {
-        let absoluteString = url.absoluteString
+extension CryptoType {
+    func encryptedString(with key: String) -> String {
         switch self {
         case .md5:
-            return Wintersweet.Crypto.MD5.md5(string: absoluteString)
+            return Wintersweet.CryptoType.MD5.md5(string: key)
         case .sha1:
-            return Wintersweet.Crypto.SHA.sha1(string: absoluteString)
+            return Wintersweet.CryptoType.SHA.sha1(string: key)
         case .base58:
-            return Wintersweet.Crypto.Base58.base58Encoded(string: absoluteString)
+            return Wintersweet.CryptoType.Base58.base58Encoded(string: key)
         case .user(let callback):
-            return callback(absoluteString)
+            return callback(key)
         }
     }
 }
 
-extension Crypto {
+extension CryptoType {
     public struct MD5 { }
     public struct SHA { }
     public struct Base58 { }
 }
 
-extension Crypto.MD5 {
+extension CryptoType.MD5 {
     
     public static func md5(string: String) -> String {
         let ccharArray = string.cString(using: String.Encoding.utf8)
@@ -49,7 +47,7 @@ extension Crypto.MD5 {
     }
 }
 
-extension Crypto.SHA {
+extension CryptoType.SHA {
     
     public static func sha1(string: String) -> String {
         guard let data = string.data(using: String.Encoding.utf8) else {
@@ -64,7 +62,7 @@ extension Crypto.SHA {
     }
 }
 
-extension Crypto.Base58 {
+extension CryptoType.Base58 {
     
     private static let base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
     

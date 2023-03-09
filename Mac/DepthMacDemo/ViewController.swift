@@ -21,12 +21,12 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         let filters: [C7FilterProtocol] = [
             C7SoulOut(soul: 0.75),
-            //C7ColorConvert(with: .rbga),
+            C7ColorConvert(with: .rbga),
             C7Storyboard(ranks: 2),
             C7WhiteBalance(temperature: 5555),
         ]
         let links = [
-            "pikachu", "jordan-whitt-54480", "failed_link",
+            "jordan-whitt-54480", "failed_link",
             "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
@@ -39,14 +39,14 @@ class ViewController: NSViewController {
             contentMode: .scaleAspectBottomRight,
             bufferCount: 20,
             cacheOption: .disk,
-            cacheCrypto: .user { "Condy" + $0 },
+            cacheCrypto: .base58,
+            cacheDataZip: .gzip,
             preparation: {
                 // do something..
             }, animated: { _ in
                 // play is complete and then do something..
             })
         imageView.mt.displayImage(named: named, filters: filters, options: options)
-        //imageView.play(withGIFURL: URL, filters: filters, contentMode: .original, cacheOption: .usedMemoryCache)
     }
     
     override var representedObject: Any? {
