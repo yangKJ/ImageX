@@ -65,10 +65,12 @@ let options = AnimatedOptions(
         // play is complete and then do something..
     })
 imageView.mt.displayImage(named: named, filters: filters, options: options)
+```
 
 ----------------------------------------------------------------
 😘😘 And other methods:
 
+```
 /// Display image or gif and add the filters.
 /// - Parameters:
 ///   - named: Picture or gif name.
@@ -269,7 +271,7 @@ public enum ZipType {
     /// Use GZip to compress or decompress data.
     case gzip
     /// User defined compression and decompression methods.
-    case user(compressed: (_ rawData: Data) -> Data, decompress: (_ compressedData: Data) -> Data)
+    case user(compressed: ZipUserType, decompress: ZipUserType)
 }
 ```
 

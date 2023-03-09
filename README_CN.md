@@ -18,7 +18,7 @@
 - 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
 - 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
 - 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
-- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Crypto.swift) 方式；
+- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/CryptoType.swift) 方式；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
@@ -45,10 +45,12 @@ let options = AnimatedOptions(
         // GIF播放完成
     })
 imageView.mt.displayImage(named: named, filters: filters, options: options)
+```
 
 -----------------------------------------------------------------------------------
 😘😘 其他方法:
 
+```
 /// 根据名称显示图像或GIF并添加滤镜
 public func displayImage(
     named: String, 
@@ -208,7 +210,7 @@ public enum Crypto {
     case sha1
     case base58
     /// 用户自定义命名处理，这里不能包含操作符`/`和`.`
-    case user((_ absoluteString: String) -> String)
+    case user((_ key: String) -> String)
 }
 ```
 
