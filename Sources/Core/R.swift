@@ -10,11 +10,6 @@ import Harbeth
 
 extension R {
     
-    /// Read image resources
-    public static func image(_ named: String) -> C7Image? {
-        return Harbeth.R.image(named, forResource: "Wintersweet")
-    }
-    
     /// Read gif data.
     public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data? {
         let bundle: Bundle?

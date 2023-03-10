@@ -47,9 +47,9 @@ extension Queen where Base: ImageView {
         } else {
             let options = options.setDisplayed(placeholder: true)
             options.placeholder.display(to: base, contentMode: options.contentMode)
-            if let data = R.gifData(named) {
+            if let data = R.gifData(named, forResource: options.moduleName) {
                 displayImage(data: data, filters: filters, options: options)
-            } else if let image = R.image(named) {
+            } else if let image = R.image(named, forResource: options.moduleName) {
                 base.setImage(image: image, filters: filters, options: options)
             }
         }

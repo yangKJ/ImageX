@@ -24,6 +24,8 @@ public struct AnimatedOptions {
     /// Desired number of loops. Default  is ``forever``.
     public let loop: Wintersweet.Loop
     
+    /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
+    /// 请将承载控件``view.contentMode = .scaleAspectFit``
     /// Content mode used for resizing the frames. Default is ``original``.
     public let contentMode: Wintersweet.ContentMode
     
@@ -43,6 +45,15 @@ public struct AnimatedOptions {
     /// This operation is done in the subthread.
     public let cacheDataZip: Wintersweet.ZipType
     
+    /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
+    /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
+    public var moduleName: String {
+        get {
+            return modularizationName_ ?? "Wintersweet"
+        }
+    }
+    private let modularizationName_: String?
+    
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
     ///   - loop: Desired number of loops. Default  is ``forever``.
@@ -52,6 +63,7 @@ public struct AnimatedOptions {
     ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``all``.
     ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
     ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
+    ///   - moduleName: Do the component operation to solve the problem that the local GIF cannot read the data in another module.
     ///   - preparation: Ready to play time callback.
     ///   - animated: Be played GIF.
     public init(loop: Loop = .forever,
@@ -61,6 +73,7 @@ public struct AnimatedOptions {
                 cacheOption: Cached.Options = .all,
                 cacheCrypto: CryptoType = .md5,
                 cacheDataZip: ZipType = .gzip,
+                moduleName: String? = nil,
                 preparation: PreparationCallback? = nil,
                 animated: AnimatedCallback? = nil) {
         self.loop = loop
@@ -72,6 +85,7 @@ public struct AnimatedOptions {
         self.placeholder = placeholder
         self.preparation = preparation
         self.animated = animated
+        self.modularizationName_ = moduleName
         AnimatedOptions.setupRunloopOptimizeCleanedUpDiskCached()
     }
     
