@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		870DBCBC2990966D000A36F6 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DBCBB2990966D000A36F6 /* GifViewController.swift */; };
-		8746B70A2968168800477A32 /* cycling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8746B7092968168800477A32 /* cycling.gif */; };
 		8790C59429669B1D00950059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59329669B1D00950059 /* AppDelegate.swift */; };
 		8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59529669B1D00950059 /* SceneDelegate.swift */; };
 		8790C59829669B1D00950059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59729669B1D00950059 /* ViewController.swift */; };
@@ -21,7 +20,6 @@
 
 /* Begin PBXFileReference section */
 		870DBCBB2990966D000A36F6 /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
-		8746B7092968168800477A32 /* cycling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cycling.gif; sourceTree = "<group>"; };
 		8790C59029669B1D00950059 /* DepthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DepthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8790C59329669B1D00950059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8790C59529669B1D00950059 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 				870DBCBB2990966D000A36F6 /* GifViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
 				87DC267E29AC806500250152 /* pikachu.gif */,
-				8746B7092968168800477A32 /* cycling.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
 				8790C59E29669B1F00950059 /* LaunchScreen.storyboard */,
 				8790C5A129669B1F00950059 /* Info.plist */,
@@ -162,7 +159,6 @@
 			files = (
 				8790C5A029669B1F00950059 /* LaunchScreen.storyboard in Resources */,
 				87DC267F29AC806500250152 /* pikachu.gif in Resources */,
-				8746B70A2968168800477A32 /* cycling.gif in Resources */,
 				8790C59D29669B1F00950059 /* Assets.xcassets in Resources */,
 				8790C59B29669B1D00950059 /* Main.storyboard in Resources */,
 			);

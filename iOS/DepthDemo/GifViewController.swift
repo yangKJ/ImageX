@@ -52,10 +52,9 @@ class GifViewController: UIViewController {
     func setupGIF() {
         let filters: [C7FilterProtocol] = [
             C7WhiteBalance(temperature: 5555),
-            C7ColorConvert(with: .rbga),
             C7Storyboard(ranks: 3)
         ]
-        let data = R.gifData("cycling")
+        let data = R.gifData("pikachu")
         let options = AnimatedOptions(loop: .count(5), placeholder: .view(placeholder))
         animatedView.play(data: data, filters: filters, options: options)
     }
