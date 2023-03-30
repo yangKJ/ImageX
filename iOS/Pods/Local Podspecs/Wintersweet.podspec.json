@@ -1,6 +1,6 @@
 {
   "name": "Wintersweet",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "summary": "GIF animation and support Harbeth filter.",
   "homepage": "https://github.com/yangKJ/Wintersweet",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/yangKJ/Wintersweet.git",
-    "tag": "0.0.6"
+    "tag": "0.0.7"
   },
   "swift_versions": "5.0",
   "requires_arc": true,

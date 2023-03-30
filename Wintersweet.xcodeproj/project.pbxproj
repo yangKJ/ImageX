@@ -357,7 +357,6 @@
 		876D4C4C2984C28C00A06282 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		876D4C4D2984C28C00A06282 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		876D4DA82984C29D00A06282 /* FrameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameStore.swift; sourceTree = "<group>"; };
-		876D4DAB2984C29D00A06282 /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 		876D4DAC2984C29D00A06282 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
 		876D4DB02984C29D00A06282 /* ContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
@@ -643,6 +642,15 @@
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		87EDF06329B9B184007798F9 /* ZipType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipType.swift; sourceTree = "<group>"; };
 		87EDF06E29B9B234007798F9 /* CryptoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoType.swift; sourceTree = "<group>"; };
+		87F1845A29D52AB80080F00B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		87F1845B29D52AB80080F00B /* Disk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disk.swift; sourceTree = "<group>"; };
+		87F1845C29D52AB80080F00B /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
+		87F1845E29D52AB80080F00B /* Expiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expiry.swift; sourceTree = "<group>"; };
+		87F1845F29D52AB80080F00B /* TransformerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformerFactory.swift; sourceTree = "<group>"; };
+		87F1846029D52AB80080F00B /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
+		87F1846B29D52BDB0080F00B /* CachedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedOptions.swift; sourceTree = "<group>"; };
+		87F1846C29D52E960080F00B /* CacheModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheModel.swift; sourceTree = "<group>"; };
+		87F1847B29D56CC70080F00B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -1146,6 +1154,7 @@
 			isa = PBXGroup;
 			children = (
 				876D4DA92984C29D00A06282 /* Core */,
+				87F1845929D52AB80080F00B /* Cached */,
 				876D4DB22984C29D00A06282 /* Extensions */,
 				876D4DB52984C29D00A06282 /* Animator.swift */,
 				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
@@ -1161,7 +1170,7 @@
 			children = (
 				872E2E0529ADA662003F241E /* AnimatedOptions.swift */,
 				879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */,
-				876D4DAB2984C29D00A06282 /* Cached.swift */,
+				87F1847B29D56CC70080F00B /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
 				87EDF06E29B9B234007798F9 /* CryptoType.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
@@ -1707,6 +1716,21 @@
 			children = (
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		87F1845929D52AB80080F00B /* Cached */ = {
+			isa = PBXGroup;
+			children = (
+				87F1846B29D52BDB0080F00B /* CachedOptions.swift */,
+				87F1846C29D52E960080F00B /* CacheModel.swift */,
+				87F1845B29D52AB80080F00B /* Disk.swift */,
+				87F1845E29D52AB80080F00B /* Expiry.swift */,
+				87F1846029D52AB80080F00B /* Memory.swift */,
+				87F1845A29D52AB80080F00B /* Storage.swift */,
+				87F1845C29D52AB80080F00B /* Transformer.swift */,
+				87F1845F29D52AB80080F00B /* TransformerFactory.swift */,
+			);
+			path = Cached;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
