@@ -7,6 +7,7 @@
 
 import Foundation
 @_exported import Harbeth
+@_exported import Lemons
 
 public typealias PreparationCallback = (() -> Void)
 public typealias AnimatedCallback = ((_ loopDuration: TimeInterval) -> Void)
@@ -33,13 +34,13 @@ public struct AnimatedOptions {
     public let bufferCount: Int
     
     /// Weather or not we should cache the URL response. Default is ``all``.
-    public let cacheOption: Wintersweet.CachedOptions
+    public let cacheOption: Lemons.CachedOptions
     
     /// Placeholder image. default gray picture.
     public let placeholder: Wintersweet.Placeholder
     
     /// Network data cache naming encryption method, Default is ``md5``.
-    public let cacheCrypto: Wintersweet.CryptoType
+    public let cacheCrypto: Lemons.CryptoType
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
@@ -70,8 +71,8 @@ public struct AnimatedOptions {
                 placeholder: Placeholder = .none,
                 contentMode: ContentMode = .original,
                 bufferCount: Int = 50,
-                cacheOption: CachedOptions = .all,
-                cacheCrypto: CryptoType = .md5,
+                cacheOption: Lemons.CachedOptions = .all,
+                cacheCrypto: Lemons.CryptoType = .md5,
                 cacheDataZip: ZipType = .gzip,
                 moduleName: String? = nil,
                 preparation: PreparationCallback? = nil,

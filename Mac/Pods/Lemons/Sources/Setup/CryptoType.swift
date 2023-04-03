@@ -1,8 +1,8 @@
 //
 //  CryptoType.swift
-//  Wintersweet
+//  Lemons
 //
-//  Created by Condy on 2023/3/2.
+//  Created by Condy on 2023/3/28.
 //
 
 import Foundation
@@ -17,14 +17,18 @@ public enum CryptoType {
 }
 
 extension CryptoType {
-    func encryptedString(with key: String) -> String {
+    
+    /// Encryption processing.
+    /// - Parameter key: String to be encrypted.
+    /// - Returns: Encrypted string.
+    public func encryptedString(with key: String) -> String {
         switch self {
         case .md5:
-            return Wintersweet.CryptoType.MD5.md5(string: key)
+            return CryptoType.MD5.md5(string: key)
         case .sha1:
-            return Wintersweet.CryptoType.SHA.sha1(string: key)
+            return CryptoType.SHA.sha1(string: key)
         case .base58:
-            return Wintersweet.CryptoType.Base58.base58Encoded(string: key)
+            return CryptoType.Base58.base58Encoded(string: key)
         case .user(let callback):
             return callback(key)
         }
@@ -32,14 +36,14 @@ extension CryptoType {
 }
 
 extension CryptoType {
-    public struct MD5 { }
-    public struct SHA { }
-    public struct Base58 { }
+    struct MD5 { }
+    struct SHA { }
+    struct Base58 { }
 }
 
 extension CryptoType.MD5 {
     
-    public static func md5(string: String) -> String {
+    static func md5(string: String) -> String {
         let ccharArray = string.cString(using: String.Encoding.utf8)
         var uint8Array = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
         CC_MD5(ccharArray, CC_LONG(ccharArray!.count - 1), &uint8Array)
@@ -49,7 +53,7 @@ extension CryptoType.MD5 {
 
 extension CryptoType.SHA {
     
-    public static func sha1(string: String) -> String {
+    static func sha1(string: String) -> String {
         guard let data = string.data(using: String.Encoding.utf8) else {
             return string
         }
@@ -66,7 +70,7 @@ extension CryptoType.Base58 {
     
     private static let base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
     
-    public static func base58Encoded(string: String) -> String {
+    static func base58Encoded(string: String) -> String {
         guard let data = string.data(using: String.Encoding.utf8) else {
             return string
         }

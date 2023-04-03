@@ -24,7 +24,7 @@ class GifViewController: UIViewController {
     
     lazy var placeholder: UILabel = {
         let label = UILabel()
-        label.text = R.text("Condy")
+        label.text = "Condy"
         label.backgroundColor = .systemCyan
         label.font = UIFont.systemFont(ofSize: 50)
         label.textAlignment = .center

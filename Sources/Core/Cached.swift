@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Lemons
 
 public struct Cached {
     
@@ -13,24 +14,24 @@ public struct Cached {
     public static let shared = Cached()
     
     /// Storage container.
-    public let storage: Storage<CacheModel>
+    public let storage: Lemons.Storage<CacheModel>
     
     /// The name of disk storage, this will be used as folder name within directory.
-    public static var cachedName: String = "IkerCached" {
+    public static var cachedName: String = "WintersweetCached" {
         didSet {
             Cached.shared.storage.disk.named = cachedName
         }
     }
     
     /// The longest time duration in second of the cache being stored in disk. default is an week.
-    public static var expiry: Expiry = Expiry.week {
+    public static var expiry: Expiry = Lemons.Expiry.week {
         didSet {
             Cached.shared.storage.disk.expiry = expiry
         }
     }
     
     /// The largest disk size can be taken for the cache. It is the total allocated size of cached files in bytes. default 20kb.
-    public static var maxCountLimit: Disk.Byte = 20 * 1024 {
+    public static var maxCountLimit: Lemons.Disk.Byte = 20 * 1024 {
         didSet {
             Cached.shared.storage.disk.maxCountLimit = maxCountLimit
         }
@@ -47,7 +48,7 @@ public struct Cached {
     private init() {
         /// Create a unified background processing thread.
         let background = DispatchQueue(label: "com.condy.wintersweet.cached.queue", qos: .background, attributes: [.concurrent])
-        storage = Storage<CacheModel>.init(queue: background)
+        storage = Lemons.Storage<CacheModel>.init(queue: background)
         storage.disk.named = Cached.cachedName
         storage.disk.expiry = Cached.expiry
         storage.disk.maxCountLimit = Cached.maxCountLimit

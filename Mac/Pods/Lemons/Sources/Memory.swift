@@ -1,6 +1,6 @@
 //
 //  Memory.swift
-//  Wintersweet
+//  Lemons
 //
 //  Created by Condy on 2023/3/23.
 //
@@ -24,21 +24,26 @@ public struct Memory {
         }
     }
     
-    /// Clear the memory cache.
-    public func removeAllMemoryCache() {
-        Memory.memory.removeAllObjects()
+    public init() { }
+}
+
+extension Memory: Lemonsable {
+    
+    public func read(key: String) -> Data? {
+        Memory.memory.object(forKey: key as AnyObject) as? Data
     }
     
-    /// Clear the cache according to key value.
-    public func removeObjectCache(_ key: String) {
+    public func store(key: String, value: Data) {
+        Memory.memory.setObject(value as NSData, forKey: key as AnyObject, cost: value.count)
+    }
+    
+    public func removeCache(key: String) -> Bool {
         Memory.memory.removeObject(forKey: key as AnyObject)
+        return true
     }
     
-    public func memoryCacheData(key: String) -> Data? {
-        return Memory.memory.object(forKey: key as AnyObject) as? Data
-    }
-    
-    public func store2Memory(with data: Data, key: String) {
-        Memory.memory.setObject(data as NSData, forKey: key as AnyObject, cost: data.count)
+    public func removedCached(completion: SuccessComplete) {
+        Memory.memory.removeAllObjects()
+        completion(true)
     }
 }

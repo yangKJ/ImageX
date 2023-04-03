@@ -40,7 +40,7 @@ class ViewController: UIViewController {
                                       contentMode: .scaleAspectFit,
                                       bufferCount: 20,
                                       cacheOption: .disk,
-                                      cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
+                                      cacheCrypto: .sha1,
                                       cacheDataZip: .gzip,
                                       preparation: { [weak self] in
             guard let `self` = self else { return }
