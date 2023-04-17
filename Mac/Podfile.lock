@@ -11,7 +11,7 @@ PODS:
     - Harbeth/Basic
   - Harbeth/CoreImage (0.6.6):
     - Harbeth/Basic
-  - Lemons (0.0.4)
+  - Lemons (0.0.6)
   - Wintersweet (0.0.8):
     - Harbeth
     - Lemons
@@ -30,7 +30,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Harbeth: 91b33a393a5a0d78e117c3973ae9623b270e4cc3
-  Lemons: df26ddb4b7bc75717eca7a40b02e855765fa3752
+  Lemons: 9c705456576bb5bd415e82be9542076362b914ee
   Wintersweet: 03c79dd8775c974823b65809e98c4c9ee37ed578
 
 PODFILE CHECKSUM: e320ae5ec63cde42a2ca7456d2b7d222cf9621e9
