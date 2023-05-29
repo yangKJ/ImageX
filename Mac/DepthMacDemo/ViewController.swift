@@ -33,19 +33,19 @@ class ViewController: NSViewController {
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let named = links.randomElement() ?? ""
-        let options = AnimatedOptions(
-            loop: .count(3),
-            placeholder: .image(R.image("IMG_0020")!),
-            contentMode: .scaleAspectBottomRight,
-            bufferCount: 20,
-            cacheOption: .disk,
-            cacheCrypto: .base58,
-            cacheDataZip: .gzip,
-            preparation: {
-                // do something..
-            }, animated: { _ in
-                // play is complete and then do something..
-            })
+        var options = AnimatedOptions(loop: .count(3),
+                                      placeholder: .image(R.image("IMG_0020")!),
+                                      contentMode: .scaleAspectBottomRight,
+                                      bufferCount: 20,
+                                      cacheOption: .disk,
+                                      cacheCrypto: .base58,
+                                      cacheDataZip: .gzip)
+        options.setPreparationBlock(block: {
+            // do something..
+        })
+        options.setAnimatedBlock(block: { loopDuration in
+            // play is complete and then do something..
+        })
         imageView.mt.displayImage(named: named, filters: filters, options: options)
     }
     

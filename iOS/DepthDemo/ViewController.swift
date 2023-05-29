@@ -35,17 +35,18 @@ class ViewController: UIViewController {
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let named = links.randomElement() ?? ""
-        let options = AnimatedOptions(loop: .forever,
+        var options = AnimatedOptions(loop: .forever,
                                       placeholder: .color(.systemGreen),
                                       contentMode: .scaleAspectFit,
                                       bufferCount: 20,
                                       cacheOption: .disk,
                                       cacheCrypto: .sha1,
-                                      cacheDataZip: .gzip,
-                                      preparation: { [weak self] in
+                                      cacheDataZip: .gzip)
+        options.setPreparationBlock(block: { [weak self] in
             guard let `self` = self else { return }
             self.label.text = "\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s"
-        }, animated: { _ in
+        })
+        options.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
         imageView.mt.displayImage(named: named, filters: filters, options: options)
