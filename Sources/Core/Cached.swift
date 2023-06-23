@@ -1,6 +1,6 @@
 //
 //  Cached.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/6.
 //
@@ -17,7 +17,7 @@ public struct Cached {
     public let storage: Lemons.Storage<CacheModel>
     
     /// The name of disk storage, this will be used as folder name within directory.
-    public static var cachedName: String = "WintersweetCached" {
+    public static var cachedName: String = "ImageXCached" {
         didSet {
             Cached.shared.storage.disk.named = cachedName
         }
@@ -47,7 +47,7 @@ public struct Cached {
     
     private init() {
         /// Create a unified background processing thread.
-        let background = DispatchQueue(label: "com.condy.wintersweet.cached.queue", qos: .background, attributes: [.concurrent])
+        let background = DispatchQueue(label: "com.condy.ImageX.cached.queue", qos: .background, attributes: [.concurrent])
         storage = Lemons.Storage<CacheModel>.init(queue: background)
         storage.disk.named = Cached.cachedName
         storage.disk.expiry = Cached.expiry

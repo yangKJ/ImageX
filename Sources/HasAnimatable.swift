@@ -1,6 +1,6 @@
 //
 //  HasAnimatable.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/2/6.
 //
@@ -21,7 +21,7 @@ public protocol HasAnimatable: NSObjectProtocol {
 }
 
 fileprivate struct AssociatedKeys {
-    static var AnimatorKey = "condy.wintersweet.gif.animator.key"
+    static var AnimatorKey = "condy.ImageX.gif.animator.key"
 }
 
 extension HasAnimatable {

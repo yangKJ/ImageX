@@ -1,6 +1,6 @@
 //
 //  ImageView+Ext.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/2/6.
 //
@@ -37,7 +37,7 @@ extension Queen where Base: ImageView {
     /// - Parameters:
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
+    ///   - options: Represents gif playback creating options used in ImageX.
     public func displayImage(named: String?, filters: [C7FilterProtocol], options: AnimatedOptions = .default) {
         guard let named = named, named.isEmpty == false else {
             options.placeholder.display(to: base, contentMode: options.contentMode)
@@ -60,7 +60,7 @@ extension Queen where Base: ImageView {
     /// - Parameters:
     ///   - data: Picture data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
+    ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func displayImage(
         data: Data?,
@@ -88,7 +88,7 @@ extension Queen where Base: ImageView {
     /// - Parameters:
     ///   - url: Link url.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
+    ///   - options: Represents gif playback creating options used in ImageX.
     ///   - failed: Network failure callback.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func displayImage(

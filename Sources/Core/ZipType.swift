@@ -1,6 +1,6 @@
 //
 //  ZipType.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/3/9.
 //
@@ -16,7 +16,7 @@ public enum ZipType {
     case user(compressed: (_ rawData: Data) -> Data, decompress: (_ compressedData: Data) -> Data)
 }
 
-extension ZipType {
+extension ImageX.ZipType {
     
     /// Compress data.
     /// - Parameter data: Waiting for compressed data.

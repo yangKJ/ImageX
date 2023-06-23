@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double WintersweetVersionNumber;
-FOUNDATION_EXPORT const unsigned char WintersweetVersionString[];
+FOUNDATION_EXPORT double ImageXVersionNumber;
+FOUNDATION_EXPORT const unsigned char ImageXVersionString[];
 

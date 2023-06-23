@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Wintersweet
+import ImageX
 
 class GIFView: UIView, AsAnimatable {
     

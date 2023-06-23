@@ -1,26 +1,26 @@
-# Wintersweet
+# ImageX
 
 <p align="left">
-<img src="https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
+<img src="https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/tutieshi_640x524_1s.gif" width="555" hspace="1px">
 </p>
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/Wintersweet)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/ImageX)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ImageX.svg?style=flat&label=ImageX&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/ImageX)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet) is a powerful library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
+[**ImageX**](https://github.com/yangKJ/ImageX) is a powerful library that quickly allows controls to play gifs and add filters. The core is to use CADisplayLink to constantly refresh and update gif frames.
 
 -------
 
 English | [**简体中文**](README_CN.md)
 
 ## Features
-🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/Wintersweet) can be summarized as follows:
+🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/ImageX) can be summarized as follows:
 
 - Support more platform system，macOS、iOS、tvOS、watchOS.
 - Support local and network play gif animated.
 - Support asynchronous image or gif displaying and caching.
-- Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift).
+- Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift).
 - Support extension `NSImageView` or `UIImageView` display image or gif and add the filters.
 - Support six image or gif content modes.
 - Support disk and memory cached network data, And the data is compressed by GZip.
@@ -75,7 +75,7 @@ imageView.mt.displayImage(named: named, filters: filters, options: options)
 /// - Parameters:
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
-///   - options: Represents gif playback creating options used in Wintersweet.
+///   - options: Represents gif playback creating options used in ImageX.
 public func displayImage(
     named: String, 
     filters: [C7FilterProtocol], 
@@ -86,7 +86,7 @@ public func displayImage(
 /// - Parameters:
 ///   - data: Picture data.
 ///   - filters: Harbeth filters apply to image or gif frame.
-///   - options: Represents gif playback creating options used in Wintersweet.
+///   - options: Represents gif playback creating options used in ImageX.
 /// - Returns: A uniform type identifier UTI.
 public func displayImage(
     data: Data?, 
@@ -98,7 +98,7 @@ public func displayImage(
 /// - Parameters:
 ///   - url: Link url.
 ///   - filters: Harbeth filters apply to image or gif frame.
-///   - options: Represents gif playback creating options used in Wintersweet.
+///   - options: Represents gif playback creating options used in ImageX.
 ///   - failed: Network failure callback.
 /// - Returns: Current network URLSessionDataTask.
 public func displayImage(
@@ -126,7 +126,7 @@ class GIFView: UIView, AsAnimatable {
 }
 ```
 
-**GIF animated support has been implemented here for [ImageView](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Extensions/ImageView%2BExt.swift), so you can use it directly.✌️**
+**GIF animated support has been implemented here for [ImageView](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/ImageView%2BExt.swift), so you can use it directly.✌️**
 
 ### ContentMode
 
@@ -134,17 +134,17 @@ class GIFView: UIView, AsAnimatable {
 
 Example | ContentMode
 ---- | ---------
-![original](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`AnimatedOptions(contentMode: .original)`
-![scaleToFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`AnimatedOptions(contentMode: .scaleToFill)`
-![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFit)`
-![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFill)`
-![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectBottomRight)`
-![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectTopLeft)`
+![original](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`AnimatedOptions(contentMode: .original)`
+![scaleToFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`AnimatedOptions(contentMode: .scaleToFill)`
+![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFit)`
+![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectFill)`
+![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectBottomRight)`
+![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`AnimatedOptions(contentMode: .scaleAspectTopLeft)`
 
 ### AnimatedOptions
 
 - Other parameters related to GIF playback.
-- Represents gif playback creating options used in Wintersweet.
+- Represents gif playback creating options used in ImageX.
 
 ```swift
 public struct AnimatedOptions {
@@ -152,26 +152,26 @@ public struct AnimatedOptions {
     public static let `default` = AnimatedOptions()
     
     /// Desired number of loops. Default  is ``forever``.
-    public let loop: Wintersweet.Loop
+    public let loop: ImageX.Loop
     
     /// Content mode used for resizing the frames. Default is ``original``.
-    public let contentMode: Wintersweet.ContentMode
+    public let contentMode: ImageX.ContentMode
     
     /// The number of frames to buffer. Default is 50.
     public let bufferCount: Int
     
     /// Weather or not we should cache the URL response. Default is ``all``.
-    public let cacheOption: Wintersweet.Cached.Options
+    public let cacheOption: ImageX.Cached.Options
     
     /// Placeholder image. default gray picture.
-    public let placeholder: Wintersweet.Placeholder
+    public let placeholder: ImageX.Placeholder
     
     /// Network data cache naming encryption method, Default is ``md5``.
-    public let cacheCrypto: Wintersweet.CryptoType
+    public let cacheCrypto: ImageX.CryptoType
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
-    public let cacheDataZip: Wintersweet.ZipType
+    public let cacheDataZip: ImageX.ZipType
 }
 ```
 
@@ -213,7 +213,7 @@ public protocol AsAnimatable: HasAnimatable {
     /// - Parameters:
     ///   - data: gif data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
+    ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
 }
 ```
@@ -262,7 +262,7 @@ public enum Crypto {
 }
 ```
 
-- Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) compression or decompression. Of course, users can also customize it.
+- Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/GZip.swift) compression or decompression. Of course, users can also customize it.
 
 ```
 public enum ZipType {
@@ -299,14 +299,14 @@ public enum Loop {
 **CocoaPods**
 
 ```ruby
-pod 'Wintersweet'
+pod 'ImageX'
 ```
 
 **Swift Package Manager**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yangKJ/Wintersweet.git", branch: "master"),
+    .package(url: "https://github.com/yangKJ/ImageX.git", branch: "master"),
 ]
 ```
 
@@ -317,6 +317,6 @@ dependencies: [
 -----
 
 ## License
-Wintersweet is available under the [MIT](LICENSE) license. See the [LICENSE](LICENSE) file for more info.
+ImageX is available under the [MIT](LICENSE) license. See the [LICENSE](LICENSE) file for more info.
 
 -----

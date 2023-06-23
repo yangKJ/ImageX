@@ -1,6 +1,6 @@
 //
 //  AnimatedOptions.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/2/23.
 //
@@ -12,40 +12,40 @@ import Foundation
 public typealias FailedCallback = ((_ error: Error?) -> Void)
 
 /// Other parameters related to GIF playback.
-/// Represents gif playback creating options used in Wintersweet.
+/// Represents gif playback creating options used in ImageX.
 public struct AnimatedOptions {
     
     public static var `default` = AnimatedOptions()
     
     /// Desired number of loops. Default  is ``forever``.
-    public let loop: Wintersweet.Loop
+    public let loop: ImageX.Loop
     
     /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
     /// 请将承载控件``view.contentMode = .scaleAspectFit``
     /// Content mode used for resizing the frames. Default is ``original``.
-    public let contentMode: Wintersweet.ContentMode
+    public let contentMode: ImageX.ContentMode
     
     /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
     public let bufferCount: Int
     
-    /// Weather or not we should cache the URL response. Default is ``all``.
+    /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
     public let cacheOption: Lemons.CachedOptions
     
     /// Placeholder image. default gray picture.
-    public let placeholder: Wintersweet.Placeholder
+    public let placeholder: ImageX.Placeholder
     
     /// Network data cache naming encryption method, Default is ``md5``.
     public let cacheCrypto: Lemons.CryptoType
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
-    public let cacheDataZip: Wintersweet.ZipType
+    public let cacheDataZip: ImageX.ZipType
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
     public var moduleName: String {
         get {
-            return modularizationName_ ?? "Wintersweet"
+            return modularizationName_ ?? "ImageX"
         }
     }
     private let modularizationName_: String?
@@ -59,7 +59,7 @@ public struct AnimatedOptions {
     ///   - placeholder: Placeholder information. Default ``none``.
     ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
     ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
-    ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``all``.
+    ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``diskAndMemory``.
     ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
     ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
     ///   - moduleName: Do the component operation to solve the problem that the local GIF cannot read the data in another module.
@@ -68,7 +68,7 @@ public struct AnimatedOptions {
                 placeholder: Placeholder = .none,
                 contentMode: ContentMode = .original,
                 bufferCount: Int = 50,
-                cacheOption: Lemons.CachedOptions = .all,
+                cacheOption: Lemons.CachedOptions = .diskAndMemory,
                 cacheCrypto: Lemons.CryptoType = .md5,
                 cacheDataZip: ZipType = .gzip,
                 moduleName: String? = nil,

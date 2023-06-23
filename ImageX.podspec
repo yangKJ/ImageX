@@ -1,5 +1,5 @@
 #
-# Be sure to run 'pod lib lint Wintersweet.podspec' to ensure this is a
+# Be sure to run 'pod lib lint ImageX.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -7,8 +7,8 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'Wintersweet'
-  s.version          = '0.0.9'
+  s.name             = 'ImageX'
+  s.version          = '1.0.0'
   s.summary          = 'GIF animation and support Harbeth filter.'
   
   # This description is used to generate tags and improve search results.
@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
-  s.homepage         = 'https://github.com/yangKJ/Wintersweet'
+  s.homepage         = 'https://github.com/yangKJ/ImageX'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Condy' => 'yangkj310@gmail.com' }
-  s.source           = { :git => 'https://github.com/yangKJ/Wintersweet.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/yangKJ/ImageX.git', :tag => s.version }
   
   s.swift_version    = '5.0'
   s.requires_arc     = true

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Wintersweet
+import ImageX
 
 class ViewController: UIViewController {
     
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     func setup() {
         let links = [
             "pikachu",
-            "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let named = links.randomElement() ?? ""

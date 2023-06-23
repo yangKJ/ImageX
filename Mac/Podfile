@@ -6,7 +6,7 @@ target 'DepthMacDemo' do
   use_frameworks!
   
   # Pods for DepthMacDemo
-  pod 'Wintersweet', :path => '../'
+  pod 'ImageX', :path => '../'
   
 end
 

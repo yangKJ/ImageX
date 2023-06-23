@@ -1,23 +1,23 @@
 PODS:
-  - Harbeth (0.6.7):
-    - Harbeth/Basic (= 0.6.7)
-    - Harbeth/Collector (= 0.6.7)
-    - Harbeth/Compute (= 0.6.7)
-    - Harbeth/CoreImage (= 0.6.7)
-  - Harbeth/Basic (0.6.7)
-  - Harbeth/Collector (0.6.7):
+  - Harbeth (0.6.8):
+    - Harbeth/Basic (= 0.6.8)
+    - Harbeth/Collector (= 0.6.8)
+    - Harbeth/Compute (= 0.6.8)
+    - Harbeth/CoreImage (= 0.6.8)
+  - Harbeth/Basic (0.6.8)
+  - Harbeth/Collector (0.6.8):
     - Harbeth/Basic
-  - Harbeth/Compute (0.6.7):
+  - Harbeth/Compute (0.6.8):
     - Harbeth/Basic
-  - Harbeth/CoreImage (0.6.7):
+  - Harbeth/CoreImage (0.6.8):
     - Harbeth/Basic
-  - Lemons (0.0.6)
-  - Wintersweet (0.0.9):
+  - ImageX (1.0.0):
     - Harbeth
     - Lemons
+  - Lemons (0.0.7)
 
 DEPENDENCIES:
-  - Wintersweet (from `../`)
+  - ImageX (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -25,14 +25,14 @@ SPEC REPOS:
     - Lemons
 
 EXTERNAL SOURCES:
-  Wintersweet:
+  ImageX:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Harbeth: ead84e8d57cf182453a0f1f8bc32aef97636ffaf
-  Lemons: 9c705456576bb5bd415e82be9542076362b914ee
-  Wintersweet: 74c40c9d39dadbc1ecb0df8dc532f452905426cb
+  Harbeth: e3669e04d660b111d39d7c045d4cd9e79c303c8c
+  ImageX: ca209c808a9bb1e184efcf532a140669108ed24e
+  Lemons: c7d7a9171f510b0cddee4d836bbc43cb9d783224
 
-PODFILE CHECKSUM: 2255f9796ecbc17c7b04dc36fded3b835eabd89d
+PODFILE CHECKSUM: c78a1e1a5622ebdeb911110e6fbaab5961b0bd5e
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

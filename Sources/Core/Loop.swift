@@ -1,6 +1,6 @@
 //
 //  Loop.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/12.
 //
@@ -20,7 +20,7 @@ public enum Loop {
     case lastFrame
 }
 
-extension Wintersweet.Loop {
+extension ImageX.Loop {
     /// Desired number of loops.
     var count: Int {
         switch self {

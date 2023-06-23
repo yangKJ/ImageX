@@ -1,6 +1,6 @@
 //
 //  AsAnimatable.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/5.
 //  Reference source See: https://github.com/kean/Nuke/tree/master/Sources/NukeUI/Gifu
@@ -44,7 +44,7 @@ public protocol AsAnimatable: HasAnimatable {
     /// - Parameters:
     ///   - data: gif data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in Wintersweet.
+    ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
 }
 

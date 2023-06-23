@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import Wintersweet
+import ImageX
 
 class GIFImageView: NSImageView {
     
@@ -27,7 +27,7 @@ class ViewController: NSViewController {
         ]
         let links = [
             "jordan-whitt-54480", "failed_link",
-            "https://raw.githubusercontent.com/yangKJ/Wintersweet/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"

@@ -1,6 +1,6 @@
 //
 //  Animator.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/5.
 //

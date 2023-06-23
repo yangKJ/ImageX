@@ -1,6 +1,6 @@
 //
 //  ContentMode.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/5.
 //
@@ -24,7 +24,7 @@ public enum ContentMode: Int, @unchecked Sendable  {
     case scaleAspectTopLeft = 5
 }
 
-extension Wintersweet.ContentMode {
+extension ImageX.ContentMode {
     
     /// Resize an image to the specified size. Depending on what fitMode is supplied
     /// - Parameters:

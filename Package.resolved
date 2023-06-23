@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/yangKJ/Harbeth.git",
         "state": {
           "branch": null,
-          "revision": "bbee4e86f4e61e51843c4dae9a1bcd4abc137960",
-          "version": "0.6.6"
+          "revision": "71c2c964500bb4fdc19802f86dd7c7b753704306",
+          "version": "0.6.8"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/yangKJ/Lemons.git",
         "state": {
           "branch": null,
-          "revision": "13a09d29c4db21bc9402323e285c199189fe5288",
-          "version": "0.0.5"
+          "revision": "6b181de7f263c7046024aa7976ab7dd910cd2d47",
+          "version": "0.0.7"
         }
       }
     ]

@@ -1,6 +1,6 @@
 //
 //  FrameStore.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/1/5.
 //
@@ -20,7 +20,7 @@ final class FrameStore {
     /// The target size for all frames.
     private let size: CGSize
     /// The content mode to use when resizing.
-    private let contentMode: Wintersweet.ContentMode
+    private let contentMode: ImageX.ContentMode
     /// Maximum number of frames to load at once.
     /// A high number will result in more memory usage and less CPU load, and vice versa.
     private let bufferFrameCount: Int
@@ -87,7 +87,7 @@ final class FrameStore {
     ///   - framePreloadCount: Number of frame to buffer.
     ///   - contentMode: The content mode to use when resizing.
     ///   - loopCount: Desired number of loops, <= 0 for infinite loop.
-    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: Wintersweet.ContentMode, loopCount: Int) {
+    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: ImageX.ContentMode, loopCount: Int) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.size = size

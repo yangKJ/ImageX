@@ -6,7 +6,7 @@ target 'DepthDemo' do
   use_frameworks!
 
   # Pods for DepthDemo
-  pod 'Wintersweet', :path => '../'
+  pod 'ImageX', :path => '../'
 
 end
 

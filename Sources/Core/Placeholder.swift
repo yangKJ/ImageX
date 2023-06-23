@@ -1,6 +1,6 @@
 //
 //  Placeholder.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/2/28.
 //
@@ -27,10 +27,10 @@ public enum Placeholder {
     case view(View)
 }
 
-extension Placeholder {
+extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
-    func display(to view: AsAnimatable, contentMode: Wintersweet.ContentMode) {
+    func display(to view: AsAnimatable, contentMode: ImageX.ContentMode) {
         switch self {
         case .none:
             break

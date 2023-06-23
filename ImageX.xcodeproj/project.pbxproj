@@ -35,13 +35,6 @@
 			remoteGlobalIDString = B00B1CB2DB40F3973523CE16C87EBD0E;
 			remoteInfo = "Pods-DepthMacDemo";
 		};
-		8770FC4929A6067500AED5CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8770FB0A29A6067400AED5CC /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E8E50E84849CC3C2AC0C148E5BA1315E;
-			remoteInfo = Wintersweet;
-		};
 		87C9C43029ECF68E00891F40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 87C9C2E029ECF68D00891F40 /* DepthDemo.xcodeproj */;
@@ -77,19 +70,26 @@
 			remoteGlobalIDString = 045376EC2BD0DE85F0885D1026346B30;
 			remoteInfo = "Pods-DepthDemo";
 		};
-		87C9C43F29ECF68E00891F40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 87C9C2E429ECF68D00891F40 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E8E50E84849CC3C2AC0C148E5BA1315E;
-			remoteInfo = Wintersweet;
-		};
 		87D3265C29DAA77B00857B97 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8770FB0A29A6067400AED5CC /* Pods.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 49039E8F306C1DDB5C1455A6C3085C8E;
 			remoteInfo = Lemons;
+		};
+		F7E3FCED2A455B370059B0C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8770FB0A29A6067400AED5CC /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDD45F94BD4B205B84892C681168F4A1;
+			remoteInfo = ImageX;
+		};
+		F7E3FCF42A455B370059B0C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87C9C2E429ECF68D00891F40 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDD45F94BD4B205B84892C681168F4A1;
+			remoteInfo = ImageX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -369,7 +369,7 @@
 		8770FC3229A6067500AED5CC /* C7Nostalgic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C7Nostalgic.swift; sourceTree = "<group>"; };
 		8770FC3329A6067500AED5CC /* C7Sepia.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = C7Sepia.metal; sourceTree = "<group>"; };
 		8770FC3429A6067500AED5CC /* C7ColorMatrix4x4.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = C7ColorMatrix4x4.metal; sourceTree = "<group>"; };
-		8770FC3629A6067500AED5CC /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		8770FC3629A6067500AED5CC /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8770FC3729A6067500AED5CC /* DepthMacDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthMacDemo.xcworkspace; sourceTree = "<group>"; };
 		8770FC3829A6067500AED5CC /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		8770FC3929A6067500AED5CC /* DepthMacDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthMacDemo.xcodeproj; sourceTree = "<group>"; };
@@ -754,9 +754,9 @@
 			children = (
 				8770FC4429A6067500AED5CC /* Harbeth */,
 				8770FC4629A6067500AED5CC /* Harbeth-Harbeth */,
+				F7E3FCEE2A455B370059B0C4 /* ImageX */,
 				87D3265D29DAA77B00857B97 /* Lemons */,
 				8770FC4829A6067500AED5CC /* Pods-DepthMacDemo */,
-				8770FC4A29A6067500AED5CC /* Wintersweet */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1278,9 +1278,9 @@
 			children = (
 				87C9C43829ECF68E00891F40 /* Harbeth */,
 				87C9C43A29ECF68E00891F40 /* Harbeth-Harbeth */,
+				F7E3FCF52A455B370059B0C4 /* ImageX */,
 				87C9C43C29ECF68E00891F40 /* Lemons */,
 				87C9C43E29ECF68E00891F40 /* Pods-DepthDemo */,
-				87C9C44029ECF68E00891F40 /* Wintersweet */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1839,7 +1839,7 @@
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 			};
-			buildConfigurationList = 879A63C02978E6C6008237C7 /* Build configuration list for PBXProject "Wintersweet" */;
+			buildConfigurationList = 879A63C02978E6C6008237C7 /* Build configuration list for PBXProject "ImageX" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1906,14 +1906,6 @@
 			remoteRef = 8770FC4729A6067500AED5CC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		8770FC4A29A6067500AED5CC /* Wintersweet */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			name = Wintersweet;
-			path = Wintersweet.framework;
-			remoteRef = 8770FC4929A6067500AED5CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		87C9C43129ECF68E00891F40 /* DepthDemo.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -1953,20 +1945,28 @@
 			remoteRef = 87C9C43D29ECF68E00891F40 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		87C9C44029ECF68E00891F40 /* Wintersweet */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			name = Wintersweet;
-			path = Wintersweet.framework;
-			remoteRef = 87C9C43F29ECF68E00891F40 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		87D3265D29DAA77B00857B97 /* Lemons */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			name = Lemons;
 			path = Lemons.framework;
 			remoteRef = 87D3265C29DAA77B00857B97 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7E3FCEE2A455B370059B0C4 /* ImageX */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = ImageX;
+			path = ImageX.framework;
+			remoteRef = F7E3FCED2A455B370059B0C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7E3FCF52A455B370059B0C4 /* ImageX */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = ImageX;
+			path = ImageX.framework;
+			remoteRef = F7E3FCF42A455B370059B0C4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2089,7 +2089,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		879A63C02978E6C6008237C7 /* Build configuration list for PBXProject "Wintersweet" */ = {
+		879A63C02978E6C6008237C7 /* Build configuration list for PBXProject "ImageX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				879A63D72978E6C8008237C7 /* Debug */,

@@ -1,6 +1,6 @@
 //
 //  R.swift
-//  Wintersweet
+//  ImageX
 //
 //  Created by Condy on 2023/3/7.
 //
@@ -11,7 +11,7 @@ import Harbeth
 extension R {
     
     /// Read gif data.
-    public static func gifData(_ named: String, forResource: String = "Wintersweet") -> Data? {
+    public static func gifData(_ named: String, forResource: String = "ImageX") -> Data? {
         let bundle: Bundle?
         if let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") {
             bundle = Bundle.init(path: bundlePath)
@@ -37,12 +37,5 @@ extension R {
             }
         } catch { }
         return false
-    }
-    
-    /// Compare whether the addresses of the two objects are the same.
-    public static func equateable(object1: AnyObject, object2: AnyObject) -> Bool {
-        let str1 = String(describing: Unmanaged<AnyObject>.passUnretained(object1).toOpaque())
-        let str2 = String(describing: Unmanaged<AnyObject>.passUnretained(object2).toOpaque())
-        return str1 == str2
     }
 }
