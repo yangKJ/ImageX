@@ -1,10 +1,10 @@
-# Wintersweet
+# ImageX
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/Wintersweet)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Wintersweet.svg?style=flat&label=Wintersweet&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Wintersweet)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/ImageX)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ImageX.svg?style=flat&label=ImageX&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/ImageX)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
-[**Wintersweet**](https://github.com/yangKJ/Wintersweet)是一款快速让控件播放GIF和添加滤镜的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧图。
+[**ImageX**](https://github.com/yangKJ/ImageX)是一款快速让控件播放GIF和添加滤镜的框架，核心其实就是使用[**CADisplayLink**](https://github.com/yangKJ/Harbeth/blob/master/Sources/Basic/Setup/DisplayLink.swift)不断刷新和更新GIF帧图。
 
 -------
 
@@ -14,11 +14,11 @@
 
 - 支持全平台系统，macOS、iOS、tvOS、watchOS；
 - 支持播放本地和网络GIF动画；
-- 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Extensions/ImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
-- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
-- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
-- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/CryptoType.swift) 方式；
+- 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/ImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
+- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
+- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/CryptoType.swift) 方式；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
@@ -31,19 +31,19 @@
 ```swift
 let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
-let options = AnimatedOptions(
-    loop: .count(3), // 循环播放3次
-    placeholder: .image(R.image("IMG_0020")!), // 占位图
-    contentMode: .scaleAspectBottomRight, // 填充模式
-    bufferCount: 20, // 缓存20帧
-    cacheOption: .disk, // 采用磁盘缓存
-    cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) }, // 自定义加密
-    cacheDataZip: .gzip, // 采用GZip方式压缩数据
-    preparation: {
-        // GIF开始准备播放时刻
-    }, animated: { _ in
-        // GIF播放完成
-    })
+var options = AnimatedOptions(loop: .count(3), // 循环播放3次
+                              placeholder: .image(R.image("IMG_0020")!), // 占位图
+                              contentMode: .scaleAspectBottomRight, // 填充模式
+                              bufferCount: 20, // 缓存20帧
+                              cacheOption: .disk, // 采用磁盘缓存
+                              cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) }, // 自定义加密
+                              cacheDataZip: .gzip) // 采用GZip方式压缩数据
+options.setPreparationBlock(block: { [weak self] in
+    // GIF开始准备播放时刻
+})
+options.setAnimatedBlock(block: { _ in
+    // GIF播放完成
+})
 imageView.mt.displayImage(named: named, filters: filters, options: options)
 ```
 
@@ -78,12 +78,12 @@ public func displayImage(
 
 ```swift
 /// 任意控件实现协议``AsAnimatable``均可支持GIF播放
-class GIFView: UIView, AsAnimatable {
+class AnimatedView: UIView, AsAnimatable {
     ...
 }
 
-lazy var animatedView: GIFView = {
-    let view = GIFView.init(frame: .zero)
+lazy var animatedView: AnimatedView = {
+    let view = AnimatedView.init(frame: .zero)
     view.translatesAutoresizingMaskIntoConstraints = false
     view.layer.contentsGravity = .resizeAspect
     view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -199,7 +199,7 @@ public static let memory = Options(rawValue: 1 << 1)
 /// 使用磁盘缓存数据
 public static let disk = Options(rawValue: 1 << 2)
 /// 同时使用磁盘和内存缓存，优先读取内存数据
-public static let all: Options = [.memory, .disk]
+public static let diskAndMemory: Options = [.memory, .disk]
 ```
 
 - 考虑到安全问题，命名方式采用多种加密处理，例如md5、sha1、base58，以及用户自定义。

@@ -51,19 +51,19 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 ```swift
 let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
-let options = AnimatedOptions(
-    loop: .count(3),
-    placeholder: .image(R.image("IMG_0020")!),
-    contentMode: .scaleAspectBottomRight,
-    bufferCount: 20,
-    cacheOption: .disk,
-    cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
-    cacheDataZip: .gzip,
-    preparation: {
-        // do something..
-    }, animated: { _ in
-        // play is complete and then do something..
-    })
+var options = AnimatedOptions(loop: .count(3),
+                              placeholder: .image(R.image("IMG_0020")!),
+                              contentMode: .scaleAspectBottomRight,
+                              bufferCount: 20,
+                              cacheOption: .disk,
+                              cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
+                              cacheDataZip: .gzip)
+options.setPreparationBlock(block: { [weak self] in
+    // do something..
+})
+options.setAnimatedBlock(block: { _ in
+    // play is complete and then do something..
+})
 imageView.mt.displayImage(named: named, filters: filters, options: options)
 ```
 
@@ -121,7 +121,7 @@ animatedView.play(data: data, filters: filters, options: options)
 - Any control implementation protocol ``AsAnimatable`` can support gif animated playback.
 
 ```swift
-class GIFView: UIView, AsAnimatable {
+class AnimatedView: UIView, AsAnimatable {
     ...
 }
 ```
@@ -160,7 +160,7 @@ public struct AnimatedOptions {
     /// The number of frames to buffer. Default is 50.
     public let bufferCount: Int
     
-    /// Weather or not we should cache the URL response. Default is ``all``.
+    /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
     public let cacheOption: ImageX.Cached.Options
     
     /// Placeholder image. default gray picture.
