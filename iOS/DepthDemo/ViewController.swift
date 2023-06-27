@@ -20,8 +20,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func goGIF(_ sender: Any) {
-        let vc = GifViewController()
+        let vc = GIFViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func clearCache(_ sender: UIButton) {
+        Cached.shared.storage.removedDiskAndMemoryCached { isSuccess in
+            print("Clean up completed!!!")
+        }
     }
     
     let filters: [C7FilterProtocol] = [
@@ -32,18 +38,23 @@ class ViewController: UIViewController {
         let links = [
             "pikachu",
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
-            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
+            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
+            "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg",
         ]
         let named = links.randomElement() ?? ""
-        var options = AnimatedOptions(loop: .forever,
-                                      placeholder: .color(.systemGreen),
-                                      contentMode: .scaleAspectFit,
-                                      bufferCount: 20,
-                                      cacheOption: .disk,
-                                      cacheCrypto: .sha1,
-                                      cacheDataZip: .gzip)
+        var options = AnimatedOptions()
+        options.loop = .forever
+        options.placeholder = .color(.systemGreen)
+        options.contentMode = .scaleAspectFit
+        options.bufferCount = 20
+        options.cacheOption = .disk
+        options.cacheCrypto = .sha1
+        options.cacheDataZip = .gzip
+        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
         options.setPreparationBlock(block: { [weak self] in
-            guard let `self` = self else { return }
+            guard let `self` = self else {
+                return
+            }
             self.label.text = "\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s"
         })
         options.setAnimatedBlock(block: { _ in

@@ -28,18 +28,20 @@ class ViewController: NSViewController {
         let links = [
             "jordan-whitt-54480", "failed_link",
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
-            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let named = links.randomElement() ?? ""
-        var options = AnimatedOptions(loop: .count(3),
-                                      placeholder: .image(R.image("IMG_0020")!),
-                                      contentMode: .scaleAspectBottomRight,
-                                      bufferCount: 20,
-                                      cacheOption: .disk,
-                                      cacheCrypto: .base58,
-                                      cacheDataZip: .gzip)
+        var options = AnimatedOptions()
+        options.loop = .forever
+        options.placeholder = .image(R.image("IMG_0020")!)
+        options.contentMode = .scaleAspectBottomRight
+        options.bufferCount = 20
+        options.cacheOption = .disk
+        options.cacheCrypto = .base58
+        options.cacheDataZip = .gzip
+        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
         options.setPreparationBlock(block: {
             // do something..
         })

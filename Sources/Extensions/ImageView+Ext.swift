@@ -2,11 +2,12 @@
 //  ImageView+Ext.swift
 //  ImageX
 //
-//  Created by Condy on 2023/2/6.
+//  Created by Condy on 2023/1/5.
 //
 
 import Foundation
 import Harbeth
+import Lemons
 #if os(iOS) || os(tvOS)
 import UIKit
 public typealias ImageView = UIImageView
@@ -95,7 +96,7 @@ extension Queen where Base: ImageView {
         url: URL,
         filters: [Harbeth.C7FilterProtocol],
         options: AnimatedOptions = AnimatedOptions.default,
-        failed: FailedCallback? = nil
+        failed: AnimatedOptions.FailedCallback? = nil
     ) -> URLSessionDataTask? {
         let options = options.setDisplayed(placeholder: true)
         options.placeholder.display(to: base, contentMode: options.contentMode)
@@ -106,10 +107,11 @@ extension Queen where Base: ImageView {
             self.displayImage(data: data, filters: filters, options: options)
             return nil
         }
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+        return Networking.shared.addDownloadURL(url, retry: options.retry) { (data, response, error) in
             switch (data, error) {
             case (.none, let error):
-                failed?(error)
+                failed?(response, error)
+                options.failed?(response, error)
             case (let data?, _):
                 DispatchQueue.main.async {
                     self.displayImage(data: data, filters: filters, options: options)
@@ -119,7 +121,5 @@ extension Queen where Base: ImageView {
                 storager.storeCached(model, forKey: key, options: options.cacheOption)
             }
         }
-        task.resume()
-        return task
     }
 }

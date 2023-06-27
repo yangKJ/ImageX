@@ -2,14 +2,12 @@
 //  AnimatedOptions.swift
 //  ImageX
 //
-//  Created by Condy on 2023/2/23.
+//  Created by Condy on 2023/2/28.
 //
 
 import Foundation
 @_exported import Harbeth
 @_exported import Lemons
-
-public typealias FailedCallback = ((_ error: Error?) -> Void)
 
 /// Other parameters related to GIF playback.
 /// Represents gif playback creating options used in ImageX.
@@ -17,71 +15,47 @@ public struct AnimatedOptions {
     
     public static var `default` = AnimatedOptions()
     
+    public typealias FailedCallback = ((_ response: URLResponse?, _ error: Error?) -> Void)
+    
     /// Desired number of loops. Default  is ``forever``.
-    public let loop: ImageX.Loop
+    public var loop: ImageX.Loop = .forever
     
     /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
     /// 请将承载控件``view.contentMode = .scaleAspectFit``
     /// Content mode used for resizing the frames. Default is ``original``.
-    public let contentMode: ImageX.ContentMode
+    public var contentMode: ImageX.ContentMode = .original
     
     /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
-    public let bufferCount: Int
+    public var bufferCount: Int = 50
     
     /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
-    public let cacheOption: Lemons.CachedOptions
+    public var cacheOption: Lemons.CachedOptions = .diskAndMemory
     
     /// Placeholder image. default gray picture.
-    public let placeholder: ImageX.Placeholder
+    public var placeholder: ImageX.Placeholder = .none
     
     /// Network data cache naming encryption method, Default is ``md5``.
-    public let cacheCrypto: Lemons.CryptoType
+    public var cacheCrypto: Lemons.CryptoType = .md5
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
-    public let cacheDataZip: ImageX.ZipType
+    public var cacheDataZip: ImageX.ZipType = .gzip
+    
+    /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
+    public var retry: ImageX.DelayRetry = .default
+    
+    /// Confirm the size to facilitate follow-up processing, Default display control size.
+    public var confirmSize: CGSize = .zero
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
-    public var moduleName: String {
-        get {
-            return modularizationName_ ?? "ImageX"
-        }
-    }
-    private let modularizationName_: String?
-    
-    /// Confirm the size to facilitate follow-up processing, Default display control size.
-    public let confirmSize: CGSize
+    public let moduleName: String
     
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
-    ///   - loop: Desired number of loops. Default  is ``forever``.
-    ///   - placeholder: Placeholder information. Default ``none``.
-    ///   - contentMode: Content mode used for resizing the frames. Default is ``original``.
-    ///   - bufferCount: The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
-    ///   - cacheOption: Weather or not we should cache the URL response. Default  is ``diskAndMemory``.
-    ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
-    ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
     ///   - moduleName: Do the component operation to solve the problem that the local GIF cannot read the data in another module.
-    ///   - confirmSize: Confirm the size to facilitate follow-up processing, Default display control size.
-    public init(loop: Loop = .forever,
-                placeholder: Placeholder = .none,
-                contentMode: ContentMode = .original,
-                bufferCount: Int = 50,
-                cacheOption: Lemons.CachedOptions = .diskAndMemory,
-                cacheCrypto: Lemons.CryptoType = .md5,
-                cacheDataZip: ZipType = .gzip,
-                moduleName: String? = nil,
-                confirmSize: CGSize = .zero) {
-        self.loop = loop
-        self.contentMode = contentMode
-        self.bufferCount = bufferCount
-        self.cacheOption = cacheOption
-        self.cacheCrypto = cacheCrypto
-        self.cacheDataZip = cacheDataZip
-        self.placeholder = placeholder
-        self.modularizationName_ = moduleName
-        self.confirmSize = confirmSize
+    public init(moduleName: String = "ImageX") {
+        self.moduleName = moduleName
     }
     
     internal var preparation: (() -> Void)?
@@ -96,6 +70,13 @@ public struct AnimatedOptions {
     /// - Parameter block: Complete the callback.
     public mutating func setAnimatedBlock(block: @escaping ((_ loopDuration: TimeInterval) -> Void)) {
         self.animated = block
+    }
+    
+    internal var failed: AnimatedOptions.FailedCallback?
+    /// Network download task failure information
+    /// - Parameter block: Failed the callback.
+    public mutating func setNetworkFailed(block: @escaping AnimatedOptions.FailedCallback) {
+        self.failed = block
     }
     
     internal var displayed: Bool = false // 防止重复设置占位信息

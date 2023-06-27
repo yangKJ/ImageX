@@ -1,21 +1,21 @@
 //
-//  GifViewController.swift
+//  GIFViewController.swift
 //  DepthDemo
 //
-//  Created by Condy on 2023/2/6.
+//  Created by Condy on 2023/1/5.
 //
 
 import Foundation
 import ImageX
 
-class GIFView: UIView, AsAnimatable {
+class AnimatedView: UIView, AsAnimatable {
     
 }
 
-class GifViewController: UIViewController {
+class GIFViewController: UIViewController {
     
-    lazy var animatedView: GIFView = {
-        let view = GIFView.init(frame: .zero)
+    lazy var animatedView: AnimatedView = {
+        let view = AnimatedView.init(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.contentsGravity = .resizeAspect
         view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -25,7 +25,7 @@ class GifViewController: UIViewController {
     lazy var placeholder: UILabel = {
         let label = UILabel()
         label.text = "Condy"
-        label.backgroundColor = .systemCyan
+        label.backgroundColor = .cyan
         label.font = UIFont.systemFont(ofSize: 50)
         label.textAlignment = .center
         return label
@@ -55,11 +55,13 @@ class GifViewController: UIViewController {
             C7Storyboard(ranks: 3)
         ]
         let data = R.gifData("pikachu")
-        let options = AnimatedOptions(loop: .count(5), placeholder: .view(placeholder))
+        var options = AnimatedOptions()
+        options.loop = .count(5)
+        options.placeholder = .view(placeholder)
         animatedView.play(data: data, filters: filters, options: options)
     }
     
     deinit {
-        print("GifViewController is deinit.")
+        print("GIFViewController is deinit.")
     }
 }

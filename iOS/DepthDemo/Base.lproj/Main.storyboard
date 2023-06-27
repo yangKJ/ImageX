@@ -37,14 +37,24 @@
                                     <action selector="goGIF:" destination="BYZ-38-t0r" eventType="touchUpInside" id="anL-tb-4iY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkM-uc-nBb">
+                                <rect key="frame" x="138" y="682" width="117" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Clear Cache"/>
+                                <connections>
+                                    <action selector="clearCache:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zeu-hx-joF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1TF-Oq-Ow8"/>
+                            <constraint firstItem="VkM-uc-nBb" firstAttribute="centerX" secondItem="cQJ-oe-DJG" secondAttribute="centerX" id="53B-2g-SSO"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8D7-jl-Rzi"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9mu-Od-x3o"/>
                             <constraint firstItem="RFs-Xt-kGX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DLZ-Lp-DlW"/>
+                            <constraint firstItem="VkM-uc-nBb" firstAttribute="top" secondItem="cQJ-oe-DJG" secondAttribute="bottom" constant="20" id="KiZ-pS-6cQ"/>
                             <constraint firstItem="cQJ-oe-DJG" firstAttribute="top" secondItem="Z7Q-0Q-1Li" secondAttribute="bottom" constant="30" id="MTx-vD-0so"/>
                             <constraint firstItem="cQJ-oe-DJG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O8N-I4-L60"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RFs-Xt-kGX" secondAttribute="trailing" constant="20" id="SVP-A0-sDo"/>

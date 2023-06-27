@@ -95,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		870373F129B57CD9002D0042 /* RunloopOptimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunloopOptimize.swift; sourceTree = "<group>"; };
+		870A58B72A491C2600F90D19 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		870DBCAC2990929B000A36F6 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
 		870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		872E2E0529ADA662003F241E /* AnimatedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOptions.swift; sourceTree = "<group>"; };
@@ -111,13 +112,6 @@
 		876D4DB52984C29D00A06282 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		876D4DB72984C29D00A06282 /* FrameImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameImage.swift; sourceTree = "<group>"; };
 		8770FB0A29A6067400AED5CC /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
-		8770FB0F29A6067400AED5CC /* Wintersweet.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Wintersweet.release.xcconfig; sourceTree = "<group>"; };
-		8770FB1029A6067400AED5CC /* Wintersweet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wintersweet-Info.plist"; sourceTree = "<group>"; };
-		8770FB1129A6067400AED5CC /* Wintersweet.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Wintersweet.debug.xcconfig; sourceTree = "<group>"; };
-		8770FB1229A6067400AED5CC /* Wintersweet-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-umbrella.h"; sourceTree = "<group>"; };
-		8770FB1329A6067400AED5CC /* Wintersweet-dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Wintersweet-dummy.m"; sourceTree = "<group>"; };
-		8770FB1429A6067400AED5CC /* Wintersweet-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-prefix.pch"; sourceTree = "<group>"; };
-		8770FB1529A6067400AED5CC /* Wintersweet.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = Wintersweet.modulemap; sourceTree = "<group>"; };
 		8770FB1729A6067400AED5CC /* ResourceBundle-Harbeth-Harbeth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Harbeth-Harbeth-Info.plist"; sourceTree = "<group>"; };
 		8770FB1829A6067400AED5CC /* Harbeth-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Harbeth-umbrella.h"; sourceTree = "<group>"; };
 		8770FB1929A6067400AED5CC /* Harbeth.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Harbeth.debug.xcconfig; sourceTree = "<group>"; };
@@ -140,7 +134,6 @@
 		8770FB2B29A6067400AED5CC /* Pods-DepthMacDemo-resources-Debug-input-files.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = "Pods-DepthMacDemo-resources-Debug-input-files.xcfilelist"; sourceTree = "<group>"; };
 		8770FB2C29A6067400AED5CC /* Pods-DepthMacDemo.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Pods-DepthMacDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		8770FB2D29A6067400AED5CC /* Manifest.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Manifest.lock; sourceTree = "<group>"; };
-		8770FB2F29A6067400AED5CC /* Wintersweet.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Wintersweet.podspec.json; sourceTree = "<group>"; };
 		8770FB3629A6067400AED5CC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8770FB3729A6067400AED5CC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8770FB3A29A6067400AED5CC /* CIHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIHighlight.swift; sourceTree = "<group>"; };
@@ -373,19 +366,15 @@
 		8770FC3729A6067500AED5CC /* DepthMacDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthMacDemo.xcworkspace; sourceTree = "<group>"; };
 		8770FC3829A6067500AED5CC /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		8770FC3929A6067500AED5CC /* DepthMacDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthMacDemo.xcodeproj; sourceTree = "<group>"; };
+		878F33122A4ABF290024DF68 /* DelayRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayRetry.swift; sourceTree = "<group>"; };
+		878F33132A4ABF290024DF68 /* DataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTask.swift; sourceTree = "<group>"; };
+		878F33142A4AC1990024DF68 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		87C67B3629B1A2550017D628 /* GZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GZip.swift; sourceTree = "<group>"; };
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		87C9C2D329ECF68D00891F40 /* DepthDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthDemo.xcworkspace; sourceTree = "<group>"; };
 		87C9C2E029ECF68D00891F40 /* DepthDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthDemo.xcodeproj; sourceTree = "<group>"; };
 		87C9C2E429ECF68D00891F40 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
-		87C9C2E929ECF68D00891F40 /* Wintersweet.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Wintersweet.release.xcconfig; sourceTree = "<group>"; };
-		87C9C2EA29ECF68D00891F40 /* Wintersweet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wintersweet-Info.plist"; sourceTree = "<group>"; };
-		87C9C2EB29ECF68D00891F40 /* Wintersweet.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Wintersweet.debug.xcconfig; sourceTree = "<group>"; };
-		87C9C2EC29ECF68D00891F40 /* Wintersweet-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-umbrella.h"; sourceTree = "<group>"; };
-		87C9C2ED29ECF68D00891F40 /* Wintersweet-dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Wintersweet-dummy.m"; sourceTree = "<group>"; };
-		87C9C2EE29ECF68D00891F40 /* Wintersweet-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wintersweet-prefix.pch"; sourceTree = "<group>"; };
-		87C9C2EF29ECF68D00891F40 /* Wintersweet.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = Wintersweet.modulemap; sourceTree = "<group>"; };
 		87C9C2F129ECF68D00891F40 /* ResourceBundle-Harbeth-Harbeth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Harbeth-Harbeth-Info.plist"; sourceTree = "<group>"; };
 		87C9C2F229ECF68D00891F40 /* Harbeth-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Harbeth-umbrella.h"; sourceTree = "<group>"; };
 		87C9C2F329ECF68D00891F40 /* Harbeth.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Harbeth.debug.xcconfig; sourceTree = "<group>"; };
@@ -415,7 +404,6 @@
 		87C9C30D29ECF68E00891F40 /* Lemons-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lemons-prefix.pch"; sourceTree = "<group>"; };
 		87C9C30E29ECF68E00891F40 /* Lemons.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Lemons.debug.xcconfig; sourceTree = "<group>"; };
 		87C9C30F29ECF68E00891F40 /* Manifest.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Manifest.lock; sourceTree = "<group>"; };
-		87C9C31129ECF68E00891F40 /* Wintersweet.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Wintersweet.podspec.json; sourceTree = "<group>"; };
 		87C9C31329ECF68E00891F40 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		87C9C31429ECF68E00891F40 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		87C9C31729ECF68E00891F40 /* CIHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIHighlight.swift; sourceTree = "<group>"; };
@@ -673,7 +661,7 @@
 		87C9C42A29ECF68E00891F40 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		87C9C42B29ECF68E00891F40 /* Data+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ext.swift"; sourceTree = "<group>"; };
 		87C9C42C29ECF68E00891F40 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
-		87C9C42D29ECF68E00891F40 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		87C9C42D29ECF68E00891F40 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		87C9C42E29ECF68E00891F40 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		87EDF06329B9B184007798F9 /* ZipType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipType.swift; sourceTree = "<group>"; };
 		87F1847B29D56CC70080F00B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
@@ -685,11 +673,8 @@
 			children = (
 				876D4DA92984C29D00A06282 /* Core */,
 				876D4DB22984C29D00A06282 /* Extensions */,
-				876D4DB52984C29D00A06282 /* Animator.swift */,
-				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
-				876D4DB72984C29D00A06282 /* FrameImage.swift */,
-				876D4DA82984C29D00A06282 /* FrameStore.swift */,
-				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
+				877FF2632A480C7200A93A30 /* GIFs */,
+				878F33152A4AC1BD0024DF68 /* Networking */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -703,7 +688,6 @@
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
 				87C67B3629B1A2550017D628 /* GZip.swift */,
-				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
 				8742487729B6D593002BE7E6 /* Locked.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
@@ -744,7 +728,6 @@
 				8770FB2D29A6067400AED5CC /* Manifest.lock */,
 				8770FB2E29A6067400AED5CC /* Local Podspecs */,
 				8770FB3529A6067400AED5CC /* Harbeth */,
-				8770FC3529A6067500AED5CC /* Headers */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -764,25 +747,10 @@
 		8770FB0D29A6067400AED5CC /* Target Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				8770FB0E29A6067400AED5CC /* Wintersweet */,
 				8770FB1629A6067400AED5CC /* Harbeth */,
 				8770FB1F29A6067400AED5CC /* Pods-DepthMacDemo */,
 			);
 			path = "Target Support Files";
-			sourceTree = "<group>";
-		};
-		8770FB0E29A6067400AED5CC /* Wintersweet */ = {
-			isa = PBXGroup;
-			children = (
-				8770FB0F29A6067400AED5CC /* Wintersweet.release.xcconfig */,
-				8770FB1029A6067400AED5CC /* Wintersweet-Info.plist */,
-				8770FB1129A6067400AED5CC /* Wintersweet.debug.xcconfig */,
-				8770FB1229A6067400AED5CC /* Wintersweet-umbrella.h */,
-				8770FB1329A6067400AED5CC /* Wintersweet-dummy.m */,
-				8770FB1429A6067400AED5CC /* Wintersweet-prefix.pch */,
-				8770FB1529A6067400AED5CC /* Wintersweet.modulemap */,
-			);
-			path = Wintersweet;
 			sourceTree = "<group>";
 		};
 		8770FB1629A6067400AED5CC /* Harbeth */ = {
@@ -823,7 +791,6 @@
 		8770FB2E29A6067400AED5CC /* Local Podspecs */ = {
 			isa = PBXGroup;
 			children = (
-				8770FB2F29A6067400AED5CC /* Wintersweet.podspec.json */,
 			);
 			path = "Local Podspecs";
 			sourceTree = "<group>";
@@ -1207,19 +1174,36 @@
 			path = Matrix;
 			sourceTree = "<group>";
 		};
-		8770FC3529A6067500AED5CC /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
 		8770FC3A29A6067500AED5CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				8770FC3E29A6067500AED5CC /* DepthMacDemo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		877FF2632A480C7200A93A30 /* GIFs */ = {
+			isa = PBXGroup;
+			children = (
+				876D4DB52984C29D00A06282 /* Animator.swift */,
+				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
+				876D4DB72984C29D00A06282 /* FrameImage.swift */,
+				876D4DA82984C29D00A06282 /* FrameStore.swift */,
+				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
+				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
+			);
+			path = GIFs;
+			sourceTree = "<group>";
+		};
+		878F33152A4AC1BD0024DF68 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				878F33132A4ABF290024DF68 /* DataTask.swift */,
+				878F33122A4ABF290024DF68 /* DelayRetry.swift */,
+				878F33142A4AC1990024DF68 /* Interval.swift */,
+				870A58B72A491C2600F90D19 /* Networking.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		879A63BC2978E6C6008237C7 = {
@@ -1267,7 +1251,6 @@
 				87C9C30F29ECF68E00891F40 /* Manifest.lock */,
 				87C9C31029ECF68E00891F40 /* Local Podspecs */,
 				87C9C31229ECF68E00891F40 /* Harbeth */,
-				87C9C41829ECF68E00891F40 /* Headers */,
 				87C9C41929ECF68E00891F40 /* Lemons */,
 			);
 			path = Pods;
@@ -1288,26 +1271,11 @@
 		87C9C2E729ECF68D00891F40 /* Target Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				87C9C2E829ECF68D00891F40 /* Wintersweet */,
 				87C9C2F029ECF68D00891F40 /* Harbeth */,
 				87C9C2F929ECF68D00891F40 /* Pods-DepthDemo */,
 				87C9C30729ECF68E00891F40 /* Lemons */,
 			);
 			path = "Target Support Files";
-			sourceTree = "<group>";
-		};
-		87C9C2E829ECF68D00891F40 /* Wintersweet */ = {
-			isa = PBXGroup;
-			children = (
-				87C9C2E929ECF68D00891F40 /* Wintersweet.release.xcconfig */,
-				87C9C2EA29ECF68D00891F40 /* Wintersweet-Info.plist */,
-				87C9C2EB29ECF68D00891F40 /* Wintersweet.debug.xcconfig */,
-				87C9C2EC29ECF68D00891F40 /* Wintersweet-umbrella.h */,
-				87C9C2ED29ECF68D00891F40 /* Wintersweet-dummy.m */,
-				87C9C2EE29ECF68D00891F40 /* Wintersweet-prefix.pch */,
-				87C9C2EF29ECF68D00891F40 /* Wintersweet.modulemap */,
-			);
-			path = Wintersweet;
 			sourceTree = "<group>";
 		};
 		87C9C2F029ECF68D00891F40 /* Harbeth */ = {
@@ -1362,7 +1330,6 @@
 		87C9C31029ECF68E00891F40 /* Local Podspecs */ = {
 			isa = PBXGroup;
 			children = (
-				87C9C31129ECF68E00891F40 /* Wintersweet.podspec.json */,
 			);
 			path = "Local Podspecs";
 			sourceTree = "<group>";
@@ -1773,13 +1740,6 @@
 				87C9C41729ECF68E00891F40 /* C7ColorMatrix4x4.metal */,
 			);
 			path = Matrix;
-			sourceTree = "<group>";
-		};
-		87C9C41829ECF68E00891F40 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Headers;
 			sourceTree = "<group>";
 		};
 		87C9C41929ECF68E00891F40 /* Lemons */ = {
