@@ -60,6 +60,6 @@ class ViewController: UIViewController {
         options.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
-        imageView.mt.displayImage(named: named, filters: filters, options: options)
+        imageView.mt.setImage(named: named, filters: filters, options: options)
     }
 }

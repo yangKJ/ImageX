@@ -31,18 +31,28 @@ class GIFViewController: UIViewController {
         return label
     }()
     
+    lazy var animatedButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+        //button.setImage(R.image(""), for: .normal)
+        button.frame = CGRect(x: 20, y: self.view.frame.size.height - 250, width: 150, height: 150)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
         setupGIF()
+        setupButton()
     }
     
     func setupUI() {
         view.backgroundColor = .white
         view.addSubview(animatedView)
+        view.addSubview(animatedButton)
         NSLayoutConstraint.activate([
-            animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             animatedView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             animatedView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             animatedView.heightAnchor.constraint(equalTo: animatedView.widthAnchor, multiplier: 1),
@@ -59,6 +69,26 @@ class GIFViewController: UIViewController {
         options.loop = .count(5)
         options.placeholder = .view(placeholder)
         animatedView.play(data: data, filters: filters, options: options)
+    }
+    
+    func setupButton() {
+        var options = AnimatedOptions()
+        options.loop = .count(5)
+        options.placeholder = .color(.systemGreen)
+        options.contentMode = .scaleAspectFit
+        options.bufferCount = 20
+        options.cacheOption = .disk
+        options.cacheCrypto = .sha1
+        options.cacheDataZip = .gzip
+        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+        options.setPreparationBlock(block: {
+            print("do something..")
+        })
+        options.setAnimatedBlock(block: { [weak self] _ in
+            print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
+        })
+        let named = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif"
+        animatedButton.mt.setImage(named: named, for: .normal, options: options)
     }
     
     deinit {

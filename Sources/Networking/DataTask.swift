@@ -42,12 +42,12 @@ extension DataTask {
     private func result(data: Data?, response: URLResponse?, error: Error?) {
         switch (data, error) {
         case (.none, let error):
-            self.retry.retry(task: task) { state in
+            self.retry.retry(task: task) { [weak self] state in
                 switch state {
                 case .retring:
-                    self.setupDataTask()
+                    self?.setupDataTask()
                 case .stop:
-                    self.completionHandler(data, response, error)
+                    self?.completionHandler(data, response, error)
                 }
             }
         case (let data?, _):

@@ -46,13 +46,26 @@ public protocol AsAnimatable: HasAnimatable {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
+    
+    /// Prepare for animation and start play GIF.
+    /// - Parameters:
+    ///   - data: gif data.
+    ///   - filters: Harbeth filters apply to image or gif frame.
+    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - other: Special parameters, such as the status of the button `UIControl.State`
+    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?)
 }
 
 extension AsAnimatable {
     /// Prepare for animation and start play GIF.
     public func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions) {
+        self.play(data: data, filters: filters, options: options, other: nil)
+    }
+    
+    /// Prepare for animation and start play GIF.
+    public func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?) {
         if options.displayed == false {
-            options.placeholder.display(to: self, contentMode: options.contentMode)
+            options.placeholder.display(to: self, contentMode: options.contentMode, other: other)
         }
         guard let data = data, AssetType(data: data) == .gif else { return }
         let size = options.confirmSize == .zero ? frame.size : options.confirmSize
@@ -66,19 +79,20 @@ extension AsAnimatable {
             guard let `self` = self else { return }
             if case .fristFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).first {
-                    options.placeholder.remove(from: self)
-                    self.setContentImage(frame)
+                    options.placeholder.remove(from: self, other: other)
+                    self.setContentImage(frame, other: other)
                 }
             } else if case .lastFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).last {
-                    options.placeholder.remove(from: self)
-                    self.setContentImage(frame)
+                    options.placeholder.remove(from: self, other: other)
+                    self.setContentImage(frame, other: other)
                 }
             } else {
-                options.placeholder.remove(from: self)
+                options.placeholder.remove(from: self, other: other)
             }
             options.preparation?()
         }
+        animator?.other = other
         animator?.frameStore = frameStore
         animator?.animationBlock = options.animated
         switch options.loop {
@@ -104,18 +118,41 @@ extension AsAnimatable {
 
 extension AsAnimatable {
     /// Updates the image with a new frame if necessary.
-    func updateImageIfNeeded() {
+    func updateImageIfNeeded(other: AnimatedOthers?) {
         guard let activeFrame = activeFrame else {
             return
         }
-        setContentImage(activeFrame)
+        setContentImage(activeFrame, other: other)
     }
     
     /// Setting up what is currently showing.
-    func setContentImage(_ image: C7Image?) {
-        if var imageContainer = self as? ImageContainer {
+    @inline(__always) func setContentImage(_ image: C7Image?, other: AnimatedOthers?) {
+        switch self {
+        case var imageContainer as ImageContainer:
             imageContainer.image = image
-        } else {
+        #if canImport(UIKit) && !os(watchOS)
+        case var buttonContainer as UIButtonContainer:
+            guard let other = other else {
+                return
+            }
+            switch AnimatedOthers.ButtonKey(rawValue: other.key) {
+            case .none:
+                break
+            case .image:
+                if let state = other.value as? UIControl.State {
+                    buttonContainer.setImage(image, for: state)
+                    let (_, backImage) = buttonContainer.cacheImages[state.rawValue] ?? (nil, nil)
+                    buttonContainer.cacheImages[state.rawValue] = (image, backImage)
+                }
+            case .backgroundImage:
+                if let state = other.value as? UIControl.State {
+                    buttonContainer.setBackgroundImage(image, for: state)
+                    let (image_, _) = buttonContainer.cacheImages[state.rawValue] ?? (nil, nil)
+                    buttonContainer.cacheImages[state.rawValue] = (image_, image)
+                }
+            }
+        #endif
+        default:
             #if !os(macOS)
             //self.layer.setNeedsDisplay()
             self.layer.contents = image?.cgImage

@@ -45,7 +45,7 @@ options.setPreparationBlock(block: { [weak self] in
 options.setAnimatedBlock(block: { _ in
     // GIF播放完成
 })
-imageView.mt.displayImage(named: named, filters: filters, options: options)
+imageView.mt.setImage(named: named, filters: filters, options: options)
 ```
 
 -----------------------------------------------------------------------------------
@@ -53,21 +53,21 @@ imageView.mt.displayImage(named: named, filters: filters, options: options)
 
 ```
 /// 根据名称显示图像或GIF并添加滤镜
-public func displayImage(
+public func setImage(
     named: String, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default
 )
 
 /// 显示数据源data图像或GIF并添加滤镜
-public func displayImage(
+public func setImage(
     data: Data?, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default
 ) -> AssetType
 
 /// 显示网络图像或GIF并添加滤镜
-public func displayImage(
+public func setImage(
     url: URL, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default,

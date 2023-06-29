@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		870DBCBC2990966D000A36F6 /* GIFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DBCBB2990966D000A36F6 /* GIFViewController.swift */; };
+		876ED95B2A4D170600965308 /* GIFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876ED95A2A4D170600965308 /* GIFViewController.swift */; };
 		8790C59429669B1D00950059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59329669B1D00950059 /* AppDelegate.swift */; };
 		8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59529669B1D00950059 /* SceneDelegate.swift */; };
 		8790C59829669B1D00950059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59729669B1D00950059 /* ViewController.swift */; };
@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		3E62903B6FCC1ABE87C99E6F /* Pods-DepthDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.debug.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		870DBCBB2990966D000A36F6 /* GIFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFViewController.swift; sourceTree = "<group>"; };
+		876ED95A2A4D170600965308 /* GIFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFViewController.swift; sourceTree = "<group>"; };
 		8790C59029669B1D00950059 /* DepthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DepthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8790C59329669B1D00950059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8790C59529669B1D00950059 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 				8790C59329669B1D00950059 /* AppDelegate.swift */,
 				8790C59529669B1D00950059 /* SceneDelegate.swift */,
 				8790C59729669B1D00950059 /* ViewController.swift */,
-				870DBCBB2990966D000A36F6 /* GIFViewController.swift */,
+				876ED95A2A4D170600965308 /* GIFViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
 				87DC267E29AC806500250152 /* pikachu.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
@@ -216,7 +216,7 @@
 				8790C59829669B1D00950059 /* ViewController.swift in Sources */,
 				8790C59429669B1D00950059 /* AppDelegate.swift in Sources */,
 				8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */,
-				870DBCBC2990966D000A36F6 /* GIFViewController.swift in Sources */,
+				876ED95B2A4D170600965308 /* GIFViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

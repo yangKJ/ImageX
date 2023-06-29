@@ -17,7 +17,7 @@ public struct AnimatedOptions {
     
     public typealias FailedCallback = ((_ response: URLResponse?, _ error: Error?) -> Void)
     
-    /// Desired number of loops. Default  is ``forever``.
+    /// Desired number of loops. Default is ``forever``.
     public var loop: ImageX.Loop = .forever
     
     /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，

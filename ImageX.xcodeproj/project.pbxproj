@@ -111,6 +111,8 @@
 		876D4DB42984C29D00A06282 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
 		876D4DB52984C29D00A06282 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		876D4DB72984C29D00A06282 /* FrameImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameImage.swift; sourceTree = "<group>"; };
+		876ED9692A4D196400965308 /* UIButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonContainer.swift; sourceTree = "<group>"; };
+		876ED96A2A4D235400965308 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		8770FB0A29A6067400AED5CC /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
 		8770FB1729A6067400AED5CC /* ResourceBundle-Harbeth-Harbeth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Harbeth-Harbeth-Info.plist"; sourceTree = "<group>"; };
 		8770FB1829A6067400AED5CC /* Harbeth-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Harbeth-umbrella.h"; sourceTree = "<group>"; };
@@ -366,11 +368,13 @@
 		8770FC3729A6067500AED5CC /* DepthMacDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthMacDemo.xcworkspace; sourceTree = "<group>"; };
 		8770FC3829A6067500AED5CC /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		8770FC3929A6067500AED5CC /* DepthMacDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthMacDemo.xcodeproj; sourceTree = "<group>"; };
+		87899B1C2A4D83ED00B00894 /* HandyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandyImage.swift; sourceTree = "<group>"; };
+		87899B1D2A4D840A00B00894 /* AnimatedOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOthers.swift; sourceTree = "<group>"; };
+		87899B1E2A4DAE6700B00894 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		87899B1F2A4DAE6700B00894 /* README_CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_CN.md; sourceTree = "<group>"; };
 		878F33122A4ABF290024DF68 /* DelayRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayRetry.swift; sourceTree = "<group>"; };
 		878F33132A4ABF290024DF68 /* DataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTask.swift; sourceTree = "<group>"; };
-		878F33142A4AC1990024DF68 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
-		87C67B3629B1A2550017D628 /* GZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GZip.swift; sourceTree = "<group>"; };
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		87C9C2D329ECF68D00891F40 /* DepthDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthDemo.xcworkspace; sourceTree = "<group>"; };
 		87C9C2E029ECF68D00891F40 /* DepthDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthDemo.xcodeproj; sourceTree = "<group>"; };
@@ -663,7 +667,7 @@
 		87C9C42C29ECF68E00891F40 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		87C9C42D29ECF68E00891F40 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		87C9C42E29ECF68E00891F40 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
-		87EDF06329B9B184007798F9 /* ZipType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipType.swift; sourceTree = "<group>"; };
+		87EDF06329B9B184007798F9 /* Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip.swift; sourceTree = "<group>"; };
 		87F1847B29D56CC70080F00B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -687,13 +691,13 @@
 				87F1847B29D56CC70080F00B /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
-				87C67B3629B1A2550017D628 /* GZip.swift */,
+				87899B1C2A4D83ED00B00894 /* HandyImage.swift */,
 				8742487729B6D593002BE7E6 /* Locked.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
 				8742486C29B6D548002BE7E6 /* R.swift */,
 				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,
-				87EDF06329B9B184007798F9 /* ZipType.swift */,
+				87EDF06329B9B184007798F9 /* Zip.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -704,6 +708,7 @@
 				876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */,
 				876D4DB42984C29D00A06282 /* Collection+Ext.swift */,
 				870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */,
+				876ED96A2A4D235400965308 /* UIButton+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1185,14 +1190,25 @@
 		877FF2632A480C7200A93A30 /* GIFs */ = {
 			isa = PBXGroup;
 			children = (
+				87899B1D2A4D840A00B00894 /* AnimatedOthers.swift */,
 				876D4DB52984C29D00A06282 /* Animator.swift */,
 				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
 				876D4DB72984C29D00A06282 /* FrameImage.swift */,
 				876D4DA82984C29D00A06282 /* FrameStore.swift */,
 				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
 				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
+				876ED9692A4D196400965308 /* UIButtonContainer.swift */,
 			);
 			path = GIFs;
+			sourceTree = "<group>";
+		};
+		87899B202A4DAE7200B00894 /* Readme */ = {
+			isa = PBXGroup;
+			children = (
+				87899B1F2A4DAE6700B00894 /* README_CN.md */,
+				87899B1E2A4DAE6700B00894 /* README.md */,
+			);
+			name = Readme;
 			sourceTree = "<group>";
 		};
 		878F33152A4AC1BD0024DF68 /* Networking */ = {
@@ -1200,7 +1216,6 @@
 			children = (
 				878F33132A4ABF290024DF68 /* DataTask.swift */,
 				878F33122A4ABF290024DF68 /* DelayRetry.swift */,
-				878F33142A4AC1990024DF68 /* Interval.swift */,
 				870A58B72A491C2600F90D19 /* Networking.swift */,
 			);
 			path = Networking;
@@ -1211,6 +1226,7 @@
 			children = (
 				87C9C2D229ECF68D00891F40 /* iOS */,
 				8770FAFF29A6067400AED5CC /* Mac */,
+				87899B202A4DAE7200B00894 /* Readme */,
 				879A63C62978E6C6008237C7 /* Products */,
 				876D4DA72984C29D00A06282 /* Sources */,
 			);

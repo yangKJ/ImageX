@@ -30,7 +30,7 @@ final class DisplayLinkProxy: NSObject {
             return
         }
         store.shouldChangeFrame(with: sender.duration) {
-            if $0 { animator.delegate.updateImageIfNeeded() }
+            if $0 { animator.delegate.updateImageIfNeeded(other: animator.other) }
         }
     }
 }

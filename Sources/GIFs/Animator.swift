@@ -20,6 +20,9 @@ final class Animator {
     /// Responsible for loading individual frames and resizing them if necessary.
     var frameStore: FrameStore?
     
+    /// Special other parameters, such as the status of the button `UIControl.State`
+    var other: AnimatedOthers?
+    
     /// Tracks whether the display link is initialized.
     private var displayLinkInitialized: Bool = false
     

@@ -65,7 +65,7 @@ options.setPreparationBlock(block: { [weak self] in
 options.setAnimatedBlock(block: { _ in
     // play is complete and then do something..
 })
-imageView.mt.displayImage(named: named, filters: filters, options: options)
+imageView.mt.setImage(named: named, filters: filters, options: options)
 ```
 
 ----------------------------------------------------------------
@@ -77,7 +77,7 @@ imageView.mt.displayImage(named: named, filters: filters, options: options)
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
-public func displayImage(
+public func setImage(
     named: String, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default
@@ -89,7 +89,7 @@ public func displayImage(
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
 /// - Returns: A uniform type identifier UTI.
-public func displayImage(
+public func setImage(
     data: Data?, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default
@@ -102,7 +102,7 @@ public func displayImage(
 ///   - options: Represents gif playback creating options used in ImageX.
 ///   - failed: Network failure callback.
 /// - Returns: Current network URLSessionDataTask.
-public func displayImage(
+public func setImage(
     url: URL, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = .default, 
@@ -152,27 +152,37 @@ public struct AnimatedOptions {
     
     public static let `default` = AnimatedOptions()
     
-    /// Desired number of loops. Default  is ``forever``.
-    public let loop: ImageX.Loop
+    /// Desired number of loops. Default is ``forever``.
+    public var loop: ImageX.Loop = .forever
     
     /// Content mode used for resizing the frames. Default is ``original``.
-    public let contentMode: ImageX.ContentMode
+    public var contentMode: ImageX.ContentMode = .original
     
-    /// The number of frames to buffer. Default is 50.
-    public let bufferCount: Int
+    /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
+    public var bufferCount: Int = 50
     
     /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
-    public let cacheOption: ImageX.Cached.Options
+    public var cacheOption: Lemons.CachedOptions = .diskAndMemory
     
     /// Placeholder image. default gray picture.
-    public let placeholder: ImageX.Placeholder
+    public var placeholder: ImageX.Placeholder = .none
     
     /// Network data cache naming encryption method, Default is ``md5``.
-    public let cacheCrypto: ImageX.CryptoType
+    public var cacheCrypto: Lemons.CryptoType = .md5
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
-    public let cacheDataZip: ImageX.ZipType
+    public var cacheDataZip: ImageX.ZipType = .gzip
+    
+    /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
+    public var retry: ImageX.DelayRetry = .default
+    
+    /// Confirm the size to facilitate follow-up processing, Default display control size.
+    public var confirmSize: CGSize = .zero
+    
+    /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
+    /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
+    public let moduleName: String
 }
 ```
 
@@ -216,6 +226,14 @@ public protocol AsAnimatable: HasAnimatable {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
+    
+    /// Prepare for animation and start play GIF.
+    /// - Parameters:
+    ///   - data: gif data.
+    ///   - filters: Harbeth filters apply to image or gif frame.
+    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - other: Special parameters, such as the status of the button `UIControl.State`
+    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?)
 }
 ```
 
