@@ -14,11 +14,14 @@
 
 - 支持全平台系统，macOS、iOS、tvOS、watchOS；
 - 支持播放本地和网络GIF动画；
+- 支持同链接地址网络共享，不会多次下载同一资源数据；
 - 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/ImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
+- 支持 [**UIButton 或 NSButton**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIButton+Ext.swift) 显示和下载图像并添加滤镜；
 - 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
 - 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
 - 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
-- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/CryptoType.swift) 方式；
+- 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/CryptoType.swift) 方式；
+- 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Zip.swift) 压缩方式；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
@@ -45,7 +48,7 @@ options.setPreparationBlock(block: { [weak self] in
 options.setAnimatedBlock(block: { _ in
     // GIF播放完成
 })
-imageView.mt.setImage(named: named, filters: filters, options: options)
+imageView.mt.setImage(with: named, filters: filters, options: options)
 ```
 
 -----------------------------------------------------------------------------------
@@ -54,24 +57,23 @@ imageView.mt.setImage(named: named, filters: filters, options: options)
 ```
 /// 根据名称显示图像或GIF并添加滤镜
 public func setImage(
-    named: String, 
+    with named: String, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default
+    options: AnimatedOptions = AnimatedOptions.default
 )
 
 /// 显示数据源data图像或GIF并添加滤镜
 public func setImage(
-    data: Data?, 
+    with data: Data?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default
+    options: AnimatedOptions = AnimatedOptions.default
 ) -> AssetType
 
 /// 显示网络图像或GIF并添加滤镜
 public func setImage(
-    url: URL, 
+    with url: URL?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default,
-    failed: FailedCallback? = nil
+    options: AnimatedOptions = AnimatedOptions.default
 ) -> URLSessionDataTask?
 ```
 
@@ -189,63 +191,9 @@ public enum ContentMode {
 
 ### Cached
 
-- 网络数据缓存类型
-- 磁盘存储使用`GZip`压缩数据，因此占用的空间更少。
-
-```
-/// 不使用缓存
-public static let none = Options(rawValue: 1 << 0)
-/// 使用内存缓存数据
-public static let memory = Options(rawValue: 1 << 1)
-/// 使用磁盘缓存数据
-public static let disk = Options(rawValue: 1 << 2)
-/// 同时使用磁盘和内存缓存，优先读取内存数据
-public static let diskAndMemory: Options = [.memory, .disk]
-```
-
+- 网络数据缓存类型，磁盘存储使用`GZip`压缩数据，因此占用的空间更少。
 - 考虑到安全问题，命名方式采用多种加密处理，例如md5、sha1、base58，以及用户自定义。
-
-```
-public enum Crypto {
-    case md5
-    case sha1
-    case base58
-    /// 用户自定义命名处理，这里不能包含操作符`/`和`.`
-    case user((_ key: String) -> String)
-}
-```
-
 - 考虑到不同程度的安全程度，所以这里将数据源压缩和解压方式开放出来，该库提供GZip压缩或解压方式，当然用户也可以自定义。
-
-```
-public enum ZipType {
-    /// 不使用任何压缩方式
-    case none
-    /// 采用GZip方式对数据压缩或者解压处理
-    case gzip
-    /// 用户自定义压缩和解压方式
-    case user(compressed: ZipUserType, decompress: ZipUserType)
-}
-```
-
-### Loop
-
-- GIF循环次数
-
-```
-public enum Loop {
-    /// 无限循环
-    case forever
-    /// 循环播放一次
-    case never
-    /// 循环播放指定``count``次
-    case count(_ count: Int)
-    /// 只显示第一帧
-    case fristFrame
-    /// 只显示最后一帧
-    case lastFrame
-}
-```
 
 ### 关于作者
 - 🎷 **邮箱地址：[ykj310@126.com](ykj310@126.com) 🎷**
