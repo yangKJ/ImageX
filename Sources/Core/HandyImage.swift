@@ -66,12 +66,16 @@ struct HandyImage {
     }
     
     @discardableResult static func displayImage(
-        url: URL,
+        url: URL?,
         to view: AsAnimatable,
         filters: [Harbeth.C7FilterProtocol],
         options: AnimatedOptions,
         other: AnimatedOthers?
     ) -> URLSessionDataTask? {
+        guard let url = url else {
+            HandyImage.setPlaceholder(to: view, options: options, other: other)
+            return nil
+        }
         let options = HandyImage.setPlaceholder(to: view, options: options, other: other)
         let key = options.cacheCrypto.encryptedString(with: url.absoluteString)
         if let object = Cached.shared.storage.fetchCached(forKey: key, options: options.cacheOption), var data = object.data {

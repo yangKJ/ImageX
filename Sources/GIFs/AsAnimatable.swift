@@ -130,6 +130,20 @@ extension AsAnimatable {
         switch self {
         case var imageContainer as ImageContainer:
             imageContainer.image = image
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        case var buttonContainer as NSButtonContainer:
+            guard let other = other else {
+                return
+            }
+            switch AnimatedOthers.NSButtonKey(rawValue: other.key) {
+            case .none:
+                break
+            case .image:
+                buttonContainer.image = image
+            case .alternateImage:
+                buttonContainer.alternateImage = image
+            }
+        #endif
         #if canImport(UIKit) && !os(watchOS)
         case var buttonContainer as UIButtonContainer:
             guard let other = other else {

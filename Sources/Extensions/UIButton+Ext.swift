@@ -22,10 +22,10 @@ extension Queen where Base: UIButton {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     public func setImage(
-        named: String?,
+        with named: String?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = .default
+        options: AnimatedOptions = AnimatedOptions.default
     ) {
         let other = AnimatedOthers(key: AnimatedOthers.ButtonKey.image.rawValue, value: state)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
@@ -39,7 +39,7 @@ extension Queen where Base: UIButton {
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
-        data: Data?,
+        with data: Data?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
@@ -57,7 +57,7 @@ extension Queen where Base: UIButton {
     ///   - failed: Network failure callback.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setImage(
-        url: URL,
+        with url: URL?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
@@ -73,10 +73,10 @@ extension Queen where Base: UIButton {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     public func setBackgroundImage(
-        named: String?,
+        with named: String?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = .default
+        options: AnimatedOptions = AnimatedOptions.default
     ) {
         let other = AnimatedOthers(key: AnimatedOthers.ButtonKey.backgroundImage.rawValue, value: state)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
@@ -90,7 +90,7 @@ extension Queen where Base: UIButton {
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setBackgroundImage(
-        data: Data?,
+        with data: Data?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
@@ -108,7 +108,7 @@ extension Queen where Base: UIButton {
     ///   - failed: Network failure callback.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setBackgroundImage(
-        url: URL,
+        with url: URL?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default

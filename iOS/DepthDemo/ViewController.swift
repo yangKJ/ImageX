@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         let named = links.randomElement() ?? ""
         var options = AnimatedOptions()
         options.loop = .forever
-        options.placeholder = .color(.systemGreen)
+        options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
         options.bufferCount = 20
         options.cacheOption = .disk
@@ -60,6 +60,6 @@ class ViewController: UIViewController {
         options.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
-        imageView.mt.setImage(named: named, filters: filters, options: options)
+        imageView.mt.setImage(with: named, filters: filters, options: options)
     }
 }

@@ -14,17 +14,23 @@ public struct AnimatedOthers {
     
     public let key: Key
     
-    public let value: Any
+    public let value: Any?
     
-    public init(key: String, value: Any) {
+    public init(key: String, value: Any?) {
         self.key = key
         self.value = value
     }
 }
 
 extension AnimatedOthers {
+    /// UIButton setting status `UIControl.State` pass as a parameter.
     enum ButtonKey: AnimatedOthers.Key {
         case image = "ButtonKeyImage"
         case backgroundImage = "ButtonKeyBackgroundImage"
+    }
+    
+    enum NSButtonKey: AnimatedOthers.Key {
+        case image = "NSButtonKeyImage"
+        case alternateImage = "NSButtonKeyAlternateImage"
     }
 }

@@ -24,7 +24,7 @@ extension Queen where Base: ImageView {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
-    public func setImage(named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
         HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: nil)
     }
     
@@ -35,7 +35,7 @@ extension Queen where Base: ImageView {
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
-        data: Data?,
+        with data: Data?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> AssetType {
@@ -47,18 +47,37 @@ extension Queen where Base: ImageView {
     ///   - url: Link url.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
-    ///   - failed: Network failure callback.
     /// - Returns: Current network URLSessionDataTask.
+    ///
+    /// - Note:
+    /// This is the easiest way to use ImagX to boost the image setting process from a source.
+    /// You can set an image from a certain URL to an image view like this:
+    ///
+    /// ```
+    /// // Set image from a url.
+    /// let url = URL(string: "https://example.com/image.png")!
+    /// imageView.mt.setImage(with: url)
+    ///
+    /// // Or set other parameters play gif or downloading image.
+    /// var options = AnimatedOptions(moduleName: "Component Name")
+    /// options.loop = .count(3)
+    /// options.placeholder = .image(R.image("AppIcon")!)
+    /// options.contentMode = .scaleAspectBottomRight
+    /// options.bufferCount = 20
+    /// options.cacheOption = .disk
+    /// options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
+    /// options.cacheDataZip = .gzip
+    /// options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+    ///
+    /// let url = URL(string: "https://example.com/image.png")!
+    /// imageView.mt.setImage(with: url, options: options)
+    /// ```
+    ///
     @discardableResult public func setImage(
-        url: URL,
+        with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default,
-        failed: AnimatedOptions.FailedCallback? = nil
+        options: AnimatedOptions = AnimatedOptions.default
     ) -> URLSessionDataTask? {
-        var options = options
-        if let failed = failed  {
-            options.setNetworkFailed { failed($0, $1) }
-        }
-        return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: nil)
+        HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: nil)
     }
 }

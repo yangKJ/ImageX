@@ -102,6 +102,8 @@
 		872E2E0629ADA662003F241E /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		8742486C29B6D548002BE7E6 /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
 		8742487729B6D593002BE7E6 /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
+		8769479A2A4EBB400097182D /* NSButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSButton+Ext.swift"; sourceTree = "<group>"; };
+		876947A72A4EC2C10097182D /* NSButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonContainer.swift; sourceTree = "<group>"; };
 		876D4DA82984C29D00A06282 /* FrameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameStore.swift; sourceTree = "<group>"; };
 		876D4DAC2984C29D00A06282 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 				876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */,
 				876D4DB42984C29D00A06282 /* Collection+Ext.swift */,
 				870DBCC729909DC4000A36F6 /* ImageView+Ext.swift */,
+				8769479A2A4EBB400097182D /* NSButton+Ext.swift */,
 				876ED96A2A4D235400965308 /* UIButton+Ext.swift */,
 			);
 			path = Extensions;
@@ -1198,6 +1201,7 @@
 				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
 				87C72F8629AF323600C4C2E6 /* ImageContainer.swift */,
 				876ED9692A4D196400965308 /* UIButtonContainer.swift */,
+				876947A72A4EC2C10097182D /* NSButtonContainer.swift */,
 			);
 			path = GIFs;
 			sourceTree = "<group>";

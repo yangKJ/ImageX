@@ -66,7 +66,7 @@ class GIFViewController: UIViewController {
         ]
         let data = R.gifData("pikachu")
         var options = AnimatedOptions()
-        options.loop = .count(5)
+        options.loop = .forever
         options.placeholder = .view(placeholder)
         animatedView.play(data: data, filters: filters, options: options)
     }
@@ -74,7 +74,7 @@ class GIFViewController: UIViewController {
     func setupButton() {
         var options = AnimatedOptions()
         options.loop = .count(5)
-        options.placeholder = .color(.systemGreen)
+        options.placeholder = .color(.red)
         options.contentMode = .scaleAspectFit
         options.bufferCount = 20
         options.cacheOption = .disk
@@ -88,7 +88,7 @@ class GIFViewController: UIViewController {
             print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
         })
         let named = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif"
-        animatedButton.mt.setImage(named: named, for: .normal, options: options)
+        animatedButton.mt.setImage(with: named, for: .normal, options: options)
     }
     
     deinit {

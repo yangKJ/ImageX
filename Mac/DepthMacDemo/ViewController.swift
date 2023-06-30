@@ -15,6 +15,7 @@ class GIFImageView: NSImageView {
 class ViewController: NSViewController {
     
     @IBOutlet weak var imageView: GIFImageView!
+    //@IBOutlet weak var imageView: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class ViewController: NSViewController {
         options.setAnimatedBlock(block: { loopDuration in
             // play is complete and then do something..
         })
-        imageView.mt.setImage(named: named, filters: filters, options: options)
+        imageView.mt.setImage(with: named, filters: filters, options: options)
     }
     
     override var representedObject: Any? {
