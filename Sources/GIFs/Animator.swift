@@ -21,7 +21,7 @@ final class Animator {
     var frameStore: FrameStore?
     
     /// Special other parameters, such as the status of the button `UIControl.State`
-    var other: AnimatedOthers?
+    var other: ImageX.Others?
     
     /// Other parameters related to GIF playback. Represents gif playback creating options used in ImageX.
     var options: AnimatedOptions?

@@ -27,7 +27,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
     }
     
@@ -44,7 +44,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> AssetType {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
@@ -61,7 +61,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> URLSessionDataTask? {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
     
@@ -77,7 +77,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
     }
     
@@ -94,7 +94,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> AssetType {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
@@ -111,7 +111,7 @@ extension Queen where Base: UIButton {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> URLSessionDataTask? {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+        let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
 }

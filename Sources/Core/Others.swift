@@ -1,5 +1,5 @@
 //
-//  AnimatedOthers.swift
+//  Others.swift
 //  ImageX
 //
 //  Created by Condy on 2023/6/29.
@@ -8,38 +8,33 @@
 import Foundation
 
 // 特殊参数
-public struct AnimatedOthers {
+struct Others {
     
-    public typealias Key = String
+    typealias Key = String
     
-    public let key: Key
+    let key: Key
     
-    public let value: Any?
-    
-    public init(key: String, value: Any?) {
-        self.key = key
-        self.value = value
-    }
+    let value: Any?
 }
 
-extension AnimatedOthers {
+extension Others {
     /// UIButton setting status `UIControl.State` pass as a parameter.
-    enum UIButtonKey: AnimatedOthers.Key {
+    enum UIButtonKey: Others.Key {
         case image = "ButtonKeyImage"
         case backgroundImage = "ButtonKeyBackgroundImage"
     }
     
-    enum NSButtonKey: AnimatedOthers.Key {
+    enum NSButtonKey: Others.Key {
         case image = "NSButtonKeyImage"
         case alternateImage = "NSButtonKeyAlternateImage"
     }
     
-    enum UIImageViewKey: AnimatedOthers.Key {
+    enum UIImageViewKey: Others.Key {
         case image = "UIImageViewKeyImage"
         case highlightedImage = "UIImageViewKeyHighlightedImage"
     }
     
-    enum NSTextAttachmentKey: AnimatedOthers.Key {
+    enum NSTextAttachmentKey: Others.Key {
         case image = "NSTextAttachmentKeyImage"
     }
 }

@@ -11,7 +11,7 @@ import Lemons
 
 struct HandyImage {
     
-    static func displayImage<T>(source: T?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?) {
+    static func displayImage<T>(source: T?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: Others?) {
         guard let source = source else {
             return
         }
@@ -27,7 +27,7 @@ struct HandyImage {
         }
     }
     
-    static func displayImage(named: String?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?) {
+    static func displayImage(named: String?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: Others?) {
         guard let named = named, named.isEmpty == false else {
             HandyImage.setPlaceholder(to: view, options: options, other: other)
             return
@@ -49,7 +49,7 @@ struct HandyImage {
         to view: AsAnimatable,
         filters: [Harbeth.C7FilterProtocol],
         options: AnimatedOptions,
-        other: AnimatedOthers?
+        other: Others?
     ) -> AssetType {
         let type = AssetType(data: data)
         switch type {
@@ -70,7 +70,7 @@ struct HandyImage {
         to view: AsAnimatable,
         filters: [Harbeth.C7FilterProtocol],
         options: AnimatedOptions,
-        other: AnimatedOthers?
+        other: Others?
     ) -> URLSessionDataTask? {
         guard let url = url else {
             HandyImage.setPlaceholder(to: view, options: options, other: other)
@@ -105,7 +105,7 @@ struct HandyImage {
 extension HandyImage {
     
     @discardableResult
-    private static func setPlaceholder(to view: AsAnimatable, options: AnimatedOptions, other: AnimatedOthers?) -> AnimatedOptions {
+    private static func setPlaceholder(to view: AsAnimatable, options: AnimatedOptions, other: Others?) -> AnimatedOptions {
         guard options.displayed == false else {
             return options
         }
@@ -114,7 +114,7 @@ extension HandyImage {
         return options
     }
     
-    private static func setImage(_ image: C7Image?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?) {
+    private static func setImage(_ image: C7Image?, to view: AsAnimatable, filters: [C7FilterProtocol], options: AnimatedOptions, other: Others?) {
         if options.displayed == false {
             options.placeholder.display(to: view, contentMode: options.contentMode, other: other)
         }

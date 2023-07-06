@@ -46,14 +46,6 @@ public protocol AsAnimatable: HasAnimatable {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
-    
-    /// Prepare for animation and start play GIF.
-    /// - Parameters:
-    ///   - data: gif data.
-    ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
-    ///   - other: Special parameters, such as the status of the button `UIControl.State`
-    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?)
 }
 
 extension AsAnimatable {
@@ -63,7 +55,7 @@ extension AsAnimatable {
     }
     
     /// Prepare for animation and start play GIF.
-    public func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?) {
+    func play(data: Data?, filters: [C7FilterProtocol], options: ImageX.AnimatedOptions, other: ImageX.Others?) {
         if options.displayed == false {
             options.placeholder.display(to: self, contentMode: options.contentMode, other: other)
         }
@@ -138,7 +130,7 @@ extension AsAnimatable {
 
 extension AsAnimatable {
     /// Updates the image with a new frame if necessary.
-    func updateImageIfNeeded(other: AnimatedOthers?) {
+    func updateImageIfNeeded(other: Others?) {
         guard let activeFrame = activeFrame else {
             return
         }

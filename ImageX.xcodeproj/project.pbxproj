@@ -378,7 +378,7 @@
 		8770FC3829A6067500AED5CC /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		8770FC3929A6067500AED5CC /* DepthMacDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthMacDemo.xcodeproj; sourceTree = "<group>"; };
 		87899B1C2A4D83ED00B00894 /* HandyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandyImage.swift; sourceTree = "<group>"; };
-		87899B1D2A4D840A00B00894 /* AnimatedOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOthers.swift; sourceTree = "<group>"; };
+		87899B1D2A4D840A00B00894 /* Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Others.swift; sourceTree = "<group>"; };
 		87899B1E2A4DAE6700B00894 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		87899B1F2A4DAE6700B00894 /* README_CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_CN.md; sourceTree = "<group>"; };
 		878F33122A4ABF290024DF68 /* DelayRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayRetry.swift; sourceTree = "<group>"; };
@@ -710,7 +710,6 @@
 			isa = PBXGroup;
 			children = (
 				872E2E0529ADA662003F241E /* AnimatedOptions.swift */,
-				87899B1D2A4D840A00B00894 /* AnimatedOthers.swift */,
 				879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */,
 				87F1847B29D56CC70080F00B /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
@@ -718,6 +717,7 @@
 				87899B1C2A4D83ED00B00894 /* HandyImage.swift */,
 				8742487729B6D593002BE7E6 /* Locked.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
+				87899B1D2A4D840A00B00894 /* Others.swift */,
 				872E2E0629ADA662003F241E /* Placeholder.swift */,
 				8742486C29B6D548002BE7E6 /* R.swift */,
 				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,

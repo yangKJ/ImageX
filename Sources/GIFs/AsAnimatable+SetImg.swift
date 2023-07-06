@@ -11,7 +11,7 @@ import Harbeth
 extension AsAnimatable {
     
     /// Setting up what is currently showing.
-    @inline(__always) func setContentImage(_ image: C7Image?, other: AnimatedOthers?) {
+    @inline(__always) func setContentImage(_ image: C7Image?, other: ImageX.Others?) {
         switch self {
         case var container_ as ImageContainer:
             container_.image = image
@@ -20,7 +20,7 @@ extension AsAnimatable {
             guard let other = other else {
                 return
             }
-            switch AnimatedOthers.NSButtonKey(rawValue: other.key) {
+            switch Others.NSButtonKey(rawValue: other.key) {
             case .none:
                 break
             case .image:
@@ -34,7 +34,7 @@ extension AsAnimatable {
             guard let other = other else {
                 return
             }
-            switch AnimatedOthers.UIButtonKey(rawValue: other.key) {
+            switch Others.UIButtonKey(rawValue: other.key) {
             case .none:
                 break
             case .image:
@@ -54,7 +54,7 @@ extension AsAnimatable {
             guard let other = other else {
                 return
             }
-            switch AnimatedOthers.UIImageViewKey(rawValue: other.key) {
+            switch Others.UIImageViewKey(rawValue: other.key) {
             case .none:
                 break
             case .image:
