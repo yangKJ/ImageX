@@ -42,7 +42,8 @@ options.bufferCount = 20 // 缓存20帧
 options.cacheOption = .disk // 采用磁盘缓存
 options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) } // 自定义加密
 options.cacheDataZip = .gzip // 采用GZip方式压缩数据
-options.setPreparationBlock(block: { [weak self] in
+options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2)) // 失败重试
+options.setPreparationBlock(block: { [weak self] _ in
     // GIF开始准备播放时刻
 })
 options.setAnimatedBlock(block: { _ in

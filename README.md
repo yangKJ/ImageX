@@ -22,7 +22,7 @@ English | [**简体中文**](README_CN.md)
 - Support asynchronous downloading and caching images or gifs from the web.
 - Support network sharing with the same link url, and will not download the same resource data multiple times.
 - Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift).
-- Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton` display image or gif and add the filters.
+- Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton`,`WKInterfaceImage` display image or gif and add the filters.
 - Support six image or gif content modes.
 - Support disk and memory cached network data, And the data is compressed by GZip.
 - Support secondary compression of cache data, occupying less disk space.
@@ -67,7 +67,8 @@ options.bufferCount = 20
 options.cacheOption = .disk
 options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
 options.cacheDataZip = .gzip
-options.setPreparationBlock(block: { [weak self] in
+options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+options.setPreparationBlock(block: { [weak self] _ in
     // do something..
 })
 options.setAnimatedBlock(block: { _ in
@@ -235,14 +236,6 @@ public protocol AsAnimatable: HasAnimatable {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
-    
-    /// Prepare for animation and start play GIF.
-    /// - Parameters:
-    ///   - data: gif data.
-    ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
-    ///   - other: Special parameters, such as the status of the button `UIControl.State`
-    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions, other: AnimatedOthers?)
 }
 ```
 
