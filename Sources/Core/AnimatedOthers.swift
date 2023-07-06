@@ -24,7 +24,7 @@ public struct AnimatedOthers {
 
 extension AnimatedOthers {
     /// UIButton setting status `UIControl.State` pass as a parameter.
-    enum ButtonKey: AnimatedOthers.Key {
+    enum UIButtonKey: AnimatedOthers.Key {
         case image = "ButtonKeyImage"
         case backgroundImage = "ButtonKeyBackgroundImage"
     }
@@ -32,5 +32,14 @@ extension AnimatedOthers {
     enum NSButtonKey: AnimatedOthers.Key {
         case image = "NSButtonKeyImage"
         case alternateImage = "NSButtonKeyAlternateImage"
+    }
+    
+    enum UIImageViewKey: AnimatedOthers.Key {
+        case image = "UIImageViewKeyImage"
+        case highlightedImage = "UIImageViewKeyHighlightedImage"
+    }
+    
+    enum NSTextAttachmentKey: AnimatedOthers.Key {
+        case image = "NSTextAttachmentKeyImage"
     }
 }

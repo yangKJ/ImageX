@@ -58,10 +58,10 @@ public struct AnimatedOptions {
         self.moduleName = moduleName
     }
     
-    internal var preparation: (() -> Void)?
+    internal var preparation: ((_ res: ImageX.GIFResponse) -> Void)?
     /// Ready to play time callback.
     /// - Parameter block: Prepare to play the callback.
-    public mutating func setPreparationBlock(block: @escaping (() -> Void)) {
+    public mutating func setPreparationBlock(block: @escaping ((_ res: ImageX.GIFResponse) -> Void)) {
         self.preparation = block
     }
     

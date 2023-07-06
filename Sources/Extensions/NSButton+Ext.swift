@@ -9,7 +9,6 @@ import Foundation
 import Harbeth
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-
 import AppKit
 
 extension NSButton: AsAnimatable, NSButtonContainer, C7Compatible { }
@@ -23,7 +22,7 @@ extension Queen where Base: NSButton {
     ///   - options: Represents gif playback creating options used in ImageX.
     public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
         let other = AnimatedOthers(key: AnimatedOthers.NSButtonKey.image.rawValue, value: nil)
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.

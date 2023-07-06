@@ -11,7 +11,7 @@ PODS:
     - Harbeth/Basic
   - Harbeth/CoreImage (0.6.8):
     - Harbeth/Basic
-  - ImageX (1.0.3):
+  - ImageX (1.0.4):
     - Harbeth
     - Lemons
   - Lemons (0.0.7)
@@ -30,7 +30,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Harbeth: e3669e04d660b111d39d7c045d4cd9e79c303c8c
-  ImageX: bb4937a52178ba31de57b3b517b30fce44c7e915
+  ImageX: 70efe5278c88c5bd86176328440885eb19b1e1b3
   Lemons: c7d7a9171f510b0cddee4d836bbc43cb9d783224
 
 PODFILE CHECKSUM: b4c64a9d9eeb5eecef9533b598ed77c6abd7f46c

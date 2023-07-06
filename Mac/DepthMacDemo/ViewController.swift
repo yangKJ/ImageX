@@ -44,7 +44,7 @@ class ViewController: NSViewController {
         options.cacheCrypto = .base58
         options.cacheDataZip = .gzip
         options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: {
+        options.setPreparationBlock(block: { _ in
             // do something..
         })
         options.setAnimatedBlock(block: { loopDuration in

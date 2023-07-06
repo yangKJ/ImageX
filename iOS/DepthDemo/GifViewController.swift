@@ -34,28 +34,46 @@ class GIFViewController: UIViewController {
     lazy var animatedButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-        //button.setImage(R.image(""), for: .normal)
-        button.frame = CGRect(x: 20, y: self.view.frame.size.height - 250, width: 150, height: 150)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    lazy var richLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        title = "test GIFs"
         setupUI()
         setupGIF()
         setupButton()
+        setupRichLabel()
     }
     
     func setupUI() {
         view.backgroundColor = .white
         view.addSubview(animatedView)
         view.addSubview(animatedButton)
+        view.addSubview(richLabel)
         NSLayoutConstraint.activate([
             animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             animatedView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             animatedView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             animatedView.heightAnchor.constraint(equalTo: animatedView.widthAnchor, multiplier: 1),
+            animatedButton.topAnchor.constraint(equalTo: animatedView.bottomAnchor, constant: 20),
+            animatedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            animatedButton.widthAnchor.constraint(equalToConstant: 150),
+            animatedButton.heightAnchor.constraint(equalToConstant: 150),
+            richLabel.topAnchor.constraint(equalTo: animatedButton.bottomAnchor, constant: 20),
+            richLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            richLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            richLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
@@ -73,7 +91,7 @@ class GIFViewController: UIViewController {
     
     func setupButton() {
         var options = AnimatedOptions()
-        options.loop = .count(5)
+        options.loop = .count(8)
         options.placeholder = .color(.red)
         options.contentMode = .scaleAspectFit
         options.bufferCount = 20
@@ -81,14 +99,18 @@ class GIFViewController: UIViewController {
         options.cacheCrypto = .sha1
         options.cacheDataZip = .gzip
         options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: {
+        options.setPreparationBlock(block: { _ in
             print("do something..")
         })
         options.setAnimatedBlock(block: { [weak self] _ in
             print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
         })
-        let named = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif"
+        let named = "https://blog.ibireme.com/wp-content/uploads/2015/11/bench_gif_demo.gif"
         animatedButton.mt.setImage(with: named, for: .normal, options: options)
+    }
+    
+    func setupRichLabel() {
+        
     }
     
     deinit {

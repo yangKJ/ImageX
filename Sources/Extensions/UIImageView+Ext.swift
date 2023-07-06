@@ -1,8 +1,8 @@
 //
-//  UIButton+Ext.swift
+//  UIImageView+Ext.swift
 //  ImageX
 //
-//  Created by Condy on 2023/6/29.
+//  Created by Condy on 2023/7/3.
 //
 
 import Foundation
@@ -11,107 +11,117 @@ import Harbeth
 #if canImport(UIKit) && !os(watchOS)
 import UIKit
 
-extension UIButton: AsAnimatable, UIButtonContainer, C7Compatible { }
+public typealias ImageView = UIImageView
 
-extension Queen where Base: UIButton {
+extension UIImageView: AsAnimatable, UIImageViewContainer, C7Compatible { }
+
+extension Queen where Base: UIImageView {
     
-    /// Sets an image or gif to the button for a specified state with a named, And add the filters.
+    /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - named: Picture or gif name.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
-    public func setImage(
-        with named: String?,
-        for state: UIControl.State,
-        filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
-    ) {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.image.rawValue, value: nil)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
     }
     
-    /// Sets an image or gif to the button for a specified state with a data, And add the filters.
+    /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - data: Picture data.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
         with data: Data?,
-        for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> AssetType {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.image.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
-    /// Sets an image or gif to the button for a specified state with a url, And add the filters.
+    /// Display network image or gif and add the filters.
     /// - Parameters:
     ///   - url: Link url.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
+    ///
+    /// - Note:
+    /// This is the easiest way to use ImagX to boost the image setting process from a source.
+    /// You can set an image from a certain URL to an image view like this:
+    ///
+    /// ```
+    /// // Set image from a url.
+    /// let url = URL(string: "https://example.com/image.png")!
+    /// imageView.mt.setImage(with: url)
+    ///
+    /// // Or set other parameters play gif or downloading image.
+    /// var options = AnimatedOptions(moduleName: "Component Name")
+    /// options.loop = .count(3)
+    /// options.placeholder = .image(R.image("AppIcon")!)
+    /// options.contentMode = .scaleAspectBottomRight
+    /// options.bufferCount = 20
+    /// options.cacheOption = .disk
+    /// options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
+    /// options.cacheDataZip = .gzip
+    /// options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+    ///
+    /// let url = URL(string: "https://example.com/image.png")!
+    /// imageView.mt.setImage(with: url, options: options)
+    /// ```
+    ///
     @discardableResult public func setImage(
         with url: URL?,
-        for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> URLSessionDataTask? {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.image.rawValue, value: state)
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.image.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
     
-    /// Sets an image or gif to the button for a specified state with a named, And add the filters.
+    /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - named: Picture or gif name.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
-    public func setBackgroundImage(
-        with named: String?,
-        for state: UIControl.State,
-        filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
-    ) {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+    public func setHighlightedImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+        self.base.animationRepeatCount = options.loop.count
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.highlightedImage.rawValue, value: nil)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
     }
     
-    /// Sets an image or gif to the button for a specified state with a data, And add the filters.
+    /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - data: Picture data.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
-    @discardableResult public func setBackgroundImage(
+    @discardableResult public func setHighlightedImage(
         with data: Data?,
-        for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> AssetType {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+        self.base.animationRepeatCount = options.loop.count
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
-    /// Sets an image or gif to the button for a specified state with a url, And add the filters.
+    /// Display network image or gif and add the filters.
     /// - Parameters:
     ///   - url: Link url.
-    ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents gif playback creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
-    @discardableResult public func setBackgroundImage(
+    @discardableResult public func setHighlightedImage(
         with url: URL?,
-        for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
     ) -> URLSessionDataTask? {
-        let other = AnimatedOthers(key: AnimatedOthers.UIButtonKey.backgroundImage.rawValue, value: state)
+        self.base.animationRepeatCount = options.loop.count
+        let other = AnimatedOthers(key: AnimatedOthers.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
 }

@@ -79,19 +79,39 @@ extension AsAnimatable {
             guard let `self` = self else { return }
             if case .fristFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).first {
-                    options.placeholder.remove(from: self, other: other)
+                    switch options.placeholder {
+                    case .view:
+                        options.placeholder.remove(from: self, other: other)
+                    default:
+                        break
+                    }
                     self.setContentImage(frame, other: other)
                 }
             } else if case .lastFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).last {
-                    options.placeholder.remove(from: self, other: other)
+                    switch options.placeholder {
+                    case .view:
+                        options.placeholder.remove(from: self, other: other)
+                    default:
+                        break
+                    }
                     self.setContentImage(frame, other: other)
                 }
             } else {
                 options.placeholder.remove(from: self, other: other)
             }
-            options.preparation?()
+            if let preparation = options.preparation {
+                let res = GIFResponse(loopDuration: self.loopDuration,
+                                      fristFrame: self.fristFrame,
+                                      activeFrame: self.activeFrame,
+                                      frameCount: self.frameCount,
+                                      isAnimatingGIF: self.isAnimatingGIF,
+                                      costGIF: self.costGIF,
+                                      data: data)
+                preparation(res)
+            }
         }
+        animator?.options = options
         animator?.other = other
         animator?.frameStore = frameStore
         animator?.animationBlock = options.animated
@@ -123,54 +143,5 @@ extension AsAnimatable {
             return
         }
         setContentImage(activeFrame, other: other)
-    }
-    
-    /// Setting up what is currently showing.
-    @inline(__always) func setContentImage(_ image: C7Image?, other: AnimatedOthers?) {
-        switch self {
-        case var imageContainer as ImageContainer:
-            imageContainer.image = image
-        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-        case var buttonContainer as NSButtonContainer:
-            guard let other = other else {
-                return
-            }
-            switch AnimatedOthers.NSButtonKey(rawValue: other.key) {
-            case .none:
-                break
-            case .image:
-                buttonContainer.image = image
-            case .alternateImage:
-                buttonContainer.alternateImage = image
-            }
-        #endif
-        #if canImport(UIKit) && !os(watchOS)
-        case var buttonContainer as UIButtonContainer:
-            guard let other = other else {
-                return
-            }
-            switch AnimatedOthers.ButtonKey(rawValue: other.key) {
-            case .none:
-                break
-            case .image:
-                if let state = other.value as? UIControl.State {
-                    buttonContainer.setImage(image, for: state)
-                    let (_, backImage) = buttonContainer.cacheImages[state.rawValue] ?? (nil, nil)
-                    buttonContainer.cacheImages[state.rawValue] = (image, backImage)
-                }
-            case .backgroundImage:
-                if let state = other.value as? UIControl.State {
-                    buttonContainer.setBackgroundImage(image, for: state)
-                    let (image_, _) = buttonContainer.cacheImages[state.rawValue] ?? (nil, nil)
-                    buttonContainer.cacheImages[state.rawValue] = (image_, image)
-                }
-            }
-        #endif
-        default:
-            #if !os(macOS)
-            //self.layer.setNeedsDisplay()
-            self.layer.contents = image?.cgImage
-            #endif
-        }
     }
 }

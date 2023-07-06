@@ -123,7 +123,12 @@ extension HandyImage {
         let resizeImage = options.contentMode.resizeImage(image, size: size)
         let dest = BoxxIO(element: resizeImage, filters: filters)
         if let outImage = try? dest.output() {
-            options.placeholder.remove(from: view, other: other)
+            switch options.placeholder {
+            case .view:
+                options.placeholder.remove(from: view, other: other)
+            default:
+                break
+            }
             view.setContentImage(outImage, other: other)
         }
     }

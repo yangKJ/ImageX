@@ -51,11 +51,8 @@ class ViewController: UIViewController {
         options.cacheCrypto = .sha1
         options.cacheDataZip = .gzip
         options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: { [weak self] in
-            guard let `self` = self else {
-                return
-            }
-            self.label.text = "\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s"
+        options.setPreparationBlock(block: { res in
+            self.label.text = "\(res.frameCount) frames / \(String(format: "%.2f", res.loopDuration))s"
         })
         options.setAnimatedBlock(block: { _ in
             print("Played end!!!")

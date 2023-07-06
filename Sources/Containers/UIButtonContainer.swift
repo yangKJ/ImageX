@@ -19,7 +19,7 @@ public protocol UIButtonContainer {
     func setBackgroundImage(_ image: UIImage?, for state: UIControl.State)
 }
 
-fileprivate var C7ButtonContainerCacheImagesContext: UInt8 = 0
+fileprivate var UIButtonContainerCacheImagesContext: UInt8 = 0
 
 extension UIButtonContainer {
     
@@ -29,18 +29,18 @@ extension UIButtonContainer {
     var cacheImages: CacheImagesMap {
         get {
             return synchronizedCacheImages {
-                if let map = objc_getAssociatedObject(self, &C7ButtonContainerCacheImagesContext) as? CacheImagesMap {
+                if let map = objc_getAssociatedObject(self, &UIButtonContainerCacheImagesContext) as? CacheImagesMap {
                     return map
                 } else {
                     let map = CacheImagesMap()
-                    objc_setAssociatedObject(self, &C7ButtonContainerCacheImagesContext, map, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    objc_setAssociatedObject(self, &UIButtonContainerCacheImagesContext, map, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                     return map
                 }
             }
         }
         set {
             synchronizedCacheImages {
-                objc_setAssociatedObject(self, &C7ButtonContainerCacheImagesContext, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &UIButtonContainerCacheImagesContext, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
     }
