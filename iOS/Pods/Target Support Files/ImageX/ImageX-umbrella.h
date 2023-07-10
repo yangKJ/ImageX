@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "ImageX.h"
 
 FOUNDATION_EXPORT double ImageXVersionNumber;
 FOUNDATION_EXPORT const unsigned char ImageXVersionString[];

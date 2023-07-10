@@ -2,7 +2,7 @@
 //  AssetType.swift
 //  ImageX
 //
-//  Created by Condy on 2023/2/2.
+//  Created by Condy on 2023/2/28.
 //
 
 import Foundation
@@ -65,7 +65,7 @@ extension AssetType {
     ///   - url: Link url.
     ///   - complete: Result callback.
     public static func asyncAssetType(with url: URL, complete: @escaping AssetTypeComplete) {
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+        Networking.shared.addDownloadURL(url, block: { (data, _, error) in
             switch (data, error) {
             case (.none, _):
                 complete(.unknow, nil)
@@ -74,8 +74,7 @@ extension AssetType {
                     complete(AssetType(data: data), data)
                 }
             }
-        }
-        task.resume()
+        })
     }
 }
 

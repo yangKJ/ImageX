@@ -15,6 +15,7 @@ class GIFImageView: NSImageView {
 class ViewController: NSViewController {
     
     @IBOutlet weak var imageView: GIFImageView!
+    //@IBOutlet weak var imageView: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +29,28 @@ class ViewController: NSViewController {
         let links = [
             "jordan-whitt-54480", "failed_link",
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
+            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
-            "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
+            "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg",
         ]
         let named = links.randomElement() ?? ""
-        var options = AnimatedOptions(loop: .count(3),
-                                      placeholder: .image(R.image("IMG_0020")!),
-                                      contentMode: .scaleAspectBottomRight,
-                                      bufferCount: 20,
-                                      cacheOption: .disk,
-                                      cacheCrypto: .base58,
-                                      cacheDataZip: .gzip)
-        options.setPreparationBlock(block: {
+        var options = AnimatedOptions()
+        options.loop = .forever
+        options.placeholder = .image(R.image("IMG_0020")!)
+        options.contentMode = .scaleAspectBottomRight
+        options.bufferCount = 20
+        options.cacheOption = .disk
+        options.cacheCrypto = .base58
+        options.cacheDataZip = .gzip
+        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+        options.setPreparationBlock(block: { _ in
             // do something..
         })
         options.setAnimatedBlock(block: { loopDuration in
             // play is complete and then do something..
         })
-        imageView.mt.displayImage(named: named, filters: filters, options: options)
+        imageView.mt.setImage(with: named, filters: filters, options: options)
     }
     
     override var representedObject: Any? {

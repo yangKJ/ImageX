@@ -51,8 +51,13 @@ public protocol AsAnimatable: HasAnimatable {
 extension AsAnimatable {
     /// Prepare for animation and start play GIF.
     public func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions) {
+        self.play(data: data, filters: filters, options: options, other: nil)
+    }
+    
+    /// Prepare for animation and start play GIF.
+    func play(data: Data?, filters: [C7FilterProtocol], options: ImageX.AnimatedOptions, other: ImageX.Others?) {
         if options.displayed == false {
-            options.placeholder.display(to: self, contentMode: options.contentMode)
+            options.placeholder.display(to: self, contentMode: options.contentMode, other: other)
         }
         guard let data = data, AssetType(data: data) == .gif else { return }
         let size = options.confirmSize == .zero ? frame.size : options.confirmSize
@@ -66,19 +71,40 @@ extension AsAnimatable {
             guard let `self` = self else { return }
             if case .fristFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).first {
-                    options.placeholder.remove(from: self)
-                    self.setContentImage(frame)
+                    switch options.placeholder {
+                    case .view:
+                        options.placeholder.remove(from: self, other: other)
+                    default:
+                        break
+                    }
+                    self.setContentImage(frame, other: other)
                 }
             } else if case .lastFrame = options.loop {
                 if let frame = frameStore.animatedFrames.compactMap({ $0.image }).last {
-                    options.placeholder.remove(from: self)
-                    self.setContentImage(frame)
+                    switch options.placeholder {
+                    case .view:
+                        options.placeholder.remove(from: self, other: other)
+                    default:
+                        break
+                    }
+                    self.setContentImage(frame, other: other)
                 }
             } else {
-                options.placeholder.remove(from: self)
+                options.placeholder.remove(from: self, other: other)
             }
-            options.preparation?()
+            if let preparation = options.preparation {
+                let res = GIFResponse(loopDuration: self.loopDuration,
+                                      fristFrame: self.fristFrame,
+                                      activeFrame: self.activeFrame,
+                                      frameCount: self.frameCount,
+                                      isAnimatingGIF: self.isAnimatingGIF,
+                                      costGIF: self.costGIF,
+                                      data: data)
+                preparation(res)
+            }
         }
+        animator?.options = options
+        animator?.other = other
         animator?.frameStore = frameStore
         animator?.animationBlock = options.animated
         switch options.loop {
@@ -104,22 +130,10 @@ extension AsAnimatable {
 
 extension AsAnimatable {
     /// Updates the image with a new frame if necessary.
-    func updateImageIfNeeded() {
+    func updateImageIfNeeded(other: Others?) {
         guard let activeFrame = activeFrame else {
             return
         }
-        setContentImage(activeFrame)
-    }
-    
-    /// Setting up what is currently showing.
-    func setContentImage(_ image: C7Image?) {
-        if var imageContainer = self as? ImageContainer {
-            imageContainer.image = image
-        } else {
-            #if !os(macOS)
-            //self.layer.setNeedsDisplay()
-            self.layer.contents = image?.cgImage
-            #endif
-        }
+        setContentImage(activeFrame, other: other)
     }
 }

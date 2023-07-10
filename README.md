@@ -18,13 +18,15 @@ English | [**简体中文**](README_CN.md)
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/ImageX) can be summarized as follows:
 
 - Support more platform system，macOS、iOS、tvOS、watchOS.
-- Support local and network play gif animated.
-- Support asynchronous image or gif displaying and caching.
+- Support local and network play gifs animated.
+- Support asynchronous downloading and caching images or gifs from the web.
+- Support network sharing with the same link url, and will not download the same resource data multiple times.
 - Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift).
-- Support extension `NSImageView` or `UIImageView` display image or gif and add the filters.
+- Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton`,`WKInterfaceImage` display image or gif and add the filters.
 - Support six image or gif content modes.
 - Support disk and memory cached network data, And the data is compressed by GZip.
-- Support clean up disk expired data in your spare time.
+- Support secondary compression of cache data, occupying less disk space.
+- Support clean up disk expired data in your spare time and size limit.
 - Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
 
 ------
@@ -48,23 +50,34 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 
 - `NSImageView` or `UIImageView` display network image or gif and add the filters.
 
+```
+// Set image from a url.
+let url = URL(string: "https://example.com/image.png")!
+imageView.mt.setImage(with: url)
+```
+
+- Or set other parameters play gif or downloading image.
+
 ```swift
-let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
-let named = links.randomElement() ?? ""
-var options = AnimatedOptions(loop: .count(3),
-                              placeholder: .image(R.image("IMG_0020")!),
-                              contentMode: .scaleAspectBottomRight,
-                              bufferCount: 20,
-                              cacheOption: .disk,
-                              cacheCrypto: .user { "Condy" + CryptoType.SHA.sha1(string: $0) },
-                              cacheDataZip: .gzip)
-options.setPreparationBlock(block: { [weak self] in
+var options = AnimatedOptions(moduleName: "Component Name")
+options.loop = .count(3)
+options.placeholder = .image(R.image("AppIcon")!)
+options.contentMode = .scaleAspectBottomRight
+options.bufferCount = 20
+options.cacheOption = .disk
+options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
+options.cacheDataZip = .gzip
+options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+options.setPreparationBlock(block: { [weak self] _ in
     // do something..
 })
 options.setAnimatedBlock(block: { _ in
     // play is complete and then do something..
 })
-imageView.mt.displayImage(named: named, filters: filters, options: options)
+
+let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
+let named = links.randomElement() ?? ""
+imageView.mt.setImage(with: named, filters: filters, options: options)
 ```
 
 ----------------------------------------------------------------
@@ -76,10 +89,10 @@ imageView.mt.displayImage(named: named, filters: filters, options: options)
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
-public func displayImage(
-    named: String, 
+public func setImage(
+    with named: String, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default
+    options: AnimatedOptions = AnimatedOptions.default
 )
 
 /// Display image or gif and add the filters.
@@ -88,10 +101,10 @@ public func displayImage(
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
 /// - Returns: A uniform type identifier UTI.
-public func displayImage(
-    data: Data?, 
+public func setImage(
+    with data: Data?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default
+    options: AnimatedOptions = AnimatedOptions.default
 ) -> AssetType
 
 /// Display network image or gif and add the filters.
@@ -99,13 +112,11 @@ public func displayImage(
 ///   - url: Link url.
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
-///   - failed: Network failure callback.
 /// - Returns: Current network URLSessionDataTask.
-public func displayImage(
-    url: URL, 
+public func setImage(
+    with url: URL?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = .default, 
-    failed: FailedCallback? = nil
+    options: AnimatedOptions = AnimatedOptions.default
 ) -> URLSessionDataTask?
 ```
 
@@ -151,27 +162,37 @@ public struct AnimatedOptions {
     
     public static let `default` = AnimatedOptions()
     
-    /// Desired number of loops. Default  is ``forever``.
-    public let loop: ImageX.Loop
+    /// Desired number of loops. Default is ``forever``.
+    public var loop: ImageX.Loop = .forever
     
     /// Content mode used for resizing the frames. Default is ``original``.
-    public let contentMode: ImageX.ContentMode
+    public var contentMode: ImageX.ContentMode = .original
     
-    /// The number of frames to buffer. Default is 50.
-    public let bufferCount: Int
+    /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
+    public var bufferCount: Int = 50
     
     /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
-    public let cacheOption: ImageX.Cached.Options
+    public var cacheOption: Lemons.CachedOptions = .diskAndMemory
     
     /// Placeholder image. default gray picture.
-    public let placeholder: ImageX.Placeholder
+    public var placeholder: ImageX.Placeholder = .none
     
     /// Network data cache naming encryption method, Default is ``md5``.
-    public let cacheCrypto: ImageX.CryptoType
+    public var cacheCrypto: Lemons.CryptoType = .md5
     
     /// Network data compression or decompression method, default ``gzip``.
     /// This operation is done in the subthread.
-    public let cacheDataZip: ImageX.ZipType
+    public var cacheDataZip: ImageX.ZipType = .gzip
+    
+    /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
+    public var retry: ImageX.DelayRetry = .default
+    
+    /// Confirm the size to facilitate follow-up processing, Default display control size.
+    public var confirmSize: CGSize = .zero
+    
+    /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
+    /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
+    public let moduleName: String
 }
 ```
 
@@ -218,81 +239,12 @@ public protocol AsAnimatable: HasAnimatable {
 }
 ```
 
-#### Placeholder
-
-- Represent a placeholder type which could be set while loading as well as loading finished without getting an image.
-
-```swift
-public enum Placeholder {
-    /// Do not use any placeholder.
-    case none
-    /// Use solid color image as placeholder.
-    case color(C7Color)
-    /// Use image as placeholder.
-    case image(C7Image)
-    /// Use a custom view as placeholder.
-    case view(View)
-}
-```
-
 ### Cached
 
 - Network data caching type. There are two modes: memory and disk storage.
 - Among them, the disk storage uses GZip to compress data, so it will occupy less space.
-
-```
-/// Do not use any cache.
-public static let none = Options(rawValue: 1 << 0)
-/// Cache the data in memory.
-public static let memory = Options(rawValue: 1 << 1)
-/// Cache the data in disk, Use ``GZip`` to compress data.
-public static let disk = Options(rawValue: 1 << 2)
-/// Use memory and disk cache at the same time to read memory first.
-public static let all: Options = [.memory, .disk]
-```
-
 - Support setting different types of named encryption methods, such as md5, sha1, base58, And user defined.
-
-```
-public enum Crypto {
-    case md5
-    case sha1
-    case base58
-    case user(CryptoUserType)
-}
-```
-
-- Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/GZip.swift) compression or decompression. Of course, users can also customize it.
-
-```
-public enum ZipType {
-    /// There is no processing for Data.
-    case none
-    /// Use GZip to compress or decompress data.
-    case gzip
-    /// User defined compression and decompression methods.
-    case user(compressed: ZipUserType, decompress: ZipUserType)
-}
-```
-
-### Loop
-
-- Gif animated played count.
-
-```
-public enum Loop {
-    /// Incessant cycle.
-    case forever
-    /// Play it once.
-    case never
-    /// Loop the specified ``count`` times.
-    case count(_ count: Int)
-    /// Displayed the first frame.
-    case fristFrame
-    /// Displayed the last frame.
-    case lastFrame
-}
-```
+- Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Zip.swift) compression or decompression. Of course, users can also customize it.
 
 ## Installation
 

@@ -9,10 +9,10 @@ import Foundation
 import Harbeth
 #if os(iOS) || os(tvOS)
 import UIKit
-public typealias View = UIView
+public typealias ImageXView = UIView
 #elseif os(macOS)
 import AppKit
-public typealias View = NSView
+public typealias ImageXView = NSView
 #endif
 
 /// Represent a placeholder type which could be set while loading as well as loading finished without getting an image.
@@ -24,25 +24,25 @@ public enum Placeholder {
     /// Use image as placeholder.
     case image(C7Image)
     /// Use a custom view as placeholder.
-    case view(View)
+    case view(ImageXView)
 }
 
 extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
-    func display(to view: AsAnimatable, contentMode: ImageX.ContentMode) {
+    func display(to view: AsAnimatable, contentMode: ImageX.ContentMode, other: ImageX.Others? = nil) {
         switch self {
         case .none:
             break
         case .color(let c7Color):
             var image = c7Color.mt.colorImage(with: view.frame.size)
             image = contentMode.resizeImage(image, size: view.frame.size)
-            view.setContentImage(image)
+            view.setContentImage(image, other: other)
         case .image(let c7Image):
             let image = contentMode.resizeImage(c7Image, size: view.frame.size)
-            view.setContentImage(image)
+            view.setContentImage(image, other: other)
         case .view(let subview):
-            if let view = view as? View, !view.subviews.contains(subview) {
+            if let view = view as? ImageXView, !view.subviews.contains(subview) {
                 view.addSubview(subview)
                 subview.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -56,14 +56,14 @@ extension ImageX.Placeholder {
     }
     
     /// Remove placeholder from view.
-    func remove(from view: AsAnimatable) {
+    func remove(from view: AsAnimatable, other: ImageX.Others? = nil) {
         switch self {
         case .none:
             break
         case .color, .image:
-            view.setContentImage(nil)
+            view.setContentImage(nil, other: other)
         case .view(let subview):
-            if let view = view as? View, view.subviews.contains(subview) {
+            if let view = view as? ImageXView, view.subviews.contains(subview) {
                 subview.removeFromSuperview()
             }
         }

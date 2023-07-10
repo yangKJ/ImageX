@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ImageX'
-  s.version          = '1.0.0'
-  s.summary          = 'GIF animation and support Harbeth filter.'
+  s.version          = '1.0.4'
+  s.summary          = 'GIF animation add filter, downloading and caching images from the web.'
   
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.macos.deployment_target = '10.13'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
   
-  s.source_files = 'Sources/**/*.swift'
+  s.source_files = 'Sources/**/*.{h,swift}'
   s.dependency 'Harbeth'
   s.dependency 'Lemons'
   
