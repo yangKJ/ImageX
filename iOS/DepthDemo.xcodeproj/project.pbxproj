@@ -13,8 +13,8 @@
 		8790C59B29669B1D00950059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59929669B1D00950059 /* Main.storyboard */; };
 		8790C59D29669B1F00950059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59C29669B1F00950059 /* Assets.xcassets */; };
 		8790C5A029669B1F00950059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59E29669B1F00950059 /* LaunchScreen.storyboard */; };
+		87D1330F2A5B9D5800DEB03B /* GIFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */; };
 		87DC267F29AC806500250152 /* pikachu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 87DC267E29AC806500250152 /* pikachu.gif */; };
-		87FD45A82A57E9B700410EF3 /* GIFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD45A72A57E9B600410EF3 /* GIFViewController.swift */; };
 		BC98D6AD1D9A1EAA1FF0FC24 /* Pods_DepthDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998630B2FEA17F8895DA2E6F /* Pods_DepthDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,8 +28,8 @@
 		8790C59C29669B1F00950059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8790C59F29669B1F00950059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8790C5A129669B1F00950059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFViewController.swift; sourceTree = "<group>"; };
 		87DC267E29AC806500250152 /* pikachu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikachu.gif; sourceTree = "<group>"; };
-		87FD45A72A57E9B600410EF3 /* GIFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFViewController.swift; sourceTree = "<group>"; };
 		998630B2FEA17F8895DA2E6F /* Pods_DepthDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DepthDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E503E4AFBD0ACCE93AFB3B /* Pods-DepthDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.release.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,7 +70,7 @@
 				8790C59329669B1D00950059 /* AppDelegate.swift */,
 				8790C59529669B1D00950059 /* SceneDelegate.swift */,
 				8790C59729669B1D00950059 /* ViewController.swift */,
-				87FD45A72A57E9B600410EF3 /* GIFViewController.swift */,
+				87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
 				87DC267E29AC806500250152 /* pikachu.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
@@ -216,7 +216,7 @@
 				8790C59829669B1D00950059 /* ViewController.swift in Sources */,
 				8790C59429669B1D00950059 /* AppDelegate.swift in Sources */,
 				8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */,
-				87FD45A82A57E9B700410EF3 /* GIFViewController.swift in Sources */,
+				87D1330F2A5B9D5800DEB03B /* GIFViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
