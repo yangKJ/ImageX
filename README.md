@@ -21,6 +21,7 @@ English | [**简体中文**](README_CN.md)
 - Support local and network play gifs animated.
 - Support asynchronous downloading and caching images or gifs from the web.
 - Support network sharing with the same link url, and will not download the same resource data multiple times.
+- Support breakpoint continuous transmission and download of network resource data.
 - Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift).
 - Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton`,`WKInterfaceImage` display image or gif and add the filters.
 - Support six image or gif content modes.
@@ -28,6 +29,7 @@ English | [**简体中文**](README_CN.md)
 - Support secondary compression of cache data, occupying less disk space.
 - Support clean up disk expired data in your spare time and size limit.
 - Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
+- Support to set the response time of download progress interval.
 
 ------
 
@@ -50,7 +52,7 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 
 - `NSImageView` or `UIImageView` display network image or gif and add the filters.
 
-```
+```swift
 // Set image from a url.
 let url = URL(string: "https://example.com/image.png")!
 imageView.mt.setImage(with: url)
@@ -65,18 +67,29 @@ options.placeholder = .image(R.image("AppIcon")!)
 options.contentMode = .scaleAspectBottomRight
 options.bufferCount = 20
 options.cacheOption = .disk
-options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
+options.cacheCrypto = .md5
 options.cacheDataZip = .gzip
-options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+options.retry = .max3s
 options.setPreparationBlock(block: { [weak self] _ in
     // do something..
 })
 options.setAnimatedBlock(block: { _ in
     // play is complete and then do something..
 })
+options.setNetworkProgress(block: { _ in
+    // download progress..
+})
+options.setNetworkFailed(block: { _, _ in
+    // download failed.
+})
 
-let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
+let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
+// Setup filters.
+let filters: [C7FilterProtocol] = [
+    C7SoulOut(soul: 0.75),
+    C7Storyboard(ranks: 2),
+]
 imageView.mt.setImage(with: named, filters: filters, options: options)
 ```
 
@@ -117,7 +130,7 @@ public func setImage(
     with url: URL?, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = AnimatedOptions.default
-) -> URLSessionDataTask?
+) -> Task?
 ```
 
 - Any control can play the local gif data.
@@ -137,7 +150,7 @@ class AnimatedView: UIView, AsAnimatable {
 }
 ```
 
-**GIF animated support has been implemented here for [ImageView](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/ImageView%2BExt.swift), so you can use it directly.✌️**
+**GIF animated support has been implemented here for [**ImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView%2BExt.swift) , so you can use it directly.✌️**
 
 ### ContentMode
 
@@ -185,10 +198,16 @@ public struct AnimatedOptions {
     public var cacheDataZip: ImageX.ZipType = .gzip
     
     /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
-    public var retry: ImageX.DelayRetry = .default
+    public var retry: ImageX.DelayRetry = .max3s
     
     /// Confirm the size to facilitate follow-up processing, Default display control size.
     public var confirmSize: CGSize = .zero
+    
+    /// Web images or GIFs link download priority.
+    public var downloadPriority: Float = URLSessionTask.defaultPriority
+    
+    /// The timeout interval for the request. Defaults to 20.0
+    public var timeoutInterval: TimeInterval = 20
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.

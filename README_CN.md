@@ -22,6 +22,7 @@
 - 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
 - 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/CryptoType.swift) 方式；
 - 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Zip.swift) 压缩方式；
+- 支持断点续传下载网络资源数据，支持设置下载进度间隔响应时间；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
 
@@ -32,7 +33,15 @@
 1. `NSImageView`或`UIImageView`显示网络图像或GIF并添加过滤器。
 
 ```swift
-let links = [``GIF Link URL``, ``Picture Link URL``, ``GIF Named``, ``Image Named``]
+// 简单使用如下：
+let url = URL(string: "https://example.com/image.png")!
+imageView.mt.setImage(with: url)
+```
+
+2. 或者设置其他参数播放GIF或下载图像。
+
+```swift
+let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
 var options = AnimatedOptions()
 options.loop = .count(3) // 循环播放3次
@@ -42,13 +51,17 @@ options.bufferCount = 20 // 缓存20帧
 options.cacheOption = .disk // 采用磁盘缓存
 options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) } // 自定义加密
 options.cacheDataZip = .gzip // 采用GZip方式压缩数据
-options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2)) // 失败重试
+options.retry = .max3s // 网络失败重试
 options.setPreparationBlock(block: { [weak self] _ in
     // GIF开始准备播放时刻
 })
 options.setAnimatedBlock(block: { _ in
     // GIF播放完成
 })
+let filters: [C7FilterProtocol] = [
+    C7SoulOut(soul: 0.75), // 灵魂出窍滤镜
+    C7Storyboard(ranks: 2),// 分屏滤镜
+]
 imageView.mt.setImage(with: named, filters: filters, options: options)
 ```
 
@@ -75,7 +88,7 @@ public func setImage(
     with url: URL?, 
     filters: [C7FilterProtocol], 
     options: AnimatedOptions = AnimatedOptions.default
-) -> URLSessionDataTask?
+) -> Task?
 ```
 
 2. 任意控件实现协议`AsAnimatable`均可立刻支持GIF播放，核心其实就是在`layer.contents`显示帧图。
