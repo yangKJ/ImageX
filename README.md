@@ -18,13 +18,13 @@ English | [**简体中文**](README_CN.md)
 🧢 At the moment, the most important features of [**GIF Animatable**](https://github.com/yangKJ/ImageX) can be summarized as follows:
 
 - Support more platform system，macOS、iOS、tvOS、watchOS.
-- Support local and network play gifs animated.
+- Support local and network play gifs animated and filters provided.
 - Support asynchronous downloading and caching images or gifs from the web.
 - Support network sharing with the same link url, and will not download the same resource data multiple times.
 - Support breakpoint continuous transmission and download of network resource data.
-- Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/AsAnimatable.swift).
-- Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton`,`WKInterfaceImage` display image or gif and add the filters.
-- Support six image or gif content modes.
+- Support any control play gif if used the protocol [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/GIFs/AsAnimatable.swift).
+- Support extension [NSImageView](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/NSImageView%2BExt.swift) or [UIImageView](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView%2BExt.swift), [UIButton](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIButton%2BExt.swift),  [NSButton](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/NSButton%2BExt.swift), [WKInterfaceImage](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/WKInterfaceImage%2BExt.swift) display image or gif and add the filters.
+- Support six image or gif [content modes](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/ContentMode.swift) .
 - Support disk and memory cached network data, And the data is compressed by GZip.
 - Support secondary compression of cache data, occupying less disk space.
 - Support clean up disk expired data in your spare time and size limit.
