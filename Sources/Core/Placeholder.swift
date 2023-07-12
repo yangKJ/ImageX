@@ -31,40 +31,44 @@ extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
     func display(to view: AsAnimatable, contentMode: ImageX.ContentMode, other: ImageX.Others? = nil) {
-        switch self {
-        case .none:
-            break
-        case .color(let c7Color):
-            var image = c7Color.mt.colorImage(with: view.frame.size)
-            image = contentMode.resizeImage(image, size: view.frame.size)
-            view.setContentImage(image, other: other)
-        case .image(let c7Image):
-            let image = contentMode.resizeImage(c7Image, size: view.frame.size)
-            view.setContentImage(image, other: other)
-        case .view(let subview):
-            if let view = view as? ImageXView, !view.subviews.contains(subview) {
-                view.addSubview(subview)
-                subview.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    subview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    subview.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    subview.heightAnchor.constraint(equalTo: view.heightAnchor),
-                    subview.widthAnchor.constraint(equalTo: view.widthAnchor),
-                ])
+        DispatchQueue.main.async {
+            switch self {
+            case .none:
+                break
+            case .color(let c7Color):
+                var image = c7Color.mt.colorImage(with: view.frame.size)
+                image = contentMode.resizeImage(image, size: view.frame.size)
+                view.setContentImage(image, other: other)
+            case .image(let c7Image):
+                let image = contentMode.resizeImage(c7Image, size: view.frame.size)
+                view.setContentImage(image, other: other)
+            case .view(let subview):
+                if let view = view as? ImageXView, !view.subviews.contains(subview) {
+                    view.addSubview(subview)
+                    subview.translatesAutoresizingMaskIntoConstraints = false
+                    NSLayoutConstraint.activate([
+                        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                        subview.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                        subview.heightAnchor.constraint(equalTo: view.heightAnchor),
+                        subview.widthAnchor.constraint(equalTo: view.widthAnchor),
+                    ])
+                }
             }
         }
     }
     
     /// Remove placeholder from view.
     func remove(from view: AsAnimatable, other: ImageX.Others? = nil) {
-        switch self {
-        case .none:
-            break
-        case .color, .image:
-            view.setContentImage(nil, other: other)
-        case .view(let subview):
-            if let view = view as? ImageXView, view.subviews.contains(subview) {
-                subview.removeFromSuperview()
+        DispatchQueue.main.async {
+            switch self {
+            case .none:
+                break
+            case .color, .image:
+                view.setContentImage(nil, other: other)
+            case .view(let subview):
+                if let view = view as? ImageXView, view.subviews.contains(subview) {
+                    subview.removeFromSuperview()
+                }
             }
         }
     }

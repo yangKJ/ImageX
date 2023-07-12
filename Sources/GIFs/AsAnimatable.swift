@@ -90,7 +90,12 @@ extension AsAnimatable {
                     self.setContentImage(frame, other: other)
                 }
             } else {
-                options.placeholder.remove(from: self, other: other)
+                switch options.placeholder {
+                case .view:
+                    options.placeholder.remove(from: self, other: other)
+                default:
+                    break
+                }
             }
             if let preparation = options.preparation {
                 let res = GIFResponse(loopDuration: self.loopDuration,

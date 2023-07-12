@@ -12,7 +12,7 @@ import Foundation
 /// Specified max retry count and a certain interval mechanism.
 public struct DelayRetry {
     
-    public static let `default` = DelayRetry.init(maxRetryCount: 3, retryInterval: .seconds(3))
+    public static let max3s = DelayRetry.init(maxRetryCount: 3, retryInterval: .seconds(3))
     
     /// Represents the interval mechanism which used in a `DelayRetryStrategy`.
     public enum Interval {
@@ -48,11 +48,16 @@ public struct DelayRetry {
         retriedCount += 1
     }
     
+    // Retry count exceeded.
+    func exceededRetriedCount() -> Bool {
+        retriedCount >= maxRetryCount
+    }
+    
     enum RetryDecision { case retring, stop }
     
     func retry(task: URLSessionDataTask, retryHandler: @escaping (RetryDecision) -> Void) {
         // Retry count exceeded.
-        if retriedCount >= maxRetryCount {
+        if exceededRetriedCount() {
             retryHandler(.stop)
         }
         
@@ -69,6 +74,21 @@ public struct DelayRetry {
                 retryHandler(.retring)
             }
         }
+    }
+    
+    func retry(task: URLSessionDataTask) -> (state: RetryDecision, interval: TimeInterval) {
+        // Retry count exceeded.
+        if exceededRetriedCount() {
+            return (.stop, 0)
+        }
+        
+        // User cancel the task. No retry.
+        if task.state == .canceling {
+            return (.stop, 0)
+        }
+        
+        let interval = retryInterval.timeInterval(for: retriedCount)
+        return (.retring, interval)
     }
 }
 

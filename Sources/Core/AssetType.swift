@@ -58,20 +58,31 @@ extension AssetType {
         }
     }
     
-    public typealias AssetTypeComplete = (_ type: AssetType, _ data: Data?) -> Void
+    public typealias AssetTypeComplete = (_ type: AssetType) -> Void
     
     /// Asynchronously obtain the current link asset type and Data.
+    /// You only need to download the first frame to determine the type.
     /// - Parameters:
     ///   - url: Link url.
     ///   - complete: Result callback.
     public static func asyncAssetType(with url: URL, complete: @escaping AssetTypeComplete) {
-        Networking.shared.addDownloadURL(url, block: { (data, _, error) in
-            switch (data, error) {
-            case (.none, _):
-                complete(.unknow, nil)
-            case (let data?, _):
-                DispatchQueue.main.async {
-                    complete(AssetType(data: data), data)
+        Networking.shared.addDownloadURL(url, downloadBlock: { result in
+            switch result {
+            case .failure:
+                complete(.unknow)
+            case .success(let res):
+                if res.downloadStatus == .complete {
+                    complete(AssetType(data: res.data))
+                }
+                switch res.downloadStatus {
+                case .complete:
+                    complete(AssetType(data: res.data))
+                case .downloading:
+                    let type = AssetType(data: res.data)
+                    if type != .unknow {
+                        Networking.shared.removeDownloadURL(with: url)
+                        complete(type)
+                    }
                 }
             }
         })
@@ -82,6 +93,10 @@ extension AssetType {
     
     public var isVideo: Bool {
         self == .mp4 || self == .m4v || self == .mov
+    }
+    
+    public var canSetBrokenData: Bool {
+        self == .png || self == .jpeg
     }
     
     /// Determines a type and image size of the image based on the given data.

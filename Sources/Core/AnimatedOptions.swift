@@ -15,8 +15,6 @@ public struct AnimatedOptions {
     
     public static var `default` = AnimatedOptions()
     
-    public typealias FailedCallback = ((_ response: URLResponse?, _ error: Error?) -> Void)
-    
     /// Desired number of loops. Default is ``forever``.
     public var loop: ImageX.Loop = .forever
     
@@ -42,13 +40,19 @@ public struct AnimatedOptions {
     public var cacheDataZip: ImageX.ZipType = .gzip
     
     /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
-    public var retry: ImageX.DelayRetry = .default
+    public var retry: ImageX.DelayRetry = .max3s
     
     /// Confirm the size to facilitate follow-up processing, Default display control size.
     public var confirmSize: CGSize = .zero
     
     /// Web images or GIFs link download priority.
     public var downloadPriority: Float = URLSessionTask.defaultPriority
+    
+    /// The timeout interval for the request. Defaults to 20.0
+    public var timeoutInterval: TimeInterval = 20
+    
+    /// Network resource data download progress response interval.
+    public var downloadInterval: TimeInterval = 0.02
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
@@ -75,11 +79,18 @@ public struct AnimatedOptions {
         self.animated = block
     }
     
-    internal var failed: AnimatedOptions.FailedCallback?
-    /// Network download task failure information
+    internal var failed: ((_ error: Error) -> Void)?
+    /// Network download task failure information.
     /// - Parameter block: Failed the callback.
-    public mutating func setNetworkFailed(block: @escaping AnimatedOptions.FailedCallback) {
+    public mutating func setNetworkFailed(block: @escaping ((_ error: Error) -> Void)) {
         self.failed = block
+    }
+    
+    internal var progressBlock: ((_ currentProgress: CGFloat) -> Void)?
+    /// Network data task download progress.
+    /// - Parameter block: Download the callback.
+    public mutating func setNetworkProgress(block: @escaping ((_ currentProgress: CGFloat) -> Void)) {
+        self.progressBlock = block
     }
     
     internal var displayed: Bool = false // 防止重复设置占位信息

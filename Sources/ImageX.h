@@ -33,6 +33,7 @@
 // Support local and network play gifs animated.
 // Support asynchronous downloading and caching images or gifs from the web.
 // Support network sharing with the same link url, and will not download the same resource data multiple times.
+// Support breakpoint continuous transmission and download of network resource data.
 // Support any control play gif if used the protocol [AsAnimatable].
 // Support extension `NSImageView` or `UIImageView`,`UIButton`,`NSButton`,`WKInterfaceImage` display image or gif and add the filters.
 // Support six image or gif content modes.
@@ -40,6 +41,7 @@
 // Support secondary compression of cache data, occupying less disk space.
 // Support clean up disk expired data in your spare time and size limit.
 // Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
+// Support to set the response time of download progress interval.
 
 
 // And it is easy to use when summarizing it, so let's add it slowly.

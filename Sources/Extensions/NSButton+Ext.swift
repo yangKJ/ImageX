@@ -50,7 +50,7 @@ extension Queen where Base: NSButton {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         let other = Others(key: Others.NSButtonKey.image.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
@@ -90,7 +90,7 @@ extension Queen where Base: NSButton {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         let other = Others(key: Others.NSButtonKey.alternateImage.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }

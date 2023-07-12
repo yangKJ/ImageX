@@ -7,6 +7,7 @@
 
 import Foundation
 import ImageX
+import Harbeth
 
 class AnimatedView: UIView, AsAnimatable {
     
@@ -62,7 +63,7 @@ class GIFViewController: UIViewController {
         view.addSubview(animatedButton)
         view.addSubview(richLabel)
         NSLayoutConstraint.activate([
-            animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             animatedView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             animatedView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             animatedView.heightAnchor.constraint(equalTo: animatedView.widthAnchor, multiplier: 1),
@@ -92,7 +93,7 @@ class GIFViewController: UIViewController {
     func setupButton() {
         var options = AnimatedOptions()
         options.loop = .count(8)
-        options.placeholder = .color(.red)
+        options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
         options.bufferCount = 20
         options.cacheOption = .disk
@@ -105,12 +106,24 @@ class GIFViewController: UIViewController {
         options.setAnimatedBlock(block: { [weak self] _ in
             print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
         })
-        let named = "https://blog.ibireme.com/wp-content/uploads/2015/11/bench_gif_demo.gif"
+        options.setNetworkProgress(block: { progress in
+            print("download: - \(progress)")
+        })
+        options.setNetworkFailed(block: { error in
+            print("Failed: - \(error.localizedDescription)")
+        })
+        let named = "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg"
+        //let named = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic"
         animatedButton.mt.setImage(with: named, for: .normal, options: options)
     }
     
     func setupRichLabel() {
-        
+        let url = URL(string: "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic")!
+        for index in 0...3 {
+            AssetType.asyncAssetType(with: url) { type in
+                print("图像类型\(index): - \(type.rawValue)")
+            }
+        }
     }
     
     deinit {

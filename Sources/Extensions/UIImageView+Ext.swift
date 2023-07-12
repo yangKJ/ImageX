@@ -65,9 +65,9 @@ extension Queen where Base: UIImageView {
     /// options.contentMode = .scaleAspectBottomRight
     /// options.bufferCount = 20
     /// options.cacheOption = .disk
-    /// options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) }
+    /// options.cacheCrypto = .md5
     /// options.cacheDataZip = .gzip
-    /// options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+    /// options.retry = .max3s
     ///
     /// let url = URL(string: "https://example.com/image.png")!
     /// imageView.mt.setImage(with: url, options: options)
@@ -77,7 +77,7 @@ extension Queen where Base: UIImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }
@@ -117,7 +117,7 @@ extension Queen where Base: UIImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
     }

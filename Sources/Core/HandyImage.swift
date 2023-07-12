@@ -51,17 +51,12 @@ struct HandyImage {
         options: AnimatedOptions,
         other: Others?
     ) -> AssetType {
-        let type = AssetType(data: data)
-        switch type {
-        case .jpeg, .png, .tiff, .webp, .heic, .heif:
-            let image = Harbeth.C7Image.init(data: data!)
-            HandyImage.setImage(image, to: view, filters: filters, options: options, other: other)
-        case .gif:
-            view.play(data: data, filters: filters, options: options, other: other)
-        default:
+        guard let data = data else {
             HandyImage.setPlaceholder(to: view, options: options, other: other)
-            view.hasAnimator?.prepareForReuse()
+            return .unknow
         }
+        let type = AssetType(data: data)
+        handyData(data, type: type, to: view, filters: filters, options: options, other: other)
         return type
     }
     
@@ -71,7 +66,7 @@ struct HandyImage {
         filters: [Harbeth.C7FilterProtocol],
         options: AnimatedOptions,
         other: Others?
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         guard let url = url else {
             HandyImage.setPlaceholder(to: view, options: options, other: other)
             return nil
@@ -80,27 +75,40 @@ struct HandyImage {
         let key = options.cacheCrypto.encryptedString(with: url.absoluteString)
         if let object = Cached.shared.storage.fetchCached(forKey: key, options: options.cacheOption), var data = object.data {
             data = options.cacheDataZip.decompress(data: data)
-            HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
+            DispatchQueue.main.async {
+                options.progressBlock?(1.0)
+                HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
+            }
             return nil
         }
-        let task = Networking.shared.addDownloadURL(url, retry: options.retry) { (data, response, error) in
-            switch (data, error) {
-            case (.none, let error):
-                options.failed?(response, error)
+        let task = Networking.shared.addDownloadURL(url, progressBlock: options.progressBlock, downloadBlock: { result in
+            switch result {
+            case .success(let res):
+                switch res.downloadStatus {
+                case .downloading:
+                    guard res.type.canSetBrokenData else {
+                        break
+                    }
+                    DispatchQueue.main.async {
+                        HandyImage.handyData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
+                    }
+                case .complete:
+                    DispatchQueue.main.async {
+                        HandyImage.handyData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
+                    }
+                    let zipData = options.cacheDataZip.compressed(data: res.data)
+                    let model = CacheModel(data: zipData)
+                    Cached.shared.storage.storeCached(model, forKey: key, options: options.cacheOption)
+                }
+            case .failure(let error):
+                options.failed?(error)
                 DispatchQueue.main.async {
                     HandyImage.setPlaceholder(to: view, options: options, other: other)
                 }
-            case (let data?, _):
-                DispatchQueue.main.async {
-                    HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
-                }
-                let zipData = options.cacheDataZip.compressed(data: data)
-                let model = CacheModel(data: zipData)
-                Cached.shared.storage.storeCached(model, forKey: key, options: options.cacheOption)
             }
-        }
+        }, retry: options.retry, timeoutInterval: options.timeoutInterval, interval: options.downloadInterval)
         task.priority = options.downloadPriority
-        return task
+        return Task(key: key, url: url, task: task)
     }
 }
 
@@ -132,6 +140,24 @@ extension HandyImage {
                 break
             }
             view.setContentImage(outImage, other: other)
+        }
+    }
+    
+    private static func handyData(_ data: Data,
+                                  type: AssetType,
+                                  to view: AsAnimatable,
+                                  filters: [Harbeth.C7FilterProtocol],
+                                  options: AnimatedOptions,
+                                  other: Others?) {
+        switch type {
+        case .jpeg, .png, .tiff, .webp, .heic, .heif:
+            let image = Harbeth.C7Image.init(data: data)
+            HandyImage.setImage(image, to: view, filters: filters, options: options, other: other)
+        case .gif:
+            view.play(data: data, filters: filters, options: options, other: other)
+        default:
+            HandyImage.setPlaceholder(to: view, options: options, other: other)
+            view.hasAnimator?.prepareForReuse()
         }
     }
 }

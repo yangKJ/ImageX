@@ -50,7 +50,7 @@ extension Queen where Base: NSImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: AnimatedOptions = AnimatedOptions.default
-    ) -> URLSessionDataTask? {
+    ) -> Task? {
         HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: nil)
     }
 }

@@ -27,7 +27,7 @@ class ViewController: NSViewController {
             C7WhiteBalance(temperature: 5555),
         ]
         let links = [
-            "jordan-whitt-54480", "failed_link",
+            "failed_link",
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",

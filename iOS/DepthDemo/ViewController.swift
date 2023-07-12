@@ -36,10 +36,10 @@ class ViewController: UIViewController {
     ]
     func setup() {
         let links = [
-            "pikachu",
-            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
-            "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
-            "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg",
+            //"pikachu",
+            //"https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
+            //"https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
+            "https://blog.ibireme.com/wp-content/uploads/2015/11/bench_gif_demo.gif",
         ]
         let named = links.randomElement() ?? ""
         var options = AnimatedOptions()
