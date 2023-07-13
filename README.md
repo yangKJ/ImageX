@@ -62,24 +62,24 @@ imageView.mt.setImage(with: url)
 
 ```swift
 var options = AnimatedOptions(moduleName: "Component Name")
-options.loop = .count(3)
 options.placeholder = .image(R.image("AppIcon")!)
 options.contentMode = .scaleAspectBottomRight
-options.bufferCount = 20
-options.cacheOption = .disk
-options.cacheCrypto = .md5
-options.cacheDataZip = .gzip
-options.retry = .max3s
-options.setPreparationBlock(block: { [weak self] _ in
+options.GIFs.loop = .count(3)
+options.GIFs.bufferCount = 20
+options.Network.cacheOption = .disk
+options.Network.cacheCrypto = .md5
+options.Network.cacheDataZip = .gzip
+options.Network.retry = .max3s
+options.GIFs.setPreparationBlock(block: { [weak self] _ in
     // do something..
 })
-options.setAnimatedBlock(block: { _ in
+options.GIFs.setAnimatedBlock(block: { _ in
     // play is complete and then do something..
 })
-options.setNetworkProgress(block: { _ in
+options.Network.setNetworkProgress(block: { _ in
     // download progress..
 })
-options.setNetworkFailed(block: { _, _ in
+options.Network.setNetworkFailed(block: { _ in
     // download failed.
 })
 
