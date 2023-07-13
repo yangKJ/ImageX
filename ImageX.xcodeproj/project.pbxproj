@@ -383,6 +383,8 @@
 		87899B1F2A4DAE6700B00894 /* README_CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_CN.md; sourceTree = "<group>"; };
 		878F33122A4ABF290024DF68 /* DelayRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayRetry.swift; sourceTree = "<group>"; };
 		879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
+		87B405F12A5FF2E000FBAE31 /* AnimatedOptions+GIFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+GIFs.swift"; sourceTree = "<group>"; };
+		87B405FE2A5FF36900FBAE31 /* AnimatedOptions+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+Network.swift"; sourceTree = "<group>"; };
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		87C7D3CD2A5E93CE00849F6E /* DataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResult.swift; sourceTree = "<group>"; };
 		87C7D3CE2A5E93CE00849F6E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -1222,6 +1224,7 @@
 		877FF2632A480C7200A93A30 /* GIFs */ = {
 			isa = PBXGroup;
 			children = (
+				87B405F12A5FF2E000FBAE31 /* AnimatedOptions+GIFs.swift */,
 				876D4DB52984C29D00A06282 /* Animator.swift */,
 				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
 				876A6C462A5297960002130D /* AsAnimatable+SetImg.swift */,
@@ -1245,6 +1248,7 @@
 		878F33152A4AC1BD0024DF68 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				87B405FE2A5FF36900FBAE31 /* AnimatedOptions+Network.swift */,
 				87C7D3CF2A5E93CE00849F6E /* DataDownloader.swift */,
 				87C7D3CD2A5E93CE00849F6E /* DataResult.swift */,
 				878F33122A4ABF290024DF68 /* DelayRetry.swift */,

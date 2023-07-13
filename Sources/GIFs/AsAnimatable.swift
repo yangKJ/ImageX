@@ -64,13 +64,13 @@ extension AsAnimatable {
         let frameStore = FrameStore(data: data,
                                     filters: filters,
                                     size: size,
-                                    framePreloadCount: options.bufferCount,
+                                    framePreloadCount: options.GIFs.bufferCount,
                                     contentMode: options.contentMode,
-                                    loopCount: options.loop.count)
-        frameStore.prepareFrames { [weak self] in
+                                    loopCount: options.GIFs.loop.count,
+                                    prepare: { [weak self] (store) in
             guard let `self` = self else { return }
-            if case .fristFrame = options.loop {
-                if let frame = frameStore.animatedFrames.compactMap({ $0.image }).first {
+            if case .fristFrame = options.GIFs.loop {
+                if let frame = store.animatedFrames.compactMap({ $0.image }).first {
                     switch options.placeholder {
                     case .view:
                         options.placeholder.remove(from: self, other: other)
@@ -79,8 +79,8 @@ extension AsAnimatable {
                     }
                     self.setContentImage(frame, other: other)
                 }
-            } else if case .lastFrame = options.loop {
-                if let frame = frameStore.animatedFrames.compactMap({ $0.image }).last {
+            } else if case .lastFrame = options.GIFs.loop {
+                if let frame = store.animatedFrames.compactMap({ $0.image }).last {
                     switch options.placeholder {
                     case .view:
                         options.placeholder.remove(from: self, other: other)
@@ -97,22 +97,23 @@ extension AsAnimatable {
                     break
                 }
             }
-            if let preparation = options.preparation {
-                let res = GIFResponse(loopDuration: self.loopDuration,
-                                      fristFrame: self.fristFrame,
-                                      activeFrame: self.activeFrame,
-                                      frameCount: self.frameCount,
-                                      isAnimatingGIF: self.isAnimatingGIF,
-                                      costGIF: self.costGIF,
-                                      data: data)
+            if let preparation = options.GIFs.preparation {
+                let res = GIFResponse(data: data,
+                                      animatedFrames: store.animatedFrames,
+                                      loopDuration: store.loopDuration,
+                                      fristFrame: store.fristFrame,
+                                      activeFrame: store.currentFrameImage,
+                                      frameCount: store.frameCount,
+                                      isAnimatingGIF: store.isAnimatable,
+                                      costGIF: store.cost)
                 preparation(res)
             }
-        }
+        })
         animator?.options = options
         animator?.other = other
         animator?.frameStore = frameStore
-        animator?.animationBlock = options.animated
-        switch options.loop {
+        animator?.animationBlock = options.GIFs.animated
+        switch options.GIFs.loop {
         case .forever, .never, .count:
             animator?.startAnimating()
         case .fristFrame, .lastFrame:

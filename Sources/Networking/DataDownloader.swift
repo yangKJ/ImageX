@@ -47,6 +47,7 @@ final class DataDownloader: NSObject {
             self.result(data: nil, response: nil, state: .finished(error))
             return
         }
+        self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         self.setupDataTask()
     }
     
@@ -56,7 +57,6 @@ final class DataDownloader: NSObject {
     
     func setupDataTask() {
         self.reset()
-        self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         self.task = session?.dataTask(with: request)
         self.task.resume()
         self.retry.increaseRetryCount()
@@ -75,7 +75,6 @@ extension DataDownloader {
     private func reset() {
         self.mutableData = Data()
         self.lastDate = Date()
-        self.session?.invalidateAndCancel()
         self.offset = self.files.fileCurrentBytes()
         if self.offset > 0 {
             if let data = self.files.readData() {
@@ -198,7 +197,6 @@ extension DataDownloader: URLSessionDataDelegate {
     }
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        self.session?.invalidateAndCancel()
         self.outputStream?.close()
         guard let response = task.response as? HTTPURLResponse else {
             result(data: nil, response: task.response, state: .failed(invalidHTTPURLResponseError()))
@@ -209,6 +207,7 @@ extension DataDownloader: URLSessionDataDelegate {
             result(data: nil, response: response, state: state)
         } else if hasSuccessCode(response) {
             result(data: mutableData, response: response, state: .complete)
+            self.session?.finishTasksAndInvalidate()
             try? files.removeFileItem()
         } else {
             let error = statusCodeError(response.statusCode)

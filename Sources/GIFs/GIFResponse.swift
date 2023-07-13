@@ -10,6 +10,12 @@ import Harbeth
 
 public struct GIFResponse {
     
+    /// GIFs data.
+    public let data: Data
+    
+    /// GIFs frame diagram.
+    public let animatedFrames: [FrameImage]
+    
     /// Total duration of one animation loop.
     public let loopDuration: TimeInterval
     
@@ -27,7 +33,4 @@ public struct GIFResponse {
     
     /// Bitmap memory cost with bytes.
     public let costGIF: Int
-    
-    /// GIFs data.
-    public let data: Data
 }

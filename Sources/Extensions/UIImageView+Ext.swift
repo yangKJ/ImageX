@@ -60,14 +60,14 @@ extension Queen where Base: UIImageView {
     ///
     /// // Or set other parameters play gif or downloading image.
     /// var options = AnimatedOptions(moduleName: "Component Name")
-    /// options.loop = .count(3)
     /// options.placeholder = .image(R.image("AppIcon")!)
     /// options.contentMode = .scaleAspectBottomRight
-    /// options.bufferCount = 20
-    /// options.cacheOption = .disk
-    /// options.cacheCrypto = .md5
-    /// options.cacheDataZip = .gzip
-    /// options.retry = .max3s
+    /// options.GIFs.loop = .count(3)
+    /// options.GIFs.bufferCount = 20
+    /// options.Network.cacheOption = .disk
+    /// options.Network.cacheCrypto = .md5
+    /// options.Network.cacheDataZip = .gzip
+    /// options.Network.retry = .max3s
     ///
     /// let url = URL(string: "https://example.com/image.png")!
     /// imageView.mt.setImage(with: url, options: options)

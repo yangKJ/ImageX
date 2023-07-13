@@ -7,6 +7,7 @@
 
 import UIKit
 import ImageX
+import Harbeth
 
 class ViewController: UIViewController {
     
@@ -43,18 +44,18 @@ class ViewController: UIViewController {
         ]
         let named = links.randomElement() ?? ""
         var options = AnimatedOptions()
-        options.loop = .forever
         options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
-        options.bufferCount = 20
-        options.cacheOption = .disk
-        options.cacheCrypto = .sha1
-        options.cacheDataZip = .gzip
-        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: { res in
+        options.GIFs.loop = .forever
+        options.GIFs.bufferCount = 20
+        options.Network.cacheOption = .disk
+        options.Network.cacheCrypto = .sha1
+        options.Network.cacheDataZip = .gzip
+        options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+        options.GIFs.setPreparationBlock(block: { res in
             self.label.text = "\(res.frameCount) frames / \(String(format: "%.2f", res.loopDuration))s"
         })
-        options.setAnimatedBlock(block: { _ in
+        options.GIFs.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
         imageView.mt.setImage(with: named, filters: filters, options: options)

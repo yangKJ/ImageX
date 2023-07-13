@@ -26,17 +26,17 @@ final class FrameStore {
     private let bufferFrameCount: Int
     /// A reference to the original image source.
     private let imageSource: CGImageSource
+    /// The total number of frames in the GIF.
+    let frameCount: Int
     
     /// An array of animated frames from a single GIF image.
-    @Locked var animatedFrames = [FrameImage]()
+    @Locked var animatedFrames: [FrameImage]
     /// Index of current loop.
     var currentLoop = 0
     /// Total duration of one animation loop.
     var loopDuration: TimeInterval = 0
     /// Flag indicating if number of loops has been reached.
     var isFinished: Bool = false
-    /// The total number of frames in the GIF.
-    var frameCount = 0
     
     /// Dispatch queue used for preloading images.
     private lazy var preloadFrameQueue = DispatchQueue(label: "condy.gif.animator.preloadFrameQueue")
@@ -87,7 +87,8 @@ final class FrameStore {
     ///   - framePreloadCount: Number of frame to buffer.
     ///   - contentMode: The content mode to use when resizing.
     ///   - loopCount: Desired number of loops, <= 0 for infinite loop.
-    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: ImageX.ContentMode, loopCount: Int) {
+    ///   - prepare: Loads the frames from an image source, resizes them, then caches them in `animatedFrames`.
+    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: ImageX.ContentMode, loopCount: Int, prepare: @escaping (FrameStore) -> Void) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.size = size
@@ -95,15 +96,12 @@ final class FrameStore {
         self.bufferFrameCount = framePreloadCount
         self.loopCount = loopCount
         self.contentMode = contentMode
-    }
-    
-    /// Loads the frames from an image source, resizes them, then caches them in `animatedFrames`.
-    func prepareFrames(_ complete: @escaping () -> Void) {
-        frameCount = Int(CGImageSourceGetCount(imageSource))
-        animatedFrames.reserveCapacity(frameCount)
-        preloadFrameQueue.async {
+        self.frameCount = Int(CGImageSourceGetCount(imageSource))
+        let frameImage = FrameImage(originCGImage: nil, image: nil, duration: 0)
+        self.animatedFrames = Array<FrameImage>.init(repeating: frameImage, count: self.frameCount)
+        self.preloadFrameQueue.async {
             self.setupAnimatedFrames()
-            DispatchQueue.main.async { complete() }
+            DispatchQueue.main.async { prepare(self) }
         }
     }
     
@@ -148,19 +146,18 @@ private extension FrameStore {
     /// Updates the frames by preloading new ones and replacing the previous frame with a placeholder.
     func updatePreloadedFrames() {
         if !(bufferFrameCount < frameCount - 1) { return }
-        let frame = animatedFrames[previousFrameIndex]
-        let placeholderFrame = FrameImage(image: nil, duration: frame.duration)
-        animatedFrames[previousFrameIndex] = placeholderFrame
         for index in preloadIndexes(withStartingIndex: currentFrameIndex) {
             loadFrameAtIndex(index)
         }
     }
     
     func loadFrameAtIndex(_ index: Int) {
-        let frame = animatedFrames[index]
-        if !frame.isPlaceholder { return }
-        let image = loadFrame(at: index)
-        let loadedFrame = FrameImage(image: image, duration: frame.duration)
+        guard var loadedFrame = animatedFrames[safe: index], loadedFrame.isPlaceholder else {
+            return
+        }
+        let (cgImage, image) = loadFrame(at: index)
+        loadedFrame.originCGImage = cgImage
+        loadedFrame.image = image
         animatedFrames[index] = loadedFrame
     }
     
@@ -168,15 +165,12 @@ private extension FrameStore {
     ///
     /// - parameter index: The index of the frame to load.
     /// - returns: An optional `C7Image` instance.
-    func loadFrame(at index: Int) -> C7Image? {
+    func loadFrame(at index: Int) -> (cgImage: CGImage?, image: C7Image?) {
         let cgImage = CGImageSourceCreateImageAtIndex(imageSource, index, nil)
-        let image: C7Image?
-        if let cgImage = try? BoxxIO(element: cgImage, filters: filters).output() {
-            image = cgImage.mt.toC7Image()
-        } else {
-            image = cgImage?.mt.toC7Image()
-        }
-        return contentMode.resizeImage(image, size: size)
+        let dest = BoxxIO(element: cgImage, filters: filters)
+        let image = (try? dest.output() ?? cgImage)?.mt.toC7Image()
+        let reimage = contentMode.resizeImage(image, size: size)
+        return (cgImage, reimage)
     }
     
     /// Increments the `timeSinceLastFrameChange` property with a given duration.
@@ -239,13 +233,14 @@ private extension FrameStore {
     }
     
     func setupAnimatedFrames() {
-        animatedFrames.removeAll()
         var duration: TimeInterval = 0
-        (0..<frameCount).forEach { index in
+        for index in 0 ..< frameCount {
             let frameDuration = imageSource.mt.frameDuration(at: index)
+            if var loadedFrame = self.animatedFrames[safe: index] {
+                loadedFrame.duration = frameDuration
+                self.animatedFrames[index] = loadedFrame
+            }
             duration += min(frameDuration, maxTimeStep)
-            let frame = FrameImage(image: nil, duration: frameDuration)
-            animatedFrames.append(frame)
             if index > bufferFrameCount { return }
             loadFrameAtIndex(index)
         }

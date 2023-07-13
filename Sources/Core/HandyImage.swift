@@ -72,16 +72,16 @@ struct HandyImage {
             return nil
         }
         let options = HandyImage.setPlaceholder(to: view, options: options, other: other)
-        let key = options.cacheCrypto.encryptedString(with: url.absoluteString)
-        if let object = Cached.shared.storage.fetchCached(forKey: key, options: options.cacheOption), var data = object.data {
-            data = options.cacheDataZip.decompress(data: data)
+        let key = options.Network.cacheCrypto.encryptedString(with: url.absoluteString)
+        if let object = Cached.shared.storage.fetchCached(forKey: key, options: options.Network.cacheOption), var data = object.data {
+            data = options.Network.cacheDataZip.decompress(data: data)
             DispatchQueue.main.async {
-                options.progressBlock?(1.0)
+                options.Network.progressBlock?(1.0)
                 HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
             }
             return nil
         }
-        let task = Networking.shared.addDownloadURL(url, progressBlock: options.progressBlock, downloadBlock: { result in
+        let task = Networking.shared.addDownloadURL(url, progressBlock: options.Network.progressBlock, downloadBlock: { result in
             switch result {
             case .success(let res):
                 switch res.downloadStatus {
@@ -96,18 +96,18 @@ struct HandyImage {
                     DispatchQueue.main.async {
                         HandyImage.handyData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
                     }
-                    let zipData = options.cacheDataZip.compressed(data: res.data)
+                    let zipData = options.Network.cacheDataZip.compressed(data: res.data)
                     let model = CacheModel(data: zipData)
-                    Cached.shared.storage.storeCached(model, forKey: key, options: options.cacheOption)
+                    Cached.shared.storage.storeCached(model, forKey: key, options: options.Network.cacheOption)
                 }
             case .failure(let error):
-                options.failed?(error)
+                options.Network.failed?(error)
                 DispatchQueue.main.async {
                     HandyImage.setPlaceholder(to: view, options: options, other: other)
                 }
             }
-        }, retry: options.retry, timeoutInterval: options.timeoutInterval, interval: options.downloadInterval)
-        task.priority = options.downloadPriority
+        }, retry: options.Network.retry, timeoutInterval: options.Network.timeoutInterval, interval: options.Network.downloadInterval)
+        task.priority = options.Network.downloadPriority
         return Task(key: key, url: url, task: task)
     }
 }

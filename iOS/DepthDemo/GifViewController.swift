@@ -85,31 +85,31 @@ class GIFViewController: UIViewController {
         ]
         let data = R.gifData("pikachu")
         var options = AnimatedOptions()
-        options.loop = .forever
+        options.GIFs.loop = .forever
         options.placeholder = .view(placeholder)
         animatedView.play(data: data, filters: filters, options: options)
     }
     
     func setupButton() {
         var options = AnimatedOptions()
-        options.loop = .count(8)
         options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
-        options.bufferCount = 20
-        options.cacheOption = .disk
-        options.cacheCrypto = .sha1
-        options.cacheDataZip = .gzip
-        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: { _ in
+        options.GIFs.loop = .count(8)
+        options.GIFs.bufferCount = 20
+        options.Network.cacheOption = .disk
+        options.Network.cacheCrypto = .sha1
+        options.Network.cacheDataZip = .gzip
+        options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+        options.GIFs.setPreparationBlock(block: { _ in
             print("do something..")
         })
-        options.setAnimatedBlock(block: { [weak self] _ in
+        options.GIFs.setAnimatedBlock(block: { [weak self] _ in
             print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
         })
-        options.setNetworkProgress(block: { progress in
+        options.Network.setNetworkProgress(block: { progress in
             print("download: - \(progress)")
         })
-        options.setNetworkFailed(block: { error in
+        options.Network.setNetworkFailed(block: { error in
             print("Failed: - \(error.localizedDescription)")
         })
         let named = "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg"
@@ -118,12 +118,12 @@ class GIFViewController: UIViewController {
     }
     
     func setupRichLabel() {
-        let url = URL(string: "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic")!
-        for index in 0...3 {
-            AssetType.asyncAssetType(with: url) { type in
-                print("图像类型\(index): - \(type.rawValue)")
-            }
-        }
+//        let url = URL(string: "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic")!
+//        for index in 0...3 {
+//            AssetType.asyncAssetType(with: url) { type in
+//                print("图像类型\(index): - \(type.rawValue)")
+//            }
+//        }
     }
     
     deinit {

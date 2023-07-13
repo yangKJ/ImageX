@@ -7,6 +7,7 @@
 
 import Cocoa
 import ImageX
+import Harbeth
 
 class GIFImageView: NSImageView {
     
@@ -36,18 +37,18 @@ class ViewController: NSViewController {
         ]
         let named = links.randomElement() ?? ""
         var options = AnimatedOptions()
-        options.loop = .forever
         options.placeholder = .image(R.image("IMG_0020")!)
         options.contentMode = .scaleAspectBottomRight
-        options.bufferCount = 20
-        options.cacheOption = .disk
-        options.cacheCrypto = .base58
-        options.cacheDataZip = .gzip
-        options.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.setPreparationBlock(block: { _ in
+        options.GIFs.loop = .forever
+        options.GIFs.bufferCount = 20
+        options.Network.cacheOption = .disk
+        options.Network.cacheCrypto = .base58
+        options.Network.cacheDataZip = .gzip
+        options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
+        options.GIFs.setPreparationBlock(block: { _ in
             // do something..
         })
-        options.setAnimatedBlock(block: { loopDuration in
+        options.GIFs.setAnimatedBlock(block: { loopDuration in
             // play is complete and then do something..
         })
         imageView.mt.setImage(with: named, filters: filters, options: options)

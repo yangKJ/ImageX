@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ImageX'
-  s.version          = '1.0.5'
+  s.version          = '1.0.6'
   s.summary          = 'GIF animation add filter, downloading and caching images from the web.'
   
   # This description is used to generate tags and improve search results.
