@@ -30,6 +30,7 @@ English | [**简体中文**](README_CN.md)
 - Support clean up disk expired data in your spare time and size limit.
 - Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
 - Support to set the response time of download progress interval.
+- Support dynamic display in multiple formats, Such as gif, heic, webp.
 
 ------
 
@@ -62,29 +63,31 @@ imageView.mt.setImage(with: url)
 
 ```swift
 var options = AnimatedOptions(moduleName: "Component Name")
-options.loop = .count(3)
 options.placeholder = .image(R.image("AppIcon")!)
 options.contentMode = .scaleAspectBottomRight
-options.bufferCount = 20
-options.cacheOption = .disk
-options.cacheCrypto = .md5
-options.cacheDataZip = .gzip
-options.retry = .max3s
-options.setPreparationBlock(block: { [weak self] _ in
+options.GIFs.loop = .count(3)
+options.GIFs.bufferCount = 20
+options.Cache.cacheOption = .disk
+options.Cache.cacheCrypto = .md5
+options.Cache.cacheDataZip = .gzip
+options.Network.retry = .max3s
+options.Network.timeoutInterval = 30
+options.GIFs.setPreparationBlock(block: { [weak self] _ in
     // do something..
 })
-options.setAnimatedBlock(block: { _ in
+options.GIFs.setAnimatedBlock(block: { _ in
     // play is complete and then do something..
 })
-options.setNetworkProgress(block: { _ in
+options.Network.setNetworkProgress(block: { _ in
     // download progress..
 })
-options.setNetworkFailed(block: { _, _ in
+options.Network.setNetworkFailed(block: { _ in
     // download failed.
 })
 
 let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
+
 // Setup filters.
 let filters: [C7FilterProtocol] = [
     C7SoulOut(soul: 0.75),
@@ -101,7 +104,7 @@ imageView.mt.setImage(with: named, filters: filters, options: options)
 /// - Parameters:
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
-///   - options: Represents gif playback creating options used in ImageX.
+///   - options: Represents creating options used in ImageX.
 public func setImage(
     with named: String, 
     filters: [C7FilterProtocol], 
@@ -112,7 +115,7 @@ public func setImage(
 /// - Parameters:
 ///   - data: Picture data.
 ///   - filters: Harbeth filters apply to image or gif frame.
-///   - options: Represents gif playback creating options used in ImageX.
+///   - options: Represents creating options used in ImageX.
 /// - Returns: A uniform type identifier UTI.
 public func setImage(
     with data: Data?, 
@@ -138,7 +141,9 @@ public func setImage(
 ```swift
 let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
 let data = R.gifData(``GIF Name``)
-let options = AnimatedOptions(loop: .count(5), placeholder: .color(.cyan))
+var options = AnimatedOptions()
+options.loop = .count(5)
+options.placeholder = .color(.cyan)
 animatedView.play(data: data, filters: filters, options: options)
 ```
 
@@ -167,51 +172,44 @@ Example | ContentMode
 
 ### AnimatedOptions
 
-- Other parameters related to GIF playback.
+- Other parameters related to GIFs playback and downloading and caching.
 - Represents gif playback creating options used in ImageX.
 
 ```swift
 public struct AnimatedOptions {
     
-    public static let `default` = AnimatedOptions()
+    public static var `default` = AnimatedOptions()
     
-    /// Desired number of loops. Default is ``forever``.
-    public var loop: ImageX.Loop = .forever
+    /// Additional parameters that need to be set to play GIFs.
+    public var GIFs: AnimatedOptions.GIFs = AnimatedOptions.GIFs.init()
     
+    /// Download additional parameters that need to be configured to download network resources.
+    public var Network: AnimatedOptions.Network = AnimatedOptions.Network.init()
+    
+    /// Caching data from the web need to be configured parameters.
+    public var Cache: AnimatedOptions.Cache = AnimatedOptions.Cache.init()
+    
+    /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
+    /// 请将承载控件``view.contentMode = .scaleAspectFit``
     /// Content mode used for resizing the frames. Default is ``original``.
     public var contentMode: ImageX.ContentMode = .original
-    
-    /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
-    public var bufferCount: Int = 50
-    
-    /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
-    public var cacheOption: Lemons.CachedOptions = .diskAndMemory
     
     /// Placeholder image. default gray picture.
     public var placeholder: ImageX.Placeholder = .none
     
-    /// Network data cache naming encryption method, Default is ``md5``.
-    public var cacheCrypto: Lemons.CryptoType = .md5
-    
-    /// Network data compression or decompression method, default ``gzip``.
-    /// This operation is done in the subthread.
-    public var cacheDataZip: ImageX.ZipType = .gzip
-    
-    /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
-    public var retry: ImageX.DelayRetry = .max3s
-    
     /// Confirm the size to facilitate follow-up processing, Default display control size.
     public var confirmSize: CGSize = .zero
-    
-    /// Web images or GIFs link download priority.
-    public var downloadPriority: Float = URLSessionTask.defaultPriority
-    
-    /// The timeout interval for the request. Defaults to 20.0
-    public var timeoutInterval: TimeInterval = 20
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
     public let moduleName: String
+    
+    /// Instantiation of configuration parameters.
+    /// - Parameters:
+    ///   - moduleName: Do the component operation to solve the problem that the local GIF or image cannot read the data in another module.
+    public init(moduleName: String = "ImageX") {
+        self.moduleName = moduleName
+    }
 }
 ```
 
@@ -260,6 +258,7 @@ public protocol AsAnimatable: HasAnimatable {
 
 ### Cached
 
+- For the use of caching modules, please refer to [Lemons](https://github.com/yangKJ/Lemons) for more information.
 - Network data caching type. There are two modes: memory and disk storage.
 - Among them, the disk storage uses GZip to compress data, so it will occupy less space.
 - Support setting different types of named encryption methods, such as md5, sha1, base58, And user defined.

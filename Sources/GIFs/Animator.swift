@@ -23,7 +23,7 @@ final class Animator {
     /// Special other parameters, such as the status of the button `UIControl.State`
     var other: ImageX.Others?
     
-    /// Other parameters related to GIF playback. Represents gif playback creating options used in ImageX.
+    /// Other parameters related to GIF playback. Represents creating options used in ImageX.
     var options: AnimatedOptions?
     
     /// Tracks whether the display link is initialized.

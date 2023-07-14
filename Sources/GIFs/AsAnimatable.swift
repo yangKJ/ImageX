@@ -44,61 +44,38 @@ public protocol AsAnimatable: HasAnimatable {
     /// - Parameters:
     ///   - data: gif data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
 }
 
 extension AsAnimatable {
     /// Prepare for animation and start play GIF.
     public func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions) {
-        self.play(data: data, filters: filters, options: options, other: nil)
+        guard let data = data, AssetType(data: data) == .gif else {
+            if options.displayed == false {
+                options.placeholder.display(to: self, contentMode: options.contentMode, other: nil)
+            }
+            return
+        }
+        let source = AnimatedSource.createAnimatedSource(data)
+        self.play(source: source, filters: filters, options: options, other: nil)
     }
     
     /// Prepare for animation and start play GIF.
-    func play(data: Data?, filters: [C7FilterProtocol], options: ImageX.AnimatedOptions, other: ImageX.Others?) {
+    func play(source: AnimatedSource, filters: [C7FilterProtocol], options: ImageX.AnimatedOptions, other: ImageX.Others?) {
         if options.displayed == false {
             options.placeholder.display(to: self, contentMode: options.contentMode, other: other)
         }
-        guard let data = data, AssetType(data: data) == .gif else { return }
         let size = options.confirmSize == .zero ? frame.size : options.confirmSize
-        let frameStore = FrameStore(data: data,
+        let frameStore = FrameStore(source: source,
                                     filters: filters,
                                     size: size,
                                     framePreloadCount: options.GIFs.bufferCount,
                                     contentMode: options.contentMode,
                                     loopCount: options.GIFs.loop.count,
-                                    prepare: { [weak self] (store) in
-            guard let `self` = self else { return }
-            if case .fristFrame = options.GIFs.loop {
-                if let frame = store.animatedFrames.compactMap({ $0.image }).first {
-                    switch options.placeholder {
-                    case .view:
-                        options.placeholder.remove(from: self, other: other)
-                    default:
-                        break
-                    }
-                    self.setContentImage(frame, other: other)
-                }
-            } else if case .lastFrame = options.GIFs.loop {
-                if let frame = store.animatedFrames.compactMap({ $0.image }).last {
-                    switch options.placeholder {
-                    case .view:
-                        options.placeholder.remove(from: self, other: other)
-                    default:
-                        break
-                    }
-                    self.setContentImage(frame, other: other)
-                }
-            } else {
-                switch options.placeholder {
-                case .view:
-                    options.placeholder.remove(from: self, other: other)
-                default:
-                    break
-                }
-            }
+                                    prepare: { (store) in
             if let preparation = options.GIFs.preparation {
-                let res = GIFResponse(data: data,
+                let res = GIFResponse(data: source.data,
                                       animatedFrames: store.animatedFrames,
                                       loopDuration: store.loopDuration,
                                       fristFrame: store.fristFrame,
@@ -116,8 +93,6 @@ extension AsAnimatable {
         switch options.GIFs.loop {
         case .forever, .never, .count:
             animator?.startAnimating()
-        case .fristFrame, .lastFrame:
-            animator?.stopAnimating()
         }
     }
 }

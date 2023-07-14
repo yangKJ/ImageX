@@ -42,6 +42,7 @@
 // Support clean up disk expired data in your spare time and size limit.
 // Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
 // Support to set the response time of download progress interval.
+// Support dynamic display in multiple formats, Such as gif, heic, webp.
 
 
 // And it is easy to use when summarizing it, so let's add it slowly.

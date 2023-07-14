@@ -680,10 +680,15 @@
 		87C9C42C29ECF68E00891F40 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		87C9C42D29ECF68E00891F40 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		87C9C42E29ECF68E00891F40 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
+		87DF0AAB2A6146A5007C0565 /* ImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
+		87DF0AB82A6146A5007C0565 /* AnimatedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSource.swift; sourceTree = "<group>"; };
+		87DF0AB92A6146A5007C0565 /* DynamicFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFrameType.swift; sourceTree = "<group>"; };
+		87DF0ABA2A6146CA007C0565 /* Data+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ext.swift"; sourceTree = "<group>"; };
 		87EDF06329B9B184007798F9 /* Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip.swift; sourceTree = "<group>"; };
 		87EE66342A5BF3B4007B80C3 /* URL+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
 		87EE66352A5BFCDD007B80C3 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
-		87F1847B29D56CC70080F00B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
+		87FAC2B52A60E9F00015024B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
+		87FAC2B62A60E9F00015024B /* AnimatedOptions+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+Cache.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -703,6 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				87390C1B2A5659D400858A71 /* ImageX.h */,
+				87FAC2B42A60E9F00015024B /* Cache */,
 				8723B55A2A56B51F007CB028 /* Containers */,
 				876D4DA92984C29D00A06282 /* Core */,
 				876D4DB22984C29D00A06282 /* Extensions */,
@@ -716,11 +722,13 @@
 			isa = PBXGroup;
 			children = (
 				872E2E0529ADA662003F241E /* AnimatedOptions.swift */,
+				87DF0AB82A6146A5007C0565 /* AnimatedSource.swift */,
 				879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */,
-				87F1847B29D56CC70080F00B /* Cached.swift */,
 				876D4DB02984C29D00A06282 /* ContentMode.swift */,
 				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
+				87DF0AB92A6146A5007C0565 /* DynamicFrameType.swift */,
 				87899B1C2A4D83ED00B00894 /* HandyImage.swift */,
+				87DF0AAB2A6146A5007C0565 /* ImageParser.swift */,
 				8742487729B6D593002BE7E6 /* Locked.swift */,
 				876D4DAC2984C29D00A06282 /* Loop.swift */,
 				87899B1D2A4D840A00B00894 /* Others.swift */,
@@ -737,6 +745,7 @@
 			children = (
 				876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */,
 				876D4DB42984C29D00A06282 /* Collection+Ext.swift */,
+				87DF0ABA2A6146CA007C0565 /* Data+Ext.swift */,
 				8769479A2A4EBB400097182D /* NSButton+Ext.swift */,
 				870DBCC729909DC4000A36F6 /* NSImageView+Ext.swift */,
 				876ED96A2A4D235400965308 /* UIButton+Ext.swift */,
@@ -1841,6 +1850,15 @@
 				87C9C42B29ECF68E00891F40 /* Data+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		87FAC2B42A60E9F00015024B /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				87FAC2B62A60E9F00015024B /* AnimatedOptions+Cache.swift */,
+				87FAC2B52A60E9F00015024B /* Cached.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

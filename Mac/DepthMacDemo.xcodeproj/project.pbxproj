@@ -27,6 +27,7 @@
 		8746B71C29681AF200477A32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8746B71F29681AF200477A32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8746B72129681AF200477A32 /* DepthMacDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DepthMacDemo.entitlements; sourceTree = "<group>"; };
+		87DF0ABB2A614759007C0565 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAF339A3244A9A49B8DABEB6 /* Pods-DepthMacDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthMacDemo.debug.xcconfig"; path = "Target Support Files/Pods-DepthMacDemo/Pods-DepthMacDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +73,7 @@
 		8746B71729681AF100477A32 /* DepthMacDemo */ = {
 			isa = PBXGroup;
 			children = (
+				87DF0ABB2A614759007C0565 /* Info.plist */,
 				8746B71829681AF100477A32 /* AppDelegate.swift */,
 				8746B71A29681AF100477A32 /* ViewController.swift */,
 				873DC48B296FE8450066EC92 /* DragDestinationView.swift */,
@@ -353,6 +355,7 @@
 				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DepthMacDemo/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -382,6 +385,7 @@
 				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DepthMacDemo/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

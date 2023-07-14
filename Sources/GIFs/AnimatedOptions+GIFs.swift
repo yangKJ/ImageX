@@ -14,6 +14,10 @@ extension AnimatedOptions {
         /// Desired number of loops. Default is ``forever``.
         public var loop: ImageX.Loop = .forever
         
+        /// Dynamic image sources become static display of appoint frames.
+        /// After this property is not ``.dynamic``, it will become a static image.
+        public var frameType: ImageX.DynamicFrameType = .dynamic
+        
         /// The number of frames to buffer. Default is 50. A high number will result in more memory usage and less CPU load, and vice versa.
         public var bufferCount: Int = 50
         

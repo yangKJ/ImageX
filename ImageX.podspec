@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ImageX'
-  s.version          = '1.0.6'
-  s.summary          = 'GIF animation add filter, downloading and caching images from the web.'
+  s.version          = '1.0.7'
+  s.summary          = 'GIFs animation add filter, downloading and caching images from the web.'
   
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?

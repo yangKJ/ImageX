@@ -28,6 +28,8 @@ final class FrameStore {
     private let imageSource: CGImageSource
     /// The total number of frames in the GIF.
     let frameCount: Int
+    /// Dynamic image resources.
+    private let source: AnimatedSource
     
     /// An array of animated frames from a single GIF image.
     @Locked var animatedFrames: [FrameImage]
@@ -67,11 +69,6 @@ final class FrameStore {
         return frame(at: currentFrameIndex)
     }
     
-    /// Is this image animatable?
-    var isAnimatable: Bool {
-        return imageSource.mt.isAnimatedGIF
-    }
-    
     /// Bitmap memory cost with bytes.
     var cost: Int {
         guard let image = currentFrameImage else {
@@ -80,25 +77,31 @@ final class FrameStore {
         return Int(image.size.height * image.size.width * 4) * frameCount / 1_000_000
     }
     
+    /// Is this image animatable?
+    var isAnimatable: Bool {
+        return frameCount > 1
+    }
+    
     /// Creates an animator instance from raw GIF image data and an `Animatable` delegate.
     /// - Parameters:
-    ///   - data: The raw GIF image data.
+    ///   - imageSource: A reference to the original image source.
+    ///   - filters: Set the filters.
     ///   - size: View frame used for resizing the size.
     ///   - framePreloadCount: Number of frame to buffer.
     ///   - contentMode: The content mode to use when resizing.
     ///   - loopCount: Desired number of loops, <= 0 for infinite loop.
     ///   - prepare: Loads the frames from an image source, resizes them, then caches them in `animatedFrames`.
-    init(data: Data, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: ImageX.ContentMode, loopCount: Int, prepare: @escaping (FrameStore) -> Void) {
-        let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
-        self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
+    init(source: AnimatedSource, filters: [C7FilterProtocol], size: CGSize, framePreloadCount: Int, contentMode: ImageX.ContentMode, loopCount: Int, prepare: @escaping (FrameStore) -> Void) {
+        self.source = source
+        self.frameCount = source.frameCount
+        self.imageSource = source.imageSource
         self.size = size
         self.filters = filters
         self.bufferFrameCount = framePreloadCount
         self.loopCount = loopCount
         self.contentMode = contentMode
-        self.frameCount = Int(CGImageSourceGetCount(imageSource))
         let frameImage = FrameImage(originCGImage: nil, image: nil, duration: 0)
-        self.animatedFrames = Array<FrameImage>.init(repeating: frameImage, count: self.frameCount)
+        self.animatedFrames = Array<FrameImage>.init(repeating: frameImage, count: frameCount)
         self.preloadFrameQueue.async {
             self.setupAnimatedFrames()
             DispatchQueue.main.async { prepare(self) }

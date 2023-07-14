@@ -20,7 +20,7 @@ extension Queen where Base: UIButton {
     ///   - named: Picture or gif name.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     public func setImage(
         with named: String?,
         for state: UIControl.State,
@@ -36,7 +36,7 @@ extension Queen where Base: UIButton {
     ///   - data: Picture data.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
         with data: Data?,
@@ -53,7 +53,7 @@ extension Queen where Base: UIButton {
     ///   - url: Link url.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setImage(
         with url: URL?,
@@ -70,7 +70,7 @@ extension Queen where Base: UIButton {
     ///   - named: Picture or gif name.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     public func setBackgroundImage(
         with named: String?,
         for state: UIControl.State,
@@ -86,7 +86,7 @@ extension Queen where Base: UIButton {
     ///   - data: Picture data.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setBackgroundImage(
         with data: Data?,
@@ -103,7 +103,7 @@ extension Queen where Base: UIButton {
     ///   - url: Link url.
     ///   - state: The button state to which the image or gif should be set.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setBackgroundImage(
         with url: URL?,

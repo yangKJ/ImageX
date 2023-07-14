@@ -8,7 +8,7 @@
 import Foundation
 
 /// Other parameters related to GIF playback.
-/// Represents gif playback creating options used in ImageX.
+/// Represents creating options used in ImageX.
 public struct AnimatedOptions {
     
     public static var `default` = AnimatedOptions()
@@ -18,6 +18,9 @@ public struct AnimatedOptions {
     
     /// Download additional parameters that need to be configured to download network resources.
     public var Network: AnimatedOptions.Network = AnimatedOptions.Network.init()
+    
+    /// Caching data from the web need to be configured parameters.
+    public var Cache: AnimatedOptions.Cache = AnimatedOptions.Cache.init()
     
     /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
     /// 请将承载控件``view.contentMode = .scaleAspectFit``

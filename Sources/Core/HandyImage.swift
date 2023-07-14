@@ -56,7 +56,7 @@ struct HandyImage {
             return .unknow
         }
         let type = AssetType(data: data)
-        handyData(data, type: type, to: view, filters: filters, options: options, other: other)
+        decodeData(data, type: type, to: view, filters: filters, options: options, other: other)
         return type
     }
     
@@ -72,9 +72,10 @@ struct HandyImage {
             return nil
         }
         let options = HandyImage.setPlaceholder(to: view, options: options, other: other)
-        let key = options.Network.cacheCrypto.encryptedString(with: url.absoluteString)
-        if let object = Cached.shared.storage.fetchCached(forKey: key, options: options.Network.cacheOption), var data = object.data {
-            data = options.Network.cacheDataZip.decompress(data: data)
+        let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
+        let object = Cached.shared.storage.fetchCached(forKey: key, options: options.Cache.cacheOption)
+        if var data = object?.data {
+            data = options.Cache.cacheDataZip.decompress(data: data)
             DispatchQueue.main.async {
                 options.Network.progressBlock?(1.0)
                 HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
@@ -90,15 +91,15 @@ struct HandyImage {
                         break
                     }
                     DispatchQueue.main.async {
-                        HandyImage.handyData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
+                        HandyImage.decodeData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
                     }
                 case .complete:
                     DispatchQueue.main.async {
-                        HandyImage.handyData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
+                        HandyImage.decodeData(res.data, type: res.type, to: view, filters: filters, options: options, other: other)
                     }
-                    let zipData = options.Network.cacheDataZip.compressed(data: res.data)
+                    let zipData = options.Cache.cacheDataZip.compressed(data: res.data)
                     let model = CacheModel(data: zipData)
-                    Cached.shared.storage.storeCached(model, forKey: key, options: options.Network.cacheOption)
+                    Cached.shared.storage.storeCached(model, forKey: key, options: options.Cache.cacheOption)
                 }
             case .failure(let error):
                 options.Network.failed?(error)
@@ -143,18 +144,40 @@ extension HandyImage {
         }
     }
     
-    private static func handyData(_ data: Data,
-                                  type: AssetType,
-                                  to view: AsAnimatable,
-                                  filters: [Harbeth.C7FilterProtocol],
-                                  options: AnimatedOptions,
-                                  other: Others?) {
+    private static func decodeData(_ data: Data,
+                                   type: AssetType,
+                                   to view: AsAnimatable,
+                                   filters: [Harbeth.C7FilterProtocol],
+                                   options: AnimatedOptions,
+                                   other: Others?) {
         switch type {
-        case .jpeg, .png, .tiff, .webp, .heic, .heif:
+        case .jpeg, .png, .tiff, .heif:
             let image = Harbeth.C7Image.init(data: data)
             HandyImage.setImage(image, to: view, filters: filters, options: options, other: other)
-        case .gif:
-            view.play(data: data, filters: filters, options: options, other: other)
+        case .gif, .webp, .heic:
+            func setStaticImage(source: AnimatedSource, index: Int) {
+                if let image = source.imageSource.mt.toImage(index: options.GIFs.frameType.index(index)) {
+                    HandyImage.setImage(image, to: view, filters: filters, options: options, other: other)
+                } else {
+                    let image = Harbeth.C7Image.init(data: data)
+                    HandyImage.setImage(image, to: view, filters: filters, options: options, other: other)
+                }
+            }
+            let source = AnimatedSource.createAnimatedSource(data, type: type)
+            switch options.GIFs.frameType {
+            case .frist:
+                setStaticImage(source: source, index: 0)
+            case .last:
+                setStaticImage(source: source, index: source.frameCount)
+            case .appoint(let index):
+                setStaticImage(source: source, index: index)
+            case .dynamic:
+                if source.isAnimated {
+                    view.play(source: source, filters: filters, options: options, other: other)
+                } else {
+                    setStaticImage(source: source, index: 0)
+                }
+            }
         default:
             HandyImage.setPlaceholder(to: view, options: options, other: other)
             view.hasAnimator?.prepareForReuse()

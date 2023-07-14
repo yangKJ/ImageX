@@ -33,7 +33,6 @@ class ViewController: NSViewController {
             "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg",
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
-            "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg",
         ]
         let named = links.randomElement() ?? ""
         var options = AnimatedOptions()
@@ -41,9 +40,9 @@ class ViewController: NSViewController {
         options.contentMode = .scaleAspectBottomRight
         options.GIFs.loop = .forever
         options.GIFs.bufferCount = 20
-        options.Network.cacheOption = .disk
-        options.Network.cacheCrypto = .base58
-        options.Network.cacheDataZip = .gzip
+        options.Cache.cacheOption = .disk
+        options.Cache.cacheCrypto = .base58
+        options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
         options.GIFs.setPreparationBlock(block: { _ in
             // do something..

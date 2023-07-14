@@ -21,7 +21,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
@@ -31,7 +31,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - data: Picture data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
         with data: Data?,
@@ -46,7 +46,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - url: Link url.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
     ///
     /// - Note:
@@ -55,7 +55,7 @@ extension Queen where Base: UIImageView {
     ///
     /// ```
     /// // Set image from a url.
-    /// let url = URL(string: "https://example.com/image.png")!
+    /// let url = URL(string: "https://example.com/image.png")
     /// imageView.mt.setImage(with: url)
     ///
     /// // Or set other parameters play gif or downloading image.
@@ -64,10 +64,11 @@ extension Queen where Base: UIImageView {
     /// options.contentMode = .scaleAspectBottomRight
     /// options.GIFs.loop = .count(3)
     /// options.GIFs.bufferCount = 20
-    /// options.Network.cacheOption = .disk
-    /// options.Network.cacheCrypto = .md5
-    /// options.Network.cacheDataZip = .gzip
+    /// options.Cache.cacheOption = .disk
+    /// options.Cache.cacheCrypto = .md5
+    /// options.Cache.cacheDataZip = .gzip
     /// options.Network.retry = .max3s
+    /// options.Network.timeoutInterval = 30
     ///
     /// let url = URL(string: "https://example.com/image.png")!
     /// imageView.mt.setImage(with: url, options: options)
@@ -86,7 +87,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     public func setHighlightedImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
@@ -96,7 +97,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - data: Picture data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setHighlightedImage(
         with data: Data?,
@@ -111,7 +112,7 @@ extension Queen where Base: UIImageView {
     /// - Parameters:
     ///   - url: Link url.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setHighlightedImage(
         with url: URL?,

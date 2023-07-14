@@ -6,21 +6,10 @@
 //
 
 import Foundation
-import Lemons
 
 extension AnimatedOptions {
     
     public struct Network {
-        
-        /// Weather or not we should cache the URL response. Default is ``diskAndMemory``.
-        public var cacheOption: Lemons.CachedOptions = .diskAndMemory
-        
-        /// Network data cache naming encryption method, Default is ``md5``.
-        public var cacheCrypto: Lemons.CryptoType = .md5
-        
-        /// Network data compression or decompression method, default ``gzip``.
-        /// This operation is done in the subthread.
-        public var cacheDataZip: ImageX.ZipType = .gzip
         
         /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
         public var retry: ImageX.DelayRetry = .max3s

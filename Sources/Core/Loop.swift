@@ -14,10 +14,6 @@ public enum Loop {
     case never
     /// The specified  `count` number of plays.
     case count(_ count: Int)
-    /// Displayed the first frame.
-    case fristFrame
-    /// Displayed the last frame.
-    case lastFrame
 }
 
 extension ImageX.Loop {
@@ -31,8 +27,6 @@ extension ImageX.Loop {
         case .count(let count):
             assert(count > 0) // disable: this empty_count
             return count
-        case .fristFrame, .lastFrame:
-            return 0
         }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Harbeth
 import zlib
 
 public enum ZipType {
@@ -28,7 +27,7 @@ extension ImageX.ZipType {
         case .none:
             return data
         case .gzip:
-            return Queen<GZip>.compress(data: data)
+            return GZip.compress(data: data)
         case .user(let compressed, _):
             return compressed(data)
         }
@@ -42,31 +41,28 @@ extension ImageX.ZipType {
         case .none:
             return data
         case .gzip:
-            return Queen<GZip>.decompress(data: data) ?? data
+            return GZip.decompress(data: data) ?? data
         case .user(_, let decompress):
             return decompress(data)
         }
     }
 }
 
-public struct GZip {
+struct GZip {
     /// Decompression stream size
     //static let GZIP_STREAM_SIZE: Int32 = Int32(MemoryLayout<z_stream>.size)
     /// Decompression buffer size
     static let GZIP_BUF_LENGTH: Int = 512
-}
-
-extension Queen where Base == GZip {
     
     /// Whether to compress data for `GZip`
-    public static func isGZipCompressed(_ data: Data) -> Bool {
+    static func isGZipCompressed(_ data: Data) -> Bool {
         return data.starts(with: [0x1f, 0x8b])
     }
     
     /// Compress data by GZip.
     /// - Parameter data: Waiting for compressed data.
     /// - Returns: Compressed data.
-    public static func compress(data: Data) -> Data {
+    static func compress(data: Data) -> Data {
         guard data.count > 0 else {
             return data
         }
@@ -114,7 +110,7 @@ extension Queen where Base == GZip {
     /// Decompress the compressed data of GZip.
     /// - Parameter data: Data to be decompressed.
     /// - Returns: Decompressed data.
-    public static func decompress(data: Data) -> Data? {
+    static func decompress(data: Data) -> Data? {
         if data.isEmpty { return nil }
         guard isGZipCompressed(data) else {
             return data

@@ -44,18 +44,18 @@ imageView.mt.setImage(with: url)
 let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
 var options = AnimatedOptions()
-options.loop = .count(3) // 循环播放3次
 options.placeholder = .image(R.image("IMG_0020")!) // 占位图
 options.contentMode = .scaleAspectBottomRight // 填充模式
-options.bufferCount = 20 // 缓存20帧
-options.cacheOption = .disk // 采用磁盘缓存
-options.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) } // 自定义加密
-options.cacheDataZip = .gzip // 采用GZip方式压缩数据
-options.retry = .max3s // 网络失败重试
-options.setPreparationBlock(block: { [weak self] _ in
+options.GIFs.loop = .count(3) // 循环播放3次
+options.GIFs.bufferCount = 20 // 缓存20帧
+options.Cache.cacheOption = .disk // 采用磁盘缓存
+options.Cache.cacheCrypto = .user { "Condy" + CryptoType.SHA.sha1(string: $0) } // 自定义加密
+options.Cache.cacheDataZip = .gzip // 采用GZip方式压缩数据
+options.Network.retry = .max3s // 网络失败重试
+options.GIFs.setPreparationBlock(block: { [weak self] _ in
     // GIF开始准备播放时刻
 })
-options.setAnimatedBlock(block: { _ in
+options.GIFs.setAnimatedBlock(block: { _ in
     // GIF播放完成
 })
 let filters: [C7FilterProtocol] = [

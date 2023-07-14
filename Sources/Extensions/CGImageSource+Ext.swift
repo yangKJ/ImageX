@@ -16,6 +16,11 @@ extension CGImageSource: C7Compatible { }
 
 extension Queen where CGImageSource == Base {
     
+    public func toImage(index: Int) -> C7Image? {
+        let cgImage = CGImageSourceCreateImageAtIndex(base, index, nil)
+        return cgImage?.mt.toC7Image()
+    }
+    
     /// Returns whether the image source contains an animated GIF.
     public var isAnimatedGIF: Bool {
         let isTypeGIF = UTTypeConformsTo(CGImageSourceGetType(base) ?? "" as CFString, kUTTypeGIF)
@@ -27,10 +32,11 @@ extension Queen where CGImageSource == Base {
     /// - Parameter index: Specific index.
     /// - Returns: A frame duration.
     public func frameDuration(at index: Int) -> TimeInterval {
-        guard isAnimatedGIF else { return 0.0 }
         // Returns the GIF properties at a specific index.
         func properties(at index: Int) -> [String: Double]? {
-            guard let properties = CGImageSourceCopyPropertiesAtIndex(base, index, nil) as? [String: AnyObject] else { return nil }
+            guard let properties = CGImageSourceCopyPropertiesAtIndex(base, index, nil) as? [String: AnyObject] else {
+                return nil
+            }
             return properties[String(kCGImagePropertyGIFDictionary)] as? [String: Double]
         }
         // Returns a frame duration from a `[String: Double]` dictionary.
@@ -49,7 +55,7 @@ extension Queen where CGImageSource == Base {
         
         // Return nil, if the properties do not store a FrameDuration or FrameDuration <= 0
         guard let properties = properties(at: index), let duration = frameDuration(with: properties), duration > 0 else {
-            return 1 / defaultFrameRate
+            return 1.0 / defaultFrameRate
         }
         return duration < capDurationThreshold ? 0.1 : duration
     }

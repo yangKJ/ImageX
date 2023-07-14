@@ -21,7 +21,7 @@ extension Queen where Base: NSImageView {
     /// - Parameters:
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
         HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: nil)
     }
@@ -30,7 +30,7 @@ extension Queen where Base: NSImageView {
     /// - Parameters:
     ///   - data: Picture data.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
     @discardableResult public func setImage(
         with data: Data?,
@@ -44,7 +44,7 @@ extension Queen where Base: NSImageView {
     /// - Parameters:
     ///   - url: Link url.
     ///   - filters: Harbeth filters apply to image or gif frame.
-    ///   - options: Represents gif playback creating options used in ImageX.
+    ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
     @discardableResult public func setImage(
         with url: URL?,

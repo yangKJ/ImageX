@@ -96,9 +96,9 @@ class GIFViewController: UIViewController {
         options.contentMode = .scaleAspectFit
         options.GIFs.loop = .count(8)
         options.GIFs.bufferCount = 20
-        options.Network.cacheOption = .disk
-        options.Network.cacheCrypto = .sha1
-        options.Network.cacheDataZip = .gzip
+        options.Cache.cacheOption = .disk
+        options.Cache.cacheCrypto = .sha1
+        options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
         options.GIFs.setPreparationBlock(block: { _ in
             print("do something..")
