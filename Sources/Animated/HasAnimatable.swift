@@ -17,6 +17,24 @@ public protocol HasAnimatable: NSObjectProtocol {
     #if !os(macOS)
     /// Notifies the instance that it needs display.
     var layer: CALayer { get }
+    
+    /// Options to specify how a view adjusts its content when its size changes.
+    /// A flag used to determine how a view lays out its content when its bounds change.
+    var contentMode: UIView.ContentMode { get set }
+    
+    /// Lays out subviews. Used xib and then get the subviews frame.
+    func layoutSubviews()
+    
+    /// Lays out the subviews immediately, if layout updates are pending.
+    func layoutIfNeeded()
+    
+    /// Nvalidates the current layout of the receiver and triggers a layout update during the next update cycle.
+    func setNeedsLayout()
+    #endif
+    
+    #if os(macOS)
+    /// Updates the layout of the receiving view and its subviewsbased on the current views and constraints.
+    func layoutSubtreeIfNeeded()
     #endif
 }
 

@@ -24,7 +24,7 @@ final class Animator {
     var other: ImageX.Others?
     
     /// Other parameters related to GIF playback. Represents creating options used in ImageX.
-    var options: AnimatedOptions?
+    var options: ImageXOptions?
     
     /// Tracks whether the display link is initialized.
     private var displayLinkInitialized: Bool = false

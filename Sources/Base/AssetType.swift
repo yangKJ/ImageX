@@ -19,20 +19,27 @@ public enum AssetType: String, Hashable, Sendable {
     case tiff = "public.tiff"
     
     /// Native decoding support only available on the following platforms: macOS 11, iOS 14, watchOS 7, tvOS 14.
-    case webp = "public.webp"
+    case webp = "org.webmproject.webp"
     
     /// HEIF (High Efficiency Image Format) by Apple.
     case heic = "public.heic"
     case heif = "public.heif"
+    
+    // Reference source: https://github.com/SDWebImage/SDWebImage/blob/master/SDWebImage/Private/SDImageIOAnimatedCoderInternal.h
+    
+    case raw = "public.camera-raw-image"
+    
+    case svg = "public.svg-image"
+    
+    case pdf = "com.adobe.pdf"
+    
+    case bmp = "com.microsoft.bmp"
     
     /// The M4V file format is a video container format developed by Apple and is very similar to the MP4 format.
     /// The primary difference is that M4V files may optionally be protected by DRM copy protection.
     case mp4 = "public.mp4"
     case m4v = "public.m4v"
     case mov = "public.mov"
-}
-
-extension AssetType {
     
     /// Determines a type of the image based on the given data.
     public init(data: Data?) {
@@ -49,6 +56,9 @@ extension AssetType {
         let data = try? Data.init(contentsOf: url)
         self = AssetType.init(data: data)
     }
+}
+
+extension AssetType {
     
     public static func synchronizeAssetType(with url: URL) throws -> (type: AssetType, data: Data) {
         do {
@@ -96,14 +106,36 @@ extension AssetType {
         self == .mp4 || self == .m4v || self == .mov
     }
     
-    public var canSetBrokenData: Bool {
-        self == .png || self == .jpeg
+    /// Get the decoder.
+    public func createDecoder(with data: Data?) -> ImageCoder? {
+        guard let data = data else {
+            return nil
+        }
+        switch self {
+        case .jpeg:
+            return ImageJPEGCoder.init(data: data)
+        case .png:
+            return AnimatedAPNGCoder(data: data)
+        case .gif:
+            return AnimatedGIFsCoder(data: data)
+        case .webp:
+            return AnimatedWebPCoder(data: data)
+        case .heif, .heic:
+            return AnimatedHEICCoder(data: data)
+        case .tiff, .raw, .pdf, .bmp, .svg:
+            return ImageIOCoder(data: data)
+        default:
+            return nil
+        }
     }
 }
 
 extension AssetType {
     
     private static func make(data: Data) -> AssetType {
+        if data.isEmpty {
+            return .unknow
+        }
         func _match(_ numbers: [UInt8?], offset: Int = 0) -> Bool {
             guard data.count >= numbers.count else {
                 return false
@@ -168,7 +200,26 @@ extension AssetType {
             break
         }
         
+        // 特殊格式
+        if let type = imageSourceGetType(data: data) {
+            return type
+        }
+        
         // Either not enough data, or we just don't support this format.
         return .unknow
+    }
+    
+    static func imageSourceGetType(data: Data) -> AssetType? {
+        let dataOptions = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithData(data as CFData, dataOptions),
+              let uttype = CGImageSourceGetType(imageSource) else {
+            return nil
+        }
+        for type in [AssetType.raw, AssetType.svg, AssetType.bmp, AssetType.pdf] {
+            if UTTypeConformsTo(uttype, (type.rawValue as CFString)) {
+                return type
+            }
+        }
+        return nil
     }
 }

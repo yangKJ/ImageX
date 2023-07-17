@@ -44,20 +44,15 @@ struct Networking {
         var request = URLRequest(url: url, timeoutInterval: timeoutInterval)
         request.httpShouldUsePipelining = true
         request.cachePolicy = .reloadIgnoringLocalCacheData
-        if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-            request.allowsConstrainedNetworkAccess = false
-        }
         let downloader = DataDownloader(request: request, named: key, retry: retry, interval: interval) {
             for call in cacheCallBlocks where key == call.key {
                 switch $0 {
                 case .downloading(let currentProgress):
-                    let type = AssetType(data: $1)
-                    let rest = DataResult(key: key, url: url, data: $1!, response: $2, type: type, downloadStatus: .downloading)
+                    let rest = DataResult(key: key, url: url, data: $1!, response: $2, downloadStatus: .downloading)
                     call.block.progress?(currentProgress)
                     call.block.download(.success(rest))
                 case .complete:
-                    let type = AssetType(data: $1)
-                    let rest = DataResult(key: key, url: url, data: $1!, response: $2, type: type, downloadStatus: .complete)
+                    let rest = DataResult(key: key, url: url, data: $1!, response: $2, downloadStatus: .complete)
                     call.block.progress?(1.0)
                     call.block.download(.success(rest))
                 case .failed(let error):

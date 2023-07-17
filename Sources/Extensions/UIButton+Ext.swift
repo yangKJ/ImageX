@@ -25,10 +25,10 @@ extension Queen where Base: UIButton {
         with named: String?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
-        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a data, And add the filters.
@@ -42,7 +42,7 @@ extension Queen where Base: UIButton {
         with data: Data?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -59,7 +59,7 @@ extension Queen where Base: UIButton {
         with url: URL?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
@@ -75,10 +75,10 @@ extension Queen where Base: UIButton {
         with named: String?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
-        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a data, And add the filters.
@@ -92,7 +92,7 @@ extension Queen where Base: UIButton {
         with data: Data?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -109,7 +109,7 @@ extension Queen where Base: UIButton {
         with url: URL?,
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)

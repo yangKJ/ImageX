@@ -26,9 +26,6 @@ public struct DataResult {
     /// An NSURLResponse object represents a URL load response in a manner independent of protocol and URL scheme.
     public let response: URLResponse?
     
-    /// A uniform type identifier UTI.
-    public let type: AssetType
-    
     /// Current resource download status.
     public let downloadStatus: DownloadStatus
 }

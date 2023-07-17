@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		871E8A7B2A64CD1700581537 /* AnimatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E8A7A2A64CD1700581537 /* AnimatedViewController.swift */; };
 		8790C59429669B1D00950059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59329669B1D00950059 /* AppDelegate.swift */; };
 		8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59529669B1D00950059 /* SceneDelegate.swift */; };
 		8790C59829669B1D00950059 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790C59729669B1D00950059 /* ViewController.swift */; };
 		8790C59B29669B1D00950059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59929669B1D00950059 /* Main.storyboard */; };
 		8790C59D29669B1F00950059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59C29669B1F00950059 /* Assets.xcassets */; };
 		8790C5A029669B1F00950059 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8790C59E29669B1F00950059 /* LaunchScreen.storyboard */; };
-		87D1330F2A5B9D5800DEB03B /* GIFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */; };
 		87DC267F29AC806500250152 /* pikachu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 87DC267E29AC806500250152 /* pikachu.gif */; };
 		BC98D6AD1D9A1EAA1FF0FC24 /* Pods_DepthDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998630B2FEA17F8895DA2E6F /* Pods_DepthDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E62903B6FCC1ABE87C99E6F /* Pods-DepthDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.debug.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		871E8A7A2A64CD1700581537 /* AnimatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedViewController.swift; sourceTree = "<group>"; };
 		8790C59029669B1D00950059 /* DepthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DepthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8790C59329669B1D00950059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8790C59529669B1D00950059 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,7 +29,6 @@
 		8790C59C29669B1F00950059 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8790C59F29669B1F00950059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8790C5A129669B1F00950059 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFViewController.swift; sourceTree = "<group>"; };
 		87DC267E29AC806500250152 /* pikachu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikachu.gif; sourceTree = "<group>"; };
 		998630B2FEA17F8895DA2E6F /* Pods_DepthDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DepthDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E503E4AFBD0ACCE93AFB3B /* Pods-DepthDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DepthDemo.release.xcconfig"; path = "Target Support Files/Pods-DepthDemo/Pods-DepthDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 				8790C59329669B1D00950059 /* AppDelegate.swift */,
 				8790C59529669B1D00950059 /* SceneDelegate.swift */,
 				8790C59729669B1D00950059 /* ViewController.swift */,
-				87D1330E2A5B9D5800DEB03B /* GIFViewController.swift */,
+				871E8A7A2A64CD1700581537 /* AnimatedViewController.swift */,
 				8790C59929669B1D00950059 /* Main.storyboard */,
 				87DC267E29AC806500250152 /* pikachu.gif */,
 				8790C59C29669B1F00950059 /* Assets.xcassets */,
@@ -215,8 +215,8 @@
 			files = (
 				8790C59829669B1D00950059 /* ViewController.swift in Sources */,
 				8790C59429669B1D00950059 /* AppDelegate.swift in Sources */,
+				871E8A7B2A64CD1700581537 /* AnimatedViewController.swift in Sources */,
 				8790C59629669B1D00950059 /* SceneDelegate.swift in Sources */,
-				87D1330F2A5B9D5800DEB03B /* GIFViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

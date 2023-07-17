@@ -1,5 +1,5 @@
 //
-//  GIFViewController.swift
+//  AnimatedViewController.swift
 //  DepthDemo
 //
 //  Created by Condy on 2023/1/5.
@@ -13,7 +13,7 @@ class AnimatedView: UIView, AsAnimatable {
     
 }
 
-class GIFViewController: UIViewController {
+class AnimatedViewController: UIViewController {
     
     lazy var animatedView: AnimatedView = {
         let view = AnimatedView.init(frame: .zero)
@@ -59,8 +59,8 @@ class GIFViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(animatedView)
         view.addSubview(animatedButton)
+        view.addSubview(animatedView)
         view.addSubview(richLabel)
         NSLayoutConstraint.activate([
             animatedView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
@@ -84,26 +84,28 @@ class GIFViewController: UIViewController {
             C7Storyboard(ranks: 3)
         ]
         let data = R.gifData("pikachu")
-        var options = AnimatedOptions()
-        options.GIFs.loop = .forever
+        var options = ImageXOptions()
+        options.Animated.loop = .forever
+        //options.Animated.bufferCount = 5
         options.placeholder = .view(placeholder)
+        //options.contentMode = .scaleAspectBottomRight
         animatedView.play(data: data, filters: filters, options: options)
     }
     
     func setupButton() {
-        var options = AnimatedOptions()
+        var options = ImageXOptions()
         options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
-        options.GIFs.loop = .count(8)
-        options.GIFs.bufferCount = 20
+        options.Animated.loop = .count(8)
+        options.Animated.bufferCount = 20
         options.Cache.cacheOption = .disk
         options.Cache.cacheCrypto = .sha1
         options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.GIFs.setPreparationBlock(block: { _ in
+        options.Animated.setPreparationBlock(block: { _ in
             print("do something..")
         })
-        options.GIFs.setAnimatedBlock(block: { [weak self] _ in
+        options.Animated.setAnimatedBlock(block: { [weak self] _ in
             print("Played end!!!\(self?.animatedButton.image(for: .normal) ?? UIImage())")
         })
         options.Network.setNetworkProgress(block: { progress in
@@ -114,19 +116,15 @@ class GIFViewController: UIViewController {
         })
         let named = "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg"
         //let named = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic"
+        //let named = "https://nr-platform.s3.amazonaws.com/uploads/platform/published_extension/branding_icon/275/AmazonS3.png"
         animatedButton.mt.setImage(with: named, for: .normal, options: options)
     }
     
     func setupRichLabel() {
-//        let url = URL(string: "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic")!
-//        for index in 0...3 {
-//            AssetType.asyncAssetType(with: url) { type in
-//                print("图像类型\(index): - \(type.rawValue)")
-//            }
-//        }
+        
     }
     
     deinit {
-        print("GIFViewController is deinit.")
+        print("AnimatedViewController is deinit.")
     }
 }

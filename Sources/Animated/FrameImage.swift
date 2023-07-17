@@ -12,19 +12,13 @@ import Harbeth
 public struct FrameImage {
     
     /// Original resources cgImage, No filter data has been added.
-    public internal(set) var originCGImage: CGImage?
+    public let cgImage: CGImage?
     
     /// The image to display for this frame. Its value is nil when the frame is removed from the buffer.
-    public internal(set) var image: Harbeth.C7Image?
+    public let image: Harbeth.C7Image?
     
     /// The duration that this frame should remain active.
-    public internal(set) var duration: TimeInterval
-    
-    init(originCGImage: CGImage?, image: Harbeth.C7Image?, duration: TimeInterval) {
-        self.originCGImage = originCGImage
-        self.image = image
-        self.duration = duration
-    }
+    public let duration: TimeInterval
 }
 
 extension FrameImage {

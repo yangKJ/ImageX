@@ -1,5 +1,5 @@
 //
-//  AnimatedOptions+Cache.swift
+//  ImageXOptions+Cache.swift
 //  ImageX
 //
 //  Created by Condy on 2023/7/12.
@@ -8,7 +8,7 @@
 import Foundation
 import Lemons
 
-extension AnimatedOptions {
+extension ImageXOptions {
     
     public struct Cache {
         

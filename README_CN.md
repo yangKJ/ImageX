@@ -13,15 +13,15 @@
 ### 功能
 
 - 支持全平台系统，macOS、iOS、tvOS、watchOS；
-- 支持播放本地和网络GIF动画；
+- 支持播放本地和网络GIF动图；
 - 支持同链接地址网络共享，不会多次下载同一资源数据；
 - 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
 - 支持 [**UIButton 或 NSButton**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIButton+Ext.swift) 显示和下载图像并添加滤镜；
-- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/GIFs/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
-- 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
-- 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/CryptoType.swift) 方式；
-- 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Core/Zip.swift) 压缩方式；
+- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/Animated/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ContentMode.swift) 图片或GIF内容填充模式；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Cache/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
+- 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/CryptoType.swift) 方式；
+- 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/Zip.swift) 压缩方式；
 - 支持断点续传下载网络资源数据，支持设置下载进度间隔响应时间；
 
 😍😍😍 可以说，基本可以简单的替代 [**Kingfisher**](https://github.com/onevcat/Kingfisher)，后续再慢慢补充完善其余功能区！！!
@@ -30,7 +30,7 @@
 
 ### 简单使用
 
-1. `NSImageView`或`UIImageView`显示网络图像或GIF并添加过滤器。
+1. `NSImageView`或`UIImageView`显示网络图像或动图并添加过滤器。
 
 ```swift
 // 简单使用如下：
@@ -43,7 +43,7 @@ imageView.mt.setImage(with: url)
 ```swift
 let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
-var options = AnimatedOptions()
+var options = ImageXOptions()
 options.placeholder = .image(R.image("IMG_0020")!) // 占位图
 options.contentMode = .scaleAspectBottomRight // 填充模式
 options.GIFs.loop = .count(3) // 循环播放3次
@@ -73,21 +73,21 @@ imageView.mt.setImage(with: named, filters: filters, options: options)
 public func setImage(
     with named: String, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = AnimatedOptions.default
+    options: ImageXOptions = ImageXOptions.default
 )
 
-/// 显示数据源data图像或GIF并添加滤镜
+/// 显示数据源data图像或动图并添加滤镜
 public func setImage(
     with data: Data?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = AnimatedOptions.default
+    options: ImageXOptions = ImageXOptions.default
 ) -> AssetType
 
 /// 显示网络图像或GIF并添加滤镜
 public func setImage(
     with url: URL?, 
     filters: [C7FilterProtocol], 
-    options: AnimatedOptions = AnimatedOptions.default
+    options: ImageXOptions = ImageXOptions.default
 ) -> Task?
 ```
 
@@ -109,46 +109,46 @@ lazy var animatedView: AnimatedView = {
 
 let filters: [C7FilterProtocol] = [ ``Harbeth Filter`` ]
 let data = R.gifData("cycling")
-let options = AnimatedOptions.init(loop: .count(5))
+let options = ImageXOptions.init(loop: .count(5))
 animatedView.play(data: data, filters: filters, options: options)
 ```
 
 ### AsAnimatable
 
-- 只要遵循实现过该协议，即可使用播放GIF动画功能，简简单单！
+- 只要遵循实现过该协议，即可使用播放GIF动图功能，简简单单！
 
 ```
 public protocol AsAnimatable: HasAnimatable {    
-    /// 动画循环的总持续时间
+    /// 动图循环的总持续时间
     var loopDuration: TimeInterval { get }
     
-    /// 当前活动GIF帧图
+    /// 当前活动动图帧图
     var activeFrame: C7Image? { get }
     
-    /// GIF的总帧数
+    /// 动图的总帧数
     var frameCount: Int { get }
     
-    /// 是否为GIF
-    var isAnimatingGIF: Bool { get }
+    /// 是否为动图
+    var isAnimating: Bool { get }
     
     /// 位图内存成本，单位字节
-    var costGIF: Int { get }
+    var cost: Int { get }
     
-    /// 停止动画并从内存中释放GIF数据
-    func prepareForReuseGIF()
+    /// 停止动图并从内存中释放动图数据
+    func prepareForReuse()
     
-    /// 开启GIF动画
-    func startAnimatingGIF()
+    /// 开启动图
+    func startAnimating()
     
-    /// 停止GIF动画
-    func stopAnimatingGIF()
+    /// 停止动图
+    func stopAnimating()
 
-    /// 准备动画并开始播放GIF
+    /// 准备动图并开始播放动图
     /// - Parameters:
-    ///   - data: GIF数据源
-    ///   - filters: Harbeth滤镜添加到GIF帧图
-    ///   - options: 使用的GIF播放创建其他参数选项
-    func play(data: Data?, filters: [C7FilterProtocol], options: AnimatedOptions)
+    ///   - data: 动图数据源
+    ///   - filters: Harbeth滤镜添加到帧图
+    ///   - options: 使用的动图播放创建其他参数选项
+    func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions)
 }
 ```
 

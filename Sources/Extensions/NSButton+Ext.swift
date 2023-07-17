@@ -20,9 +20,9 @@ extension Queen where Base: NSButton {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
-    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.NSButtonKey.image.rawValue, value: nil)
-        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -34,7 +34,7 @@ extension Queen where Base: NSButton {
     @discardableResult public func setImage(
         with data: Data?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.NSButtonKey.image.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -49,7 +49,7 @@ extension Queen where Base: NSButton {
     @discardableResult public func setImage(
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.NSButtonKey.image.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
@@ -60,7 +60,7 @@ extension Queen where Base: NSButton {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
-    public func setAlternateImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+    public func setAlternateImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.NSButtonKey.alternateImage.rawValue, value: nil)
         HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
@@ -74,7 +74,7 @@ extension Queen where Base: NSButton {
     @discardableResult public func setAlternateImage(
         with data: Data?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.NSButtonKey.alternateImage.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -89,7 +89,7 @@ extension Queen where Base: NSButton {
     @discardableResult public func setAlternateImage(
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.NSButtonKey.alternateImage.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)

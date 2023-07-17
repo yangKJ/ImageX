@@ -1,5 +1,5 @@
 //
-//  AnimatedOptions+Network.swift
+//  ImageXOptions+Network.swift
 //  ImageX
 //
 //  Created by Condy on 2023/7/12.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension AnimatedOptions {
+extension ImageXOptions {
     
     public struct Network {
         
         /// Network max retry count and retry interval, default max retry count is ``3`` and retry ``3s`` interval mechanism.
         public var retry: ImageX.DelayRetry = .max3s
         
-        /// Web images or GIFs link download priority.
+        /// Web images or animated images link download priority.
         public var downloadPriority: Float = URLSessionTask.defaultPriority
         
         /// The timeout interval for the request. Defaults to 20.0

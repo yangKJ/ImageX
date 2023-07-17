@@ -22,9 +22,9 @@ extension Queen where Base: UIImageView {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
-    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
-        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -36,7 +36,7 @@ extension Queen where Base: UIImageView {
     @discardableResult public func setImage(
         with data: Data?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -62,8 +62,8 @@ extension Queen where Base: UIImageView {
     /// var options = AnimatedOptions(moduleName: "Component Name")
     /// options.placeholder = .image(R.image("AppIcon")!)
     /// options.contentMode = .scaleAspectBottomRight
-    /// options.GIFs.loop = .count(3)
-    /// options.GIFs.bufferCount = 20
+    /// options.Animated.loop = .count(3)
+    /// options.Animated.bufferCount = 20
     /// options.Cache.cacheOption = .disk
     /// options.Cache.cacheCrypto = .md5
     /// options.Cache.cacheDataZip = .gzip
@@ -77,7 +77,7 @@ extension Queen where Base: UIImageView {
     @discardableResult public func setImage(
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
@@ -88,9 +88,9 @@ extension Queen where Base: UIImageView {
     ///   - named: Picture or gif name.
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
-    public func setHighlightedImage(with named: String?, filters: [C7FilterProtocol] = [], options: AnimatedOptions = .default) {
+    public func setHighlightedImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
-        HandyImage.displayImage(source: named, to: base, filters: filters, options: options, other: other)
+        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -102,7 +102,7 @@ extension Queen where Base: UIImageView {
     @discardableResult public func setHighlightedImage(
         with data: Data?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
@@ -117,7 +117,7 @@ extension Queen where Base: UIImageView {
     @discardableResult public func setHighlightedImage(
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
-        options: AnimatedOptions = AnimatedOptions.default
+        options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)

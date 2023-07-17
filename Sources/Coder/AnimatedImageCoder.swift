@@ -1,0 +1,82 @@
+//
+//  AnimatedImageCoder.swift
+//  ImageX
+//
+//  Created by Condy on 2023/7/15.
+//
+
+import Foundation
+import ImageIO
+import Harbeth
+#if canImport(MobileCoreServices)
+import MobileCoreServices
+#endif
+
+/// Set up encode or decode to animated images.
+public protocol AnimatedImageCoder: ImageCoder {
+    
+    /// The image container property key used in ImageIO API.
+    var dictionaryProperty: String { get }
+    
+    /// The image unclamped delay time property key used in ImageIO API.
+    var unclampedDelayTimeProperty: String { get }
+    
+    /// The image delay time property key used in ImageIO API.
+    var delayTimeProperty: String { get }
+    
+    /// The total duration of animation and each animated image frame duration.
+    /// - Parameter maxTimeStep: Maximum duration to increment the frame timer with.
+    /// - Returns: The total duration and each durations.
+    func animatedDuration(maxTimeStep: TimeInterval) -> (total: TimeInterval, durations: [TimeInterval])
+    
+    /// Decode the data to animated image.
+    /// - Parameters:
+    ///   - options: A dictionary containing any decoding options.
+    ///   - indexes: An array of indexes to preload.
+    /// - Returns: Returns a range frame array frome data.
+    func decodeAnimatedCGImage(options: ImageCoderOptions, indexes: [Int]) -> [CGImage?]
+}
+
+extension AnimatedImageCoder {
+    
+    /// The total duration of animation and each animated image frame duration.
+    /// - Parameter maxTimeStep: Maximum duration to increment the frame timer with.
+    /// - Returns: The total duration and each durations.
+    public func animatedDuration(maxTimeStep: TimeInterval) -> (total: TimeInterval, durations: [TimeInterval]) {
+        guard let imageSource = imageSource else {
+            return (0.0, [])
+        }
+        let eachDurations = (0..<frameCount).map {
+            let time = imageSource.mt.frameDuration(at: $0,
+                                                    dictionaryProperty: dictionaryProperty,
+                                                    unclampedDelayTimeProperty: unclampedDelayTimeProperty,
+                                                    delayTimeProperty: delayTimeProperty)
+            return min(time, maxTimeStep)
+        }
+        let total = eachDurations.reduce(0.0, { $0 + $1 })
+        return (total, eachDurations)
+    }
+}
+
+extension AnimatedImageCoder {
+    
+    /// Decode the data to animated image.
+    /// - Parameters:
+    ///   - options: A dictionary containing any decoding options.
+    ///   - durations: Duration of each animated image frame.
+    ///   - range: Those frames are currently needed.
+    /// - Returns: Returns a range frame array frome data.
+    public func decodeAnimatedImage(options: ImageCoderOptions, durations: [TimeInterval], indexes: [Int]) -> [FrameImage] {
+        guard isAnimatedImages() else { return [] }
+        let filters = options[ImageCoderOption.decoder.filtersKey] as? [C7FilterProtocol] ?? []
+        let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero
+        let contentMode = options[ImageCoderOption.decoder.contentModeKey] as? ImageX.ContentMode ?? .original
+        let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
+        return Array(zip(cgImages, indexes)).map {
+            let dest = BoxxIO(element: $0, filters: filters)
+            let image = try? dest.output()?.mt.toC7Image()
+            let reImage = contentMode.resizeImage(image, size: resize)
+            return FrameImage(cgImage: $0, image: reImage, duration: durations[$1])
+        }
+    }
+}

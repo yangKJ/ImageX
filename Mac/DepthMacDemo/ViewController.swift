@@ -35,19 +35,19 @@ class ViewController: NSViewController {
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan003.imageset/12.jpeg",
         ]
         let named = links.randomElement() ?? ""
-        var options = AnimatedOptions()
+        var options = ImageXOptions()
         options.placeholder = .image(R.image("IMG_0020")!)
         options.contentMode = .scaleAspectBottomRight
-        options.GIFs.loop = .forever
-        options.GIFs.bufferCount = 20
+        options.Animated.loop = .forever
+        options.Animated.bufferCount = 20
         options.Cache.cacheOption = .disk
         options.Cache.cacheCrypto = .base58
         options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.GIFs.setPreparationBlock(block: { _ in
+        options.Animated.setPreparationBlock(block: { _ in
             // do something..
         })
-        options.GIFs.setAnimatedBlock(block: { loopDuration in
+        options.Animated.setAnimatedBlock(block: { loopDuration in
             // play is complete and then do something..
         })
         imageView.mt.setImage(with: named, filters: filters, options: options)

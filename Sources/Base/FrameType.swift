@@ -2,24 +2,21 @@
 //  FrameType.swift
 //  ImageX
 //
-//  Created by Condy on 2023/7/14.
+//  Created by Condy on 2023/7/15.
 //
 
 import Foundation
 
-/// Dynamic image sources become static display of appoint frames.
-public enum DynamicFrameType {
-    /// The dynamic map is still displayed.
-    case dynamic
+/// Animated image sources become static display of appoint frames.
+public enum FrameType: Equatable {
+    /// Displayed the animated images.
+    case animated
     /// Displayed the first frame.
     case frist
     /// Displayed the last frame.
     case last
     /// Displayed appoint the frame, beyond the last frame.
     case appoint(Int)
-}
-
-extension DynamicFrameType {
     
     func index(_ frameCount: Int) -> Int {
         switch self {

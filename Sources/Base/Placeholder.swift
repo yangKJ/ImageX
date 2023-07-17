@@ -31,18 +31,18 @@ extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
     func display(to view: AsAnimatable, contentMode: ImageX.ContentMode, other: ImageX.Others? = nil) {
-        DispatchQueue.main.async {
-            switch self {
-            case .none:
-                break
-            case .color(let c7Color):
-                var image = c7Color.mt.colorImage(with: view.frame.size)
-                image = contentMode.resizeImage(image, size: view.frame.size)
-                view.setContentImage(image, other: other)
-            case .image(let c7Image):
-                let image = contentMode.resizeImage(c7Image, size: view.frame.size)
-                view.setContentImage(image, other: other)
-            case .view(let subview):
+        switch self {
+        case .none:
+            break
+        case .color(let c7Color):
+            var image = c7Color.mt.colorImage(with: view.frame.size)
+            image = contentMode.resizeImage(image, size: view.frame.size)
+            view.setContentImage(image, other: other)
+        case .image(let c7Image):
+            let image = contentMode.resizeImage(c7Image, size: view.frame.size)
+            view.setContentImage(image, other: other)
+        case .view(let subview):
+            DispatchQueue.main.async {
                 if let view = view as? ImageXView, !view.subviews.contains(subview) {
                     view.addSubview(subview)
                     subview.translatesAutoresizingMaskIntoConstraints = false
@@ -59,13 +59,13 @@ extension ImageX.Placeholder {
     
     /// Remove placeholder from view.
     func remove(from view: AsAnimatable, other: ImageX.Others? = nil) {
-        DispatchQueue.main.async {
-            switch self {
-            case .none:
-                break
-            case .color, .image:
-                view.setContentImage(nil, other: other)
-            case .view(let subview):
+        switch self {
+        case .none:
+            break
+        case .color, .image:
+            view.setContentImage(nil, other: other)
+        case .view(let subview):
+            DispatchQueue.main.async {
                 if let view = view as? ImageXView, view.subviews.contains(subview) {
                     subview.removeFromSuperview()
                 }

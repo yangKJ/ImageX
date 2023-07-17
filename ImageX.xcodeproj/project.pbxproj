@@ -94,32 +94,50 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		870373F129B57CD9002D0042 /* RunloopOptimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunloopOptimize.swift; sourceTree = "<group>"; };
 		870A58B72A491C2600F90D19 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		870DBCAC2990929B000A36F6 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
 		870DBCC729909DC4000A36F6 /* NSImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Ext.swift"; sourceTree = "<group>"; };
-		8723B54D2A56B1A6007CB028 /* GIFResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFResponse.swift; sourceTree = "<group>"; };
-		872E2E0529ADA662003F241E /* AnimatedOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedOptions.swift; sourceTree = "<group>"; };
-		872E2E0629ADA662003F241E /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		87390C0D2A56515900858A71 /* WKInterfaceImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKInterfaceImage+Ext.swift"; sourceTree = "<group>"; };
 		87390C1A2A56516600858A71 /* WKInterfaceImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKInterfaceImageContainer.swift; sourceTree = "<group>"; };
 		87390C1B2A5659D400858A71 /* ImageX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageX.h; sourceTree = "<group>"; };
-		8742486C29B6D548002BE7E6 /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
-		8742487729B6D593002BE7E6 /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
+		8767949E2A65444900133F93 /* ImageCoderOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoderOption.swift; sourceTree = "<group>"; };
+		8767949F2A65444900133F93 /* AnimatedHEICCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedHEICCoder.swift; sourceTree = "<group>"; };
+		876794A02A65444900133F93 /* ImageCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoder.swift; sourceTree = "<group>"; };
+		876794A12A65444900133F93 /* AnimatedAPNGCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedAPNGCoder.swift; sourceTree = "<group>"; };
+		876794A22A65444900133F93 /* AnimatedGIFsCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedGIFsCoder.swift; sourceTree = "<group>"; };
+		876794A32A65444900133F93 /* ImageJPEGCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageJPEGCoder.swift; sourceTree = "<group>"; };
+		876794A42A65444900133F93 /* AnimatedWebPCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedWebPCoder.swift; sourceTree = "<group>"; };
+		876794A52A65444900133F93 /* AnimatedImageCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageCoder.swift; sourceTree = "<group>"; };
+		876794A62A65444900133F93 /* ImageIOCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIOCoder.swift; sourceTree = "<group>"; };
+		876794A82A65445200133F93 /* FrameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameStore.swift; sourceTree = "<group>"; };
+		876794A92A65445200133F93 /* HasAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimatable.swift; sourceTree = "<group>"; };
+		876794AA2A65445200133F93 /* AsAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsAnimatable.swift; sourceTree = "<group>"; };
+		876794AB2A65445200133F93 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		876794AC2A65445200133F93 /* AsAnimatable+SetImg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsAnimatable+SetImg.swift"; sourceTree = "<group>"; };
+		876794AD2A65445200133F93 /* FrameImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameImage.swift; sourceTree = "<group>"; };
+		876794AE2A65445200133F93 /* GIFResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFResponse.swift; sourceTree = "<group>"; };
+		876794AF2A65445200133F93 /* ImageXOptions+Animated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageXOptions+Animated.swift"; sourceTree = "<group>"; };
+		876794B12A65445B00133F93 /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
+		876794B22A65445B00133F93 /* Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Others.swift; sourceTree = "<group>"; };
+		876794B32A65445B00133F93 /* FrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameType.swift; sourceTree = "<group>"; };
+		876794B42A65445B00133F93 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
+		876794B52A65445B00133F93 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
+		876794B62A65445B00133F93 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
+		876794B72A65445B00133F93 /* RunloopOptimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunloopOptimize.swift; sourceTree = "<group>"; };
+		876794B82A65445B00133F93 /* ImageXOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageXOptions.swift; sourceTree = "<group>"; };
+		876794B92A65445B00133F93 /* ImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
+		876794BA2A65445B00133F93 /* ContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
+		876794BB2A65445B00133F93 /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		876794BC2A65445B00133F93 /* Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip.swift; sourceTree = "<group>"; };
+		876794BD2A65445B00133F93 /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
+		876794BE2A65445B00133F93 /* HandyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandyImage.swift; sourceTree = "<group>"; };
+		876794BF2A6544AF00133F93 /* ImageXOptions+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageXOptions+Cache.swift"; sourceTree = "<group>"; };
+		876794C02A6544D400133F93 /* ImageXOptions+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageXOptions+Network.swift"; sourceTree = "<group>"; };
 		8769479A2A4EBB400097182D /* NSButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSButton+Ext.swift"; sourceTree = "<group>"; };
 		876947A72A4EC2C10097182D /* NSButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonContainer.swift; sourceTree = "<group>"; };
 		876A6C392A5279BB0002130D /* UIImageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewContainer.swift; sourceTree = "<group>"; };
-		876A6C462A5297960002130D /* AsAnimatable+SetImg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsAnimatable+SetImg.swift"; sourceTree = "<group>"; };
 		876A6C472A5299090002130D /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
-		876D4DA82984C29D00A06282 /* FrameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameStore.swift; sourceTree = "<group>"; };
-		876D4DAC2984C29D00A06282 /* Loop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
-		876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkProxy.swift; sourceTree = "<group>"; };
-		876D4DB02984C29D00A06282 /* ContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMode.swift; sourceTree = "<group>"; };
-		876D4DB12984C29D00A06282 /* AsAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsAnimatable.swift; sourceTree = "<group>"; };
 		876D4DB32984C29D00A06282 /* CGImageSource+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Ext.swift"; sourceTree = "<group>"; };
 		876D4DB42984C29D00A06282 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
-		876D4DB52984C29D00A06282 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
-		876D4DB72984C29D00A06282 /* FrameImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameImage.swift; sourceTree = "<group>"; };
 		876ED9692A4D196400965308 /* UIButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonContainer.swift; sourceTree = "<group>"; };
 		876ED96A2A4D235400965308 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		8770FB0A29A6067400AED5CC /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
@@ -377,14 +395,9 @@
 		8770FC3729A6067500AED5CC /* DepthMacDemo.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = DepthMacDemo.xcworkspace; sourceTree = "<group>"; };
 		8770FC3829A6067500AED5CC /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		8770FC3929A6067500AED5CC /* DepthMacDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DepthMacDemo.xcodeproj; sourceTree = "<group>"; };
-		87899B1C2A4D83ED00B00894 /* HandyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandyImage.swift; sourceTree = "<group>"; };
-		87899B1D2A4D840A00B00894 /* Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Others.swift; sourceTree = "<group>"; };
 		87899B1E2A4DAE6700B00894 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		87899B1F2A4DAE6700B00894 /* README_CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_CN.md; sourceTree = "<group>"; };
 		878F33122A4ABF290024DF68 /* DelayRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayRetry.swift; sourceTree = "<group>"; };
-		879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
-		87B405F12A5FF2E000FBAE31 /* AnimatedOptions+GIFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+GIFs.swift"; sourceTree = "<group>"; };
-		87B405FE2A5FF36900FBAE31 /* AnimatedOptions+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+Network.swift"; sourceTree = "<group>"; };
 		87C72F8629AF323600C4C2E6 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		87C7D3CD2A5E93CE00849F6E /* DataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResult.swift; sourceTree = "<group>"; };
 		87C7D3CE2A5E93CE00849F6E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -680,15 +693,10 @@
 		87C9C42C29ECF68E00891F40 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		87C9C42D29ECF68E00891F40 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		87C9C42E29ECF68E00891F40 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
-		87DF0AAB2A6146A5007C0565 /* ImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParser.swift; sourceTree = "<group>"; };
-		87DF0AB82A6146A5007C0565 /* AnimatedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSource.swift; sourceTree = "<group>"; };
-		87DF0AB92A6146A5007C0565 /* DynamicFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFrameType.swift; sourceTree = "<group>"; };
 		87DF0ABA2A6146CA007C0565 /* Data+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ext.swift"; sourceTree = "<group>"; };
-		87EDF06329B9B184007798F9 /* Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip.swift; sourceTree = "<group>"; };
 		87EE66342A5BF3B4007B80C3 /* URL+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
 		87EE66352A5BFCDD007B80C3 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		87FAC2B52A60E9F00015024B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
-		87FAC2B62A60E9F00015024B /* AnimatedOptions+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnimatedOptions+Cache.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -704,40 +712,71 @@
 			path = Containers;
 			sourceTree = "<group>";
 		};
+		8767949D2A65444900133F93 /* Coder */ = {
+			isa = PBXGroup;
+			children = (
+				876794A12A65444900133F93 /* AnimatedAPNGCoder.swift */,
+				876794A22A65444900133F93 /* AnimatedGIFsCoder.swift */,
+				8767949F2A65444900133F93 /* AnimatedHEICCoder.swift */,
+				876794A52A65444900133F93 /* AnimatedImageCoder.swift */,
+				876794A42A65444900133F93 /* AnimatedWebPCoder.swift */,
+				876794A02A65444900133F93 /* ImageCoder.swift */,
+				8767949E2A65444900133F93 /* ImageCoderOption.swift */,
+				876794A62A65444900133F93 /* ImageIOCoder.swift */,
+				876794A32A65444900133F93 /* ImageJPEGCoder.swift */,
+			);
+			path = Coder;
+			sourceTree = "<group>";
+		};
+		876794A72A65445200133F93 /* Animated */ = {
+			isa = PBXGroup;
+			children = (
+				876794AB2A65445200133F93 /* Animator.swift */,
+				876794AA2A65445200133F93 /* AsAnimatable.swift */,
+				876794AC2A65445200133F93 /* AsAnimatable+SetImg.swift */,
+				876794AD2A65445200133F93 /* FrameImage.swift */,
+				876794A82A65445200133F93 /* FrameStore.swift */,
+				876794AE2A65445200133F93 /* GIFResponse.swift */,
+				876794A92A65445200133F93 /* HasAnimatable.swift */,
+				876794AF2A65445200133F93 /* ImageXOptions+Animated.swift */,
+			);
+			path = Animated;
+			sourceTree = "<group>";
+		};
+		876794B02A65445B00133F93 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				876794B62A65445B00133F93 /* AssetType.swift */,
+				876794BA2A65445B00133F93 /* ContentMode.swift */,
+				876794B52A65445B00133F93 /* DisplayLinkProxy.swift */,
+				876794B32A65445B00133F93 /* FrameType.swift */,
+				876794BE2A65445B00133F93 /* HandyImage.swift */,
+				876794B92A65445B00133F93 /* ImageParser.swift */,
+				876794B82A65445B00133F93 /* ImageXOptions.swift */,
+				876794BD2A65445B00133F93 /* Locked.swift */,
+				876794B42A65445B00133F93 /* Loop.swift */,
+				876794B22A65445B00133F93 /* Others.swift */,
+				876794BB2A65445B00133F93 /* Placeholder.swift */,
+				876794B12A65445B00133F93 /* R.swift */,
+				876794B72A65445B00133F93 /* RunloopOptimize.swift */,
+				876794BC2A65445B00133F93 /* Zip.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		876D4DA72984C29D00A06282 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				87390C1B2A5659D400858A71 /* ImageX.h */,
+				876794A72A65445200133F93 /* Animated */,
+				876794B02A65445B00133F93 /* Base */,
 				87FAC2B42A60E9F00015024B /* Cache */,
+				8767949D2A65444900133F93 /* Coder */,
 				8723B55A2A56B51F007CB028 /* Containers */,
-				876D4DA92984C29D00A06282 /* Core */,
 				876D4DB22984C29D00A06282 /* Extensions */,
-				877FF2632A480C7200A93A30 /* GIFs */,
 				878F33152A4AC1BD0024DF68 /* Networking */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		876D4DA92984C29D00A06282 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				872E2E0529ADA662003F241E /* AnimatedOptions.swift */,
-				87DF0AB82A6146A5007C0565 /* AnimatedSource.swift */,
-				879C4FF9298B4E6D00B3D5C7 /* AssetType.swift */,
-				876D4DB02984C29D00A06282 /* ContentMode.swift */,
-				876D4DAD2984C29D00A06282 /* DisplayLinkProxy.swift */,
-				87DF0AB92A6146A5007C0565 /* DynamicFrameType.swift */,
-				87899B1C2A4D83ED00B00894 /* HandyImage.swift */,
-				87DF0AAB2A6146A5007C0565 /* ImageParser.swift */,
-				8742487729B6D593002BE7E6 /* Locked.swift */,
-				876D4DAC2984C29D00A06282 /* Loop.swift */,
-				87899B1D2A4D840A00B00894 /* Others.swift */,
-				872E2E0629ADA662003F241E /* Placeholder.swift */,
-				8742486C29B6D548002BE7E6 /* R.swift */,
-				870373F129B57CD9002D0042 /* RunloopOptimize.swift */,
-				87EDF06329B9B184007798F9 /* Zip.swift */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 		876D4DB22984C29D00A06282 /* Extensions */ = {
@@ -1230,21 +1269,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		877FF2632A480C7200A93A30 /* GIFs */ = {
-			isa = PBXGroup;
-			children = (
-				87B405F12A5FF2E000FBAE31 /* AnimatedOptions+GIFs.swift */,
-				876D4DB52984C29D00A06282 /* Animator.swift */,
-				876D4DB12984C29D00A06282 /* AsAnimatable.swift */,
-				876A6C462A5297960002130D /* AsAnimatable+SetImg.swift */,
-				876D4DB72984C29D00A06282 /* FrameImage.swift */,
-				876D4DA82984C29D00A06282 /* FrameStore.swift */,
-				8723B54D2A56B1A6007CB028 /* GIFResponse.swift */,
-				870DBCAC2990929B000A36F6 /* HasAnimatable.swift */,
-			);
-			path = GIFs;
-			sourceTree = "<group>";
-		};
 		87899B202A4DAE7200B00894 /* Readme */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,11 +1281,11 @@
 		878F33152A4AC1BD0024DF68 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				87B405FE2A5FF36900FBAE31 /* AnimatedOptions+Network.swift */,
 				87C7D3CF2A5E93CE00849F6E /* DataDownloader.swift */,
 				87C7D3CD2A5E93CE00849F6E /* DataResult.swift */,
 				878F33122A4ABF290024DF68 /* DelayRetry.swift */,
 				87EE66352A5BFCDD007B80C3 /* Files.swift */,
+				876794C02A6544D400133F93 /* ImageXOptions+Network.swift */,
 				870A58B72A491C2600F90D19 /* Networking.swift */,
 				87C7D3CE2A5E93CE00849F6E /* Task.swift */,
 			);
@@ -1855,8 +1879,8 @@
 		87FAC2B42A60E9F00015024B /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				87FAC2B62A60E9F00015024B /* AnimatedOptions+Cache.swift */,
 				87FAC2B52A60E9F00015024B /* Cached.swift */,
+				876794BF2A6544AF00133F93 /* ImageXOptions+Cache.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";

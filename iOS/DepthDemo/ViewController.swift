@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func goGIF(_ sender: Any) {
-        let vc = GIFViewController()
+        let vc = AnimatedViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -38,26 +38,31 @@ class ViewController: UIViewController {
     func setup() {
         let links = [
             //"pikachu",
-            //"https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
             //"https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_3960.heic",
+            //"https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
             "https://blog.ibireme.com/wp-content/uploads/2015/11/bench_gif_demo.gif",
-            //"http://littlesvr.ca/apng/images/world-cup-2014-42.webp",
-            //"https://nokiatech.github.io/heif/content/image_sequences/starfield_animation.heic",
+            //"http://littlesvr.ca/apng/images/SteamEngine.webp", // Animated
+            //"https://nokiatech.github.io/heif/content/images/ski_jump_1440x960.heic",
+            //"https://nokiatech.github.io/heif/content/image_sequences/starfield_animation.heic", // Animated
+            //"https://apng.onevcat.com/assets/elephant.png", // Animated
+            //"https://nr-platform.s3.amazonaws.com/uploads/platform/published_extension/branding_icon/275/AmazonS3.png",
+            //"https://res.cloudinary.com/dwpjzbyux/raw/upload/v1666474070/RawDemo/raw_vebed5.NEF",
         ]
         let named = links.randomElement() ?? ""
-        var options = AnimatedOptions()
+        var options = ImageXOptions()
         options.placeholder = .image(R.image("AppIcon")!)
         options.contentMode = .scaleAspectFit
-        options.GIFs.loop = .forever
-        options.GIFs.bufferCount = 20
+        options.Animated.loop = .forever
+        options.Animated.bufferCount = 20
+        //options.Animated.frameType = .appoint(8)
         options.Cache.cacheOption = .disk
         options.Cache.cacheCrypto = .sha1
         options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.GIFs.setPreparationBlock(block: { res in
+        options.Animated.setPreparationBlock(block: { res in
             self.label.text = "\(res.frameCount) frames / \(String(format: "%.2f", res.loopDuration))s"
         })
-        options.GIFs.setAnimatedBlock(block: { _ in
+        options.Animated.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
         imageView.mt.setImage(with: named, filters: filters, options: options)

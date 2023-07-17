@@ -17,37 +17,40 @@ extension CGImageSource: C7Compatible { }
 extension Queen where CGImageSource == Base {
     
     public func toImage(index: Int) -> C7Image? {
-        let cgImage = CGImageSourceCreateImageAtIndex(base, index, nil)
-        return cgImage?.mt.toC7Image()
+        toCGImage(index: index)?.mt.toC7Image()
     }
     
-    /// Returns whether the image source contains an animated GIF.
-    public var isAnimatedGIF: Bool {
-        let isTypeGIF = UTTypeConformsTo(CGImageSourceGetType(base) ?? "" as CFString, kUTTypeGIF)
-        let imageCount = CGImageSourceGetCount(base)
-        return isTypeGIF != false && imageCount > 1
+    public func toCGImage(index: Int) -> CGImage? {
+        CGImageSourceCreateImageAtIndex(base, index, nil)
     }
     
     /// Retruns the duration of a frame at a specific index using an image source (an `CGImageSource` instance).
-    /// - Parameter index: Specific index.
+    /// - Parameters:
+    ///   - index: Specific index.
+    ///   - dictionaryProperty: The image container property key used in ImageIO API. Such as `kCGImagePropertyGIFDictionary`.
+    ///   - unclampedDelayTimeProperty: The image unclamped delay time property key used in ImageIO API. Such as `kCGImagePropertyGIFUnclampedDelayTime`
+    ///   - delayTimeProperty: The image delay time property key used in ImageIO API. Such as `kCGImagePropertyGIFDelayTime`.
     /// - Returns: A frame duration.
-    public func frameDuration(at index: Int) -> TimeInterval {
+    public func frameDuration(at index: Int,
+                              dictionaryProperty: String,
+                              unclampedDelayTimeProperty: String,
+                              delayTimeProperty: String) -> TimeInterval {
         // Returns the GIF properties at a specific index.
         func properties(at index: Int) -> [String: Double]? {
             guard let properties = CGImageSourceCopyPropertiesAtIndex(base, index, nil) as? [String: AnyObject] else {
                 return nil
             }
-            return properties[String(kCGImagePropertyGIFDictionary)] as? [String: Double]
+            return properties[dictionaryProperty] as? [String: Double]
         }
         // Returns a frame duration from a `[String: Double]` dictionary.
         func frameDuration(with properties: [String: Double]) -> Double? {
-            guard let unclampedDelayTime = properties[String(kCGImagePropertyGIFUnclampedDelayTime)],
-                  let delayTime = properties[String(kCGImagePropertyGIFDelayTime)] else {
+            guard let unclampedDelayTime = properties[unclampedDelayTimeProperty],
+                  let delayTime = properties[delayTimeProperty] else {
                 return nil
             }
             return [unclampedDelayTime, delayTime].filter({ $0 >= 0 }).first
         }
-        // Most GIFs run between 15 and 24 Frames per second.
+        // Most animated run between 15 and 24 Frames per second.
         let defaultFrameRate: Double = 15.0
         
         // Threshold used in `capDuration` for a FrameDuration
