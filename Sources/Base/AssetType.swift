@@ -106,27 +106,8 @@ extension AssetType {
         self == .mp4 || self == .m4v || self == .mov
     }
     
-    /// Get the decoder.
-    public func createDecoder(with data: Data?) -> ImageCoder? {
-        guard let data = data else {
-            return nil
-        }
-        switch self {
-        case .jpeg:
-            return ImageJPEGCoder.init(data: data)
-        case .png:
-            return AnimatedAPNGCoder(data: data)
-        case .gif:
-            return AnimatedGIFsCoder(data: data)
-        case .webp:
-            return AnimatedWebPCoder(data: data)
-        case .heif, .heic:
-            return AnimatedHEICCoder(data: data)
-        case .tiff, .raw, .pdf, .bmp, .svg:
-            return ImageIOCoder(data: data)
-        default:
-            return nil
-        }
+    public var isHEIC: Bool {
+        self == .heic || self == .heif
     }
 }
 
@@ -221,5 +202,31 @@ extension AssetType {
             }
         }
         return nil
+    }
+}
+
+extension AssetType {
+    
+    static func createCoder(with data: Data?, format: AssetType? = nil) -> ImageCoder? {
+        guard let data = data else {
+            return nil
+        }
+        let format = format ?? AssetType(data: data)
+        switch format {
+        case .jpeg:
+            return ImageJPEGCoder.init(data: data)
+        case .png:
+            return AnimatedAPNGCoder(data: data)
+        case .gif:
+            return AnimatedGIFsCoder(data: data)
+        case .webp:
+            return AnimatedWebPCoder(data: data)
+        case .heif, .heic:
+            return AnimatedHEICCoder(data: data)
+        case .tiff, .raw, .pdf, .bmp, .svg:
+            return ImageIOCoder(data: data, format: format)
+        default:
+            return nil
+        }
     }
 }

@@ -29,10 +29,6 @@ public struct ImageJPEGCoder: ImageCoder {
         return true
     }
     
-    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
-        self.imageSource?.mt.toCGImage(index: index)
-    }
-    
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {
         let compressionQuality = options[ImageCoderOption.encoder.compressionQualityKey] as? CGFloat ?? 1.0
         #if os(macOS)

@@ -1,15 +1,12 @@
 PODS:
-  - Harbeth (0.6.8):
-    - Harbeth/Basic (= 0.6.8)
-    - Harbeth/Collector (= 0.6.8)
-    - Harbeth/Compute (= 0.6.8)
-    - Harbeth/CoreImage (= 0.6.8)
-  - Harbeth/Basic (0.6.8)
-  - Harbeth/Collector (0.6.8):
+  - Harbeth (0.6.9):
+    - Harbeth/Basic (= 0.6.9)
+    - Harbeth/Compute (= 0.6.9)
+    - Harbeth/CoreImage (= 0.6.9)
+  - Harbeth/Basic (0.6.9)
+  - Harbeth/Compute (0.6.9):
     - Harbeth/Basic
-  - Harbeth/Compute (0.6.8):
-    - Harbeth/Basic
-  - Harbeth/CoreImage (0.6.8):
+  - Harbeth/CoreImage (0.6.9):
     - Harbeth/Basic
   - ImageX (1.0.7):
     - Harbeth
@@ -29,7 +26,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Harbeth: e3669e04d660b111d39d7c045d4cd9e79c303c8c
+  Harbeth: 5df79b3b3920ad1c77b650c1c88a1d0c7bfecf75
   ImageX: e0aefeba9b38fad7fb9f7ecd4132a847e4f0aff1
   Lemons: c7d7a9171f510b0cddee4d836bbc43cb9d783224
 

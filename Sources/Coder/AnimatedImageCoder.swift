@@ -56,6 +56,18 @@ extension AnimatedImageCoder {
         let total = eachDurations.reduce(0.0, { $0 + $1 })
         return (total, eachDurations)
     }
+    
+    public func decodeAnimatedCGImage(options: ImageCoderOptions, indexes: [Int]) -> [CGImage?] {
+        guard canDecode(), isAnimatedImages(), let imageSource = imageSource else {
+            return []
+        }
+        var cgImages = [CGImage?]()
+        for index in indexes where index >= 0 && index <= frameCount {
+            let cgImage = CGImageSourceCreateImageAtIndex(imageSource, index, nil)
+            cgImages.append(cgImage)
+        }
+        return cgImages
+    }
 }
 
 extension AnimatedImageCoder {
@@ -66,7 +78,7 @@ extension AnimatedImageCoder {
     ///   - durations: Duration of each animated image frame.
     ///   - range: Those frames are currently needed.
     /// - Returns: Returns a range frame array frome data.
-    public func decodeAnimatedImage(options: ImageCoderOptions, durations: [TimeInterval], indexes: [Int]) -> [FrameImage] {
+    func decodeAnimatedImage(options: ImageCoderOptions, durations: [TimeInterval], indexes: [Int]) -> [FrameImage] {
         guard isAnimatedImages() else { return [] }
         let filters = options[ImageCoderOption.decoder.filtersKey] as? [C7FilterProtocol] ?? []
         let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero

@@ -84,11 +84,12 @@ extension ImageCoder {
     }
     
     public func canDecode() -> Bool {
-        AssetType(data: data) == format
+        //AssetType(data: data) == format
+        return true
     }
     
     public func isAnimatedImages() -> Bool {
-        frameCount > 1
+        return frameCount > 1
     }
     
     public func progressive() -> Bool {
@@ -99,8 +100,11 @@ extension ImageCoder {
         return false
     }
     
-    public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {
-        return nil
+    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
+        guard canDecode() else {
+            return nil
+        }
+        return self.imageSource?.mt.toCGImage(index: index)
     }
 }
 

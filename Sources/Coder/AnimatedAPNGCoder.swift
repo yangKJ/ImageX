@@ -37,25 +37,6 @@ public struct AnimatedAPNGCoder: AnimatedImageCoder {
         self.setupImageSource(data: data, dataOptions: dataOptions)
     }
     
-    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
-        guard canDecode() else {
-            return nil
-        }
-        return self.imageSource?.mt.toCGImage(index: index)
-    }
-    
-    public func decodeAnimatedCGImage(options: ImageCoderOptions, indexes: [Int]) -> [CGImage?] {
-        guard canDecode(), isAnimatedImages(), let imageSource = imageSource else {
-            return []
-        }
-        var cgImages = [CGImage?]()
-        for index in indexes where index >= 0 && index <= frameCount {
-            let cgImage = CGImageSourceCreateImageAtIndex(imageSource, index, nil)
-            cgImages.append(cgImage)
-        }
-        return cgImages
-    }
-    
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {
         #if os(macOS)
         guard let cgImage = image.cgImage else {

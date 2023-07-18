@@ -56,7 +56,7 @@ extension AsAnimatable {
         if options.displayed == false {
             options.placeholder.display(to: self, contentMode: options.contentMode, other: nil)
         }
-        if let decoder = AssetType(data: data).createDecoder(with: data) as? AnimatedImageCoder {
+        if let decoder = AssetType.createCoder(with: data) as? AnimatedImageCoder {
             self.play(decoder: decoder, filters: filters, options: options, other: nil)
         }
     }

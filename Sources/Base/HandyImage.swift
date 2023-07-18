@@ -52,9 +52,7 @@ struct HandyImage {
         guard let data = data else {
             return .unknow
         }
-        let decoder = options.appointCoder ?? {
-            AssetType(data: data).createDecoder(with: data)
-        }()
+        let decoder = options.appointCoder ?? AssetType.createCoder(with: data)
         if let decoder = decoder as? AnimatedImageCoder, decoder.isAnimatedImages(), options.Animated.frameType == .animated {
             view.play(decoder: decoder, filters: filters, options: options, other: other)
         } else if let image = decoder?.decodedImage(options: options.setupDecoderOptions(filters)) {
@@ -122,7 +120,7 @@ extension HandyImage {
         return options
     }
     
-    /// Fixed the setting  `options.contentMode` attributes cannot be filled and 尺寸获取失败的
+    /// Fixed the setting  `options.contentMode` attributes cannot be filled.
     static func setViewContentMode(to view: AsAnimatable, options: ImageXOptions) -> ImageXOptions {
         if options.contentMode == .original {
             return options
