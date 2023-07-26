@@ -76,7 +76,7 @@ fileprivate class AsAnimatableView__: CPView {
         addSubview(animatedView)
         NSLayoutConstraint.activate([
             animatedView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            animatedView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -20),
+            animatedView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             animatedView.widthAnchor.constraint(equalToConstant: 360),
             animatedView.heightAnchor.constraint(equalTo: animatedView.widthAnchor, multiplier: 1),
         ])

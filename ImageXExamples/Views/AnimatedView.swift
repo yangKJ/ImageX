@@ -62,6 +62,13 @@ fileprivate class AnimatedView__: CPView {
         return imageView
     }()
     
+    lazy var resultLabel: CPLabel = {
+        let label = CPLabel()
+        label.text = String("loading..")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     required init(frame: CGRect, link: String) {
         self.link = link
         super.init(frame: frame)
@@ -78,14 +85,17 @@ fileprivate class AnimatedView__: CPView {
     }
     
     func setupUI() {
+        addSubview(resultLabel)
         addSubview(animatedImageView)
         NSLayoutConstraint.activate([
             animatedImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             animatedImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -20),
             animatedImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             animatedImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            //animatedImageView.widthAnchor.constraint(equalToConstant: 360),
             animatedImageView.heightAnchor.constraint(equalTo: animatedImageView.widthAnchor, multiplier: 1),
+            resultLabel.topAnchor.constraint(equalTo: animatedImageView.bottomAnchor, constant: 20),
+            resultLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            resultLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
@@ -100,8 +110,8 @@ fileprivate class AnimatedView__: CPView {
         options.Cache.cacheCrypto = .sha1
         options.Cache.cacheDataZip = .gzip
         options.Network.retry = DelayRetry(maxRetryCount: 2, retryInterval: .accumulated(2))
-        options.Animated.setPreparationBlock(block: { _ in
-            print("do something..")
+        options.Animated.setPreparationBlock(block: { [weak self] res in
+            self?.resultLabel.text = "\(res.frameCount) frames / \(String(format: "%.2f", res.loopDuration))s"
         })
         options.Animated.setAnimatedBlock(block: { _ in
             print("Played end!!!")

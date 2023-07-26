@@ -20,7 +20,8 @@ struct ContentView: View {
                         .font(.title3)
                         .foregroundColor(.blue)
                 } icon: {
-                    
+                    Image(systemName: "ladybug.fill")
+                        .font(.title2)
                 }.onTapGesture {
                     Cached.shared.storage.removedDiskAndMemoryCached { isSuccess in
                         self.isShowAlert = isSuccess
@@ -34,7 +35,7 @@ struct ContentView: View {
                         Text("custom view with play gif")
                     }
                 } header: {
-                    Text("Other")
+                    Text("Other").bold()
                 }
                 Section {
                     NavigationLink(destination: AnimatedView(web: Res.png)) {
@@ -50,7 +51,7 @@ struct ContentView: View {
                         Text("Displayed NEF image")
                     }
                 } header: {
-                    Text("Still image at image view")
+                    Text("Still image at image view").bold()
                 }
                 Section {
                     NavigationLink(destination: AnimatedView(web: Res.gif)) {
@@ -63,7 +64,7 @@ struct ContentView: View {
                         Text("played animated png")
                     }
                 } header: {
-                    Text("Played at image view")
+                    Text("Played at image view").bold()
                 }
             }
             .alert(isPresented: self.$isShowAlert) {

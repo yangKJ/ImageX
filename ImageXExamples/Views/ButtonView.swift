@@ -83,7 +83,7 @@ fileprivate class ButtonView__: CPView {
         addSubview(animatedButton)
         NSLayoutConstraint.activate([
             animatedButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            animatedButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -20),
+            animatedButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
             animatedButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             animatedButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             animatedButton.heightAnchor.constraint(equalTo: animatedButton.widthAnchor, multiplier: 1),

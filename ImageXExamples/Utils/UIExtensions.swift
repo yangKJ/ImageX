@@ -114,35 +114,3 @@ extension View {
         #endif
     }
 }
-
-#if os(iOS)
-
-extension UIApplication {
-    var topMostViewController: UIViewController? {
-        let rootWindow = self.windows.first(where: { $0.isHidden == false })
-        var topMostViewController: UIViewController? = rootWindow?.rootViewController
-        while topMostViewController?.presentedViewController != nil {
-            topMostViewController = topMostViewController?.presentedViewController
-        }
-        return topMostViewController
-    }
-}
-
-#endif
-
-#if os(macOS)
-
-extension NSView {
-    
-    var backgroundColor: NSColor {
-        get {
-            return .white
-        }
-        set {
-            self.layer?.backgroundColor = newValue.cgColor
-            self.layoutSubtreeIfNeeded()
-        }
-    }
-}
-
-#endif

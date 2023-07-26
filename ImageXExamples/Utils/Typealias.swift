@@ -15,6 +15,7 @@ public typealias CPView = NSView
 public typealias CPColor = NSColor
 public typealias CPImageView = NSImageView
 public typealias CPButton = NSButton
+public typealias CPLabel = NSTextField
 public typealias CPViewRepresentable = NSViewRepresentable
 public typealias CPViewRepresentableContext = NSViewRepresentableContext
 #else
@@ -27,6 +28,7 @@ public typealias CPViewRepresentableContext = UIViewRepresentableContext
 public typealias CPImageView = UIImageView
 public typealias CPView = UIView
 public typealias CPButton = UIButton
+public typealias CPLabel = UILabel
 #if canImport(TVUIKit)
 import TVUIKit
 #endif
