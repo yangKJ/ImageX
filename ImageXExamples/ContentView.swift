@@ -29,10 +29,10 @@ struct ContentView: View {
                 }
                 Section {
                     NavigationLink(destination: ButtonView()) {
-                        Text("played at button")
+                        Text("UIButton / NSButton")
                     }
                     NavigationLink(destination: AsAnimatableView()) {
-                        Text("custom view with play gif")
+                        Text("Custom view with play GIFs.")
                     }
                 } header: {
                     Text("Other").bold()
@@ -55,30 +55,29 @@ struct ContentView: View {
                 }
                 Section {
                     NavigationLink(destination: AnimatedView(web: Res.gif)) {
-                        Text("Played animated gif")
+                        Text("Played animated GIF")
                     }
                     NavigationLink(destination: AnimatedView(web: Res.animated_webp)) {
                         Text("Played animated webp")
                     }
                     NavigationLink(destination: AnimatedView(web: Res.animated_png)) {
-                        Text("played animated png")
+                        Text("Played animated APNG")
                     }
                 } header: {
                     Text("Played at image view").bold()
                 }
             }
             .alert(isPresented: self.$isShowAlert) {
-                Alert(title: Text("Clean up completed!!!"))
+                Alert(title: Text("Cleaned up completed"))
             }
-            .listStyle(.automatic)
-            .textCase(.lowercase)
+            .listStyle(.sidebar)
+            .textCase(.none)
             .inlineNavigationBarTitle("ImageX Examples")
             
             VStack(spacing: 6) {
                 Text("Welcome to ImageX examples.")
                 Text("Select a topic to begin.").font(Font.caption).foregroundColor(.secondary)
-            }
-            .toolbar(content: { Spacer() })
+            }.toolbar(content: { Spacer() })
         }
         .stackNavigationViewStyle()
     }

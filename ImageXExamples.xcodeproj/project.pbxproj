@@ -49,6 +49,7 @@
 		8725E0832A71006D00147D75 /* Miserablefaith.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Miserablefaith.jpg; sourceTree = "<group>"; };
 		8732F80D2A70BA2D00411F9E /* IMG_0020.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0020.jpg; sourceTree = "<group>"; };
 		8732F81B2A70C06A00411F9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		873C66EA2A711D1300B68731 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		876300002A6F6B74000BA428 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		876300032A6F73A5000BA428 /* Pokemon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Pokemon.gif; sourceTree = "<group>"; };
 		876300092A6F75F5000BA428 /* Res.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
@@ -188,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				87D15C6B2A6E782900BD655B /* ImageXExamples.entitlements */,
+				873C66EA2A711D1300B68731 /* Info.plist */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -553,6 +555,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageXExamples/macOS/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -593,6 +596,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageXExamples/macOS/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -631,7 +635,7 @@
 				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = ImageXExamples/iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -667,7 +671,7 @@
 				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = ImageXExamples/iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
