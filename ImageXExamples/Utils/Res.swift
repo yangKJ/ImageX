@@ -16,8 +16,11 @@ struct Res {
     static let jpg = "https://media.gcflearnfree.org/content/588f55e5a0b0042cb858653b_01_30_2017/images_stock_puppy.jpg"
     static let jpeg = "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/yuan002.imageset/11.jpeg"
     
+    #if os(macOS)
+    static let gif = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif"
+    #else
     static let gif = "https://blog.ibireme.com/wp-content/uploads/2015/11/bench_gif_demo.gif"
-    static let gif2 = "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif"
+    #endif
     static let animated_webp = "http://littlesvr.ca/apng/images/SteamEngine.webp"
     static let animated_png = "https://apng.onevcat.com/assets/elephant.png" // Animated
     

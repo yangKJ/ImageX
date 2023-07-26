@@ -118,7 +118,7 @@ fileprivate class ButtonView__: CPView {
         #else
         animatedButton.mt.setImage(with: Res.jpeg, for: .normal, filters: filters, options: options)
         animatedButton.mt.setImage(with: Res.jpeg, for: .highlighted, filters: filters2, options: options)
-        animatedButton.mt.setImage(with: Res.gif2, for: .selected, filters: filters, options: options)
+        animatedButton.mt.setImage(with: Res.gif, for: .selected, filters: filters2, options: options)
         #endif
     }
     
