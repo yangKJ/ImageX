@@ -1,0 +1,38 @@
+PODS:
+  - Harbeth (0.7.8):
+    - Harbeth/Basic (= 0.7.8)
+    - Harbeth/Compute (= 0.7.8)
+    - Harbeth/CoreImage (= 0.7.8)
+    - Harbeth/Video (= 0.7.8)
+  - Harbeth/Basic (0.7.8)
+  - Harbeth/Compute (0.7.8):
+    - Harbeth/Basic
+  - Harbeth/CoreImage (0.7.8):
+    - Harbeth/Basic
+  - Harbeth/Video (0.7.8):
+    - Harbeth/Basic
+  - ImageX (1.0.7):
+    - Harbeth
+    - Lemons
+  - Lemons (0.0.7)
+
+DEPENDENCIES:
+  - ImageX (from `./`)
+
+SPEC REPOS:
+  trunk:
+    - Harbeth
+    - Lemons
+
+EXTERNAL SOURCES:
+  ImageX:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  Harbeth: a440161a01159c8f7eafde79e6e230e07976b1cf
+  ImageX: e0aefeba9b38fad7fb9f7ecd4132a847e4f0aff1
+  Lemons: c7d7a9171f510b0cddee4d836bbc43cb9d783224
+
+PODFILE CHECKSUM: 975dbbed3452486ec93e0851acf309c71b6a0027
+
+COCOAPODS: 1.12.1

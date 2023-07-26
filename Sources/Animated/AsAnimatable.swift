@@ -52,10 +52,8 @@ extension AsAnimatable {
     
     /// Prepare for animation and start play animated images.
     public func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions) {
-        let options = HandyImage.setViewContentMode(to: self, options: options)
-        if options.displayed == false {
-            options.placeholder.display(to: self, contentMode: options.contentMode, other: nil)
-        }
+        let options_ = HandyImage.setViewContentMode(to: self, options: options)
+        let options = HandyImage.setPlaceholder(to: self, options: options_, other: nil)
         if let decoder = AssetType.createCoder(with: data) as? AnimatedImageCoder {
             self.play(decoder: decoder, filters: filters, options: options, other: nil)
         }
@@ -63,9 +61,8 @@ extension AsAnimatable {
     
     /// Prepare for animation and start play animated images.
     func play(decoder: AnimatedImageCoder, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
-        if options.displayed == false {
-            options.placeholder.display(to: self, contentMode: options.contentMode, other: other)
-        }
+        let options_ = HandyImage.setViewContentMode(to: self, options: options)
+        let options = HandyImage.setPlaceholder(to: self, options: options_, other: nil)
         let store = FrameStore(decoder: decoder, filters: filters, options: options) { [weak self] _ in
             guard let weakself = self else {
                 return

@@ -35,7 +35,13 @@ extension ImageX.Placeholder {
         case .none:
             break
         case .color(let c7Color):
-            var image = c7Color.mt.colorImage(with: view.frame.size)
+            guard HandyImage.realViewFrame(to: view).size != .zero else {
+                return
+            }
+            let filter = C7SolidColor(color: c7Color)
+            let texture = BoxxIO<Any>.destTexture(width: Int(view.frame.size.width), height: Int(view.frame.size.height))
+            let dest = BoxxIO(element: texture, filter: filter)
+            var image = (try? dest.output())?.mt.toImage()
             image = contentMode.resizeImage(image, size: view.frame.size)
             view.setContentImage(image, other: other)
         case .image(let c7Image):

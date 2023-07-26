@@ -14,7 +14,13 @@ public protocol HasAnimatable: NSObjectProtocol {
     /// View frame used for resizing the frames.
     var frame: CGRect { get set }
     
-    #if !os(macOS)
+    #if os(macOS)
+    /// Notifies the instance that it needs display.
+    var layer: CALayer? { get }
+    
+    /// Updates the layout of the receiving view and its subviewsbased on the current views and constraints.
+    func layoutSubtreeIfNeeded()
+    #else
     /// Notifies the instance that it needs display.
     var layer: CALayer { get }
     
@@ -30,11 +36,6 @@ public protocol HasAnimatable: NSObjectProtocol {
     
     /// Nvalidates the current layout of the receiver and triggers a layout update during the next update cycle.
     func setNeedsLayout()
-    #endif
-    
-    #if os(macOS)
-    /// Updates the layout of the receiving view and its subviewsbased on the current views and constraints.
-    func layoutSubtreeIfNeeded()
     #endif
 }
 

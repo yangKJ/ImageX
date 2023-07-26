@@ -9,7 +9,7 @@ import Foundation
 import Harbeth
 
 /// Support still image format, such as `.tiff, .raw, .pdf, .bmp, .svg`
-public struct ImageIOCoder: ImageCoder {
+public struct ImageIOCoder: ImageCodering {
     
     public var data: Data
     

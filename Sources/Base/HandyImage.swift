@@ -110,8 +110,7 @@ struct HandyImage {
 
 extension HandyImage {
     
-    @discardableResult
-    private static func setPlaceholder(to view: AsAnimatable, options: ImageXOptions, other: Others?) -> ImageXOptions {
+    @discardableResult static func setPlaceholder(to view: AsAnimatable, options: ImageXOptions, other: Others?) -> ImageXOptions {
         guard options.displayed == false else {
             return options
         }
@@ -129,25 +128,32 @@ extension HandyImage {
         view.contentMode = .scaleAspectFit
         #endif
         if options.thumbnailPixelSize == .zero {
-            #if !os(macOS)
-            // Xib layout to get the size of the subviews.
-            if view.frame.size == .zero {
-                view.layoutSubviews()
-            }
-            // Automatic layout to get the size of the subviews.
-            if view.frame.size == .zero {
-                view.setNeedsLayout()
-                view.layoutIfNeeded()
-            }
-            #else
-            if view.frame.size == .zero {
-                view.layoutSubtreeIfNeeded()
-            }
-            #endif
-            var options_ = options
-            options_.thumbnailPixelSize = view.frame.size
-            return options_
+            let realsize = realViewFrame(to: view).size
+            return options.mutating({ $0.thumbnailPixelSize = realsize })
         }
         return options
+    }
+    
+    /// Get the real frame of the view.
+    @discardableResult static func realViewFrame(to view: AsAnimatable) -> CGRect {
+        guard view.frame == .zero else {
+            return view.frame
+        }
+        #if !os(macOS)
+        // Xib layout to get the size of the subviews.
+        if view.frame.size == .zero {
+            view.layoutSubviews()
+        }
+        // Automatic layout to get the size of the subviews.
+        if view.frame.size == .zero {
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+        }
+        #else
+        if view.frame.size == .zero {
+            view.layoutSubtreeIfNeeded()
+        }
+        #endif
+        return view.frame
     }
 }

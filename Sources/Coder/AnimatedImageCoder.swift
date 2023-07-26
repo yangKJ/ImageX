@@ -13,7 +13,7 @@ import MobileCoreServices
 #endif
 
 /// Set up encode or decode to animated images.
-public protocol AnimatedImageCoder: ImageCoder {
+public protocol AnimatedImageCoder: ImageCodering {
     
     /// The image container property key used in ImageIO API.
     var dictionaryProperty: String { get }

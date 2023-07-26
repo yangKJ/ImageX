@@ -50,7 +50,7 @@ public struct DelayRetry {
     
     // Retry count exceeded.
     func exceededRetriedCount() -> Bool {
-        retriedCount >= maxRetryCount
+        retriedCount > maxRetryCount
     }
     
     enum RetryDecision { case retring, stop }
@@ -59,11 +59,13 @@ public struct DelayRetry {
         // Retry count exceeded.
         if exceededRetriedCount() {
             retryHandler(.stop)
+            return
         }
         
         // User cancel the task. No retry.
         if task.state == .canceling {
             retryHandler(.stop)
+            return
         }
         
         let interval = retryInterval.timeInterval(for: retriedCount)

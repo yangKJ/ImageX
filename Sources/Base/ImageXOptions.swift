@@ -24,7 +24,7 @@ public struct ImageXOptions {
     public var Cache: ImageXOptions.Cache = ImageXOptions.Cache.init()
     
     /// Appoint the decode or encode coder.
-    public var appointCoder: ImageCoder?
+    public var appointCoder: ImageCodering?
     
     /// Placeholder image. default gray picture.
     public var placeholder: ImageX.Placeholder = .none
@@ -50,22 +50,26 @@ public struct ImageXOptions {
     
     internal var displayed: Bool = false // 防止重复设置占位信息
     internal func setDisplayed(placeholder displayed: Bool) -> Self {
-        var options = self
-        options.displayed = displayed
-        return options
+        self.mutating { $0.displayed = displayed }
     }
 }
 
 extension ImageXOptions {
     
     /// Set up decoder parameters
-    func setupDecoderOptions(_ filters: [C7FilterProtocol]) -> ImageCoder.ImageCoderOptions {
-        let options: ImageCoder.ImageCoderOptions = [
+    func setupDecoderOptions(_ filters: [C7FilterProtocol]) -> ImageCodering.ImageCoderOptions {
+        let options: ImageCodering.ImageCoderOptions = [
             ImageCoderOption.decoder.frameTypeKey : self.Animated.frameType,
             ImageCoderOption.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
             ImageCoderOption.decoder.contentModeKey : contentMode,
             ImageCoderOption.decoder.filtersKey : filters
         ]
+        return options
+    }
+    
+    func mutating(_ block: (inout ImageXOptions) -> Void) -> ImageXOptions {
+        var options = self
+        block(&options)
         return options
     }
 }

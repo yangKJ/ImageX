@@ -1,0 +1,6 @@
+framework module Harbeth {
+  umbrella header "Harbeth-macOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

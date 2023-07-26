@@ -207,7 +207,7 @@ extension AssetType {
 
 extension AssetType {
     
-    static func createCoder(with data: Data?, format: AssetType? = nil) -> ImageCoder? {
+    static func createCoder(with data: Data?, format: AssetType? = nil) -> ImageCodering? {
         guard let data = data else {
             return nil
         }

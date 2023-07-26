@@ -1,0 +1,6 @@
+framework module Harbeth {
+  umbrella header "Harbeth-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

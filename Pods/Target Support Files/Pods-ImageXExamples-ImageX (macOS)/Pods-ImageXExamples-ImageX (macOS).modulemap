@@ -1,0 +1,6 @@
+framework module Pods_ImageXExamples_ImageX__macOS_ {
+  umbrella header "Pods-ImageXExamples-ImageX (macOS)-umbrella.h"
+
+  export *
+  module * { export * }
+}

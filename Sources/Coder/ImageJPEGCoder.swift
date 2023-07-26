@@ -8,7 +8,7 @@
 import Foundation
 import Harbeth
 
-public struct ImageJPEGCoder: ImageCoder {
+public struct ImageJPEGCoder: ImageCodering {
     
     public var data: Data
     

@@ -24,7 +24,7 @@ extension AsAnimatable {
             switch self {
             case var container_ as ImageContainer:
                 container_.image = image
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
             case var container_ as NSButtonContainer:
                 guard let other = other else {
                     return
@@ -37,8 +37,8 @@ extension AsAnimatable {
                 case .alternateImage:
                     container_.alternateImage = image
                 }
-#endif
-#if canImport(UIKit) && !os(watchOS)
+            #endif
+            #if canImport(UIKit) && !os(watchOS)
             case var container_ as UIButtonContainer:
                 guard let other = other else {
                     return
@@ -71,17 +71,19 @@ extension AsAnimatable {
                 case .highlightedImage:
                     container_.highlightedImage = image
                 }
-#endif
-#if canImport(WatchKit)
+            #endif
+            #if canImport(WatchKit)
             case var container_ as WKInterfaceImageContainer:
                 container_.image = image
                 container_.setImage(image)
-#endif
+            #endif
             default:
-#if !os(macOS)
+                #if os(macOS)
+                self.layer?.contents = image?.cgImage
+                #else
                 //self.layer.setNeedsDisplay()
                 self.layer.contents = image?.cgImage
-#endif
+                #endif
             }
         }
     }

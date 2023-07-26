@@ -104,7 +104,9 @@ extension DataDownloader {
                 case .retring:
                     self?.setupDataTask()
                 case .stop:
-                    self?.completionHandler(state, data, response)
+                    if let error = self?.maximumFailedError() {
+                        self?.completionHandler(.finished(error), data, response)                        
+                    }
                 }
             }
         }
@@ -159,6 +161,13 @@ extension DataDownloader {
             NSLocalizedDescriptionKey: "The downloaded data is empty."
         ]
         return NSError(domain: DataDownloader.domain, code: 3003, userInfo: userInfo)
+    }
+    
+    private func maximumFailedError() -> NSError {
+        let userInfo = [
+            NSLocalizedDescriptionKey: "The maximum number of failures was reached."
+        ]
+        return NSError(domain: DataDownloader.domain, code: 4004, userInfo: userInfo)
     }
 }
 

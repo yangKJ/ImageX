@@ -21,7 +21,7 @@ final class FrameStore {
     /// Decoder for decoding animated images.
     private let decoder: AnimatedImageCoder
     /// Parameters configured for the decoder.
-    private let coderOptions: ImageCoder.ImageCoderOptions
+    private let coderOptions: ImageCodering.ImageCoderOptions
     
     /// An array of animated frames from a single animated image.
     @Locked var animatedFrames: [FrameImage] = [FrameImage]()
