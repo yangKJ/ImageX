@@ -61,7 +61,7 @@ extension Queen where Base: UIImageView {
     /// // Or set other parameters play gif or downloading image.
     /// var options = AnimatedOptions(moduleName: "Component Name")
     /// options.placeholder = .image(R.image("AppIcon")!)
-    /// options.contentMode = .scaleAspectBottomRight
+    /// options.resizingMode = .scaleAspectBottomRight
     /// options.Animated.loop = .count(3)
     /// options.Animated.bufferCount = 20
     /// options.Cache.cacheOption = .disk

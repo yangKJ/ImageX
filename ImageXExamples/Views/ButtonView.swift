@@ -93,7 +93,7 @@ fileprivate class ButtonView__: CPView {
     func setupTestCase() {
         var options = ImageXOptions()
         options.placeholder = .image(Res.P5820030)
-        options.contentMode = .scaleAspectFit
+        options.resizingMode = .scaleAspectFit
         options.Animated.loop = .forever
         options.Animated.bufferCount = 20
         options.Cache.cacheOption = .disk

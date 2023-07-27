@@ -82,12 +82,12 @@ extension AnimatedImageCoder {
         guard isAnimatedImages() else { return [] }
         let filters = options[ImageCoderOption.decoder.filtersKey] as? [C7FilterProtocol] ?? []
         let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero
-        let contentMode = options[ImageCoderOption.decoder.contentModeKey] as? ImageX.ContentMode ?? .original
+        let resizingMode = options[ImageCoderOption.decoder.resizingModeKey] as? ResizingMode ?? .original
         let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
         return Array(zip(cgImages, indexes)).map {
             let dest = BoxxIO(element: $0, filters: filters)
             let image = try? dest.output()?.mt.toC7Image()
-            let reImage = contentMode.resizeImage(image, size: resize)
+            let reImage = resizingMode.resizeImage(image, size: resize)
             return FrameImage(cgImage: $0, image: reImage, duration: durations[$1])
         }
     }

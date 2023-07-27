@@ -102,7 +102,7 @@ fileprivate class AnimatedView__: CPView {
     func setupTestCase() {
         var options = ImageXOptions()
         options.placeholder = .image(Res.P5820030)
-        options.contentMode = .scaleAspectFit
+        options.resizingMode = .scaleAspectFit
         options.Animated.loop = .forever
         options.Animated.bufferCount = 20
         //options.Animated.frameType = .appoint(8)

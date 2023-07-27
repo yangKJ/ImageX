@@ -90,7 +90,7 @@ fileprivate class AsAnimatableView__: CPView {
         ]
         var options = ImageXOptions()
         options.placeholder = .image(Res.P0020)
-        options.contentMode = .scaleAspectFit
+        options.resizingMode = .scaleAspectFit
         options.Animated.loop = .forever
         animatedView.play(data: Res.PokemonData, filters: filters, options: options)
     }

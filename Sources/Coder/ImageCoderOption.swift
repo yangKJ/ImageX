@@ -20,8 +20,8 @@ extension ImageCoderOption.decoder {
     
     /// Mainly for the image filling content to change the size.
     /// Specify that is not`.original` requires`thumbnailPixelSizeKey` corresponding treatment is not `.zero`.
-    /// See: https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ContentMode.swift
-    public static let contentModeKey = "condy.ImageX.content.mode.key"
+    /// See: https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ResizingMode.swift
+    public static let resizingModeKey = "condy.ImageX.resizing.mode.key"
     
     /// Set up the filters that need to be injected with display image.
     public static let filtersKey = "condy.ImageX.filters.key"

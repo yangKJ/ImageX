@@ -25,7 +25,7 @@ struct HandyImage {
         } else if let image = R.image(named, forResource: options.moduleName) {
             view.hasAnimator?.prepareForReuse()
             let options = HandyImage.setViewContentMode(to: view, options: options)
-            let reimage = options.contentMode.resizeImage(image, size: options.thumbnailPixelSize)
+            let reimage = options.resizingMode.resizeImage(image, size: options.thumbnailPixelSize)
             let dest = BoxxIO(element: reimage, filters: filters)
             if let outImage = try? dest.output() {
                 view.setContentImage(outImage, other: other)
@@ -115,13 +115,13 @@ extension HandyImage {
             return options
         }
         let options = options.setDisplayed(placeholder: true)
-        options.placeholder.display(to: view, contentMode: options.contentMode, other: other)
+        options.placeholder.display(to: view, resizingMode: options.resizingMode, other: other)
         return options
     }
     
-    /// Fixed the setting  `options.contentMode` attributes cannot be filled.
+    /// Fixed the setting  `options.resizingMode` attributes cannot be filled.
     static func setViewContentMode(to view: AsAnimatable, options: ImageXOptions) -> ImageXOptions {
-        if options.contentMode == .original {
+        if options.resizingMode == .original {
             return options
         }
         #if !os(macOS)

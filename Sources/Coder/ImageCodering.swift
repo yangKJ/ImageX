@@ -143,8 +143,8 @@ extension ImageCodering {
             image = try? dest.output()
         }
         if let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize,
-           let contentMode = options[ImageCoderOption.decoder.contentModeKey] as? ImageX.ContentMode {
-            image = contentMode.resizeImage(image, size: resize)
+           let resizingMode = options[ImageCoderOption.decoder.resizingModeKey] as? ResizingMode {
+            image = resizingMode.resizeImage(image, size: resize)
         }
         return image
     }

@@ -28,7 +28,7 @@ English | [**简体中文**](README_CN.md)
 - Support asynchronous downloading and caching images or Animated from the web.
 - Support network sharing with the same url, and will not download the same resource data multiple times.
 - Support breakpoint continuous transmission and download of network resource data.
-- Support six image or animated image [content modes](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ContentMode.swift) .
+- Support six image or animated image [content modes](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ResizingMode.swift) .
 - Support disk and memory cached network data, And the data is compressed by GZip.
 - Support secondary compression of cache data, occupying less disk space.
 - Support clean up disk expired data in your spare time and size limit.
@@ -66,7 +66,7 @@ imageView.mt.setImage(with: url)
 ```swift
 var options = ImageXOptions(moduleName: "Component Name")
 options.placeholder = .image(R.image("AppIcon")!)
-options.contentMode = .scaleAspectBottomRight
+options.resizingMode = .scaleAspectBottomRight
 options.Animated.loop = .count(3)
 options.Animated.bufferCount = 20
 options.Cache.cacheOption = .disk
@@ -159,18 +159,18 @@ class AnimatedView: UIView, AsAnimatable {
 
 **GIF animated support has been implemented here for [**ImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView%2BExt.swift) , so you can use it directly.✌️**
 
-### ContentMode
+### ResizingMode
 
 - Mainly for the image filling content to change the size.
 
-Example | ContentMode
+Example | ResizingMode
 ---- | ---------
-![original](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`ImageXOptions(contentMode: .original)`
-![scaleToFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`ImageXOptions(contentMode: .scaleToFill)`
-![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`ImageXOptions(contentMode: .scaleAspectFit)`
-![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`ImageXOptions(contentMode: .scaleAspectFill)`
-![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`ImageXOptions(contentMode: .scaleAspectBottomRight)`
-![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`ImageXOptions(contentMode: .scaleAspectTopLeft)`
+![original](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/original.png)|**original**<br/>Dimensions of the original image. Do nothing with it.<br/><br/>`options.resizingMode = .original`
+![scaleToFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleToFill.png)|**scaleToFill**<br/>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.<br/><br/>`options.resizingMode = .scaleToFill`
+![scaleAspectFit](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFit.png)|**scaleAspectFit**<br/>Contents scaled to fit with fixed aspect. remainder is transparent.<br/><br/>`options.resizingMode = .scaleAspectFit`
+![scaleAspectFill](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectFill.png)|**scaleAspectFill**<br/>Contents scaled to fill with fixed aspect. some portion of content may be clipped.<br/><br/>`options.resizingMode = .scaleAspectFill`
+![scaleAspectBottomRight](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectBottomRight.png)|**scaleAspectBottomRight**<br/>Contents scaled to fill with fixed aspect. top or left portion of content may be clipped.<br/><br/>`options.resizingMode = .scaleAspectBottomRight`
+![scaleAspectTopLeft](https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/scaleAspectTopLeft.png)|**scaleAspectTopLeft**<br/>Contents scaled to fill with fixed aspect. bottom or right portion of content may be clipped.<br/><br/>`options.resizingMode = .scaleAspectTopLeft`
 
 ### ImageXOptions
 
@@ -191,24 +191,27 @@ public struct ImageXOptions {
     /// Caching data from the web need to be configured parameters.
     public var Cache: ImageXOptions.Cache = ImageXOptions.Cache.init()
     
-    /// 如果遇见设置`original`以外其他模式显示无效`铺满屏幕`的情况，
-    /// 请将承载控件``view.contentMode = .scaleAspectFit``
-    /// Content mode used for resizing the frames. Default is ``original``.
-    public var contentMode: ImageX.ContentMode = .original
+    /// Appoint the decode or encode coder.
+    public var appointCoder: ImageCodering?
     
     /// Placeholder image. default gray picture.
     public var placeholder: ImageX.Placeholder = .none
     
-    /// Confirm the size to facilitate follow-up processing, Default display control size.
-    public var confirmSize: CGSize = .zero
+    /// Content mode used for resizing the frame image.
+    /// When this property is `original`, modifying the thumbnail pixel size will not work.
+    public var contentMode: ImageX.ResizingMode = .original
+    
+    /// Whether or not to generate the thumbnail images.
+    /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
+    public var thumbnailPixelSize: CGSize = .zero
     
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
-    /// Do the component operation to solve the problem that the local animated image or Image cannot read the data in another module.
+    /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
     public let moduleName: String
     
     /// Instantiation of configuration parameters.
     /// - Parameters:
-    ///   - moduleName: Do the component operation to solve the problem that the local animated image or image cannot read the data in another module.
+    ///   - moduleName: Do the component operation to solve the problem that the local GIF or image cannot read the data in another module.
     public init(moduleName: String = "ImageX") {
         self.moduleName = moduleName
     }

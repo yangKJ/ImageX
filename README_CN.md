@@ -18,7 +18,7 @@
 - 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
 - 支持 [**UIButton 或 NSButton**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIButton+Ext.swift) 显示和下载图像并添加滤镜；
 - 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/Animated/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ContentMode.swift) 图片或GIF内容填充模式；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ResizingMode.swift) 图片或GIF内容填充模式；
 - 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Cache/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
 - 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/CryptoType.swift) 方式；
 - 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/Zip.swift) 压缩方式；
@@ -45,7 +45,7 @@ let links = [``GIF URL``, ``Image URL``, ``GIF Named``, ``Image Named``]
 let named = links.randomElement() ?? ""
 var options = ImageXOptions()
 options.placeholder = .image(R.image("IMG_0020")!) // 占位图
-options.contentMode = .scaleAspectBottomRight // 填充模式
+options.resizingMode = .scaleAspectBottomRight // 填充模式
 options.GIFs.loop = .count(3) // 循环播放3次
 options.GIFs.bufferCount = 20 // 缓存20帧
 options.Cache.cacheOption = .disk // 采用磁盘缓存
@@ -152,12 +152,12 @@ public protocol AsAnimatable: HasAnimatable {
 }
 ```
 
-### ContentMode
+### ResizingMode
 
 - 主要用于图像填充内容更改大小
 
 ```
-public enum ContentMode {
+public enum ResizingMode {
     /// 原始图像的尺寸
     case original = 0
     /// 必要时通过更改内容的宽高比来缩放内容以适应自身大小的选项

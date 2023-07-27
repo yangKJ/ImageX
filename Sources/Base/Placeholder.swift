@@ -30,7 +30,7 @@ public enum Placeholder {
 extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
-    func display(to view: AsAnimatable, contentMode: ImageX.ContentMode, other: ImageX.Others? = nil) {
+    func display(to view: AsAnimatable, resizingMode: ResizingMode, other: ImageX.Others? = nil) {
         switch self {
         case .none:
             break
@@ -42,10 +42,10 @@ extension ImageX.Placeholder {
             let texture = BoxxIO<Any>.destTexture(width: Int(view.frame.size.width), height: Int(view.frame.size.height))
             let dest = BoxxIO(element: texture, filter: filter)
             var image = (try? dest.output())?.mt.toImage()
-            image = contentMode.resizeImage(image, size: view.frame.size)
+            image = resizingMode.resizeImage(image, size: view.frame.size)
             view.setContentImage(image, other: other)
         case .image(let c7Image):
-            let image = contentMode.resizeImage(c7Image, size: view.frame.size)
+            let image = resizingMode.resizeImage(c7Image, size: view.frame.size)
             view.setContentImage(image, other: other)
         case .view(let subview):
             DispatchQueue.main.async {

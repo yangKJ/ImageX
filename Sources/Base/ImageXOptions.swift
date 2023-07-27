@@ -14,7 +14,7 @@ public struct ImageXOptions {
     
     public static var `default` = ImageXOptions()
     
-    /// Additional parameters that need to be set to play GIFs.
+    /// Additional parameters that need to be set to play animated images.
     public var Animated: ImageXOptions.Animated = ImageXOptions.Animated.init()
     
     /// Download additional parameters that need to be configured to download network resources.
@@ -31,7 +31,7 @@ public struct ImageXOptions {
     
     /// Content mode used for resizing the frame image.
     /// When this property is `original`, modifying the thumbnail pixel size will not work.
-    public var contentMode: ImageX.ContentMode = .original
+    public var resizingMode: ImageX.ResizingMode = .original
     
     /// Whether or not to generate the thumbnail images.
     /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
@@ -61,7 +61,7 @@ extension ImageXOptions {
         let options: ImageCodering.ImageCoderOptions = [
             ImageCoderOption.decoder.frameTypeKey : self.Animated.frameType,
             ImageCoderOption.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
-            ImageCoderOption.decoder.contentModeKey : contentMode,
+            ImageCoderOption.decoder.resizingModeKey : resizingMode,
             ImageCoderOption.decoder.filtersKey : filters
         ]
         return options
