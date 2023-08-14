@@ -190,7 +190,7 @@ extension DataDownloader: URLSessionDataDelegate {
             var totalBytes = response.expectedContentLength
             let data = Data(bytes: &totalBytes, count: MemoryLayout.size(ofValue: totalBytes))
             do {
-                try URL(fileURLWithPath: files.path).mt.setExtendedAttribute(data: data, forName: Files.totalBytesKey)
+                try URL(fileURLWithPath: files.path).kj.setExtendedAttribute(data: data, forName: Files.totalBytesKey)
             } catch {
                 result(data: nil, response: response, state: .failed(error))
                 completionHandler(.cancel)

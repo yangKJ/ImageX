@@ -11,9 +11,9 @@ import Harbeth
 #if canImport(UIKit) && !os(watchOS)
 import UIKit
 
-extension UIButton: AsAnimatable, UIButtonContainer, C7Compatible { }
+extension UIButton: AsAnimatable, UIButtonContainer, ImageXCompatible { }
 
-extension Queen where Base: UIButton {
+extension ImageXEngine where Base: UIButton {
     
     /// Sets an image or gif to the button for a specified state with a named, And add the filters.
     /// - Parameters:

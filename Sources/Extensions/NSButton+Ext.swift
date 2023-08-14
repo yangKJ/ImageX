@@ -11,9 +11,9 @@ import Harbeth
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
 
-extension NSButton: AsAnimatable, NSButtonContainer, C7Compatible { }
+extension NSButton: AsAnimatable, NSButtonContainer, ImageXCompatible { }
 
-extension Queen where Base: NSButton {
+extension ImageXEngine where Base: NSButton {
     
     /// Display image or gif and add the filters.
     /// - Parameters:

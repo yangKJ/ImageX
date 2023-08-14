@@ -12,6 +12,9 @@ struct ContentView: View {
     
     @State var isShowAlert: Bool = false
     
+    @State var data: Data = Data()
+    @State var gotoAsAnimatableView = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -31,7 +34,7 @@ struct ContentView: View {
                     NavigationLink(destination: ButtonView()) {
                         Text("UIButton / NSButton")
                     }
-                    NavigationLink(destination: AsAnimatableView()) {
+                    NavigationLink(destination: AsAnimatableView(data: data), isActive: $gotoAsAnimatableView) {
                         Text("Custom view with play GIFs.")
                     }
                 } header: {
@@ -39,16 +42,16 @@ struct ContentView: View {
                 }
                 Section {
                     NavigationLink(destination: AnimatedView(web: Res.png)) {
-                        Text("Displayed png image")
+                        Text("png image")
                     }
                     NavigationLink(destination: AnimatedView(web: Res.jpg)) {
-                        Text("Displayed jpp image")
+                        Text("jpp image")
                     }
                     NavigationLink(destination: AnimatedView(web: Res.heic)) {
-                        Text("Displayed heic image")
+                        Text("heic image")
                     }
                     NavigationLink(destination: AnimatedView(web: Res.nef)) {
-                        Text("Displayed NEF image")
+                        Text("NEF image")
                     }
                 } header: {
                     Text("Still image at image view").bold()

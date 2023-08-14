@@ -11,9 +11,9 @@ import Harbeth
 #if canImport(WatchKit)
 import WatchKit
 
-extension WKInterfaceImage: AsAnimatable, WKInterfaceImageContainer, C7Compatible { }
+extension WKInterfaceImage: AsAnimatable, WKInterfaceImageContainer, ImageXCompatible { }
 
-extension Queen where Base: WKInterfaceImage {
+extension ImageXEngine where Base: WKInterfaceImage {
     
     /// Display image or gif and add the filters.
     /// - Parameters:

@@ -12,12 +12,12 @@ import Harbeth
 import MobileCoreServices
 #endif
 
-extension CGImageSource: C7Compatible { }
+extension CGImageSource: ImageXCompatible { }
 
-extension Queen where CGImageSource == Base {
+extension ImageXEngine where CGImageSource == Base {
     
     public func toImage(index: Int) -> C7Image? {
-        toCGImage(index: index)?.mt.toC7Image()
+        toCGImage(index: index)?.c7.toC7Image()
     }
     
     public func toCGImage(index: Int) -> CGImage? {

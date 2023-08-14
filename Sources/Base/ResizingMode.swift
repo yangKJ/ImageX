@@ -73,7 +73,7 @@ extension ResizingMode {
         default:
             return image
         }
-        return (image.cgImage?.cropping(to: cropRect)?.mt.toC7Image()) ?? image
+        return (image.cgImage?.cropping(to: cropRect)?.c7.toC7Image()) ?? image
     }
     
     static func drawImage(_ base: C7Image, rect: CGRect) -> C7Image {

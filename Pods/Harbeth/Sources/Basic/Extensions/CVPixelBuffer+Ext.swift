@@ -69,7 +69,7 @@ extension Queen where Base: CVPixelBuffer {
             // Fixed if the CVPixelBuffer and MTLTexture size is not equal.
             // If the size is inconsistent, using the modified size filter will crash.
             // Such as: C7Resize, C7Crop and so on Shape filter.
-            if base.mt.size == texture.mt.size {
+            if base.c7.size == texture.c7.toC7Size() {
                 let bytesPerRow = CVPixelBufferGetBytesPerRow(base)
                 let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
                 texture.getBytes(pixelBufferBytes, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
@@ -126,9 +126,9 @@ extension Queen where Base: CVPixelBuffer {
         #if targetEnvironment(simulator)
         // The simulator needs to be fixed to `rgba8Unorm`.
         let pixelFormat: MTLPixelFormat = .rgba8Unorm
-        texture = base.mt.toCGImage()?.mt.toTexture(pixelFormat: pixelFormat)
+        texture = base.c7.toCGImage()?.c7.toTexture(pixelFormat: pixelFormat)
         #else
-        texture = base.mt.convert2MTLTexture(textureCache: textureCache ?? Device.sharedTextureCache())
+        texture = base.c7.convert2MTLTexture(textureCache: textureCache ?? Device.sharedTextureCache())
         #endif
         return texture
     }
@@ -138,11 +138,15 @@ extension Queen where Base: CVPixelBuffer {
     ///   - pixelFormat: Specifies the Metal pixel format.
     ///   - planeIndex: Specifies the plane of the CVImageBuffer to map bind.  Ignored for non-planar CVImageBuffers.
     /// - Returns: New metal texture.
-    public func createMTLTexture(pixelFormat: MTLPixelFormat = .bgra8Unorm, planeIndex: Int = 0) -> MTLTexture {
-        let width = CVPixelBufferGetWidthOfPlane(self.base, planeIndex)
+    public func createMTLTexture(pixelFormat: MTLPixelFormat = .bgra8Unorm, planeIndex: Int = 0) throws -> MTLTexture {
+        let width  = CVPixelBufferGetWidthOfPlane(self.base, planeIndex)
         let height = CVPixelBufferGetHeightOfPlane(self.base, planeIndex)
-        let texture = BoxxIO<Any>.destTexture(pixelFormat, width: width, height: height)
-        base.mt.copyToPixelBuffer(with: texture)
+        guard let texture = Texturior(width: width, height: height, options: [
+            .texturePixelFormat: pixelFormat
+        ]).texture else {
+            throw CustomError.makeTexture
+        }
+        base.c7.copyToPixelBuffer(with: texture)
         return texture
     }
 }

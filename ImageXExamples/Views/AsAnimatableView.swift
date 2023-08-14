@@ -10,23 +10,33 @@ import ImageX
 import Harbeth
 
 struct AsAnimatableView: View {
+    
+    @State var data: Data
+    
+    init(data: Data) {
+        self.data = data
+    }
+    
     var body: some View {
         VStack {
-            AsAnimatableView_Bridge()
+            AsAnimatableView_Bridge(data: data)
         }
     }
 }
 
 struct AsAnimatableView_Previews: PreviewProvider {
     static var previews: some View {
-        AsAnimatableView()
+        let data = Res.PokemonData
+        AsAnimatableView(data: data)
     }
 }
 
 fileprivate struct AsAnimatableView_Bridge: CPViewRepresentable {
     
+    @State var data: Data
+    
     func makeUIView(context: Context) -> AsAnimatableView__ {
-        let view = AsAnimatableView__()
+        let view = AsAnimatableView__(frame: .zero, data: data)
         return view
     }
     
@@ -43,12 +53,11 @@ fileprivate struct AsAnimatableView_Bridge: CPViewRepresentable {
     }
 }
 
-// 自定义控件播放动态图像
-fileprivate class AnimatingView: CPView, AsAnimatable {
-    
-}
-
 fileprivate class AsAnimatableView__: CPView {
+    // 自定义控件播放动态图像
+    class AnimatingView: CPView, AsAnimatable {
+        
+    }
     
     lazy var animatedView: AnimatingView = {
         let view = AnimatingView.init(frame: .zero)
@@ -58,7 +67,10 @@ fileprivate class AsAnimatableView__: CPView {
         return view
     }()
     
-    override init(frame: CGRect) {
+    let data: Data
+    
+    required init(frame: CGRect, data: Data) {
+        self.data = data
         super.init(frame: frame)
         self.setupInit()
     }
@@ -92,6 +104,6 @@ fileprivate class AsAnimatableView__: CPView {
         options.placeholder = .image(Res.P0020)
         options.resizingMode = .scaleAspectFit
         options.Animated.loop = .forever
-        animatedView.play(data: Res.PokemonData, filters: filters, options: options)
+        animatedView.play(data: data, filters: filters, options: options)
     }
 }

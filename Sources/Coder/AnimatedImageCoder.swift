@@ -47,7 +47,7 @@ extension AnimatedImageCoder {
             return (0.0, [])
         }
         let eachDurations = (0..<frameCount).map {
-            let time = imageSource.mt.frameDuration(at: $0,
+            let time = imageSource.kj.frameDuration(at: $0,
                                                     dictionaryProperty: dictionaryProperty,
                                                     unclampedDelayTimeProperty: unclampedDelayTimeProperty,
                                                     delayTimeProperty: delayTimeProperty)
@@ -86,7 +86,7 @@ extension AnimatedImageCoder {
         let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
         return Array(zip(cgImages, indexes)).map {
             let dest = BoxxIO(element: $0, filters: filters)
-            let image = try? dest.output()?.mt.toC7Image()
+            let image = try? dest.output()?.c7.toC7Image()
             let reImage = resizingMode.resizeImage(image, size: resize)
             return FrameImage(cgImage: $0, image: reImage, duration: durations[$1])
         }

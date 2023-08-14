@@ -8,7 +8,9 @@
 import Foundation
 import Harbeth
 
-extension Queen where URL == Base {
+extension URL: ImageXCompatible { }
+
+extension ImageXEngine where URL == Base {
     /// Set extended attribute.
     func setExtendedAttribute(data: Data, forName name: String) throws {
         try base.withUnsafeFileSystemRepresentation { fileSystemPath in

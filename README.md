@@ -58,7 +58,7 @@ Buy me a coffee or support me on [GitHub](https://github.com/sponsors/yangKJ?fre
 ```swift
 // Set image from a url.
 let url = URL(string: "https://example.com/image.png")!
-imageView.mt.setImage(with: url)
+imageView.kj.setImage(with: url)
 ```
 
 - Or set other parameters play animated image or downloading image.
@@ -95,7 +95,7 @@ let filters: [C7FilterProtocol] = [
     C7SoulOut(soul: 0.75),
     C7Storyboard(ranks: 2),
 ]
-imageView.mt.setImage(with: named, filters: filters, options: options)
+imageView.kj.setImage(with: named, filters: filters, options: options)
 ```
 
 ----------------------------------------------------------------

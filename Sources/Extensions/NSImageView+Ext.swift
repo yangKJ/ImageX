@@ -13,9 +13,9 @@ import AppKit
 
 public typealias ImageView = NSImageView
 
-extension NSImageView: AsAnimatable, ImageContainer, C7Compatible { }
+extension NSImageView: AsAnimatable, ImageContainer, ImageXCompatible { }
 
-extension Queen where Base: NSImageView {
+extension ImageXEngine where Base: NSImageView {
     
     /// Display image or gif and add the filters.
     /// - Parameters:

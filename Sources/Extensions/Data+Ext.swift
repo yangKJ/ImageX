@@ -8,7 +8,9 @@
 import Foundation
 import Harbeth
 
-extension Queen where Base == Data {
+extension Data: ImageXCompatible { }
+
+extension ImageXEngine where Base == Data {
     
     /// Return whether the image source is a dynamic resource.
     public var isAnimated: Bool {

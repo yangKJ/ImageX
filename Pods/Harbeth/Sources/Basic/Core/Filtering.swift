@@ -31,7 +31,7 @@ public enum Modifier {
     case coreimage(CIName: String)
     /// 基于`MetalPerformanceShaders`着色器
     /// Based on the MetalPerformanceShaders shader.
-    case mps(performance: MPSUnaryImageKernel)
+    case mps(performance: MPSKernel)
 }
 
 public protocol C7FilterProtocol: Mirrorable {
@@ -59,7 +59,7 @@ extension C7FilterProtocol {
 }
 
 // MARK: - compute filter protocol
-public protocol ComputeFiltering {
+public protocol ComputeProtocol {
     /// Special type of parameter factor, such as 4x4 matrix
     /// It is recommended to pass the parameters directly. Don't use this function if you have to.
     ///
@@ -70,19 +70,59 @@ public protocol ComputeFiltering {
 }
 
 // MARK: - coreimage filter protocol
-public protocol CoreImageFiltering {
+public protocol CoreImageProtocol {
     /// Compatible with CoreImage.
     /// - Parameters:
     ///   - filter: CoreImage CIFilter.
     ///   - ciImage: Input source
     /// - Returns: Output source
-    func coreImageApply(filter: CIFilter?, input ciImage: CIImage) -> CIImage
+    func coreImageApply(filter: CIFilter, input ciImage: CIImage) throws -> CIImage
 }
 
 // MARK: - render filter protocol
-public protocol RenderFiltering {
+public protocol RenderProtocol {
     /// Setup the vertex shader parameters.
     /// - Parameter device: MTLDevice
     /// - Returns: Vertex uniform buffer.
     func setupVertexUniformBuffer(for device: MTLDevice) -> MTLBuffer?
+}
+
+// MARK: - mps filter protocol
+public protocol MPSKernelProtocol {
+    /// Encode a MPSKernel into a command buffer. The operation shall proceed out-of-place.
+    /// - Parameters:
+    ///   - commandBuffer: A valid MTLCommandBuffer to receive the encoded filter.
+    ///   - textures: Texture array, The first is the output texture, the second is the input texture, and other input textures.
+    /// - Returns: Return output metal texture.
+    func encode(commandBuffer: MTLCommandBuffer, textures: [MTLTexture]) throws -> MTLTexture
+}
+
+// MARK: - combination filter protocol
+public protocol CombinationProtocol {
+    
+    /// If you need to replace the subsequent input source texture, return to a new texture with copied to dest.
+    /// - Parameters:
+    ///   - buffer: A valid MTLCommandBuffer to receive the encoded filter.
+    ///   - texture: Original input texture.
+    ///   - texture2: The final output texture, This parameter is mainly provided for copied new textures to use.
+    /// - Returns: A new texture with copied to dest.
+    func combinationBegin(for buffer: MTLCommandBuffer, source texture: MTLTexture, dest texture2: MTLTexture) throws -> MTLTexture
+    
+    /// Combination output metal texture, support `compute`, `render` and `mps` type.
+    /// - Parameters:
+    ///   - buffer: A valid MTLCommandBuffer to receive the encoded filter.
+    ///   - texture: The output metal texture of the first filter.
+    ///   - texture2: Original input texture.
+    /// - Returns: Metal texture after combined filter treatment.
+    func combinationAfter(for buffer: MTLCommandBuffer, input texture: MTLTexture, source texture2: MTLTexture) throws -> MTLTexture
+}
+
+extension CombinationProtocol {
+    public func combinationBegin(for buffer: MTLCommandBuffer, source texture: MTLTexture, dest texture2: MTLTexture) throws -> MTLTexture {
+        return texture
+    }
+    
+    public func combinationAfter(for buffer: MTLCommandBuffer, input texture: MTLTexture, source texture2: MTLTexture) throws -> MTLTexture {
+        return texture
+    }
 }

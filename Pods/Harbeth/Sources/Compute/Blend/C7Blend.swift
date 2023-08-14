@@ -11,13 +11,15 @@ import MetalKit
 public struct C7Blend: C7FilterProtocol {
     
     public enum BlendType {
+        case chromaKey(threshold: Float = 0.4, smoothing: Float = 0.1, color: C7Color = .white)
         case add
-        case alpha(mixturePercent: Float)
+        case alpha
         case colorBurn
         case colorDodge
         case darken
         case difference
         case dissolve
+        case divide
         case exclusion
         case hardLight
         case hue
@@ -32,12 +34,10 @@ public struct C7Blend: C7FilterProtocol {
         case softLight
         case sourceOver
         case subtract
-        case chromaKey(threshold: Float = 0.4, smoothing: Float = 0.1, color: C7Color)
     }
     
-    public let blendImage: C7Image?
-    public let blendTexture: MTLTexture?
-    public private(set) var blendType: BlendType
+    /// Specifies the intensity of the operation.
+    @ZeroOneRange public var intensity: Float = R.iRange.value
     
     public var modifier: Modifier {
         return .compute(kernel: blendType.kernel)
@@ -45,13 +45,11 @@ public struct C7Blend: C7FilterProtocol {
     
     public var factors: [Float] {
         switch blendType {
-        case .alpha(let mixturePercent):
-            return [mixturePercent]
         case .chromaKey(let threshold, let smoothing, let color):
-            let (red, green, blue, _) = color.mt.toRGBA()
-            return [threshold, smoothing, red, green, blue]
+            let (red, green, blue, _) = color.c7.toRGBA()
+            return [threshold, smoothing, red, green, blue, intensity]
         default:
-            return []
+            return [intensity]
         }
     }
     
@@ -59,15 +57,16 @@ public struct C7Blend: C7FilterProtocol {
         return blendTexture == nil ? [] : [blendTexture!]
     }
     
+    private let blendTexture: MTLTexture?
+    private var blendType: BlendType
+    
     public init(with type: BlendType, image: C7Image) {
-        self.blendType = type
-        self.blendImage = image
-        self.blendTexture = image.cgImage?.mt.toTexture()
+        let overTexture = image.cgImage?.c7.toTexture()
+        self.init(with: type, blendTexture: overTexture)
     }
     
-    public init(with type: BlendType, blendTexture: MTLTexture) {
+    public init(with type: BlendType, blendTexture: MTLTexture?) {
         self.blendType = type
-        self.blendImage = nil
         self.blendTexture = blendTexture
     }
     
@@ -76,8 +75,13 @@ public struct C7Blend: C7FilterProtocol {
     }
 }
 
-extension C7Blend.BlendType {
-    var kernel: String {
+extension C7Blend.BlendType: Hashable, Identifiable {
+    
+    public var id: String {
+        kernel
+    }
+    
+    public var kernel: String {
         switch self {
         case .add:
             return "C7AddBlend"
@@ -95,6 +99,8 @@ extension C7Blend.BlendType {
             return "C7DifferenceBlend"
         case .dissolve:
             return "C7DissolveBlend"
+        case .divide:
+            return "C7DivideBlend"
         case .exclusion:
             return "C7ExclusionBlend"
         case .hardLight:

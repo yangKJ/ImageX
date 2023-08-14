@@ -35,7 +35,7 @@
 ```swift
 // 简单使用如下：
 let url = URL(string: "https://example.com/image.png")!
-imageView.mt.setImage(with: url)
+imageView.kj.setImage(with: url)
 ```
 
 2. 或者设置其他参数播放GIF或下载图像。
@@ -62,7 +62,7 @@ let filters: [C7FilterProtocol] = [
     C7SoulOut(soul: 0.75), // 灵魂出窍滤镜
     C7Storyboard(ranks: 2),// 分屏滤镜
 ]
-imageView.mt.setImage(with: named, filters: filters, options: options)
+imageView.kj.setImage(with: named, filters: filters, options: options)
 ```
 
 -----------------------------------------------------------------------------------

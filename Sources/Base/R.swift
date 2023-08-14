@@ -8,7 +8,26 @@
 import Foundation
 import Harbeth
 
-extension R {
+extension Harbeth.R {
+    /// Read resource data.
+    /// - Parameters:
+    ///   - named: File name.
+    ///   - withExtension: File format, default is `.gif`
+    ///   - forResource: Module where the resource is located.
+    /// - Returns: Readed resource data.
+    public static func readData(_ named: String, withExtension: String = "gif", forResource: String = "ImageX") -> Data? {
+        let bundle: Bundle?
+        if let bundlePath = Bundle.main.path(forResource: forResource, ofType: "bundle") {
+            bundle = Bundle.init(path: bundlePath)
+        } else {
+            bundle = Bundle.main
+        }
+        guard let contentURL = bundle?.url(forResource: named, withExtension: withExtension),
+              let data = try? Data(contentsOf: contentURL) else {
+            return nil
+        }
+        return data
+    }
     
     /// Read gif data.
     public static func gifData(_ named: String, forResource: String = "ImageX") -> Data? {

@@ -22,49 +22,29 @@ extension Queen where Base: CGImage {
     /// - Returns: MTLTexture
     public func toTexture(pixelFormat: MTLPixelFormat = .rgba8Unorm) -> MTLTexture? {
         let width = base.width, height = base.height
-        let descriptor = MTLTextureDescriptor()
-        descriptor.pixelFormat = pixelFormat
-        descriptor.width  = width
-        descriptor.height = height
-        descriptor.usage  = [MTLTextureUsage.shaderRead, MTLTextureUsage.shaderWrite]
-        guard let currentTexture = Device.device().makeTexture(descriptor: descriptor) else {
-            return nil
-        }
-        
         let bytesPerPixel: Int = 4
         let bytesPerRow = width * bytesPerPixel
-        let bitmapInfo = Device.bitmapInfo()
-        let colorSpace = Device.colorSpace()
         let context = CGContext(data: nil, width: width, height: height,
                                 bitsPerComponent: 8,
                                 bytesPerRow: bytesPerRow,
-                                space: colorSpace,
-                                bitmapInfo: bitmapInfo)
+                                space: Device.colorSpace(),
+                                bitmapInfo: Device.bitmapInfo())
         context?.draw(base, in: CGRect(x: 0, y: 0, width: width, height: height))
-        if let data = context?.data {
-            let region = MTLRegionMake3D(0, 0, 0, width, height, 1)
-            currentTexture.replace(region: region, mipmapLevel: 0, withBytes: data, bytesPerRow: bytesPerRow)
-            return currentTexture
+        guard let data = context?.data else {
+            return nil
         }
-        return nil
-    }
-    
-    /// Creates a new Metal texture from a given bitmap image.
-    /// - Parameter options: Dictonary of MTKTextureLoaderOptions
-    /// - Returns: MTLTexture
-    public func newTexture(options: [MTKTextureLoader.Option: Any]? = nil) -> MTLTexture? {
-        let usage: MTLTextureUsage = [.shaderRead, .shaderWrite]
-        let textureOptions: [MTKTextureLoader.Option: Any] = options ?? [
-            .textureUsage: NSNumber(value: usage.rawValue),
-            .generateMipmaps: NSNumber(value: false),
-            .SRGB: NSNumber(value: false)
-        ]
-        let loader = Shared.shared.device?.textureLoader
-        return try? loader?.newTexture(cgImage: base, options: textureOptions)
+        guard let texture = Texturior(width: width, height: height, options: [
+            .texturePixelFormat: pixelFormat
+        ]).texture else {
+            return nil
+        }
+        let region = MTLRegionMake3D(0, 0, 0, width, height, 1)
+        texture.replace(region: region, mipmapLevel: 0, withBytes: data, bytesPerRow: bytesPerRow)
+        return texture
     }
     
     public func toPixelBuffer() -> CVPixelBuffer? {
-        let imageWidth = Int(base.width)
+        let imageWidth  = Int(base.width)
         let imageHeight = Int(base.height)
         let attributes: [NSObject:AnyObject] = [
             kCVPixelBufferCGImageCompatibilityKey : true as AnyObject,
@@ -103,9 +83,9 @@ extension Queen where Base: CGImage {
     
     public func toC7Image() -> C7Image {
         #if os(iOS) || os(tvOS) || os(watchOS)
-        return C7Image.init(cgImage: base)
+        return UIImage.init(cgImage: base)
         #elseif os(macOS)
-        return C7Image.init(cgImage: base, size: base.mt.size)
+        return NSImage(cgImage: base, size: .init(width: base.width, height: base.height))
         #else
         #error("Unsupported Platform")
         #endif
@@ -132,15 +112,4 @@ extension Queen where Base: CGImage {
         NSSize(width: base.width, height: base.height)
     }
     #endif
-    
-    public func swapRedAndGreenAmount(context: CIContext? = nil) -> CGImage {
-        let ctx = context ?? Device.context(cgImage: base)
-        let ciImage = CIImage(cgImage: base)
-        let source = "kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }"
-        let swapKernel = CIColorKernel(source: source)
-        if let ciOutput = swapKernel?.apply(extent: ciImage.extent, arguments: [ciImage as Any]) {
-            return ctx.createCGImage(ciOutput, from: ciImage.extent) ?? base
-        }
-        return base
-    }
 }

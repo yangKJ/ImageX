@@ -127,6 +127,6 @@ fileprivate class AnimatedView__: CPView {
             C7SoulOut(soul: 0.75),
             C7Storyboard(ranks: 2),
         ]
-        animatedImageView.mt.setImage(with: link, filters: filters, options: options)
+        animatedImageView.kj.setImage(with: link, filters: filters, options: options)
     }
 }

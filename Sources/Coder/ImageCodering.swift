@@ -104,7 +104,7 @@ extension ImageCodering {
         guard canDecode(), let imageSource = self.imageSource else {
             return nil
         }
-        return imageSource.mt.toCGImage(index: index)
+        return imageSource.kj.toCGImage(index: index)
     }
 }
 
@@ -137,7 +137,7 @@ extension ImageCodering {
         var image: Harbeth.C7Image?
         if let cgImage = decodedCGImage(options: options, index: index) {
             let dest = BoxxIO(element: cgImage, filters: filters)
-            image = try? dest.output().mt.toC7Image()
+            image = try? dest.output().c7.toC7Image()
         } else {
             let dest = BoxxIO(element: Harbeth.C7Image(data: data), filters: filters)
             image = try? dest.output()
