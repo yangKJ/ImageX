@@ -35,16 +35,11 @@ extension ImageX.Placeholder {
         case .none:
             break
         case .color(let c7Color):
-            guard HandyImage.realViewFrame(to: view).size != .zero else {
+            let size = HandyImage.realViewFrame(to: view).size
+            let image = c7Color.c7.colorImage(with: size)
+            guard let image_ = resizingMode.resizeImage(image, size: view.frame.size) else {
                 return
             }
-            guard let texture = Texturior(size: view.frame.size).texture else {
-                return
-            }
-            let filter = C7SolidColor(color: c7Color)
-            let dest = BoxxIO(element: texture, filter: filter)
-            let image = (try? dest.output())?.c7.toImage()
-            let image_ = resizingMode.resizeImage(image, size: view.frame.size)
             view.setContentImage(image_, other: other)
         case .image(let c7Image):
             let image = resizingMode.resizeImage(c7Image, size: view.frame.size)

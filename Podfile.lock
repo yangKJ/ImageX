@@ -1,20 +1,20 @@
 PODS:
-  - Harbeth (0.8.7):
-    - Harbeth/Basic (= 0.8.7)
-    - Harbeth/Compute (= 0.8.7)
-    - Harbeth/CoreImage (= 0.8.7)
-    - Harbeth/MPS (= 0.8.7)
-    - Harbeth/SwiftUI (= 0.8.7)
-  - Harbeth/Basic (0.8.7)
-  - Harbeth/Compute (0.8.7):
+  - Harbeth (0.9.2):
+    - Harbeth/Basic (= 0.9.2)
+    - Harbeth/Compute (= 0.9.2)
+    - Harbeth/CoreImage (= 0.9.2)
+    - Harbeth/MPS (= 0.9.2)
+    - Harbeth/SwiftUI (= 0.9.2)
+  - Harbeth/Basic (0.9.2)
+  - Harbeth/Compute (0.9.2):
     - Harbeth/Basic
-  - Harbeth/CoreImage (0.8.7):
+  - Harbeth/CoreImage (0.9.2):
     - Harbeth/Basic
-  - Harbeth/MPS (0.8.7):
+  - Harbeth/MPS (0.9.2):
     - Harbeth/Basic
-  - Harbeth/SwiftUI (0.8.7):
+  - Harbeth/SwiftUI (0.9.2):
     - Harbeth/Basic
-  - ImageX (1.0.9):
+  - ImageX (1.1.0):
     - Harbeth
     - Lemons
   - Lemons (0.0.8)
@@ -32,8 +32,8 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  Harbeth: b2ff35e37c915ba6a61fbf76b3a9030325b516b9
-  ImageX: 6fa4747f9f6f0f644f2c9915ca057642e034e2f9
+  Harbeth: f2b972fd84dddcb4b89a0b08f9af509a839954ca
+  ImageX: 18b4805c2c0d8fc3f6e9364bf5d333bde6f20e15
   Lemons: 6b7cc5ad1eeb2d5b635f01c0c8bbbbb309502bfa
 
 PODFILE CHECKSUM: 241d7628bc4240518129e981f7cbdf508498ffd8

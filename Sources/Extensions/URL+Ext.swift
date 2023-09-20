@@ -11,6 +11,15 @@ import Harbeth
 extension URL: ImageXCompatible { }
 
 extension ImageXEngine where URL == Base {
+    
+    /// Determine if this represents an image file stored in a baked.
+    public var isBaked: Bool {
+        let bakedImageFileExtensions = Set([
+            "jpg", "jpeg", "png", "tiff", "tif", "gif", "heic", "heif"
+        ])
+        return bakedImageFileExtensions.contains(base.pathExtension.lowercased())
+    }
+    
     /// Set extended attribute.
     func setExtendedAttribute(data: Data, forName name: String) throws {
         try base.withUnsafeFileSystemRepresentation { fileSystemPath in

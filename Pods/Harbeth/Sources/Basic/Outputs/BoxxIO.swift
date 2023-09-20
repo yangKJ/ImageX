@@ -30,6 +30,8 @@ import CoreVideo
     public let element: Dest
     public let filters: [C7FilterProtocol]
     
+    public typealias CompResult<TT> = (Result<TT, CustomError>) -> Void
+    
     /// Since the camera acquisition generally uses ' kCVPixelFormatType_32BGRA '
     /// The pixel format needs to be consistent, otherwise it will appear blue phenomenon.
     public var bufferPixelFormat: MTLPixelFormat = .bgra8Unorm
@@ -49,6 +51,11 @@ import CoreVideo
     /// Such as solid color and gradient filters do not need to create an output texture.
     public var createDestTexture: Bool = true
     
+    /// 烦死😡，中间加入CoreImage滤镜不能最后才渲染，考虑到性能最大化，这边分开处理。
+    /// After adding the CoreImage filter in the middle, it can't be rendered until the end.
+    /// Considering the maximization of performance, we will deal with it separately.
+    private let hasCoreImage: Bool
+    
     public init(element: Dest, filter: C7FilterProtocol) {
         self.init(element: element, filters: [filter])
     }
@@ -56,6 +63,7 @@ import CoreVideo
     public init(element: Dest, filters: [C7FilterProtocol]) {
         self.element = element
         self.filters = filters
+        self.hasCoreImage = filters.contains { $0 is CoreImageProtocol }
     }
     
     public func output() throws -> Dest {
@@ -113,7 +121,7 @@ import CoreVideo
     /// - Parameters:
     ///   - texture: Input metal texture.
     ///   - complete: The conversion is complete.
-    public func filtering(texture: MTLTexture, complete: @escaping (Result<MTLTexture, CustomError>) -> Void) {
+    public func filtering(texture: MTLTexture, complete: @escaping CompResult<MTLTexture>) {
         if self.filters.isEmpty {
             complete(.success(texture))
             return
@@ -130,20 +138,18 @@ import CoreVideo
 extension BoxxIO {
     
     private func filtering(pixelBuffer: CVPixelBuffer) throws -> CVPixelBuffer {
-        guard let texture = pixelBuffer.c7.toMTLTexture() else {
-            throw CustomError.source2Texture
-        }
-        let t = try filtering(texture: texture)
-        pixelBuffer.c7.copyToPixelBuffer(with: t)
+        let inTexture = try TextureLoader.init(with: pixelBuffer).texture
+        let texture = try filtering(texture: inTexture)
+        pixelBuffer.c7.copyToPixelBuffer(with: texture)
         return pixelBuffer
     }
     
     private func filtering(sampleBuffer: CMSampleBuffer) throws -> CMSampleBuffer {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            throw CustomError.source2Texture
+            throw CustomError.CMSampleBufferToCVPixelBuffer
         }
-        let pixelBuffer_ = try filtering(pixelBuffer: pixelBuffer)
-        guard let buffer = pixelBuffer_.c7.toCMSampleBuffer() else {
+        let p = try filtering(pixelBuffer: pixelBuffer)
+        guard let buffer = p.c7.toCMSampleBuffer() else {
             throw CustomError.CVPixelBufferToCMSampleBuffer
         }
         return buffer
@@ -152,7 +158,7 @@ extension BoxxIO {
     private func filtering(ciImage: CIImage) throws -> CIImage {
         let inTexture = try TextureLoader.init(with: ciImage).texture
         let texture = try filtering(texture: inTexture)
-        return applyCIImage(ciImage, with: texture)
+        return try applyCIImage(with: texture)
     }
     
     private func filtering(cgImage: CGImage) throws -> CGImage {
@@ -172,9 +178,16 @@ extension BoxxIO {
     
     private func filtering(texture: MTLTexture) throws -> MTLTexture {
         var inTexture: MTLTexture = texture
-        for filter in filters {
-            let destTexture = try createDestTexture(with: inTexture, filter: filter)
-            inTexture = try Processed.IO(inTexture: inTexture, outTexture: destTexture, filter: filter)
+        if hasCoreImage {
+            for filter in filters {
+                inTexture = try textureIO(with: inTexture, filter: filter)
+            }
+        } else {
+            let commandBuffer = try makeCommandBuffer()
+            for filter in filters {
+                inTexture = try textureIO(with: inTexture, filter: filter, for: commandBuffer)
+            }
+            commandBuffer.commitAndWaitUntilCompleted()
         }
         return inTexture
     }
@@ -184,25 +197,27 @@ extension BoxxIO {
 extension BoxxIO {
     
     private func filtering(pixelBuffer: CVPixelBuffer, success: @escaping (CVPixelBuffer) -> Void, failed: @escaping (CustomError) -> Void) {
-        guard let texture = pixelBuffer.c7.toMTLTexture() else {
-            failed(CustomError.source2Texture)
-            return
+        func setupTexture(_ texture: MTLTexture) {
+            filtering(texture: texture, success: { t in
+                pixelBuffer.c7.copyToPixelBuffer(with: t)
+                success(pixelBuffer)
+            }, failed: failed)
         }
-        filtering(texture: texture, success: { t in
-            pixelBuffer.c7.copyToPixelBuffer(with: t)
-            success(pixelBuffer)
-        }, failed: failed)
+        do {
+            let texture = try TextureLoader(with: pixelBuffer).texture
+            setupTexture(texture)
+        } catch {
+            failed(CustomError.toCustomError(error))
+        }
     }
     
     private func filtering(sampleBuffer: CMSampleBuffer, success: @escaping (CMSampleBuffer) -> Void, failed: @escaping (CustomError) -> Void) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer((sampleBuffer)),
-              let texture = pixelBuffer.c7.toMTLTexture() else {
-            failed(CustomError.source2Texture)
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer((sampleBuffer)) else {
+            failed(CustomError.CMSampleBufferToCVPixelBuffer)
             return
         }
-        filtering(texture: texture, success: { t in
-            pixelBuffer.c7.copyToPixelBuffer(with: t)
-            guard let buffer = pixelBuffer.c7.toCMSampleBuffer() else {
+        filtering(pixelBuffer: pixelBuffer, success: { p in
+            guard let buffer = p.c7.toCMSampleBuffer() else {
                 failed(CustomError.CVPixelBufferToCMSampleBuffer)
                 return
             }
@@ -213,13 +228,11 @@ extension BoxxIO {
     private func filtering(ciImage: CIImage, success: @escaping (CIImage) -> Void, failed: @escaping (CustomError) -> Void) {
         func setupTexture(_ texture: MTLTexture) {
             filtering(texture: texture, success: { t in
-                self.asyncApplyCIImage(ciImage, with: t) { res in
-                    switch res {
-                    case .success(let ciImage):
-                        success(ciImage)
-                    case .failure(let err):
-                        failed(err)
-                    }
+                do {
+                    let ciImage_ = try applyCIImage(with: t)
+                    success(ciImage_)
+                } catch {
+                    failed(CustomError.toCustomError(error))
                 }
             }, failed: failed)
         }
@@ -268,34 +281,43 @@ extension BoxxIO {
         }
     }
     
-    /// Convert to texture and add filters.
-    /// - Parameters:
-    ///   - texture: Input metal texture.
-    ///   - success: Successful callback.
-    ///   - failed: Failed callback.
     private func filtering(texture: MTLTexture, success: @escaping (MTLTexture) -> Void, failed: @escaping (CustomError) -> Void) {
         var result: MTLTexture = texture
         var iterator = filters.makeIterator()
-        // 递归处理
-        func recursion(filter: C7FilterProtocol?, sourceTexture: MTLTexture) {
-            guard let filter = filter else {
-                success(result)
-                return
-            }
+        var commandBuffer: MTLCommandBuffer?
+        if hasCoreImage == false {
             do {
-                let destTexture = try createDestTexture(with: texture, filter: filter)
-                Processed.runAsyncIO(intexture: sourceTexture, outTexture: destTexture, filter: filter) { res in
-                    switch res {
-                    case .success(let t):
-                        result = t
-                        recursion(filter: iterator.next(), sourceTexture: result)
-                    case .failure(let error):
-                        failed(error)
-                    }
-                }
+                commandBuffer = try makeCommandBuffer()
             } catch {
                 failed(CustomError.toCustomError(error))
             }
+        }
+        // 递归处理
+        func recursion(filter: C7FilterProtocol?, sourceTexture: MTLTexture) {
+            guard let filter = filter else {
+                if hasCoreImage {
+                    success(result)
+                } else {
+                    commandBuffer?.asyncCommit(texture: result) { res in
+                        switch res {
+                        case .success(let t):
+                            success(t)
+                        case .failure(let error):
+                            failed(error)
+                        }
+                    }
+                }
+                return
+            }
+            runAsyncIO(with: sourceTexture, filter: filter, complete: { res in
+                switch res {
+                case .success(let t):
+                    result = t
+                    recursion(filter: iterator.next(), sourceTexture: result)
+                case .failure(let error):
+                    failed(error)
+                }
+            }, buffer: commandBuffer)
         }
         recursion(filter: iterator.next(), sourceTexture: texture)
     }
@@ -312,46 +334,22 @@ extension BoxxIO {
         let resize = filter.resize(input: C7Size(width: sourceTexture.width, height: sourceTexture.height))
         // Since the camera acquisition generally uses ' kCVPixelFormatType_32BGRA '
         // The pixel format needs to be consistent, otherwise it will appear blue phenomenon.
-        let texturior = Texturior(width: resize.width, height: resize.height, options: [
+        return try TextureLoader.emptyTexture(width: resize.width, height: resize.height, options: [
             .texturePixelFormat: bufferPixelFormat
         ])
-        guard let destTexture = texturior.texture else {
-            throw CustomError.makeTexture
-        }
-        return destTexture
     }
     
-    private func applyCIImage(_ ciImage: CIImage, with texture: MTLTexture) -> CIImage {
-        guard let texture_ = try? ciImage.c7.renderCIImageToTexture(texture),
-              let ciImage_ = CIImage(mtlTexture: texture_) else {
-            return ciImage
+    private func applyCIImage(with texture: MTLTexture) throws -> CIImage {
+        guard let ciImage = texture.c7.toCIImage() else {
+            throw CustomError.texture2CIImage
         }
         if self.mirrored, #available(iOS 11.0, macOS 10.13, *) {
             // When the CIImage is created, it is mirrored and flipped upside down.
             // But upon inspecting the texture, it still renders the CIImage as expected.
             // Nevertheless, we can fix this by simply transforming the CIImage with the downMirrored orientation.
-            return ciImage_.oriented(.downMirrored)
+            return ciImage.oriented(.downMirrored)
         }
-        return ciImage_
-    }
-    
-    private func asyncApplyCIImage(_ ciImage: CIImage, with texture: MTLTexture, complete: @escaping (Result<CIImage, CustomError>) -> Void) {
-        ciImage.c7.asyncRenderCIImageToTexture(texture, complete: { res in
-            switch res {
-            case .success(let texture):
-                guard let ciImage_ = CIImage(mtlTexture: texture) else {
-                    complete(.failure(CustomError.texture2CIImage))
-                    return
-                }
-                if self.mirrored, #available(iOS 11.0, macOS 10.13, *) {
-                    complete(.success(ciImage_.oriented(.downMirrored)))
-                    return
-                }
-                complete(.success(ciImage_))
-            case .failure(let error):
-                complete(.failure(error))
-            }
-        })
+        return ciImage
     }
     
     private func fixImageOrientation(texture: MTLTexture, base: C7Image) throws -> C7Image {
@@ -376,22 +374,129 @@ extension BoxxIO {
 }
 
 extension BoxxIO {
+    /// Do you need to create a new metal texture command buffer.
+    /// - Parameter buffer: Old command buffer.
+    /// - Returns: A command buffer.
+    private func makeCommandBuffer(for buffer: MTLCommandBuffer? = nil) throws -> MTLCommandBuffer {
+        if let commandBuffer = buffer {
+            return commandBuffer
+        }
+        guard let commandBuffer = Device.commandQueue().makeCommandBuffer() else {
+            throw CustomError.commandBuffer
+        }
+        return commandBuffer
+    }
     
-    // TODO: - 全部异步处理，异步生成纹理，中间处理纹理，最后异步提交绘制
-    private func textureIO(with texture: MTLTexture, filter: C7FilterProtocol, commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
+    /// Create a new texture based on the filter content.
+    /// Synchronously wait for the execution of the Metal command buffer to complete.
+    /// - Parameters:
+    ///   - texture: Input texture
+    ///   - filter: It must be an object implementing C7FilterProtocol
+    ///   - buffer: A valid MTLCommandBuffer to receive the encoded filter.
+    /// - Returns: Output texture after processing
+    private func textureIO(with texture: MTLTexture, filter: C7FilterProtocol, for buffer: MTLCommandBuffer? = nil) throws -> MTLTexture {
+        let commandBuffer = try makeCommandBuffer(for: buffer)
         switch filter.modifier {
         case .coreimage(let name):
+            let destTexture = try createDestTexture(with: texture, filter: filter)
             let outputImage = try filter.outputCIImage(with: texture, name: name)
-            let options: [MTKTextureLoader.Option: Any] = [
-                .sharedContext: Device.context(colorSpace: Device.colorSpace()),
-            ]
-            return try TextureLoader(with: outputImage, options: options).texture
+            try outputImage.c7.renderCIImageToTexture(destTexture, commandBuffer: commandBuffer)
+            return destTexture
         case .compute, .mps, .render:
             let destTexture = try createDestTexture(with: texture, filter: filter)
-            return try filter.combinationIO(in: texture, to: destTexture, commandBuffer: commandBuffer)
+            let finaTexture: MTLTexture
+            if let filter = filter as? CombinationProtocol {
+                let beiginTexture = try filter.combinationBegin(for: commandBuffer, source: texture, dest: destTexture)
+                let outputTexture = try filter.applyAtTexture(form: beiginTexture, to: destTexture, for: commandBuffer)
+                finaTexture = try filter.combinationAfter(for: commandBuffer, input: outputTexture, source: texture)
+            } else {
+                finaTexture = try filter.applyAtTexture(form: texture, to: destTexture, for: commandBuffer)
+            }
+            if hasCoreImage {
+                commandBuffer.commitAndWaitUntilCompleted()
+            }
+            return finaTexture
         default:
             break
         }
         return texture
+    }
+    
+    /// Whether to synchronously wait for the execution of the Metal command buffer to complete.
+    /// - Parameters:
+    ///   - texture: Input texture
+    ///   - filter: It must be an object implementing C7FilterProtocol.
+    ///   - complete: Add a block to be called when this command buffer has completed execution.
+    ///   - buffer: A valid MTLCommandBuffer to receive the encoded filter.
+    private func runAsyncIO(with texture: MTLTexture, filter: C7FilterProtocol, complete: @escaping CompResult<MTLTexture>, buffer: MTLCommandBuffer?) {
+        do {
+            let commandBuffer = try makeCommandBuffer(for: buffer)
+            switch filter.modifier {
+            case .coreimage(let name):
+                let outputImage = try filter.outputCIImage(with: texture, name: name)
+                //let finaTexture = try TextureLoader(with: outputImage).texture
+                outputImage.c7.asyncRenderCIImageToTexture(texture, commandBuffer: commandBuffer, complete: complete)
+            case .compute, .mps, .render:
+                let destTexture = try createDestTexture(with: texture, filter: filter)
+                let inputTexture: MTLTexture
+                if let filter = filter as? CombinationProtocol {
+                    inputTexture = try filter.combinationBegin(for: commandBuffer, source: texture, dest: destTexture)
+                } else {
+                    inputTexture = texture
+                }
+                asyncApplyAtTexture(form: inputTexture, to: destTexture, for: commandBuffer, filter: filter) { res in
+                    switch res {
+                    case .success(let outputTexture):
+                        var finaTexture: MTLTexture = outputTexture
+                        if let filter = filter as? CombinationProtocol {
+                            do {
+                                finaTexture = try filter.combinationAfter(for: commandBuffer, input: outputTexture, source: texture)
+                            } catch {
+                                complete(.failure(CustomError.toCustomError(error)))
+                            }
+                        }
+                        if hasCoreImage {
+                            commandBuffer.asyncCommit(texture: finaTexture, complete: complete)
+                        } else {
+                            complete(.success(finaTexture))
+                        }
+                    case .failure(let err):
+                        complete(.failure(err))
+                    }
+                }
+            default:
+                break
+            }
+        } catch {
+            complete(.failure(CustomError.toCustomError(error)))
+        }
+    }
+    
+    private func asyncApplyAtTexture(form texture: MTLTexture,
+                                     to destTexture: MTLTexture,
+                                     for buffer: MTLCommandBuffer,
+                                     filter: C7FilterProtocol,
+                                     complete: @escaping (Result<MTLTexture, CustomError>) -> Void) {
+        do {
+            switch filter.modifier {
+            case .compute(let kernel):
+                var textures = [destTexture, texture]
+                textures += filter.otherInputTextures
+                filter.drawing(with: kernel, commandBuffer: buffer, textures: textures, complete: complete)
+            case .render(let vertex, let fragment):
+                let pipelineState = try Rendering.makeRenderPipelineState(with: vertex, fragment: fragment)
+                Rendering.drawingProcess(pipelineState, commandBuffer: buffer, texture: texture, filter: filter)
+                complete(.success(destTexture))
+            case .mps where filter is MPSKernelProtocol:
+                var textures = [destTexture, texture]
+                textures += filter.otherInputTextures
+                let finaTexture = try (filter as! MPSKernelProtocol).encode(commandBuffer: buffer, textures: textures)
+                complete(.success(finaTexture))
+            default:
+                complete(.success(texture))
+            }
+        } catch {
+            complete(.failure(CustomError.toCustomError(error)))
+        }
     }
 }

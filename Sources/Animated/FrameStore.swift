@@ -210,13 +210,17 @@ private extension FrameStore {
     /// - parameter index: Starting index.
     /// - returns: An array of indexes to preload.
     func preloadIndexes(index: Int) -> [Int] {
-        let nextIndex = index//increment(frameIndex: index)
-        let lastIndex = min(durations.count, bufferFrameCount)
-        //increment(frameIndex: index, by: min(durations.count, bufferFrameCount))
-        if lastIndex >= nextIndex {
-            return [Int](nextIndex..<lastIndex)
-        } else {
-            return [Int](nextIndex..<frameCount) + [Int](0...lastIndex)
+        func indexs(min: Int, max: Int) -> [Int] {
+            var indexs__ = [Int]()
+            for _ in 0..<max/min {
+                indexs__ += [Int](0..<min)
+            }
+            indexs__ += [Int](0..<max%min)
+            return indexs__
         }
+        let min = min(bufferFrameCount, frameCount)
+        let max = max(bufferFrameCount, frameCount)
+        let indexs = [Int](index%frameCount..<frameCount) + indexs(min: min, max: max)
+        return indexs[0..<bufferFrameCount].map { $0 }
     }
 }
