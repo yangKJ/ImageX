@@ -57,12 +57,13 @@ public struct ImageXOptions {
 extension ImageXOptions {
     
     /// Set up decoder parameters
-    func setupDecoderOptions(_ filters: [C7FilterProtocol]) -> ImageCodering.ImageCoderOptions {
+    func setupDecoderOptions(_ filters: [C7FilterProtocol], finished: Bool) -> ImageCodering.ImageCoderOptions {
         let options: ImageCodering.ImageCoderOptions = [
-            ImageCoderOption.decoder.frameTypeKey : self.Animated.frameType,
-            ImageCoderOption.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
-            ImageCoderOption.decoder.resizingModeKey : resizingMode,
-            ImageCoderOption.decoder.filtersKey : filters
+            CoderOptions.decoder.frameTypeKey : self.Animated.frameType,
+            CoderOptions.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
+            CoderOptions.decoder.resizingModeKey : resizingMode,
+            CoderOptions.decoder.filtersKey : filters,
+            CoderOptions.decoder.completeDataKey : finished,
         ]
         return options
     }

@@ -8,7 +8,7 @@
 import Foundation
 import Harbeth
 
-public struct AnimatedHEICCoder: AnimatedImageCoder {
+public struct AnimatedHEICCoder: AnimatedCodering {
     
     public var data: Data
     
@@ -46,14 +46,21 @@ public struct AnimatedHEICCoder: AnimatedImageCoder {
     
     private let type: AssetType
     
-    public init(data: Data, dataOptions: CFDictionary) {
+    public init(data: Data) {
         self.data = data
         self.type = AssetType(data: data)
-        self.setupImageSource(data: data, dataOptions: dataOptions)
+        self.setupImageSource(data: data)
     }
     
     public func canDecode() -> Bool {
         self.type.isHEIC
+    }
+    
+    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
+        guard canDecode(), let imageSource = self.imageSource else {
+            return nil
+        }
+        return imageSource.kj.toCGImage(index: index)
     }
     
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {

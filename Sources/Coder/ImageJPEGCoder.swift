@@ -20,17 +20,24 @@ public struct ImageJPEGCoder: ImageCodering {
         .jpeg
     }
     
-    public init(data: Data, dataOptions: CFDictionary) {
+    public init(data: Data) {
         self.data = data
-        self.setupImageSource(data: data, dataOptions: dataOptions)
+        self.setupImageSource(data: data)
     }
     
     public func canDecoderBrokenData() -> Bool {
         return true
     }
     
+    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
+        guard canDecode(), let imageSource = self.imageSource else {
+            return nil
+        }
+        return imageSource.kj.toCGImage(index: index)
+    }
+    
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {
-        let compressionQuality = options[ImageCoderOption.encoder.compressionQualityKey] as? CGFloat ?? 1.0
+        let compressionQuality = options[CoderOptions.encoder.compressionQualityKey] as? CGFloat ?? 1.0
         #if os(macOS)
         guard let cgImage = image.cgImage else {
             return nil

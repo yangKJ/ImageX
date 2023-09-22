@@ -1,5 +1,5 @@
 //
-//  ImageCoderOption.swift
+//  CoderOptions.swift
 //  ImageX
 //
 //  Created by Condy on 2023/7/15.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-public struct ImageCoderOption {
+public struct CoderOptions {
     public struct decoder { }
     public struct encoder { }
 }
 
 // MARK: - Still image or animated images decoder option
 
-extension ImageCoderOption.decoder {
+extension CoderOptions.decoder {
     /// A CGSize value indicating whether or not to generate the thumbnail images.
     public static let thumbnailPixelSizeKey = "condy.ImageX.thumbnail.pixel.size.key"
     
@@ -25,11 +25,14 @@ extension ImageCoderOption.decoder {
     
     /// Set up the filters that need to be injected with display image.
     public static let filtersKey = "condy.ImageX.filters.key"
+    
+    /// Is it a complete data?
+    public static let completeDataKey =  "condy.ImageX.complete.data.key"
 }
 
 // MARK: - Animated image decoder option
 
-extension ImageCoderOption.decoder {
+extension CoderOptions.decoder {
     /// Animated image sources become still image display of appoint frames.
     /// See: https://github.com/yangKJ/ImageX/blob/master/Sources/Base/FrameType.swift
     public static let frameTypeKey = "condy.ImageX.animated.frame.type.key"
@@ -43,13 +46,13 @@ extension ImageCoderOption.decoder {
 
 // MARK: - Still image or animated images encoder option
 
-extension ImageCoderOption.encoder {
+extension CoderOptions.encoder {
     /// The compression quality when converting image to JPEG data.
     public static let compressionQualityKey = "condy.ImageX.compression.quality.key"
 }
 
 // MARK: - Animated image encoder option
 
-extension ImageCoderOption.encoder {
+extension CoderOptions.encoder {
     
 }

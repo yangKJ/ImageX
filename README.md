@@ -19,7 +19,7 @@ English | [**简体中文**](README_CN.md)
 
 - Support more platform system，macOS、iOS、tvOS、watchOS.
 - Support display and decode animated image with these formats:  
-  webp, heic, gif.
+  webp, heic, gif, apng.
 - Support display and decode still image with these formats:  
   jpeg, png, tiff, heif, webp, heic, gif.
 - Support directly set an image or animated image from a URL witg these extensions:  
@@ -33,6 +33,7 @@ English | [**简体中文**](README_CN.md)
 - Support secondary compression of cache data, occupying less disk space.
 - Support clean up disk expired data in your spare time and size limit.
 - Support setting different types of named encryption methods, Such as md5, sha1, base58, And user defined.
+- Support custom decoder/encoder, and also has some decoder/encoder for you to use.
 
 ------
 
@@ -101,17 +102,13 @@ imageView.kj.setImage(with: named, filters: filters, options: options)
 ----------------------------------------------------------------
 😘😘 And other methods:
 
-```
+```swift
 /// Display image or animated image and add the filters.
 /// - Parameters:
 ///   - named: Picture or gif name.
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents creating options used in ImageX.
-public func setImage(
-    with named: String, 
-    filters: [C7FilterProtocol], 
-    options: ImageXOptions = ImageXOptions.default
-)
+public func setImage(with named: String, filters: [C7FilterProtocol], options: ImageXOptions = ImageXOptions.default)
 
 /// Display image or animated image and add the filters.
 /// - Parameters:
@@ -119,11 +116,7 @@ public func setImage(
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents creating options used in ImageX.
 /// - Returns: A uniform type identifier UTI.
-public func setImage(
-    with data: Data?, 
-    filters: [C7FilterProtocol], 
-    options: ImageXOptions = ImageXOptions.default
-) -> AssetType
+public func setImage(with data: Data?, filters: [C7FilterProtocol], options: ImageXOptions = .default) -> AssetType
 
 /// Display network image or animated image and add the filters.
 /// - Parameters:
@@ -131,11 +124,7 @@ public func setImage(
 ///   - filters: Harbeth filters apply to image or gif frame.
 ///   - options: Represents gif playback creating options used in ImageX.
 /// - Returns: Current network URLSessionDataTask.
-public func setImage(
-    with url: URL?, 
-    filters: [C7FilterProtocol], 
-    options: ImageXOptions = ImageXOptions.default
-) -> Task?
+public func setImage(with url: URL?, filters: [C7FilterProtocol], options: ImageXOptions = .default) -> Task?
 ```
 
 - Any control can play the local animated image data.
@@ -199,7 +188,7 @@ public struct ImageXOptions {
     
     /// Content mode used for resizing the frame image.
     /// When this property is `original`, modifying the thumbnail pixel size will not work.
-    public var contentMode: ImageX.ResizingMode = .original
+    public var resizingMode: ImageX.ResizingMode = .original
     
     /// Whether or not to generate the thumbnail images.
     /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
@@ -220,46 +209,7 @@ public struct ImageXOptions {
 
 ### AsAnimatable
 
-- The protocol that view classes need to conform to to enable animated image support.
-
-```swift
-public protocol AsAnimatable: HasAnimatable {
-    
-    /// Total duration of one animation loop.
-    var loopDuration: TimeInterval { get }
-    
-    /// The first frame that is not nil of animated images.
-    var fristFrame: C7Image? { get }
-    
-    /// Returns the active frame if available.
-    var activeFrame: C7Image? { get }
-    
-    /// Total frame count of the animated images.
-    var frameCount: Int { get }
-    
-    /// Introspect whether the instance is animating.
-    var isAnimating: Bool { get }
-    
-    /// Bitmap memory cost with bytes.
-    var cost: Int { get }
-    
-    /// Stop animating and free up animated images data from memory.
-    func prepareForReuse()
-    
-    /// Start animating animated image.
-    func startAnimating()
-    
-    /// Stop animating animated image.
-    func stopAnimating()
-    
-    /// Prepare for animation and start play animated image.
-    /// - Parameters:
-    ///   - data: gif data.
-    ///   - filters: Harbeth filters apply to image or animated image frame.
-    ///   - options: Represents animated image playback creating options used in ImageX.
-    func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions)
-}
-```
+- The protocol that view classes need to conform to to enable animated image support at [AsAnimatable](https://github.com/yangKJ/ImageX/blob/master/Sources/Animated/AsAnimatable.swift).
 
 ### Cached
 
@@ -268,6 +218,24 @@ public protocol AsAnimatable: HasAnimatable {
 - Among them, the disk storage uses GZip to compress data, so it will occupy less space.
 - Support setting different types of named encryption methods, such as md5, sha1, base58, And user defined.
 - Considering different degrees of security, the data source compression and decompression method is opened here. The library provides [GZip](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/Zip.swift) compression or decompression. Of course, users can also customize it.
+
+### Codering
+
+Has the following coder:    
+- [ImageIOCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/ImageIOCoder.swift): Static universal image decoder/encoder, support still image format.
+- [ImageJPEGCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/ImageJPEGCoder.swift): Static jpeg image decoder/encoder. 
+- [AnimatedAPNGCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/AnimatedAPNGCoder.swift): Animated png image decoder/encoder.
+- [AnimatedGIFsCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/AnimatedGIFsCoder.swift): Animated gif image decoder/encoder.
+- [AnimatedHEICCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/AnimatedHEICCoder.swift): Animated heic image decoder/encoder.
+- [AnimatedWebPCoder](https://github.com/yangKJ/ImageX/blob/master/Sources/Coder/AnimatedWebPCoder.swift): Animated webp image decoder/encoder.
+
+Use: 
+
+```
+var options = ImageXOptions()
+options.appointCoder = AnimatedAPNGCoder()
+```
+If no decoder/encoder is specified, the corresponding decoder/encoder will be automatically selected.
 
 ## Installation
 

@@ -1,5 +1,5 @@
 //
-//  HandyImage.swift
+//  Driver.swift
 //  ImageX
 //
 //  Created by Condy on 2023/6/29.
@@ -9,22 +9,22 @@ import Foundation
 import Harbeth
 import Lemons
 
-struct HandyImage {
+struct Driver {
     
-    static func displayImage(named: String?, to view: AsAnimatable, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
+    static func setImage(named: String?, to view: AsAnimatable, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
         guard let named = named, named.isEmpty == false else {
             view.hasAnimator?.prepareForReuse()
-            HandyImage.setPlaceholder(to: view, options: options, other: other)
+            Driver.setPlaceholder(to: view, options: options, other: other)
             return
         }
-        let options = HandyImage.setPlaceholder(to: view, options: options, other: other)
+        let options = Driver.setPlaceholder(to: view, options: options, other: other)
         if R.verifyLink(named), let url = URL(string: named) {
-            HandyImage.displayImage(url: url, to: view, filters: filters, options: options, other: other)
+            Driver.setImage(url: url, to: view, filters: filters, options: options, other: other)
         } else if let data = R.gifData(named, forResource: options.moduleName) {
-            HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
+            Driver.setImage(data: data, to: view, filters: filters, options: options, other: other)
         } else if let image = R.image(named, forResource: options.moduleName) {
             view.hasAnimator?.prepareForReuse()
-            let options = HandyImage.setViewContentMode(to: view, options: options)
+            let options = Driver.setViewContentMode(to: view, options: options)
             let reimage = options.resizingMode.resizeImage(image, size: options.thumbnailPixelSize)
             let dest = BoxxIO(element: reimage, filters: filters)
             if let outImage = try? dest.output() {
@@ -39,31 +39,36 @@ struct HandyImage {
         }
     }
     
-    @discardableResult static func displayImage(
+    @discardableResult static func setImage(
         data: Data?,
         to view: AsAnimatable,
+        finished: Bool = true,
         filters: [Harbeth.C7FilterProtocol],
         options: ImageXOptions,
         other: Others?
     ) -> AssetType {
         view.hasAnimator?.prepareForReuse()
-        let options_ = HandyImage.setViewContentMode(to: view, options: options)
-        let options = HandyImage.setPlaceholder(to: view, options: options_, other: other)
+        let options_ = Driver.setViewContentMode(to: view, options: options)
+        let options = Driver.setPlaceholder(to: view, options: options_, other: other)
         guard let data = data else {
             return .unknow
         }
-        let decoder = options.appointCoder ?? AssetType.createCoder(with: data)
-        if let decoder = decoder as? AnimatedImageCoder, decoder.isAnimatedImages(), options.Animated.frameType == .animated {
+        let decoder = fetchDecoder(data: data, options: options)
+        if options.Animated.frameType == .animated, let decoder = decoder as? AnimatedCodering, decoder.isAnimatedImages() {
             view.play(decoder: decoder, filters: filters, options: options, other: other)
-        } else if let image = decoder?.decodedImage(options: options.setupDecoderOptions(filters)) {
-            view.setContentImage(image, other: other)
         } else {
-            HandyImage.setPlaceholder(to: view, options: options, other: other)
+            let coderOptions = options.setupDecoderOptions(filters, finished: finished)
+            decoder?.decodedImage(options: coderOptions, onNext: { image in
+                guard let image = image else {
+                    return
+                }
+                view.setContentImage(image, other: other)
+            })
         }
         return decoder?.format ?? AssetType.unknow
     }
     
-    @discardableResult static func displayImage(
+    @discardableResult static func setImage(
         url: URL?,
         to view: AsAnimatable,
         filters: [Harbeth.C7FilterProtocol],
@@ -71,17 +76,17 @@ struct HandyImage {
         other: Others?
     ) -> Task? {
         guard let url = url else {
-            HandyImage.setPlaceholder(to: view, options: options, other: other)
+            Driver.setPlaceholder(to: view, options: options, other: other)
             return nil
         }
-        let options = HandyImage.setPlaceholder(to: view, options: options, other: other)
+        let options = Driver.setPlaceholder(to: view, options: options, other: other)
         let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
         let object = Cached.shared.storage.fetchCached(forKey: key, options: options.Cache.cacheOption)
         if var data = object?.data {
             data = options.Cache.cacheDataZip.decompress(data: data)
             DispatchQueue.main.async {
                 options.Network.progressBlock?(1.0)
-                HandyImage.displayImage(data: data, to: view, filters: filters, options: options, other: other)
+                Driver.setImage(data: data, to: view, filters: filters, options: options, other: other)
             }
             return nil
         }
@@ -89,7 +94,8 @@ struct HandyImage {
             switch result {
             case .success(let res):
                 DispatchQueue.main.async {
-                    HandyImage.displayImage(data: res.data, to: view, filters: filters, options: options, other: other)
+                    let finished = res.downloadStatus == .complete ? true : false
+                    Driver.setImage(data: res.data, to: view, finished: finished, filters: filters, options: options, other: other)
                 }
                 if res.downloadStatus == .complete {
                     let zipData = options.Cache.cacheDataZip.compressed(data: res.data)
@@ -98,7 +104,7 @@ struct HandyImage {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    HandyImage.setPlaceholder(to: view, options: options, other: other)
+                    Driver.setPlaceholder(to: view, options: options, other: other)
                 }
                 options.Network.failed?(error)
             }
@@ -108,7 +114,7 @@ struct HandyImage {
     }
 }
 
-extension HandyImage {
+extension Driver {
     
     @discardableResult static func setPlaceholder(to view: AsAnimatable, options: ImageXOptions, other: Others?) -> ImageXOptions {
         guard options.displayed == false else {
@@ -124,9 +130,9 @@ extension HandyImage {
         if options.resizingMode == .original {
             return options
         }
-        #if !os(macOS)
+#if !os(macOS)
         view.contentMode = .scaleAspectFit
-        #endif
+#endif
         if options.thumbnailPixelSize == .zero {
             let realsize = realViewFrame(to: view).size
             return options.mutating({ $0.thumbnailPixelSize = realsize })
@@ -155,5 +161,34 @@ extension HandyImage {
         }
         #endif
         return view.frame
+    }
+    
+    static func fetchDecoder(data: Data?, options: ImageXOptions) -> ImageCodering? {
+        guard let data = data else {
+            return nil
+        }
+        if var appointCoder = options.appointCoder {
+            appointCoder.data = data
+            appointCoder.setupImageSource(data: data)
+            return appointCoder
+        } else {
+            let format = AssetType(data: data)
+            switch format {
+            case .jpeg:
+                return ImageJPEGCoder.init(data: data)
+            case .png:
+                return AnimatedAPNGCoder.init(data: data)
+            case .gif:
+                return AnimatedGIFsCoder.init(data: data)
+            case .webp:
+                return AnimatedWebPCoder.init(data: data)
+            case .heif, .heic:
+                return AnimatedHEICCoder.init(data: data)
+            case .tiff, .raw, .pdf, .bmp, .svg:
+                return ImageIOCoder.init(data: data, format: format)
+            default:
+                return nil
+            }
+        }
     }
 }

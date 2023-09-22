@@ -23,7 +23,7 @@ extension ImageXEngine where Base: NSImageView {
     ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
     public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: nil)
+        Driver.setImage(named: named, to: base, filters: filters, options: options, other: nil)
     }
     
     /// Display image or gif and add the filters.
@@ -37,7 +37,7 @@ extension ImageXEngine where Base: NSImageView {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
-        HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: nil)
+        Driver.setImage(data: data, to: base, filters: filters, options: options, other: nil)
     }
     
     /// Display network image or gif and add the filters.
@@ -51,7 +51,7 @@ extension ImageXEngine where Base: NSImageView {
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
-        HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: nil)
+        Driver.setImage(url: url, to: base, filters: filters, options: options, other: nil)
     }
 }
 

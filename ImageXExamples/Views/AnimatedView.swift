@@ -116,8 +116,14 @@ fileprivate class AnimatedView__: CPView {
         options.Animated.setAnimatedBlock(block: { _ in
             print("Played end!!!")
         })
-        options.Network.setNetworkProgress(block: { progress in
-            print("download: - \(progress)")
+        options.Network.setNetworkProgress(block: { [weak self] progress in
+            DispatchQueue.main.async {
+                if progress >= 1 {
+                    self?.resultLabel.text = String("Downloaded")
+                } else {
+                    self?.resultLabel.text = String("Downloading: \(progress)")
+                }
+            }
         })
         options.Network.setNetworkFailed(block: { error in
             print("Failed: - \(error.localizedDescription)")

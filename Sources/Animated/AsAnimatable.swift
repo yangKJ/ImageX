@@ -52,17 +52,17 @@ extension AsAnimatable {
     
     /// Prepare for animation and start play animated images.
     public func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions) {
-        let options_ = HandyImage.setViewContentMode(to: self, options: options)
-        let options = HandyImage.setPlaceholder(to: self, options: options_, other: nil)
-        if let decoder = AssetType.createCoder(with: data) as? AnimatedImageCoder {
+        let options_ = Driver.setViewContentMode(to: self, options: options)
+        let options = Driver.setPlaceholder(to: self, options: options_, other: nil)
+        if let decoder = Driver.fetchDecoder(data: data, options: options) as? AnimatedCodering {
             self.play(decoder: decoder, filters: filters, options: options, other: nil)
         }
     }
     
     /// Prepare for animation and start play animated images.
-    func play(decoder: AnimatedImageCoder, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
-        let options_ = HandyImage.setViewContentMode(to: self, options: options)
-        let options = HandyImage.setPlaceholder(to: self, options: options_, other: nil)
+    func play(decoder: AnimatedCodering, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
+        let options_ = Driver.setViewContentMode(to: self, options: options)
+        let options = Driver.setPlaceholder(to: self, options: options_, other: nil)
         let store = FrameStore(decoder: decoder, filters: filters, options: options) { [weak self] _ in
             guard let weakself = self else {
                 return

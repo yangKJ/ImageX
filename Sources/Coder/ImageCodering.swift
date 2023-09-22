@@ -24,6 +24,9 @@ public protocol ImageCodering {
     /// A uniform type identifier UTI.
     var imageUTType: String { get }
     
+    /// The dictionary may be used to request additional creation options.
+    var dataOptions: CFDictionary { get }
+    
     /// The image data to be decoded
     var data: Data { get set }
     
@@ -33,15 +36,13 @@ public protocol ImageCodering {
     /// Total number animated frames.
     var frameCount: Int { get set }
     
+    /// Initialization an coder decoding object, internal needs to be assigned to data.
+    /// It is mainly convenient for user appoint coder.
+    init()
+    
     /// Initialization an coder decoding object.
     /// - Parameter data: The data to be decoded
     init(data: Data)
-    
-    /// Initialization an coder decoding object.
-    /// - Parameters:
-    ///   - data: The data to be decoded
-    ///   - dataOptions: The dictionary may be used to request additional creation options.
-    init(data: Data, dataOptions: CFDictionary)
     
     /// Is it a animated images resource?
     func isAnimatedImages() -> Bool
@@ -54,6 +55,9 @@ public protocol ImageCodering {
     
     /// Real time decoder of incomplete data.
     func canDecoderBrokenData() -> Bool
+    
+    /// Set up the original image source and total number animated frames.
+    mutating func setupImageSource(data: Data)
     
     /// Decode the data to CGImage.
     /// - Parameters:
@@ -74,9 +78,13 @@ public protocol ImageCodering {
 
 extension ImageCodering {
     
-    public init(data: Data) {
-        let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
-        self.init(data: data, dataOptions: options)
+    public init() {
+        let data = Data()
+        self.init(data: data)
+    }
+    
+    public var dataOptions: CFDictionary {
+        [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
     }
     
     public var imageUTType: String {
@@ -100,52 +108,57 @@ extension ImageCodering {
         return false
     }
     
-    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
-        guard canDecode(), let imageSource = self.imageSource else {
-            return nil
+    public mutating func setupImageSource(data: Data) {
+        if data.isEmpty == true {
+            self.frameCount = 0
+            self.imageSource = nil
+            return
         }
-        return imageSource.kj.toCGImage(index: index)
+        if let imageSource = CGImageSourceCreateWithData(data as CFData, dataOptions) {
+            self.frameCount = Int(CGImageSourceGetCount(imageSource))
+            self.imageSource = imageSource
+            return
+        }
+        // Try again without UTType hint, the call site from user may provide the wrong UTType.
+        if let imageSource = CGImageSourceCreateWithData(data as CFData, nil) {
+            self.frameCount = Int(CGImageSourceGetCount(imageSource))
+            self.imageSource = imageSource
+            return
+        }
     }
 }
 
 extension ImageCodering {
     
-    /// Set up the original image source and total number animated frames.
-    mutating func setupImageSource(data: Data, dataOptions: CFDictionary) {
-        if !data.isEmpty, let imageSource = CGImageSourceCreateWithData(data as CFData, dataOptions) {
-            self.frameCount = Int(CGImageSourceGetCount(imageSource))
-            self.imageSource = imageSource
-        } else {
-            self.frameCount = 0
-            self.imageSource = nil
-        }
-    }
-    
     /// Decode the data to image.
-    /// - Parameter options: A dictionary containing any decoding options.
-    /// - Returns: The decoded image from data.
-    func decodedImage(options: ImageCoderOptions) -> Harbeth.C7Image? {
+    /// - Parameters:
+    ///   - options: A dictionary containing any decoding options.
+    ///   - onNext: The decoded image from data call back.
+    func decodedImage(options: ImageCoderOptions, onNext: @escaping (C7Image?) -> Void) {
         guard canDecode() else {
-            return nil
+            return
         }
-        let frameType = options[ImageCoderOption.decoder.frameTypeKey] as? FrameType ?? .animated
-        if frameType == .animated, isAnimatedImages(), !canDecoderBrokenData() {
-            return nil
+        let complete = options[CoderOptions.decoder.completeDataKey] as? Bool ?? false
+        if !complete && !canDecoderBrokenData() {
+            return
         }
-        let index = frameType.index(frameCount)
-        let filters = options[ImageCoderOption.decoder.filtersKey] as? [C7FilterProtocol] ?? []
-        var image: Harbeth.C7Image?
-        if let cgImage = decodedCGImage(options: options, index: index) {
-            let dest = BoxxIO(element: cgImage, filters: filters)
-            image = try? dest.output().c7.toC7Image()
-        } else {
-            let dest = BoxxIO(element: Harbeth.C7Image(data: data), filters: filters)
-            image = try? dest.output()
+        let frameType = options[CoderOptions.decoder.frameTypeKey] as? FrameType ?? .animated
+        var cgImage: CGImage? = nil
+        if let cgImg = decodedCGImage(options: options, index: frameType.index(frameCount)) {
+            cgImage = cgImg
+        } else if let cgImg = Harbeth.C7Image.init(data: data)?.cgImage {
+            cgImage = cgImg
         }
-        if let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize,
-           let resizingMode = options[ImageCoderOption.decoder.resizingModeKey] as? ResizingMode {
-            image = resizingMode.resizeImage(image, size: resize)
-        }
-        return image
+        let filters = options[CoderOptions.decoder.filtersKey] as? [C7FilterProtocol] ?? []
+        var dest = BoxxIO(element: cgImage, filters: filters)
+        dest.transmitOutputRealTimeCommit = true
+        dest.transmitOutput(success: {
+            var image = $0?.c7.toC7Image()
+            if let resize = options[CoderOptions.decoder.thumbnailPixelSizeKey] as? CGSize,
+               let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ResizingMode {
+                image = resizingMode.resizeImage(image, size: resize)
+            }
+            onNext(image)
+        })
     }
 }

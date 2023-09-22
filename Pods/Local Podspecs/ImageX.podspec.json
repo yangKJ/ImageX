@@ -1,6 +1,6 @@
 {
   "name": "ImageX",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "summary": "GIFs animation add filter, downloading and caching images from the web.",
   "homepage": "https://github.com/yangKJ/ImageX",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/yangKJ/ImageX.git",
-    "tag": "1.1.0"
+    "tag": "1.1.1"
   },
   "swift_versions": "5.0",
   "requires_arc": true,

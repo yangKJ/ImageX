@@ -21,9 +21,9 @@ public struct ImageIOCoder: ImageCodering {
         self.type ?? AssetType(data: data)
     }
     
-    public init(data: Data, dataOptions: CFDictionary) {
+    public init(data: Data) {
         self.data = data
-        self.setupImageSource(data: data, dataOptions: dataOptions)
+        self.setupImageSource(data: data)
     }
     
     private var type: AssetType?
@@ -33,9 +33,16 @@ public struct ImageIOCoder: ImageCodering {
         self.type = format
     }
     
-    public init(data: Data, dataOptions: CFDictionary, format: AssetType) {
-        self.init(data: data, dataOptions: dataOptions)
-        self.type = format
+    public init(format: AssetType) {
+        let data = Data()
+        self.init(data: data, format: format)
+    }
+    
+    public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {
+        guard canDecode(), let imageSource = self.imageSource else {
+            return nil
+        }
+        return imageSource.kj.toCGImage(index: index)
     }
     
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {

@@ -24,7 +24,7 @@ extension ImageXEngine where Base: UIImageView {
     ///   - options: Represents creating options used in ImageX.
     public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
+        Driver.setImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -39,7 +39,7 @@ extension ImageXEngine where Base: UIImageView {
         options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
-        return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display network image or gif and add the filters.
@@ -80,7 +80,7 @@ extension ImageXEngine where Base: UIImageView {
         options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
-        return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -90,7 +90,7 @@ extension ImageXEngine where Base: UIImageView {
     ///   - options: Represents creating options used in ImageX.
     public func setHighlightedImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
+        Driver.setImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display image or gif and add the filters.
@@ -105,7 +105,7 @@ extension ImageXEngine where Base: UIImageView {
         options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
-        return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
     /// Display network image or gif and add the filters.
@@ -120,7 +120,7 @@ extension ImageXEngine where Base: UIImageView {
         options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
-        return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
 }
 

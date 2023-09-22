@@ -19,7 +19,7 @@ final class FrameStore {
     /// A high number will result in more memory usage and less CPU load, and vice versa.
     private var bufferFrameCount: Int
     /// Decoder for decoding animated images.
-    private let decoder: AnimatedImageCoder
+    private let decoder: AnimatedCodering
     /// Parameters configured for the decoder.
     private let coderOptions: ImageCodering.ImageCoderOptions
     
@@ -87,12 +87,12 @@ final class FrameStore {
     ///   - filters: Set the filters.
     ///   - options: Set the other parameters.
     ///   - prepared: Ready to start playing.
-    init(decoder: AnimatedImageCoder, filters: [C7FilterProtocol], options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
+    init(decoder: AnimatedCodering, filters: [C7FilterProtocol], options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
         self.loopCount = options.Animated.loop.count
         self.maxTimeStep = options.Animated.maxTimeStep
         self.bufferFrameCount = options.Animated.bufferCount
         self.decoder = decoder
-        self.coderOptions = options.setupDecoderOptions(filters)
+        self.coderOptions = options.setupDecoderOptions(filters, finished: true)
         self.preloadFrameQueue.async {
             (self.loopDuration, self.durations) = decoder.animatedDuration(maxTimeStep: self.maxTimeStep)
             self.bufferFrameCount = self.durations.count

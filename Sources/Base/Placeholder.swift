@@ -35,7 +35,7 @@ extension ImageX.Placeholder {
         case .none:
             break
         case .color(let c7Color):
-            let size = HandyImage.realViewFrame(to: view).size
+            let size = Driver.realViewFrame(to: view).size
             let image = c7Color.c7.colorImage(with: size)
             guard let image_ = resizingMode.resizeImage(image, size: view.frame.size) else {
                 return

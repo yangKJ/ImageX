@@ -1,5 +1,5 @@
 //
-//  AnimatedImageCoder.swift
+//  AnimatedCodering.swift
 //  ImageX
 //
 //  Created by Condy on 2023/7/15.
@@ -13,7 +13,7 @@ import MobileCoreServices
 #endif
 
 /// Set up encode or decode to animated images.
-public protocol AnimatedImageCoder: ImageCodering {
+public protocol AnimatedCodering: ImageCodering {
     
     /// The image container property key used in ImageIO API.
     var dictionaryProperty: String { get }
@@ -37,7 +37,7 @@ public protocol AnimatedImageCoder: ImageCodering {
     func decodeAnimatedCGImage(options: ImageCoderOptions, indexes: [Int]) -> [CGImage?]
 }
 
-extension AnimatedImageCoder {
+extension AnimatedCodering {
     
     /// The total duration of animation and each animated image frame duration.
     /// - Parameter maxTimeStep: Maximum duration to increment the frame timer with.
@@ -58,19 +58,16 @@ extension AnimatedImageCoder {
     }
     
     public func decodeAnimatedCGImage(options: ImageCoderOptions, indexes: [Int]) -> [CGImage?] {
-        guard canDecode(), isAnimatedImages(), let imageSource = imageSource else {
+        guard canDecode(), isAnimatedImages() else {
             return []
         }
-        var cgImages = [CGImage?]()
-        for index in indexes where index >= 0 && index <= frameCount {
-            let cgImage = CGImageSourceCreateImageAtIndex(imageSource, index, nil)
-            cgImages.append(cgImage)
+        return indexes.map { index in
+            decodedCGImage(options: options, index: index)
         }
-        return cgImages
     }
 }
 
-extension AnimatedImageCoder {
+extension AnimatedCodering {
     
     /// Decode the data to animated image.
     /// - Parameters:
@@ -79,10 +76,9 @@ extension AnimatedImageCoder {
     ///   - range: Those frames are currently needed.
     /// - Returns: Returns a range frame array frome data.
     func decodeAnimatedImage(options: ImageCoderOptions, durations: [TimeInterval], indexes: [Int]) -> [FrameImage] {
-        guard isAnimatedImages() else { return [] }
-        let filters = options[ImageCoderOption.decoder.filtersKey] as? [C7FilterProtocol] ?? []
-        let resize = options[ImageCoderOption.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero
-        let resizingMode = options[ImageCoderOption.decoder.resizingModeKey] as? ResizingMode ?? .original
+        let filters = options[CoderOptions.decoder.filtersKey] as? [C7FilterProtocol] ?? []
+        let resize = options[CoderOptions.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero
+        let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ResizingMode ?? .original
         let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
         return Array(zip(cgImages, indexes)).map {
             let dest = BoxxIO(element: $0, filters: filters)

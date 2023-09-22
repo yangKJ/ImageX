@@ -28,7 +28,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
+        Driver.setImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a data, And add the filters.
@@ -45,7 +45,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
-        return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a url, And add the filters.
@@ -62,7 +62,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
-        return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a named, And add the filters.
@@ -78,7 +78,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
-        HandyImage.displayImage(named: named, to: base, filters: filters, options: options, other: other)
+        Driver.setImage(named: named, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a data, And add the filters.
@@ -95,7 +95,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) -> AssetType {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
-        return HandyImage.displayImage(data: data, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(data: data, to: base, filters: filters, options: options, other: other)
     }
     
     /// Sets an image or gif to the button for a specified state with a url, And add the filters.
@@ -112,7 +112,7 @@ extension ImageXEngine where Base: UIButton {
         options: ImageXOptions = ImageXOptions.default
     ) -> Task? {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
-        return HandyImage.displayImage(url: url, to: base, filters: filters, options: options, other: other)
+        return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
 }
 

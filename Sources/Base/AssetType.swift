@@ -204,29 +204,3 @@ extension AssetType {
         return nil
     }
 }
-
-extension AssetType {
-    
-    static func createCoder(with data: Data?, format: AssetType? = nil) -> ImageCodering? {
-        guard let data = data else {
-            return nil
-        }
-        let format = format ?? AssetType(data: data)
-        switch format {
-        case .jpeg:
-            return ImageJPEGCoder.init(data: data)
-        case .png:
-            return AnimatedAPNGCoder(data: data)
-        case .gif:
-            return AnimatedGIFsCoder(data: data)
-        case .webp:
-            return AnimatedWebPCoder(data: data)
-        case .heif, .heic:
-            return AnimatedHEICCoder(data: data)
-        case .tiff, .raw, .pdf, .bmp, .svg:
-            return ImageIOCoder(data: data, format: format)
-        default:
-            return nil
-        }
-    }
-}
