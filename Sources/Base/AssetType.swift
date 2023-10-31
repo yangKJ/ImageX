@@ -77,7 +77,8 @@ extension AssetType {
     ///   - url: Link url.
     ///   - complete: Result callback.
     public static func asyncAssetType(with url: URL, complete: @escaping AssetTypeComplete) {
-        Networking.shared.addDownloadURL(url, downloadBlock: { result in
+        let options = ImageXOptions.init()
+        Networking.shared.addDownloadURL(url, options: options, downloadBlock: { result in
             switch result {
             case .failure:
                 complete(.unknow)

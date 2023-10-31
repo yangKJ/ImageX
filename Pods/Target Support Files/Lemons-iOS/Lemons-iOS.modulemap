@@ -1,6 +1,0 @@
-framework module Lemons {
-  umbrella header "Lemons-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

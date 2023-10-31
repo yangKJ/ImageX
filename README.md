@@ -213,7 +213,7 @@ public struct ImageXOptions {
 
 ### Cached
 
-- For the use of caching modules, please refer to [Lemons](https://github.com/yangKJ/Lemons) for more information.
+- For the use of caching modules, please refer to [CacheX](https://github.com/yangKJ/CacheX) for more information.
 - Network data caching type. There are two modes: memory and disk storage.
 - Among them, the disk storage uses GZip to compress data, so it will occupy less space.
 - Support setting different types of named encryption methods, such as md5, sha1, base58, And user defined.

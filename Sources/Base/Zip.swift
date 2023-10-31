@@ -48,7 +48,7 @@ extension ImageX.ZipType {
     }
 }
 
-struct GZip {
+fileprivate struct GZip {
     /// Decompression stream size
     //static let GZIP_STREAM_SIZE: Int32 = Int32(MemoryLayout<z_stream>.size)
     /// Decompression buffer size

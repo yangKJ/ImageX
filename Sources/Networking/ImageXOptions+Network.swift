@@ -23,6 +23,9 @@ extension ImageXOptions {
         /// Network resource data download progress response interval.
         public var downloadInterval: TimeInterval = 0.02
         
+        /// Network image download headers.
+        public var headers: [String: String] = [:]
+        
         public init() { }
         
         internal var failed: ((_ error: Error) -> Void)?

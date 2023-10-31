@@ -1,10 +1,10 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/ImageX-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Lemons-iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CacheX-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/ImageX-iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth-iOS/Harbeth.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ImageX-iOS/ImageX.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Lemons-iOS/Lemons.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CacheX-iOS/CacheX.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth-iOS/Harbeth.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ImageX-iOS/ImageX.framework/Headers"
 LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
-OTHER_LDFLAGS = $(inherited) -ObjC -framework "Harbeth" -framework "ImageX" -framework "Lemons" -weak_framework "AVFoundation" -weak_framework "CoreImage" -weak_framework "ImageIO" -weak_framework "MetalKit" -weak_framework "MetalPerformanceShaders"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "CacheX" -framework "Harbeth" -framework "ImageX" -weak_framework "AVFoundation" -weak_framework "CoreImage" -weak_framework "ImageIO" -weak_framework "MetalKit" -weak_framework "MetalPerformanceShaders"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

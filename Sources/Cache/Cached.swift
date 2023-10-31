@@ -6,17 +6,19 @@
 //
 
 import Foundation
-import Lemons
+import CacheX
 
-/// For the use of caching modules, please refer to Lemons for more information.
-/// See: https://github.com/yangKJ/Lemons
+public struct CachedCodable: Codable { }
+
+/// For the use of caching modules, please refer to CacheX for more information.
+/// See: https://github.com/yangKJ/CacheX
 public struct Cached {
     
     /// A singleton cache object.
     public static let shared = Cached()
     
     /// Storage container.
-    public let storage: Lemons.Storage<CacheModel>
+    public let storage: CacheX.Storage<CachedCodable>
     
     /// The name of disk storage, this will be used as folder name within directory.
     public var cachedName: String = "ImageXCached" {
@@ -26,14 +28,14 @@ public struct Cached {
     }
     
     /// The longest time duration in second of the cache being stored in disk. default is an week.
-    public var expiry: Expiry = Lemons.Expiry.week {
+    public var expiry: Expiry = CacheX.Expiry.week {
         didSet {
             Cached.shared.storage.disk.expiry = expiry
         }
     }
     
     /// The largest disk size can be taken for the cache. It is the total allocated size of cached files in bytes. default 20kb.
-    public var maxCountLimit: Lemons.Disk.Byte = 20 * 1024 {
+    public var maxCountLimit: CacheX.Disk.Byte = 20 * 1024 {
         didSet {
             Cached.shared.storage.disk.maxCountLimit = maxCountLimit
         }
@@ -50,7 +52,7 @@ public struct Cached {
     private init() {
         /// Create a unified background processing thread.
         let background = DispatchQueue(label: "com.condy.ImageX.cached.queue", qos: .background, attributes: [.concurrent])
-        storage = Lemons.Storage<CacheModel>.init(queue: background)
+        storage = Storage<CachedCodable>.init(queue: background)
         storage.disk.named = cachedName
         storage.disk.expiry = expiry
         storage.disk.maxCountLimit = maxCountLimit

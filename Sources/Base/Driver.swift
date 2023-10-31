@@ -7,7 +7,7 @@
 
 import Foundation
 import Harbeth
-import Lemons
+import CacheX
 
 struct Driver {
     
@@ -81,8 +81,7 @@ struct Driver {
         }
         let options = Driver.setPlaceholder(to: view, options: options, other: other)
         let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
-        let object = Cached.shared.storage.fetchCached(forKey: key, options: options.Cache.cacheOption)
-        if var data = object?.data {
+        if var data = Cached.shared.storage.read(key: key, options: options.Cache.cacheOption) {
             data = options.Cache.cacheDataZip.decompress(data: data)
             DispatchQueue.main.async {
                 options.Network.progressBlock?(1.0)
@@ -90,7 +89,7 @@ struct Driver {
             }
             return nil
         }
-        let task = Networking.shared.addDownloadURL(url, progressBlock: options.Network.progressBlock, downloadBlock: { result in
+        let task = Networking.shared.addDownloadURL(url, options: options, downloadBlock: { result in
             switch result {
             case .success(let res):
                 DispatchQueue.main.async {
@@ -99,8 +98,7 @@ struct Driver {
                 }
                 if res.downloadStatus == .complete {
                     let zipData = options.Cache.cacheDataZip.compressed(data: res.data)
-                    let model = CacheModel(data: zipData)
-                    Cached.shared.storage.storeCached(model, forKey: key, options: options.Cache.cacheOption)
+                    Cached.shared.storage.write(key: key, value: zipData, options: options.Cache.cacheOption)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -108,7 +106,7 @@ struct Driver {
                 }
                 options.Network.failed?(error)
             }
-        }, retry: options.Network.retry, timeoutInterval: options.Network.timeoutInterval, interval: options.Network.downloadInterval)
+        })
         task.priority = options.Network.downloadPriority
         return Task(key: key, url: url, task: task)
     }
@@ -130,9 +128,9 @@ extension Driver {
         if options.resizingMode == .original {
             return options
         }
-#if !os(macOS)
+        #if !os(macOS)
         view.contentMode = .scaleAspectFit
-#endif
+        #endif
         if options.thumbnailPixelSize == .zero {
             let realsize = realViewFrame(to: view).size
             return options.mutating({ $0.thumbnailPixelSize = realsize })

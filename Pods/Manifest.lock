@@ -1,40 +1,40 @@
 PODS:
-  - Harbeth (0.9.3):
-    - Harbeth/Basic (= 0.9.3)
-    - Harbeth/Compute (= 0.9.3)
-    - Harbeth/CoreImage (= 0.9.3)
-    - Harbeth/MPS (= 0.9.3)
-    - Harbeth/SwiftUI (= 0.9.3)
-  - Harbeth/Basic (0.9.3)
-  - Harbeth/Compute (0.9.3):
+  - CacheX (1.0.1)
+  - Harbeth (0.9.5):
+    - Harbeth/Basic (= 0.9.5)
+    - Harbeth/Compute (= 0.9.5)
+    - Harbeth/CoreImage (= 0.9.5)
+    - Harbeth/MPS (= 0.9.5)
+    - Harbeth/SwiftUI (= 0.9.5)
+  - Harbeth/Basic (0.9.5)
+  - Harbeth/Compute (0.9.5):
     - Harbeth/Basic
-  - Harbeth/CoreImage (0.9.3):
+  - Harbeth/CoreImage (0.9.5):
     - Harbeth/Basic
-  - Harbeth/MPS (0.9.3):
+  - Harbeth/MPS (0.9.5):
     - Harbeth/Basic
-  - Harbeth/SwiftUI (0.9.3):
+  - Harbeth/SwiftUI (0.9.5):
     - Harbeth/Basic
-  - ImageX (1.1.1):
+  - ImageX (1.1.2):
+    - CacheX
     - Harbeth
-    - Lemons
-  - Lemons (0.0.8)
 
 DEPENDENCIES:
   - ImageX (from `./`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - CacheX
     - Harbeth
-    - Lemons
 
 EXTERNAL SOURCES:
   ImageX:
     :path: "./"
 
 SPEC CHECKSUMS:
-  Harbeth: b92e7c8a4af3ad19e58b660e59a1faa2d917781d
-  ImageX: 554d296be5b4ab2a80ae85f051390fe221a89c0f
-  Lemons: 6b7cc5ad1eeb2d5b635f01c0c8bbbbb309502bfa
+  CacheX: 916a589e95180513c095f04971dbf13260e41d21
+  Harbeth: bedaee0d05870caeee64df0413d7c946a9f6734a
+  ImageX: 59a665a5f61dab2901d40e18b252b84593f4cbae
 
 PODFILE CHECKSUM: 241d7628bc4240518129e981f7cbdf508498ffd8
 
