@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import QuartzCore
+import Harbeth
 
 public protocol HasAnimatable: NSObjectProtocol {
     /// Responsible for managing the animation frames.

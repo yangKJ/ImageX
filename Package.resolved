@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "CacheX",
+        "repositoryURL": "https://github.com/yangKJ/CacheX.git",
+        "state": {
+          "branch": null,
+          "revision": "930f040ba47744274a0adcb2683c94b3837b511d",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "Harbeth",
         "repositoryURL": "https://github.com/yangKJ/Harbeth.git",
         "state": {
           "branch": null,
-          "revision": "71c2c964500bb4fdc19802f86dd7c7b753704306",
-          "version": "0.6.8"
-        }
-      },
-      {
-        "package": "Lemons",
-        "repositoryURL": "https://github.com/yangKJ/Lemons.git",
-        "state": {
-          "branch": null,
-          "revision": "6b181de7f263c7046024aa7976ab7dd910cd2d47",
-          "version": "0.0.7"
+          "revision": "8295baf614fb9f6cbd02653c2ba57065e20aace8",
+          "version": "0.9.6"
         }
       }
     ]

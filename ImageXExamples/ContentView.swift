@@ -27,7 +27,7 @@ struct ContentView: View {
                         .font(.title2)
                 }.onTapGesture {
                     Cached.shared.storage.removedDiskAndMemoryCached { isSuccess in
-                        self.isShowAlert = isSuccess
+                        self.isShowAlert = true
                     }
                 }
                 Section {

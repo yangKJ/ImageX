@@ -7,6 +7,7 @@
 
 import Foundation
 import CommonCrypto
+import Harbeth
 
 struct Networking {
     
@@ -17,9 +18,9 @@ struct Networking {
     
     private init() { }
     
-    @ImageX.Locked var downloaders = [String: DataDownloader]()
+    @Locked var downloaders = [String: DataDownloader]()
     
-    @ImageX.Locked var cacheCallBlocks = [(key: String, block: DownloadBlocks)]()
+    @Locked var cacheCallBlocks = [(key: String, block: DownloadBlocks)]()
     
     /// Add network download data task.
     /// - Parameters:

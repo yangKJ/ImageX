@@ -23,21 +23,30 @@ public struct Cached {
     /// The name of disk storage, this will be used as folder name within directory.
     public var cachedName: String = "ImageXCached" {
         didSet {
-            Cached.shared.storage.disk.named = cachedName
+            if var disk = storage.caches[Disk.named] as? Disk {
+                disk.named = cachedName
+                storage.caches.updateValue(disk, forKey: Disk.named)
+            }
         }
     }
     
     /// The longest time duration in second of the cache being stored in disk. default is an week.
     public var expiry: Expiry = CacheX.Expiry.week {
         didSet {
-            Cached.shared.storage.disk.expiry = expiry
+            if var disk = storage.caches[Disk.named] as? Disk {
+                disk.expiry = expiry
+                storage.caches.updateValue(disk, forKey: Disk.named)
+            }
         }
     }
     
     /// The largest disk size can be taken for the cache. It is the total allocated size of cached files in bytes. default 20kb.
     public var maxCountLimit: CacheX.Disk.Byte = 20 * 1024 {
         didSet {
-            Cached.shared.storage.disk.maxCountLimit = maxCountLimit
+            if var disk = storage.caches[Disk.named] as? Disk {
+                disk.maxCountLimit = maxCountLimit
+                storage.caches.updateValue(disk, forKey: Disk.named)
+            }
         }
     }
     
@@ -45,18 +54,30 @@ public struct Cached {
     /// Memory cache will be purged automatically when a memory warning notification is received.
     public var maxCostLimit: UInt = 0 {
         didSet {
-            Cached.shared.storage.memory.maxCostLimit = maxCostLimit
+            if var memory = storage.caches[Memory.named] as? Memory {
+                memory.maxCostLimit = maxCostLimit
+                storage.caches.updateValue(memory, forKey: Memory.named)
+            }
         }
     }
     
     private init() {
         /// Create a unified background processing thread.
         let background = DispatchQueue(label: "com.condy.ImageX.cached.queue", qos: .background, attributes: [.concurrent])
-        storage = Storage<CachedCodable>.init(queue: background)
-        storage.disk.named = cachedName
-        storage.disk.expiry = expiry
-        storage.disk.maxCountLimit = maxCountLimit
-        storage.memory.maxCostLimit = maxCostLimit
+        storage = Storage<CachedCodable>.init(queue: background, caches: [
+            Disk.named: Disk(),
+            Memory.named: Memory(),
+        ])
+        if var disk = storage.caches[Disk.named] as? Disk {
+            disk.named = cachedName
+            disk.expiry = expiry
+            disk.maxCountLimit = maxCountLimit
+            storage.caches.updateValue(disk, forKey: Disk.named)
+        }
+        if var memory = storage.caches[Memory.named] as? Memory {
+            memory.maxCostLimit = maxCostLimit
+            storage.caches.updateValue(memory, forKey: Memory.named)
+        }
     }
     
     /// Clean up the data before the expiration time.
@@ -64,11 +85,15 @@ public struct Cached {
     ///   - expiry: Expiration time.
     ///   - completion: Clean up and complete the callback.
     public func removeExpiriedURLs(expiry: Expiry, completion: @escaping ((_ expiredURLs: [URL]) -> Void)) {
-        Cached.shared.storage.backgroundQueue.async {
-            let lastExpiry = Cached.shared.storage.disk.expiry
-            Cached.shared.storage.disk.expiry = expiry
-            Cached.shared.storage.disk.removeExpiredURLsFromDisk(completion: completion)
-            Cached.shared.storage.disk.expiry = lastExpiry
+        storage.backgroundQueue.async {
+            guard var disk = storage.caches[Disk.named] as? Disk else {
+                return
+            }
+            let lastExpiry = disk.expiry
+            disk.expiry = expiry
+            disk.removeExpiredURLsFromDisk(completion: completion)
+            disk.expiry = lastExpiry
+            storage.caches.updateValue(disk, forKey: Disk.named)
         }
     }
     
@@ -79,12 +104,13 @@ public struct Cached {
         if cleanedUpDiskCached {
             return
         }
+        let disk = Cached.shared.storage.caches[Disk.named] as? Disk
         Cached.shared.storage.backgroundQueue.async {
             RunloopOptimize.default.commit { oneself in
                 if Cached.cleanedUpDiskCached {
                     oneself.removeAllTasks()
                 } else {
-                    Cached.shared.storage.disk.removeExpiredURLsFromDisk { _ in
+                    disk?.removeExpiredURLsFromDisk { _ in
                         Cached.cleanedUpDiskCached = true
                     }
                 }

@@ -65,6 +65,9 @@ extension Device {
         #if SWIFT_PACKAGE
         /// Fixed the Swift PM cannot read the `.metal` file.
         /// https://stackoverflow.com/questions/63237395/generating-resource-bundle-accessor-type-bundle-has-no-member-module
+        if let library = try? device.makeDefaultLibrary(bundle: Bundle.module) {
+            return library
+        }
         if let pathURL = Bundle.module.url(forResource: "default", withExtension: "metallib") {
             var path: String
             if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
@@ -77,43 +80,31 @@ extension Device {
             }
         }
         #endif
-        /// Compatible with the Bundle address used by CocoaPods to import framework.
-        if let bundle = readFrameworkBundle(with: resource),
-           let path = bundle.path(forResource: "default", ofType: "metallib"),
-           let library = try? device.makeLibrary(filepath: path)  {
-            return library
-        }
+        
         /// Fixed the read failure of imported local resources was rectified.
         if let library = try? device.makeDefaultLibrary(bundle: Bundle(for: Device.self)) {
             return library
         }
         
-        return nil
-    }
-    
-    static func readFrameworkBundle(with resource: String) -> Bundle? {
-        let candidates = [
-            // Bundle should be present here when the package is linked into an App.
-            Bundle.main.resourceURL,
-            // Bundle should be present here when the package is linked into a framework.
-            Bundle(for: Device.self).resourceURL,
-            // For command-line tools.
-            Bundle.main.bundleURL,
-        ]
-        let component = resource + ".bundle"
-        for candidate in candidates {
-            let bundleURL: URL?
-            if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
-                bundleURL = candidate?.appending(component: component)
-            } else {
-                bundleURL = candidate?.appendingPathComponent(component)
-            }
-            if let bundle = bundleURL.flatMap(Bundle.init(url:)) {
-                return bundle
+        let bundle = R.readFrameworkBundle(with: resource)
+        /// Fixed libraryFile is nil. podspec file `s.static_framework = false`
+        /// https://github.com/CocoaPods/CocoaPods/issues/7967
+        guard let libraryFile = bundle?.path(forResource: "default", ofType: "metallib") else {
+            return nil
+        }
+        
+        /// Compatible with the Bundle address used by CocoaPods to import framework.
+        if let library = try? device.makeLibrary(filepath: libraryFile) {
+            return library
+        }
+        
+        if #available(macOS 10.13, iOS 11.0, *) {
+            if let url = URL(string: libraryFile), let library = try? device.makeLibrary(URL: url) {
+                return library
             }
         }
-        // Return whatever bundle this code is in as a last resort.
-        return Bundle(for: Device.self)
+        
+        return nil
     }
 }
 

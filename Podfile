@@ -1,6 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 
 source 'https://github.com/CocoaPods/Specs.git'
+install! 'cocoapods', :disable_input_output_paths => true
 
 abstract_target 'ImageXExamples' do
   # Comment the next line if you don't want to use dynamic frameworks

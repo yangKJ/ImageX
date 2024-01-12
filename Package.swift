@@ -14,13 +14,13 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/yangKJ/Harbeth.git", .upToNextMajor(from: "0.6.8")),
-        .package(url: "https://github.com/yangKJ/Lemons.git", .upToNextMajor(from: "0.0.7")),
+        .package(url: "https://github.com/yangKJ/Harbeth.git", .upToNextMajor(from: "0.9.6")),
+        .package(url: "https://github.com/yangKJ/CacheX.git", .upToNextMajor(from: "1.0.1")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(name: "ImageX", dependencies: ["Harbeth", "Lemons"], path: "Sources"),
+        .target(name: "ImageX", dependencies: ["Harbeth", "CacheX"], path: "Sources"),
     ],
     swiftLanguageVersions: [.v5]
 )
