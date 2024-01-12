@@ -155,8 +155,9 @@ extension ImageCodering {
         dest.transmitOutput(success: {
             var image = $0?.c7.toC7Image()
             if let resize = options[CoderOptions.decoder.thumbnailPixelSizeKey] as? CGSize,
-               let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ResizingMode {
-                image = resizingMode.resizeImage(image, size: resize)
+               let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ResizingMode,
+               let img = image {
+                image = resizingMode.resizeImage(img, size: resize)
             }
             onNext(image)
         })

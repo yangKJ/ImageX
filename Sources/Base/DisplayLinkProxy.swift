@@ -20,7 +20,7 @@ final class DisplayLinkProxy: NSObject {
     }
     
     /// Lets the target update the frame if needed.
-    @objc func onScreenUpdate(_ sender: CADisplayLink) {
+    @objc func onScreenUpdate(_ sender: Harbeth.CADisplayLink) {
         guard let animator = target, let store = animator.frameStore else {
             return
         }

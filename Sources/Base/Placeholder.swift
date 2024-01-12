@@ -30,16 +30,16 @@ public enum Placeholder {
 extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
-    func display(to view: AsAnimatable, resizingMode: ResizingMode, other: ImageX.Others? = nil) {
+    func display(to view: AsAnimatable, resizingMode: Harbeth.ResizingMode, other: ImageX.Others? = nil) {
         switch self {
         case .none:
             break
         case .color(let c7Color):
             let size = Driver.realViewFrame(to: view).size
-            let image = c7Color.c7.colorImage(with: size)
-            guard let image_ = resizingMode.resizeImage(image, size: view.frame.size) else {
+            guard let image = c7Color.c7.colorImage(with: size) else {
                 return
             }
+            let image_ = resizingMode.resizeImage(image, size: view.frame.size)
             view.setContentImage(image_, other: other)
         case .image(let c7Image):
             let image = resizingMode.resizeImage(c7Image, size: view.frame.size)

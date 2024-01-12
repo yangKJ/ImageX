@@ -78,13 +78,15 @@ extension AnimatedCodering {
     func decodeAnimatedImage(options: ImageCoderOptions, durations: [TimeInterval], indexes: [Int]) -> [FrameImage] {
         let filters = options[CoderOptions.decoder.filtersKey] as? [C7FilterProtocol] ?? []
         let resize = options[CoderOptions.decoder.thumbnailPixelSizeKey] as? CGSize ?? .zero
-        let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ResizingMode ?? .original
+        let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? Harbeth.ResizingMode ?? .original
         let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
         return Array(zip(cgImages, indexes)).map {
             let dest = BoxxIO(element: $0, filters: filters)
-            let image = try? dest.output()?.c7.toC7Image()
-            let reImage = resizingMode.resizeImage(image, size: resize)
-            return FrameImage(cgImage: $0, image: reImage, duration: durations[$1])
+            var image = try? dest.output()?.c7.toC7Image()
+            if let image_ = image {
+                image = resizingMode.resizeImage(image_, size: resize)
+            }
+            return FrameImage(cgImage: $0, image: image, duration: durations[$1])
         }
     }
 }

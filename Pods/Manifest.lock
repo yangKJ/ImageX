@@ -15,7 +15,7 @@ PODS:
     - Harbeth/Basic
   - Harbeth/SwiftUI (1.0.2):
     - Harbeth/Basic
-  - ImageX (1.1.3):
+  - ImageX (1.1.4):
     - CacheX
     - Harbeth
 
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CacheX: 8db0e9d17717600be0b5c34bde7bc7522dbd9a3a
   Harbeth: afa90f9d95a4572fd0cec2320b8d1fe53dc81870
-  ImageX: 4d7fcbf8753e12ea636c9e8331b71fa34c2fd7c8
+  ImageX: e7763ded1e27a358cce87dc14a2b9f7cf4d31d2d
 
 PODFILE CHECKSUM: 5d5c489485ce6b986d2df63e6929946aa0037f28
 

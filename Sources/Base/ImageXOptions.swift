@@ -31,7 +31,7 @@ public struct ImageXOptions {
     
     /// Content mode used for resizing the frame image.
     /// When this property is `original`, modifying the thumbnail pixel size will not work.
-    public var resizingMode: ImageX.ResizingMode = .original
+    public var resizingMode: Harbeth.ResizingMode = .original
     
     /// Whether or not to generate the thumbnail images.
     /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
