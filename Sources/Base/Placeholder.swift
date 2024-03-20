@@ -30,7 +30,7 @@ public enum Placeholder {
 extension ImageX.Placeholder {
     
     /// Displayed placeholder on view.
-    func display(to view: AsAnimatable, resizingMode: Harbeth.ResizingMode, other: ImageX.Others? = nil) {
+    func display(to view: AsAnimatable, resizingMode: ImageX.ResizingMode, other: ImageX.Others? = nil) {
         switch self {
         case .none:
             break

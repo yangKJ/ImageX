@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CacheX
+@_exported import CacheX
 
 public struct CachedCodable: Codable { }
 
@@ -64,20 +64,16 @@ public struct Cached {
     private init() {
         /// Create a unified background processing thread.
         let background = DispatchQueue(label: "com.condy.ImageX.cached.queue", qos: .background, attributes: [.concurrent])
-        storage = Storage<CachedCodable>.init(queue: background, caches: [
-            Disk.named: Disk(),
-            Memory.named: Memory(),
+        var disk = Disk()
+        disk.named = cachedName
+        disk.expiry = expiry
+        disk.maxCountLimit = maxCountLimit
+        var memory = Memory()
+        memory.maxCostLimit = maxCostLimit
+        storage = CacheX.Storage<CachedCodable>.init(queue: background, caches: [
+            Disk.named: disk,
+            Memory.named: memory,
         ])
-        if var disk = storage.caches[Disk.named] as? Disk {
-            disk.named = cachedName
-            disk.expiry = expiry
-            disk.maxCountLimit = maxCountLimit
-            storage.caches.updateValue(disk, forKey: Disk.named)
-        }
-        if var memory = storage.caches[Memory.named] as? Memory {
-            memory.maxCostLimit = maxCostLimit
-            storage.caches.updateValue(memory, forKey: Memory.named)
-        }
     }
     
     /// Clean up the data before the expiration time.

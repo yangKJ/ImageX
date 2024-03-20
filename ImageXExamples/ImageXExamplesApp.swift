@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MetalPetalExamplesApp: App {
+struct ImageXExamplesApp: App {
     
     #if os(macOS)
     var windowFrame = NSScreen.main!.visibleFrame

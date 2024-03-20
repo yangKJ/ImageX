@@ -10,14 +10,14 @@ import Foundation
 /// Perform some operations when the current runloop is idle.
 public class RunloopOptimize: NSObject {
     
-    public typealias Task = @convention(block) (_ oneself: RunloopOptimize) -> ()
+    public typealias OptTask_ = @convention(block) (_ oneself: RunloopOptimize) -> ()
     
     /// The current thread is processed when it is idle.
     public static let `default` = RunloopOptimize(main: false)
     /// The main thread is processed when it is idle.
     public static let `main` = RunloopOptimize(main: true)
     
-    private lazy var dispatchedTasks = [Task]()
+    private lazy var dispatchedTasks = [OptTask_]()
     
     private init(main: Bool) {
         super.init()
@@ -36,7 +36,7 @@ extension RunloopOptimize {
     ///     }
     ///
     /// - Parameter task: Things to deal with.
-    public func commit(task: @escaping Task) {
+    public func commit(task: @escaping OptTask_) {
         objc_sync_enter(self)
         dispatchedTasks.append(task)
         objc_sync_exit(self)
@@ -54,7 +54,7 @@ extension RunloopOptimize {
     private func commonInit(main: Bool) {
         let activity = CFRunLoopActivity.beforeWaiting.rawValue
         // after CATransaction
-        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, activity, true, 0xFFFFFF) { (_, _) in
+        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, activity, true, 0xFFFFFF) { (_,_) in
             objc_sync_enter(self)
             var tasks = self.dispatchedTasks
             self.removeAllTasks()
@@ -71,7 +71,7 @@ extension RunloopOptimize {
         CFRunLoopAddObserver(runloop, observer, .defaultMode)
     }
     
-    @objc private func invokeTask(_ task: Task) {
+    @objc private func invokeTask(_ task: OptTask_) {
         task(self)
     }
 }

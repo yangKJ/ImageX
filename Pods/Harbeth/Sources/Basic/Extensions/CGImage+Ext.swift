@@ -14,6 +14,26 @@ extension CGImage: HarbethCompatible { }
 
 extension HarbethWrapper where Base: CGImage {
     
+    /// Whether a transparent channel exists.
+    public var hasAlphaChannel: Bool {
+        switch base.alphaInfo {
+        case .first, .last, .premultipliedFirst, .premultipliedLast:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    #if os(macOS)
+    public var size: NSSize {
+        NSSize(width: base.width, height: base.height)
+    }
+    #else
+    public var size: CGSize {
+        CGSize(width: base.width, height: base.height)
+    }
+    #endif
+    
     /// CGImage to texture
     ///
     /// Texture loader can not load image data to create texture
@@ -88,36 +108,22 @@ extension HarbethWrapper where Base: CGImage {
     }
     
     public func toC7Image() -> C7Image {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-        return UIImage.init(cgImage: base)
-        #elseif os(macOS)
+        #if os(macOS)
         return NSImage(cgImage: base, size: .init(width: base.width, height: base.height))
         #else
-        #error("Unsupported Platform")
+        return UIImage.init(cgImage: base)
         #endif
     }
-}
-
-extension HarbethWrapper where Base: CGImage {
     
-    public var hasAlphaChannel: Bool {
-        switch base.alphaInfo {
-        case .first, .last, .premultipliedFirst, .premultipliedLast:
-            return true
-        default:
-            return false
-        }
+    public func drawing(refImage: C7Image) -> C7Image {
+        #if os(macOS)
+        let width  = CGFloat(base.width) * refImage.scale
+        let height = CGFloat(base.height) * refImage.scale
+        return NSImage(cgImage: base, size: .init(width: width, height: height))
+        #else
+        return UIImage(cgImage: base, scale: refImage.scale, orientation: refImage.imageOrientation)
+        #endif
     }
-    
-    #if os(iOS) || os(tvOS) || os(watchOS)
-    public var size: CGSize {
-        CGSize(width: base.width, height: base.height)
-    }
-    #elseif os(macOS)
-    public var size: NSSize {
-        NSSize(width: base.width, height: base.height)
-    }
-    #endif
 }
 
 extension HarbethWrapper where Base: CGImage {

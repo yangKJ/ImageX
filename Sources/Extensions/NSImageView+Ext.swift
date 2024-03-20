@@ -50,7 +50,7 @@ extension ImageXEngine where Base: NSImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
-    ) -> Task? {
+    ) -> ImageX.Task? {
         Driver.setImage(url: url, to: base, filters: filters, options: options, other: nil)
     }
 }

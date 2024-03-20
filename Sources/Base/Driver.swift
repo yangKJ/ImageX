@@ -74,7 +74,7 @@ struct Driver {
         filters: [Harbeth.C7FilterProtocol],
         options: ImageXOptions,
         other: Others?
-    ) -> Task? {
+    ) -> ImageX.Task? {
         guard let url = url else {
             Driver.setPlaceholder(to: view, options: options, other: other)
             return nil
@@ -108,7 +108,7 @@ struct Driver {
             }
         })
         task.priority = options.Network.downloadPriority
-        return Task(key: key, url: url, task: task)
+        return ImageX.Task(key: key, url: url, task: task)
     }
 }
 
@@ -128,7 +128,7 @@ extension Driver {
         if options.resizingMode == .original {
             return options
         }
-        #if !os(macOS)
+        #if canImport(UIKit)
         view.contentMode = .scaleAspectFit
         #endif
         if options.thumbnailPixelSize == .zero {

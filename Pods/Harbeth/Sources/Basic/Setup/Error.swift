@@ -7,10 +7,11 @@
 
 import Foundation
 
-public enum CustomError: Swift.Error {
+public enum HarbethError: Swift.Error {
     case unknown
-    case error(Swift.Error)
+    case error(Error)
     case image2Texture
+    case image2CGImage
     case readFunction(String)
     case commandBuffer
     case computePipelineState(String)
@@ -30,10 +31,14 @@ public enum CustomError: Swift.Error {
     case bitmapDataNotFound
 }
 
-extension CustomError: CustomStringConvertible {
+extension HarbethError: CustomStringConvertible, LocalizedError {
     
     /// For each error type return the appropriate description.
     public var description: String {
+        localizedDescription
+    }
+    
+    public var errorDescription: String? {
         localizedDescription
     }
     
@@ -78,18 +83,84 @@ extension CustomError: CustomStringConvertible {
             return "Using metal texture loader is nil."
         case .bitmapDataNotFound:
             return "Bitmap Data Not Found."
+        case .image2CGImage:
+            return "Input image transform CGImage failed."
         default:
             return "Unknown error occurred."
         }
     }
+    
+    /// Depending on error type, returns an underlying `Error`.
+    internal var underlyingError: Swift.Error? {
+        switch self {
+        case .unknown:
+            return nil
+        case .error(let error):
+            return error
+        case .image2Texture:
+            return nil
+        case .readFunction:
+            return nil
+        case .commandBuffer:
+            return nil
+        case .computePipelineState:
+            return nil
+        case .renderPipelineState:
+            return nil
+        case .source2Texture:
+            return nil
+        case .texture2Image:
+            return nil
+        case .texture2CGImage:
+            return nil
+        case .texture2CIImage:
+            return nil
+        case .CVPixelBufferToCMSampleBuffer:
+            return nil
+        case .CMSampleBufferToCVPixelBuffer:
+            return nil
+        case .outputCIImage:
+            return nil
+        case .cubeResource:
+            return nil
+        case .createCIFilter:
+            return nil
+        case .makeComputeCommandEncoder:
+            return nil
+        case .makeTexture:
+            return nil
+        case .textureLoader:
+            return nil
+        case .bitmapDataNotFound:
+            return nil
+        case .image2CGImage:
+            return nil
+        }
+    }
 }
 
-extension CustomError {
-    public static func toCustomError(_ error: Error) -> CustomError {
-        if let error = error as? CustomError {
+extension HarbethError: CustomNSError {
+    public var errorUserInfo: [String: Any] {
+        var userInfo: [String: Any] = [:]
+        userInfo[NSLocalizedDescriptionKey] = errorDescription
+        userInfo[NSUnderlyingErrorKey] = underlyingError
+        return userInfo
+    }
+}
+
+extension HarbethError {
+    public static func toHarbethError(_ error: Error) -> HarbethError {
+        if let error = error.asHarbethError {
             return error
         } else {
             return .error(error)
         }
+    }
+}
+
+extension Error {
+    /// Returns the instance cast as an `HarbethError`.
+    public var asHarbethError: HarbethError? {
+        self as? HarbethError
     }
 }

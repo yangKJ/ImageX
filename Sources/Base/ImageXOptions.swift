@@ -8,6 +8,8 @@
 import Foundation
 import Harbeth
 
+public typealias ResizingMode = Harbeth.ResizingMode
+
 /// Other parameters related to animated images playback.
 /// Represents creating options used in ImageX.
 public struct ImageXOptions {
@@ -31,7 +33,7 @@ public struct ImageXOptions {
     
     /// Content mode used for resizing the frame image.
     /// When this property is `original`, modifying the thumbnail pixel size will not work.
-    public var resizingMode: Harbeth.ResizingMode = .original
+    public var resizingMode: ImageX.ResizingMode = .original
     
     /// Whether or not to generate the thumbnail images.
     /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
@@ -58,14 +60,13 @@ extension ImageXOptions {
     
     /// Set up decoder parameters
     func setupDecoderOptions(_ filters: [C7FilterProtocol], finished: Bool) -> ImageCodering.ImageCoderOptions {
-        let options: ImageCodering.ImageCoderOptions = [
+        return [
             CoderOptions.decoder.frameTypeKey : self.Animated.frameType,
             CoderOptions.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
             CoderOptions.decoder.resizingModeKey : resizingMode,
             CoderOptions.decoder.filtersKey : filters,
             CoderOptions.decoder.completeDataKey : finished,
-        ]
-        return options
+        ] as ImageCodering.ImageCoderOptions
     }
     
     func mutating(_ block: (inout ImageXOptions) -> Void) -> ImageXOptions {

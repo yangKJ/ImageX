@@ -60,7 +60,7 @@ extension ImageXEngine where Base: UIButton {
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
-    ) -> Task? {
+    ) -> ImageX.Task? {
         let other = Others(key: Others.UIButtonKey.image.rawValue, value: state)
         return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
@@ -110,7 +110,7 @@ extension ImageXEngine where Base: UIButton {
         for state: UIControl.State,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
-    ) -> Task? {
+    ) -> ImageX.Task? {
         let other = Others(key: Others.UIButtonKey.backgroundImage.rawValue, value: state)
         return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }

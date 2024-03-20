@@ -8,7 +8,37 @@
 import Foundation
 
 struct ImageParser {
-    enum JPEGHeaderSegment {
+    
+    /// Determines image size of the image based on the given data.
+    /// - Parameter data: Data.
+    /// - Returns: Image size.
+    static func getImageSize(with data: Data) -> CGSize {
+        let type = AssetType(data: data)
+        var size: CGSize = .zero
+        switch type {
+        case .jpeg where data.count > 2:
+            var size_: CGSize?
+            repeat {
+                size_ = ImageParser.parse(data, offset: 2, segment: .nextSegment)
+            } while size_ == nil
+            size = size_ ?? .zero
+        case .png where data.count >= 25:
+            var size_ = ImageParser.UInt32Size()
+            (data as NSData).getBytes(&size_, range: NSRange(location: 16, length: 8))
+            size = CGSize(width: Double(CFSwapInt32(size_.width)), height: Double(CFSwapInt32(size_.height)))
+        case .gif where data.count >= 11:
+            var size_ = ImageParser.UInt16Size()
+            (data as NSData).getBytes(&size_, range: NSRange(location: 6, length: 4))
+            size = CGSize(width: Double(size_.width), height: Double(size_.height))
+        default:
+            break
+        }
+        return size
+    }
+}
+
+extension ImageParser {
+    private enum JPEGHeaderSegment {
         case nextSegment
         case sofSegment
         case skipSegment
@@ -16,17 +46,22 @@ struct ImageParser {
         case eoiSegment
     }
     
-    struct UInt16Size {
+    private struct UInt16Size {
         var width: UInt16 = 0
         var height: UInt16 = 0
     }
     
-    struct UInt32Size {
+    private struct UInt32Size {
         var width: UInt32 = 0
         var height: UInt32 = 0
     }
     
-    static func parse(_ data: Data, offset: Int, segment: JPEGHeaderSegment) -> CGSize {
+    private enum JPEGParseResult {
+        case size(CGSize)
+        case tuple((data: Data, offset: Int, segment: JPEGHeaderSegment))
+    }
+    
+    private static func parse(_ data: Data, offset: Int, segment: JPEGHeaderSegment) -> CGSize {
         var tuple: JPEGParseResult = .tuple((data, offset: offset, segment: segment))
         while true {
             switch tuple {
@@ -36,14 +71,6 @@ struct ImageParser {
                 tuple = parse(jpeg: newTuple)
             }
         }
-    }
-}
-
-extension ImageParser {
-    
-    private enum JPEGParseResult {
-        case size(CGSize)
-        case tuple((data: Data, offset: Int, segment: JPEGHeaderSegment))
     }
     
     private static func parse(jpeg tuple: (data: Data, offset: Int, segment: JPEGHeaderSegment)) -> JPEGParseResult {

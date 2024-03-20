@@ -15,25 +15,16 @@ extension C7Color {
         /// Because the human eye is sensitive to red, green and blue, it is necessary to calculate the grayscale.
         /// This coefficient is mainly derived according to the sensitivity of the human eye to the three primary colors of R, G and B.
         case weighted
-        /// HSL lightness
+        /// This algorithm is called Luminosity, or brightness algorithm.
+        case luminosity
+        /// The process of desaturation is to convert RGB to HLS and then set the saturation to 0.
         case lightness
         /// Average method: RGB average value as gray.
         case average
         /// Maximum method: the maximum value in RGB as gray.
         case maximum
-        
-        func lightness(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
-            switch self {
-            case .weighted:
-                return (0.299 * r) + (0.587 * g) + (0.114 * b)
-            case .lightness:
-                return 0.5 * (max(r, g, b) + min(r, g, b))
-            case .average:
-                return (r + g + b) / 3.0
-            case .maximum:
-                return max(r, g, b)
-            }
-        }
+        /// Minimum method: the minimum value in RGB as gray.
+        case minimum
     }
 }
 
@@ -71,7 +62,7 @@ extension HarbethWrapper where Base: C7Color {
     
     /// Returns a float value representing the contrast ratio between 2 pixel colors.
     /// https://www.w3.org/TR/WCAG20-TECHS/G18.html
-    /// - Parameter pixelColor: The other pixel color to compare with.
+    /// - Parameter color: The other pixel color to compare with.
     /// - Returns: A CGFloat representing contrast value.
     public func contrastRatio(with color: C7Color) -> CGFloat {
         let luminance0 = base.c7.luminance
@@ -108,5 +99,22 @@ extension HarbethWrapper where Base: C7Color {
         let g = hueToRGB(m1, m2, h)
         let b = hueToRGB(m1, m2, h - (1.0 / 3.0))
         return C7Color.init(red: r, green: g, blue: b, alpha: components[3])
+    }
+}
+
+extension C7Color.GrayedMode {
+    func lightness(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
+        switch self {
+        case .weighted, .luminosity:
+            return (0.299 * r) + (0.587 * g) + (0.114 * b)
+        case .lightness:
+            return 0.5 * (max(r, g, b) + min(r, g, b))
+        case .average:
+            return (r + g + b) / 3.0
+        case .maximum:
+            return max(r, g, b)
+        case .minimum:
+            return min(r, g, b)
+        }
     }
 }

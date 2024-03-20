@@ -93,25 +93,30 @@ final class FrameStore {
         self.bufferFrameCount = options.Animated.bufferCount
         self.decoder = decoder
         self.coderOptions = options.setupDecoderOptions(filters, finished: true)
-        self.preloadFrameQueue.async {
-            (self.loopDuration, self.durations) = decoder.animatedDuration(maxTimeStep: self.maxTimeStep)
-            self.bufferFrameCount = self.durations.count
-            let indexs = self.preloadIndexes(index: 0)
-            self.animatedFrames = decoder.decodeAnimatedImage(options: self.coderOptions, durations: self.durations, indexes: indexs)
-            DispatchQueue.main.async {
-                if let preparation = options.Animated.preparation {
-                    let res = GIFResponse(data: decoder.data,
-                                          animatedFrames: self.animatedFrames,
-                                          loopDuration: self.loopDuration,
-                                          fristFrame: self.fristFrame,
-                                          activeFrame: self.currentFrameImage,
-                                          frameCount: self.frameCount,
-                                          isAnimating: self.isAnimatable,
-                                          cost: self.cost)
-                    preparation(res)
-                }
-                prepared(self)
+        self.preloadFrameQueue.async { [weak self] in
+            guard let weakSelf = self else { return }
+            (weakSelf.loopDuration, weakSelf.durations) = decoder.animatedDuration(maxTimeStep: weakSelf.maxTimeStep)
+            weakSelf.bufferFrameCount = weakSelf.durations.count
+            let indexs = weakSelf.preloadIndexes(index: 0)
+            weakSelf.animatedFrames = decoder.decodeAnimatedImage(options: weakSelf.coderOptions, durations: weakSelf.durations, indexes: indexs)
+            weakSelf.setupPreparationed(options: options, prepared: prepared)
+        }
+    }
+    
+    private func setupPreparationed(options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
+        DispatchQueue.main.async {
+            if let preparation = options.Animated.preparation {
+                let res = GIFResponse(data: self.decoder.data,
+                                      animatedFrames: self.animatedFrames,
+                                      loopDuration: self.loopDuration,
+                                      fristFrame: self.fristFrame,
+                                      activeFrame: self.currentFrameImage,
+                                      frameCount: self.frameCount,
+                                      isAnimating: self.isAnimatable,
+                                      cost: self.cost)
+                preparation(res)
             }
+            prepared(self)
         }
     }
     

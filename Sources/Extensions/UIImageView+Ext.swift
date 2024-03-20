@@ -78,7 +78,7 @@ extension ImageXEngine where Base: UIImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
-    ) -> Task? {
+    ) -> ImageX.Task? {
         let other = Others(key: Others.UIImageViewKey.image.rawValue, value: nil)
         return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }
@@ -118,7 +118,7 @@ extension ImageXEngine where Base: UIImageView {
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],
         options: ImageXOptions = ImageXOptions.default
-    ) -> Task? {
+    ) -> ImageX.Task? {
         let other = Others(key: Others.UIImageViewKey.highlightedImage.rawValue, value: nil)
         return Driver.setImage(url: url, to: base, filters: filters, options: options, other: other)
     }

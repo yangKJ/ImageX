@@ -26,9 +26,11 @@ public protocol HasAnimatable: NSObjectProtocol {
     /// Notifies the instance that it needs display.
     var layer: CALayer { get }
     
+    #if canImport(UIKit)
     /// Options to specify how a view adjusts its content when its size changes.
     /// A flag used to determine how a view lays out its content when its bounds change.
     var contentMode: UIView.ContentMode { get set }
+    #endif
     
     /// Lays out subviews. Used xib and then get the subviews frame.
     func layoutSubviews()
@@ -41,9 +43,7 @@ public protocol HasAnimatable: NSObjectProtocol {
     #endif
 }
 
-fileprivate struct AssociatedKeys {
-    static var AnimatorKey = "condy.ImageX.gif.animator.key"
-}
+fileprivate var ImageXAnimatorContext: UInt8 = 0
 
 extension HasAnimatable {
     
@@ -52,7 +52,7 @@ extension HasAnimatable {
             guard let weakself = self as? AsAnimatable else {
                 return nil
             }
-            return objc_getAssociatedObject(weakself, &AssociatedKeys.AnimatorKey) as? Animator
+            return objc_getAssociatedObject(weakself, &ImageXAnimatorContext) as? Animator
         }
     }
     
@@ -63,18 +63,18 @@ extension HasAnimatable {
                 guard let weakself = self as? AsAnimatable else {
                     return nil
                 }
-                if let animator = objc_getAssociatedObject(weakself, &AssociatedKeys.AnimatorKey) as? Animator {
+                if let animator = objc_getAssociatedObject(weakself, &ImageXAnimatorContext) as? Animator {
                     return animator
                 } else {
                     let animator = Animator(withDelegate: weakself)
-                    objc_setAssociatedObject(weakself, &AssociatedKeys.AnimatorKey, animator, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    objc_setAssociatedObject(weakself, &ImageXAnimatorContext, animator, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                     return animator
                 }
             }
         }
         set {
             synchronizedAnimator {
-                objc_setAssociatedObject(self, &AssociatedKeys.AnimatorKey, newValue as Animator?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &ImageXAnimatorContext, newValue as Animator?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
     }

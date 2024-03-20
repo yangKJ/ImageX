@@ -20,17 +20,22 @@ public struct CIColorCube: C7FilterProtocol, CoreImageProtocol {
         }
     }
     
+    public static let range: ParameterRange<Float, Self> = .init(min: 0.0, max: 1.0, value: 1.0)
+    
+    @Clamping(range.min...range.max) public var intensity: Float = range.value
+    
     public var modifier: Modifier {
         return .coreimage(CIName: "CIColorCubeWithColorSpace")
     }
     
     public func coreImageApply(filter: CIFilter, input ciImage: CIImage) throws -> CIImage {
         guard let cubeResource = cubeResource else {
-            throw CustomError.cubeResource
+            throw HarbethError.cubeResource
         }
         filter.setValue(cubeResource.data, forKey: "inputCubeData")
         filter.setValue(cubeResource.dimension, forKey: "inputCubeDimension")
         filter.setValue(Device.colorSpace(), forKey: "inputColorSpace")
+        filter.setValue(intensity, forKey: kCIInputIntensityKey)
         return ciImage
     }
     

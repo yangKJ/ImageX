@@ -12,7 +12,7 @@ import CoreMedia
 import CoreVideo
 
 /// Quickly add filters to sources.
-/// Support use `UIImage/NSImage, CGImage, CIImage, MTLTexture, CMSampleBuffer, CVPixelBuffer`
+/// Support use `UIImage/NSImage, CGImage, CIImage, MTLTexture, CMSampleBuffer, CVPixelBuffer/CVImageBuffer`
 ///
 /// For example:
 ///
@@ -39,14 +39,8 @@ import CoreVideo
     /// Nevertheless, we can fix this by simply transforming the CIImage with the downMirrored orientation.
     public var mirrored: Bool = false
     
-    #if os(macOS)
-    /// Fixed an issue with HEIC flipping after adding filter.
-    /// If drawing a HEIC, we need to make context flipped.
-    public var heic: Bool = false
-    #endif
-    
     /// Do you need to create an output texture object?
-    /// Such as solid color and gradient filters do not need to create an output texture.
+    /// If you do not create a separate output texture, texture overlay may occur.
     public var createDestTexture: Bool = true
     
     /// Metal texture transmit output real time commit buffer.
@@ -102,7 +96,7 @@ import CoreVideo
     ///   - frequently: If frequentlied commit buffer, there will be a jamming asynchronously, you need to set the attribute to ture.
     ///   - texture: Input metal texture.
     ///   - complete: The conversion is complete.
-    public func transmitOutput(success: @escaping (Dest) -> Void, failed: @escaping (CustomError) -> Void) {
+    public func transmitOutput(success: @escaping (Dest) -> Void, failed: @escaping (HarbethError) -> Void) {
         if self.filters.isEmpty {
             success(element)
             return
@@ -129,7 +123,7 @@ import CoreVideo
     /// - Parameters:
     ///   - texture: Input metal texture.
     ///   - complete: The conversion is complete.
-    public func filtering(texture: MTLTexture, complete: @escaping (Result<MTLTexture, CustomError>) -> Void) {
+    public func filtering(texture: MTLTexture, complete: @escaping (Result<MTLTexture, HarbethError>) -> Void) {
         if self.filters.isEmpty {
             complete(.success(texture))
             return
@@ -154,11 +148,11 @@ extension BoxxIO {
     
     private func filtering(sampleBuffer: CMSampleBuffer) throws -> CMSampleBuffer {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            throw CustomError.CMSampleBufferToCVPixelBuffer
+            throw HarbethError.CMSampleBufferToCVPixelBuffer
         }
         let p = try filtering(pixelBuffer: pixelBuffer)
         guard let buffer = p.c7.toCMSampleBuffer() else {
-            throw CustomError.CVPixelBufferToCMSampleBuffer
+            throw HarbethError.CVPixelBufferToCMSampleBuffer
         }
         return buffer
     }
@@ -173,7 +167,7 @@ extension BoxxIO {
         let inTexture = try TextureLoader.init(with: cgImage).texture
         let texture = try filtering(texture: inTexture)
         guard let cgImg = texture.c7.toCGImage() else {
-            throw CustomError.texture2Image
+            throw HarbethError.texture2Image
         }
         return cgImg
     }
@@ -181,7 +175,7 @@ extension BoxxIO {
     private func filtering(image: C7Image) throws -> C7Image {
         let inTexture = try TextureLoader.init(with: image).texture
         let texture = try filtering(texture: inTexture)
-        return try fixImageOrientation(texture: texture, base: image)
+        return try fixImageOrientation(texture: texture, refImage: image)
     }
     
     private func filtering(texture: MTLTexture) throws -> MTLTexture {
@@ -204,7 +198,7 @@ extension BoxxIO {
 // MARK: - asynchronous filtering methods
 extension BoxxIO {
     
-    private func filtering(pixelBuffer: CVPixelBuffer, success: @escaping (CVPixelBuffer) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(pixelBuffer: CVPixelBuffer, success: @escaping (CVPixelBuffer) -> Void, failed: @escaping (HarbethError) -> Void) {
         func setupTexture(_ texture: MTLTexture) {
             filtering(texture: texture, success: { t in
                 pixelBuffer.c7.copyToPixelBuffer(with: t)
@@ -215,32 +209,32 @@ extension BoxxIO {
             let texture = try TextureLoader(with: pixelBuffer).texture
             setupTexture(texture)
         } catch {
-            failed(CustomError.toCustomError(error))
+            failed(HarbethError.toHarbethError(error))
         }
     }
     
-    private func filtering(sampleBuffer: CMSampleBuffer, success: @escaping (CMSampleBuffer) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(sampleBuffer: CMSampleBuffer, success: @escaping (CMSampleBuffer) -> Void, failed: @escaping (HarbethError) -> Void) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer((sampleBuffer)) else {
-            failed(CustomError.CMSampleBufferToCVPixelBuffer)
+            failed(HarbethError.CMSampleBufferToCVPixelBuffer)
             return
         }
         filtering(pixelBuffer: pixelBuffer, success: { p in
             guard let buffer = p.c7.toCMSampleBuffer() else {
-                failed(CustomError.CVPixelBufferToCMSampleBuffer)
+                failed(HarbethError.CVPixelBufferToCMSampleBuffer)
                 return
             }
             success(buffer)
         }, failed: failed)
     }
     
-    private func filtering(ciImage: CIImage, success: @escaping (CIImage) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(ciImage: CIImage, success: @escaping (CIImage) -> Void, failed: @escaping (HarbethError) -> Void) {
         func setupTexture(_ texture: MTLTexture) {
             filtering(texture: texture, success: { t in
                 do {
                     let ciImage_ = try applyCIImage(with: t)
                     success(ciImage_)
                 } catch {
-                    failed(CustomError.toCustomError(error))
+                    failed(HarbethError.toHarbethError(error))
                 }
             }, failed: failed)
         }
@@ -248,15 +242,15 @@ extension BoxxIO {
             let texture = try TextureLoader(with: ciImage).texture
             setupTexture(texture)
         } catch {
-            failed(CustomError.toCustomError(error))
+            failed(HarbethError.toHarbethError(error))
         }
     }
     
-    private func filtering(cgImage: CGImage, success: @escaping (CGImage) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(cgImage: CGImage, success: @escaping (CGImage) -> Void, failed: @escaping (HarbethError) -> Void) {
         func setupTexture(_ texture: MTLTexture) {
             filtering(texture: texture, success: { t in
                 guard let cgImage = t.c7.toCGImage() else {
-                    failed(CustomError.texture2Image)
+                    failed(HarbethError.texture2Image)
                     return
                 }
                 success(cgImage)
@@ -266,18 +260,18 @@ extension BoxxIO {
             let texture = try TextureLoader(with: cgImage).texture
             setupTexture(texture)
         } catch {
-            failed(CustomError.toCustomError(error))
+            failed(HarbethError.toHarbethError(error))
         }
     }
     
-    private func filtering(image: C7Image, success: @escaping (C7Image) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(image: C7Image, success: @escaping (C7Image) -> Void, failed: @escaping (HarbethError) -> Void) {
         func setupTexture(_ texture: MTLTexture) {
             filtering(texture: texture, success: { t in
                 do {
-                    let image_ = try fixImageOrientation(texture: t, base: image)
+                    let image_ = try fixImageOrientation(texture: t, refImage: image)
                     success(image_)
                 } catch {
-                    failed(CustomError.toCustomError(error))
+                    failed(HarbethError.toHarbethError(error))
                 }
             }, failed: failed)
         }
@@ -285,11 +279,11 @@ extension BoxxIO {
             let texture = try TextureLoader(with: image).texture
             setupTexture(texture)
         } catch {
-            failed(CustomError.toCustomError(error))
+            failed(HarbethError.toHarbethError(error))
         }
     }
     
-    private func filtering(texture: MTLTexture, success: @escaping (MTLTexture) -> Void, failed: @escaping (CustomError) -> Void) {
+    private func filtering(texture: MTLTexture, success: @escaping (MTLTexture) -> Void, failed: @escaping (HarbethError) -> Void) {
         var result: MTLTexture = texture
         var iterator = filters.makeIterator()
         var commandBuffer: MTLCommandBuffer?
@@ -297,7 +291,7 @@ extension BoxxIO {
             do {
                 commandBuffer = try makeCommandBuffer()
             } catch {
-                failed(CustomError.toCustomError(error))
+                failed(HarbethError.toHarbethError(error))
             }
         }
         // 递归处理
@@ -336,6 +330,10 @@ extension BoxxIO {
     
     private func createDestTexture(with sourceTexture: MTLTexture, filter: C7FilterProtocol) throws -> MTLTexture {
         if self.createDestTexture == false {
+            return sourceTexture
+        }
+        let params = filter.parameterDescription
+        if !(params["needCreateDestTexture"] as? Bool ?? true) {
             // 纯色`C7SolidColor`和渐变色`C7ColorGradient`滤镜不需要创建新的输出纹理，直接使用输入纹理即可
             return sourceTexture
         }
@@ -349,7 +347,7 @@ extension BoxxIO {
     
     private func applyCIImage(with texture: MTLTexture) throws -> CIImage {
         guard let ciImage = texture.c7.toCIImage() else {
-            throw CustomError.texture2CIImage
+            throw HarbethError.texture2CIImage
         }
         if self.mirrored, #available(iOS 11.0, macOS 10.13, *) {
             // When the CIImage is created, it is mirrored and flipped upside down.
@@ -360,24 +358,11 @@ extension BoxxIO {
         return ciImage
     }
     
-    private func fixImageOrientation(texture: MTLTexture, base: C7Image) throws -> C7Image {
+    private func fixImageOrientation(texture: MTLTexture, refImage: C7Image) throws -> C7Image {
         guard let cgImage = texture.c7.toCGImage() else {
-            throw CustomError.texture2Image
+            throw HarbethError.texture2Image
         }
-        #if os(iOS) || os(tvOS) || os(watchOS)
-        // Fixed an issue with HEIC flipping after adding filter.
-        return C7Image(cgImage: cgImage, scale: base.scale, orientation: base.imageOrientation)
-        #elseif os(macOS)
-        let fImage = cgImage.c7.toC7Image()
-        let image = C7Image(size: fImage.size)
-        image.lockFocus()
-        if self.heic { image.c7.flip(horizontal: true, vertical: true) }
-        fImage.draw(in: NSRect(origin: .zero, size: fImage.size))
-        image.unlockFocus()
-        return image
-        #else
-        return base
-        #endif
+        return cgImage.c7.drawing(refImage: refImage).c7.flattened()
     }
 }
 
@@ -390,7 +375,7 @@ extension BoxxIO {
             return commandBuffer
         }
         guard let commandBuffer = Device.commandQueue().makeCommandBuffer() else {
-            throw CustomError.commandBuffer
+            throw HarbethError.commandBuffer
         }
         return commandBuffer
     }
@@ -425,9 +410,8 @@ extension BoxxIO {
             }
             return finaTexture
         default:
-            break
+            return texture
         }
-        return texture
     }
     
     /// Whether to synchronously wait for the execution of the Metal command buffer to complete.
@@ -438,7 +422,7 @@ extension BoxxIO {
     ///   - buffer: A valid MTLCommandBuffer to receive the encoded filter.
     private func runAsyncIO(with texture: MTLTexture,
                             filter: C7FilterProtocol,
-                            complete: @escaping (Result<MTLTexture, CustomError>) -> Void,
+                            complete: @escaping (Result<MTLTexture, HarbethError>) -> Void,
                             buffer: MTLCommandBuffer? = nil) {
         do {
             let commandBuffer = try makeCommandBuffer(for: buffer)
@@ -463,7 +447,7 @@ extension BoxxIO {
                             do {
                                 finaTexture = try filter.combinationAfter(for: commandBuffer, input: outputTexture, source: texture)
                             } catch {
-                                complete(.failure(CustomError.toCustomError(error)))
+                                complete(.failure(HarbethError.toHarbethError(error)))
                             }
                         }
                         if hasCoreImage {
@@ -479,7 +463,7 @@ extension BoxxIO {
                 break
             }
         } catch {
-            complete(.failure(CustomError.toCustomError(error)))
+            complete(.failure(HarbethError.toHarbethError(error)))
         }
     }
     
@@ -487,7 +471,7 @@ extension BoxxIO {
                                      to destTexture: MTLTexture,
                                      for buffer: MTLCommandBuffer,
                                      filter: C7FilterProtocol,
-                                     complete: @escaping (Result<MTLTexture, CustomError>) -> Void) {
+                                     complete: @escaping (Result<MTLTexture, HarbethError>) -> Void) {
         do {
             switch filter.modifier {
             case .compute(let kernel):
@@ -507,7 +491,7 @@ extension BoxxIO {
                 complete(.success(texture))
             }
         } catch {
-            complete(.failure(CustomError.toCustomError(error)))
+            complete(.failure(HarbethError.toHarbethError(error)))
         }
     }
 }

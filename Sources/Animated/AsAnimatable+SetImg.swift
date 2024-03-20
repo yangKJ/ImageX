@@ -30,12 +30,12 @@ extension AsAnimatable {
                     return
                 }
                 switch Others.NSButtonKey(rawValue: other.key) {
-                case .none:
-                    break
                 case .image:
                     container_.image = image
                 case .alternateImage:
                     container_.alternateImage = image
+                case .none:
+                    break
                 }
             #endif
             #if canImport(UIKit) && !os(watchOS)
@@ -44,8 +44,6 @@ extension AsAnimatable {
                     return
                 }
                 switch Others.UIButtonKey(rawValue: other.key) {
-                case .none:
-                    break
                 case .image:
                     if let state = other.value as? UIControl.State {
                         container_.setImage(image, for: state)
@@ -58,18 +56,20 @@ extension AsAnimatable {
                         let (image_, _) = container_.cacheImages[state.rawValue] ?? (nil, nil)
                         container_.cacheImages[state.rawValue] = (image_, image)
                     }
+                case .none:
+                    break
                 }
             case var container_ as UIImageViewContainer:
                 guard let other = other else {
                     return
                 }
                 switch Others.UIImageViewKey(rawValue: other.key) {
-                case .none:
-                    break
                 case .image:
                     container_.image = image
                 case .highlightedImage:
                     container_.highlightedImage = image
+                case .none:
+                    break
                 }
             #endif
             #if canImport(WatchKit)
