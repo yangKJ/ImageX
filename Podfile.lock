@@ -1,21 +1,21 @@
 PODS:
-  - CacheX (1.1.0)
-  - Harbeth (1.1.2):
-    - Harbeth/Basic (= 1.1.2)
-    - Harbeth/Compute (= 1.1.2)
-    - Harbeth/CoreImage (= 1.1.2)
-    - Harbeth/MPS (= 1.1.2)
-    - Harbeth/SwiftUI (= 1.1.2)
-  - Harbeth/Basic (1.1.2)
-  - Harbeth/Compute (1.1.2):
+  - CacheX (1.1.1)
+  - Harbeth (1.2.0):
+    - Harbeth/Basic (= 1.2.0)
+    - Harbeth/Compute (= 1.2.0)
+    - Harbeth/CoreImage (= 1.2.0)
+    - Harbeth/MPS (= 1.2.0)
+    - Harbeth/SwiftUI (= 1.2.0)
+  - Harbeth/Basic (1.2.0)
+  - Harbeth/Compute (1.2.0):
     - Harbeth/Basic
-  - Harbeth/CoreImage (1.1.2):
+  - Harbeth/CoreImage (1.2.0):
     - Harbeth/Basic
-  - Harbeth/MPS (1.1.2):
+  - Harbeth/MPS (1.2.0):
     - Harbeth/Basic
-  - Harbeth/SwiftUI (1.1.2):
+  - Harbeth/SwiftUI (1.2.0):
     - Harbeth/Basic
-  - ImageX (1.1.5):
+  - ImageX (1.1.6):
     - CacheX
     - Harbeth
 
@@ -32,9 +32,9 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  CacheX: 8db0e9d17717600be0b5c34bde7bc7522dbd9a3a
-  Harbeth: 3d22939badc88fda52d93ca27fd2823b06c753c5
-  ImageX: 61c98adb52ee15aac44296033652cfc5ce81f606
+  CacheX: 9665503a86f9e38b3eb0c4ab14251649a79d292d
+  Harbeth: 73d704e1edda98db65b80d1cb35b23fff79f6c70
+  ImageX: c72d6097ef2b6ba3761192a134487c762770f64e
 
 PODFILE CHECKSUM: 5d5c489485ce6b986d2df63e6929946aa0037f28
 

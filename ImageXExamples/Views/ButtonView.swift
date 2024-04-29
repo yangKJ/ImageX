@@ -113,12 +113,12 @@ fileprivate class ButtonView__: CPView {
             C7ColorConvert(with: .gbra)
         ]
         #if os(macOS)
-        animatedButton.kj.setImage(with: Res.jpeg, filters: filters, options: options)
-        animatedButton.kj.setAlternateImage(with: Res.jpeg, filters: filters2, options: options)
+        animatedButton.img.setImage(with: Res.jpeg, filters: filters, options: options)
+        animatedButton.img.setAlternateImage(with: Res.jpeg, filters: filters2, options: options)
         #else
-        animatedButton.kj.setImage(with: Res.jpeg, for: .normal, filters: filters, options: options)
-        animatedButton.kj.setImage(with: Res.jpeg, for: .highlighted, filters: filters2, options: options)
-        animatedButton.kj.setImage(with: Res.gif, for: .selected, filters: filters2, options: options)
+        animatedButton.img.setImage(with: Res.jpeg, for: .normal, filters: filters, options: options)
+        animatedButton.img.setImage(with: Res.jpeg, for: .highlighted, filters: filters2, options: options)
+        animatedButton.img.setImage(with: Res.gif, for: .selected, filters: filters2, options: options)
         #endif
     }
     

@@ -20,7 +20,7 @@ extension AsAnimatable {
     
     /// Setting up what is currently showing image.
     @inline(__always) func setContentImage(_ image: C7Image?, other: ImageX.Others?) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.img.safeAsync {
             switch self {
             case var container_ as ImageContainer:
                 container_.image = image

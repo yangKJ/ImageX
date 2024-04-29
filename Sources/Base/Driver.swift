@@ -26,7 +26,7 @@ struct Driver {
             view.hasAnimator?.prepareForReuse()
             let options = Driver.setViewContentMode(to: view, options: options)
             let reimage = options.resizingMode.resizeImage(image, size: options.thumbnailPixelSize)
-            let dest = BoxxIO(element: reimage, filters: filters)
+            let dest = HarbethIO(element: reimage, filters: filters)
             if let outImage = try? dest.output() {
                 view.setContentImage(outImage, other: other)
                 switch options.placeholder {
@@ -83,7 +83,7 @@ struct Driver {
         let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
         if var data = Cached.shared.storage.read(key: key, options: options.Cache.cacheOption) {
             data = options.Cache.cacheDataZip.decompress(data: data)
-            DispatchQueue.main.async {
+            DispatchQueue.main.img.safeAsync {
                 options.Network.progressBlock?(1.0)
                 Driver.setImage(data: data, to: view, filters: filters, options: options, other: other)
             }
@@ -92,7 +92,7 @@ struct Driver {
         let task = Networking.shared.addDownloadURL(url, options: options, downloadBlock: { result in
             switch result {
             case .success(let res):
-                DispatchQueue.main.async {
+                DispatchQueue.main.img.safeAsync {
                     let finished = res.downloadStatus == .complete ? true : false
                     Driver.setImage(data: res.data, to: view, finished: finished, filters: filters, options: options, other: other)
                 }
@@ -101,7 +101,7 @@ struct Driver {
                     Cached.shared.storage.write(key: key, value: zipData, options: options.Cache.cacheOption)
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
+                DispatchQueue.main.img.safeAsync {
                     Driver.setPlaceholder(to: view, options: options, other: other)
                 }
                 options.Network.failed?(error)

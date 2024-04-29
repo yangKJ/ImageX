@@ -47,10 +47,10 @@ extension AnimatedCodering {
             return (0.0, [])
         }
         let eachDurations = (0..<frameCount).map {
-            let time = imageSource.kj.frameDuration(at: $0,
-                                                    dictionaryProperty: dictionaryProperty,
-                                                    unclampedDelayTimeProperty: unclampedDelayTimeProperty,
-                                                    delayTimeProperty: delayTimeProperty)
+            let time = imageSource.img.frameDuration(at: $0,
+                                                     dictionaryProperty: dictionaryProperty,
+                                                     unclampedDelayTimeProperty: unclampedDelayTimeProperty,
+                                                     delayTimeProperty: delayTimeProperty)
             return min(time, maxTimeStep)
         }
         let total = eachDurations.reduce(0.0, { $0 + $1 })
@@ -81,7 +81,7 @@ extension AnimatedCodering {
         let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ImageX.ResizingMode ?? .original
         let cgImages = decodeAnimatedCGImage(options: options, indexes: indexes)
         return Array(zip(cgImages, indexes)).map {
-            let dest = BoxxIO(element: $0, filters: filters)
+            let dest = HarbethIO(element: $0, filters: filters)
             var image = try? dest.output()?.c7.toC7Image()
             if let image_ = image {
                 image = resizingMode.resizeImage(image_, size: resize)

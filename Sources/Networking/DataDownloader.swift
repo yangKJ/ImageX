@@ -112,16 +112,6 @@ extension DataDownloader {
         }
     }
     
-    private func didReceiveData(data: Data, dataTask: URLSessionDataTask) {
-        self.mutableData.append(data)
-        if canDownloading() {
-            let receiveBytes = dataTask.countOfBytesReceived + offset
-            let allBytes = dataTask.countOfBytesExpectedToReceive + offset
-            let currentProgress = min(max(0, CGFloat(receiveBytes) / CGFloat(allBytes)), 1)
-            result(data: mutableData, response: dataTask.response, state: .downloading(currentProgress))
-        }
-    }
-    
     private func canDownloading() -> Bool {
         let currentDate = Date()
         let time = currentDate.timeIntervalSince(lastDate)
@@ -173,8 +163,11 @@ extension DataDownloader {
 
 extension DataDownloader: URLSessionDataDelegate {
     
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        guard let response = dataTask.response as? HTTPURLResponse else {
+    public func urlSession(_ session: URLSession, 
+                           dataTask: URLSessionDataTask,
+                           didReceive response: URLResponse,
+                           completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        guard let response = response as? HTTPURLResponse else {
             result(data: nil, response: response, state: .failed(invalidHTTPURLResponseError()))
             completionHandler(.cancel)
             return
@@ -190,7 +183,7 @@ extension DataDownloader: URLSessionDataDelegate {
             var totalBytes = response.expectedContentLength
             let data = Data(bytes: &totalBytes, count: MemoryLayout.size(ofValue: totalBytes))
             do {
-                try URL(fileURLWithPath: files.path).kj.setExtendedAttribute(data: data, forName: Files.totalBytesKey)
+                try URL(fileURLWithPath: files.path).img.setExtendedAttribute(data: data, forName: Files.totalBytesKey)
             } catch {
                 result(data: nil, response: response, state: .failed(error))
                 completionHandler(.cancel)
@@ -201,7 +194,18 @@ extension DataDownloader: URLSessionDataDelegate {
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        self.didReceiveData(data: data, dataTask: dataTask)
+        guard data.count > 0 else {
+            return
+        }
+        self.mutableData.append(data)
+        let dete = Date()
+        if dete.timeIntervalSince(lastDate) >= self.interval {
+            self.lastDate = dete
+            let receiveBytes = dataTask.countOfBytesReceived + offset
+            let allBytes = dataTask.response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+            let currentProgress = min(max(0, CGFloat(receiveBytes) / CGFloat(allBytes)), 1)
+            result(data: mutableData, response: dataTask.response, state: .downloading(currentProgress))
+        }
         self.outputStream?.write(Array(data), maxLength: data.count)
     }
     

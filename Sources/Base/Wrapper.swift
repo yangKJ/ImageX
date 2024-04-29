@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Add the `kj` prefix namespace
+/// Add the `img` prefix namespace
 public struct ImageXEngine<Base> {
     public let base: Base
 }
@@ -16,8 +16,12 @@ public protocol ImageXCompatible { }
 
 extension ImageXCompatible {
     
-    public var kj: ImageXEngine<Self> {
+    public var img: ImageXEngine<Self> {
         get { return ImageXEngine(base: self) }
         set { }
+    }
+    
+    public var kj: ImageXEngine<Self> {
+        img
     }
 }

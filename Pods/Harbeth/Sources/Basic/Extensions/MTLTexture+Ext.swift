@@ -19,7 +19,11 @@ extension MTLTexture {
 
 public struct MTLTextureCompatible_ {
     
-    public let target: MTLTexture
+    weak var target: MTLTexture!
+    
+    init(target: MTLTexture) {
+        self.target = target
+    }
     
     public var size: MTLSize {
         .init(width: target.width, height: target.height, depth: target.depth)
@@ -78,6 +82,26 @@ public struct MTLTextureCompatible_ {
     
     public func toCIImage() -> CIImage? {
         CIImage.init(mtlTexture: target)
+    }
+    
+    public func toCIImage(mirrored: Bool) throws -> CIImage {
+        guard let ciImage = toCIImage() else {
+            throw HarbethError.texture2CIImage
+        }
+        if mirrored, #available(iOS 11.0, macOS 10.13, *) {
+            // When the CIImage is created, it is mirrored and flipped upside down.
+            // But upon inspecting the texture, it still renders the CIImage as expected.
+            // Nevertheless, we can fix this by simply transforming the CIImage with the downMirrored orientation.
+            return ciImage.oriented(.downMirrored)
+        }
+        return ciImage
+    }
+    
+    public func fixImageOrientation(refImage: C7Image) throws -> C7Image {
+        guard let cgImage = target.c7.toCGImage() else {
+            throw HarbethError.texture2Image
+        }
+        return cgImage.c7.drawing(refImage: refImage).c7.flattened()
     }
     
     /// Create a CGImage with the data and information we provided.

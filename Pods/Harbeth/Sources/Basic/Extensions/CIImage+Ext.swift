@@ -23,51 +23,39 @@ extension HarbethWrapper where Base: CIImage {
         return cgImage
     }
     
+    public func toImage() -> C7Image? {
+        if let cgImage = base.cgImage {
+            return C7Image(cgImage: cgImage, scale: 1.0, orientation: .up)
+        } else {
+            #if os(macOS)
+            return nil
+            #else
+            return C7Image(ciImage: base, scale: 1.0, orientation: .up)
+            #endif
+        }
+    }
+    
     /// Fixed image horizontal flip problem.
     public func fixHorizontalFlip() -> CIImage {
         return base.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
             .transformed(by: CGAffineTransform(translationX: 0, y: base.extent.height))
     }
     
-    /// Write CIImage to metal texture synchronously.
+    /// Write CIImage to metal texture, and then wait for final submission.
     /// Render bounds of CIImage to a Metal texture, optionally specifying what command buffer to use.
     /// - Parameters:
     ///   - texture: Output the texture and write CIImage to the metal texture.
     ///   - commandBuffer: A valid MTLCommandBuffer to receive the encoded filter.
-    public func renderCIImageToTexture(_ texture: MTLTexture, commandBuffer: MTLCommandBuffer? = nil) throws {
-        guard let commandBuffer = commandBuffer ?? Device.commandQueue().makeCommandBuffer() else {
-            throw HarbethError.commandBuffer
-        }
-        let colorSpace = Device.colorSpace()
-        let ctx = Device.context(colorSpace: colorSpace)
-        let fixedImage = base.c7.fixHorizontalFlip()
+    public func renderCIImageToTexture(_ texture: MTLTexture, commandBuffer: MTLCommandBuffer) throws {
+        let ctx = Device.context(colorSpace: Device.colorSpace())
+        let img = fixHorizontalFlip()
         if #available(iOS 11.0, macOS 10.13, *) {
             let renderDestination = CIRenderDestination(mtlTexture: texture, commandBuffer: commandBuffer)
-            //try ctx.prepareRender(fixedImage, from: fixedImage.extent, to: renderDestination, at: .zero)
-            _ = try ctx.startTask(toRender: fixedImage, to: renderDestination)
+            //try ctx.prepareRender(img, from: img.extent, to: renderDestination, at: .zero)
+            _ = try ctx.startTask(toRender: img, to: renderDestination)
         } else {
-            ctx.render(fixedImage, to: texture, commandBuffer: commandBuffer, bounds: fixedImage.extent, colorSpace: colorSpace)
+            ctx.render(img, to: texture, commandBuffer: commandBuffer, bounds: img.extent, colorSpace: Device.colorSpace())
         }
-        commandBuffer.commitAndWaitUntilCompleted()
-    }
-    
-    /// Asynchronous write CIImage to metal texture.
-    /// Render `bounds` of `image` to a Metal texture, optionally specifying what command buffer to use.
-    /// - Parameters:
-    ///   - texture: Texture type must be MTLTexture2D.
-    ///   - commandBuffer: A valid MTLCommandBuffer to receive the encoded filter.
-    public func asyncRenderCIImageToTexture(_ texture: MTLTexture,
-                                            commandBuffer: MTLCommandBuffer? = nil,
-                                            complete: @escaping (Result<MTLTexture, HarbethError>) -> Void) {
-        guard let buffer = commandBuffer ?? Device.commandQueue().makeCommandBuffer() else {
-            complete(.failure(HarbethError.commandBuffer))
-            return
-        }
-        let colorSpace = Device.colorSpace()
-        let ctx = Device.context(colorSpace: colorSpace)
-        let fixedImage = fixHorizontalFlip()
-        ctx.render(fixedImage, to: texture, commandBuffer: buffer, bounds: fixedImage.extent, colorSpace: colorSpace)
-        buffer.asyncCommit(texture: texture, complete: complete)
     }
     
     public func removingExtentOffset() -> CIImage {
@@ -114,25 +102,29 @@ extension HarbethWrapper where Base: CIImage {
     }
 }
 
-extension C7FilterProtocol {
+extension CoreImageProtocol {
     
     func outputCIImage(with texture: MTLTexture, name: String) throws -> CIImage {
-        guard let ciFiter = CIFilter.init(name: name) else {
+        guard let ciFilter = (self as? CIImageDisplaying)?.ciFilter ?? {
+            CIFilter.init(name: name)
+        }() else {
             throw HarbethError.createCIFilter(name)
         }
-//        guard let cgImage = texture.c7.toCGImage() else {
-//            throw HarbethError.texture2CGImage
-//        }
-//        let inputCIImage = CIImage.init(cgImage: cgImage)
-        guard let inputCIImage = CIImage.init(mtlTexture: texture) else {
-            throw HarbethError.texture2CIImage
+        guard let cgImage = texture.c7.toCGImage() else {
+            throw HarbethError.texture2CGImage
         }
-        let ciImage = try (self as! CoreImageProtocol).coreImageApply(filter: ciFiter, input: inputCIImage)
-        ciFiter.setValue(ciImage, forKeyPath: kCIInputImageKey)
-        guard let outputImage = ciFiter.outputImage else {
+        // Fixed coreImage filter has blank or center flip bug.
+        let inputCIImage = CIImage.init(cgImage: cgImage)
+        // Series connection other filters and finally output to the main filter.
+        let middleImage = try self.coreImageApply(filter: ciFilter, input: inputCIImage)
+        ciFilter.setValue(middleImage, forKeyPath: kCIInputImageKey)
+        guard let outputImage = ciFilter.outputImage else {
             throw HarbethError.outputCIImage(name)
         }
-        // Return a new image cropped to a rectangle.
-        return outputImage.cropped(to: inputCIImage.extent)
+        if self.croppedOutputImage {
+            // Return a new image cropped to a rectangle.
+            return outputImage.cropped(to: inputCIImage.extent)
+        }
+        return outputImage
     }
 }

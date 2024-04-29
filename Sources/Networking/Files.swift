@@ -50,7 +50,7 @@ struct Files {
     
     func totalBytes() -> Int64 {
         var totalBytes: Int64 = 0
-        if let sizeData = try? URL(fileURLWithPath: path).kj.extendedAttribute(forName: Files.totalBytesKey) {
+        if let sizeData = try? URL(fileURLWithPath: path).img.extendedAttribute(forName: Files.totalBytesKey) {
             (sizeData as NSData).getBytes(&totalBytes, length: sizeData.count)
         }
         return totalBytes

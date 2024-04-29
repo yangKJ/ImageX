@@ -72,7 +72,7 @@ public struct DelayRetry {
         if interval == 0 {
             retryHandler(.retring)
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + interval) {
                 retryHandler(.retring)
             }
         }

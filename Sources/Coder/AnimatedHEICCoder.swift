@@ -60,7 +60,7 @@ public struct AnimatedHEICCoder: AnimatedCodering {
         guard canDecode(), let imageSource = self.imageSource else {
             return nil
         }
-        return imageSource.kj.toCGImage(index: index)
+        return imageSource.img.toCGImage(index: index)
     }
     
     public static func encodeImage(_ image: Harbeth.C7Image, options: ImageCoderOptions) -> Data? {

@@ -62,8 +62,8 @@ public struct Cached {
     }
     
     private init() {
-        /// Create a unified background processing thread.
-        let background = DispatchQueue(label: "com.condy.ImageX.cached.queue", qos: .background, attributes: [.concurrent])
+        /// Create a unspecified processing thread.
+        let background = DispatchQueue(label: "com.condy.ImageX.cached.queue.\(UUID().uuidString)", attributes: [.concurrent])
         var disk = Disk()
         disk.named = cachedName
         disk.expiry = expiry

@@ -45,7 +45,7 @@ extension ImageX.Placeholder {
             let image = resizingMode.resizeImage(c7Image, size: view.frame.size)
             view.setContentImage(image, other: other)
         case .view(let subview):
-            DispatchQueue.main.async {
+            DispatchQueue.main.img.safeAsync {
                 if let view = view as? ImageXView, !view.subviews.contains(subview) {
                     view.addSubview(subview)
                     subview.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ extension ImageX.Placeholder {
         case .color, .image:
             view.setContentImage(nil, other: other)
         case .view(let subview):
-            DispatchQueue.main.async {
+            DispatchQueue.main.img.safeAsync {
                 if let view = view as? ImageXView, view.subviews.contains(subview) {
                     subview.removeFromSuperview()
                 }

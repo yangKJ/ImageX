@@ -26,6 +26,9 @@ extension ImageXOptions {
         /// Network image download headers.
         public var headers: [String: String] = [:]
         
+        /// This data is sent as the message body of the request, as in done in an HTTP POST request.
+        public var httpBody: Data?
+        
         public init() { }
         
         internal var failed: ((_ error: Error) -> Void)?

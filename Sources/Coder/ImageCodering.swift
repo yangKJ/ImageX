@@ -150,14 +150,16 @@ extension ImageCodering {
             cgImage = cgImg
         }
         let filters = options[CoderOptions.decoder.filtersKey] as? [C7FilterProtocol] ?? []
-        var dest = BoxxIO(element: cgImage, filters: filters)
+        var dest = HarbethIO(element: cgImage, filters: filters)
         dest.transmitOutputRealTimeCommit = true
         dest.transmitOutput(success: {
-            var image = $0?.c7.toC7Image()
+            guard var image = $0?.c7.toC7Image() else {
+                onNext(nil)
+                return
+            }
             if let resize = options[CoderOptions.decoder.thumbnailPixelSizeKey] as? CGSize,
-               let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ImageX.ResizingMode,
-               let img = image {
-                image = resizingMode.resizeImage(img, size: resize)
+               let resizingMode = options[CoderOptions.decoder.resizingModeKey] as? ImageX.ResizingMode {
+                image = resizingMode.resizeImage(image, size: resize)
             }
             onNext(image)
         })

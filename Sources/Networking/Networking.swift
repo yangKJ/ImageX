@@ -25,11 +25,8 @@ struct Networking {
     /// Add network download data task.
     /// - Parameters:
     ///   - url: The link url.
-    ///   - progressBlock: Network data task download progress.
+    ///   - options: Configuration network parameter.
     ///   - downloadBlock: Download callback response.
-    ///   - retry: Network max retry count and retry interval.
-    ///   - timeoutInterval: The timeout interval for the request. Defaults to 20.0
-    ///   - interval: Network resource data download progress response interval.
     /// - Returns: The data task.
     @discardableResult
     func addDownloadURL(_ url: URL, options: ImageXOptions, downloadBlock: @escaping DownloadResultBlock) -> URLSessionDataTask {
@@ -38,9 +35,12 @@ struct Networking {
         if let downloader = self.downloaders[key] {
             return downloader.task
         }
-        var request = URLRequest(url: url, timeoutInterval: options.Network.timeoutInterval)
+        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: options.Network.timeoutInterval)
         request.httpShouldUsePipelining = true
-        request.cachePolicy = .reloadIgnoringLocalCacheData
+        if let httpBody = options.Network.httpBody {
+            request.httpBody = httpBody
+            request.httpMethod = "POST"
+        }
         for (field, value) in options.Network.headers {
             request.setValue(value, forHTTPHeaderField: field)
         }

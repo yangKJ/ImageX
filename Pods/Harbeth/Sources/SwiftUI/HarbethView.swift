@@ -1,5 +1,5 @@
 //
-//  FilterView.swift
+//  HarbethView.swift
 //  Harbeth
 //
 //  Created by Condy on 2023/12/5.
@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "Typo. Use `HarbethView` instead", renamed: "HarbethView")
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-public typealias HarbethView<C: View> = FilterableView<C>
+public typealias FilterableView<C: View> = HarbethView<C>
 
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-public struct FilterableView<Content>: View where Content: View {
+public struct HarbethView<Content>: View where Content: View {
     
     @ObservedObject private var image: Published_Image
     @ViewBuilder private var content: (Image) -> Content
@@ -29,7 +30,7 @@ public struct FilterableView<Content>: View where Content: View {
     }
     
     func setup(filters: [C7FilterProtocol], async: Bool) {
-        let dest = BoxxIO(element: image.image, filters: filters)
+        let dest = HarbethIO(element: image.image, filters: filters)
         if async {
             dest.transmitOutput(success: { img in
                 DispatchQueue.main.async {

@@ -71,9 +71,8 @@ extension ImageXEngine where Base: UIImageView {
     /// options.Network.timeoutInterval = 30
     ///
     /// let url = URL(string: "https://example.com/image.png")!
-    /// imageView.mt.setImage(with: url, options: options)
+    /// imageView.img.setImage(with: url, options: options)
     /// ```
-    ///
     @discardableResult public func setImage(
         with url: URL?,
         filters: [Harbeth.C7FilterProtocol] = [],

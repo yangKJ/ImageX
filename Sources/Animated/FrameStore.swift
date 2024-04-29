@@ -104,7 +104,7 @@ final class FrameStore {
     }
     
     private func setupPreparationed(options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.img.safeAsync {
             if let preparation = options.Animated.preparation {
                 let res = GIFResponse(data: self.decoder.data,
                                       animatedFrames: self.animatedFrames,
@@ -127,11 +127,11 @@ final class FrameStore {
     func shouldChangeFrame(with duration: CFTimeInterval, handler: @escaping (Bool) -> Void) {
         incrementTimeSinceLastFrameChange(with: duration)
         if currentFrameDuration() > timeSinceLastFrameChange {
-            DispatchQueue.main.async { handler(false) }
+            DispatchQueue.main.img.safeAsync { handler(false) }
         } else {
             resetTimeSinceLastFrameChange()
             incrementCurrentFrameIndex()
-            DispatchQueue.main.async { handler(true) }
+            DispatchQueue.main.img.safeAsync { handler(true) }
         }
     }
 }
