@@ -29,6 +29,14 @@ struct Res {
     static let P0020 = Res.read("IMG_0020", withExtension: "jpg")!
     
     static let P5820030 = Res.read("Miserablefaith", withExtension: "jpg")!
+    
+    #if os(macOS)
+    static let width = NSScreen.main?.frame.width ?? 0
+    static let height = NSScreen.main?.frame.height ?? 0
+    #else
+    static let width = UIScreen.main.bounds.size.width
+    static let height = UIScreen.main.bounds.size.height
+    #endif
 }
 
 extension Res {

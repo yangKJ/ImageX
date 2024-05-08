@@ -18,6 +18,18 @@ extension AsAnimatable {
         setContentImage(activeFrame, other: other)
     }
     
+    /// Prepare for animation and start play animated images.
+    func setStartPlay(decoder: AnimatedCodering, options: ImageXOptions, other: Others?, prepared: @escaping () -> Void) {
+        let store = FrameStore(decoder: decoder, options: options) { [weak self] _ in
+            DispatchQueue.main.img.safeAsync { prepared() }
+            self?.animator?.startAnimating()
+        }
+        animator?.frameStore = store
+        animator?.options = options
+        animator?.other = other
+        animator?.animationBlock = options.Animated.animated
+    }
+    
     /// Setting up what is currently showing image.
     @inline(__always) func setContentImage(_ image: C7Image?, other: ImageX.Others?) {
         DispatchQueue.main.img.safeAsync {

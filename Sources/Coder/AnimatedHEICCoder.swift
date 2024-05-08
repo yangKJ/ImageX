@@ -47,9 +47,12 @@ public struct AnimatedHEICCoder: AnimatedCodering {
     private let type: AssetType
     
     public init(data: Data) {
+        self.init(data: data, format: AssetType(data: data))
+    }
+    
+    public init(data: Data, format: AssetType) {
         self.data = data
-        self.type = AssetType(data: data)
-        self.setupImageSource(data: data)
+        self.type = format
     }
     
     public func canDecode() -> Bool {

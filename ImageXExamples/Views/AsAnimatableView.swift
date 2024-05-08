@@ -104,6 +104,7 @@ fileprivate class AsAnimatableView__: CPView {
         options.placeholder = .image(Res.P0020)
         options.resizingMode = .scaleAspectFit
         options.Animated.loop = .forever
-        animatedView.play(data: data, filters: filters, options: options)
+        options.filters = filters
+        animatedView.play(data: data, options: options)
     }
 }

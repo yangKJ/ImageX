@@ -129,10 +129,10 @@ fileprivate class AnimatedView__: CPView {
             print("Failed: - \(error.localizedDescription)")
         })
         
-        let filters: [C7FilterProtocol] = [
+        options.filters = [
             C7SoulOut(soul: 0.75),
             C7Storyboard(ranks: 2),
         ]
-        animatedImageView.img.setImage(with: link, filters: filters, options: options)
+        animatedImageView.img.setImage(with: link, options: options)
     }
 }

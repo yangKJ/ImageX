@@ -84,15 +84,14 @@ final class FrameStore {
     /// Creates an animator instance from raw animated image data.
     /// - Parameters:
     ///   - decoder: Decoder for decoding animated images.
-    ///   - filters: Set the filters.
     ///   - options: Set the other parameters.
     ///   - prepared: Ready to start playing.
-    init(decoder: AnimatedCodering, filters: [C7FilterProtocol], options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
+    init(decoder: AnimatedCodering, options: ImageXOptions, prepared: @escaping (FrameStore) -> Void) {
         self.loopCount = options.Animated.loop.count
         self.maxTimeStep = options.Animated.maxTimeStep
         self.bufferFrameCount = options.Animated.bufferCount
         self.decoder = decoder
-        self.coderOptions = options.setupDecoderOptions(filters, finished: true)
+        self.coderOptions = options.setupDecoderOptions(finished: true)
         self.preloadFrameQueue.async { [weak self] in
             guard let weakSelf = self else { return }
             (weakSelf.loopDuration, weakSelf.durations) = decoder.animatedDuration(maxTimeStep: weakSelf.maxTimeStep)

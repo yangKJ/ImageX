@@ -39,6 +39,9 @@ public struct ImageXOptions {
     /// Defaults to CGSizeZero, Then take the size of the displayed control size as the thumbnail pixel size.
     public var thumbnailPixelSize: CGSize = .zero
     
+    /// Harbeth filters apply to image or gif frame.
+    public var filters: [C7FilterProtocol] = []
+    
     /// 做组件化操作时刻，解决本地GIF或本地图片所处于另外模块从而读不出数据问题。😤
     /// Do the component operation to solve the problem that the local GIF or Image cannot read the data in another module.
     public let moduleName: String
@@ -50,21 +53,19 @@ public struct ImageXOptions {
         self.moduleName = moduleName
     }
     
-    internal var displayed: Bool = false // 防止重复设置占位信息
-    internal func setDisplayed(placeholder displayed: Bool) -> Self {
-        self.mutating { $0.displayed = displayed }
-    }
+    /// 防止重复设置占位信息
+    private var displayed: Bool = false
 }
 
 extension ImageXOptions {
     
     /// Set up decoder parameters
-    func setupDecoderOptions(_ filters: [C7FilterProtocol], finished: Bool) -> ImageCodering.ImageCoderOptions {
+    func setupDecoderOptions(finished: Bool) -> ImageCodering.ImageCoderOptions {
         return [
             CoderOptions.decoder.frameTypeKey : self.Animated.frameType,
-            CoderOptions.decoder.thumbnailPixelSizeKey : thumbnailPixelSize,
-            CoderOptions.decoder.resizingModeKey : resizingMode,
-            CoderOptions.decoder.filtersKey : filters,
+            CoderOptions.decoder.thumbnailPixelSizeKey : self.thumbnailPixelSize,
+            CoderOptions.decoder.resizingModeKey : self.resizingMode,
+            CoderOptions.decoder.filtersKey : self.filters,
             CoderOptions.decoder.completeDataKey : finished,
         ] as ImageCodering.ImageCoderOptions
     }
@@ -73,5 +74,79 @@ extension ImageXOptions {
         var options = self
         block(&options)
         return options
+    }
+    
+    @discardableResult func setPlaceholder(to view: AsAnimatable, other: Others?) -> ImageXOptions {
+        if self.displayed {
+            return self
+        }
+        DispatchQueue.main.img.safeAsync {
+            self.placeholder.display(to: view, resizingMode: self.resizingMode, other: other)
+        }
+        return self.mutating({
+            $0.displayed = true
+        })
+    }
+    
+    func removeViewPlaceholder(form view: AsAnimatable?, other: Others?) {
+        guard let view = view else {
+            return
+        }
+        switch self.placeholder {
+        case .view:
+            DispatchQueue.main.img.safeAsync {
+                self.placeholder.remove(from: view, other: other)
+            }
+        default:
+            break
+        }
+    }
+    
+    /// Fixed the setting  `options.resizingMode` attributes cannot be filled.
+    func setViewContentMode(to view: AsAnimatable) -> ImageXOptions {
+        if self.resizingMode == .original {
+            return self
+        }
+        #if canImport(UIKit)
+        view.contentMode = .scaleAspectFit
+        #endif
+        if self.thumbnailPixelSize == .zero {
+            let realsize = Driver.realViewFrame(to: view).size
+            return self.mutating({
+                $0.thumbnailPixelSize = realsize
+            })
+        }
+        return self
+    }
+    
+    func fetchDecoder(data: Data?) -> ImageCodering? {
+        guard let data = data else {
+            return nil
+        }
+        var coder: ImageCodering?
+        if let appointCoder = appointCoder {
+            coder = appointCoder
+        } else {
+            let format = AssetType(data: data)
+            switch format {
+            case .jpeg:
+                coder = ImageJPEGCoder.init(data: data)
+            case .png:
+                coder = AnimatedAPNGCoder.init(data: data)
+            case .gif:
+                coder = AnimatedGIFsCoder.init(data: data)
+            case .webp:
+                coder = AnimatedWebPCoder.init(data: data)
+            case .heif, .heic:
+                coder = AnimatedHEICCoder.init(data: data, format: format)
+            case .tiff, .raw, .pdf, .bmp, .svg:
+                coder = ImageIOCoder.init(data: data, format: format)
+            default:
+                return nil
+            }
+        }
+        coder?.data = data
+        coder?.setupImageSource(data: data)
+        return coder
     }
 }

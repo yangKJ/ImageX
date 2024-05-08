@@ -60,6 +60,7 @@ fileprivate class ButtonView__: CPView {
         button.action = #selector(click)
         button.setButtonType(.toggle)
         #else
+        button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
         #endif
         return button
@@ -81,6 +82,7 @@ fileprivate class ButtonView__: CPView {
     
     func setupUI() {
         addSubview(animatedButton)
+        //animatedButton.frame = CGRect(x: 20, y: 100, width: Res.width-40, height: Res.width-40)
         NSLayoutConstraint.activate([
             animatedButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             animatedButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
@@ -106,19 +108,13 @@ fileprivate class ButtonView__: CPView {
             C7Storyboard(ranks: 2),
             C7ColorConvert(with: .rbga)
         ]
-        let filters2: [C7FilterProtocol] = [
-            C7WhiteBalance(temperature: 5000),
-            C7Storyboard(ranks: 2),
-            C7Granularity(grain: 0.2),
-            C7ColorConvert(with: .gbra)
-        ]
+        options.filters = filters
         #if os(macOS)
-        animatedButton.img.setImage(with: Res.jpeg, filters: filters, options: options)
-        animatedButton.img.setAlternateImage(with: Res.jpeg, filters: filters2, options: options)
+        animatedButton.img.setImage(with: Res.jpeg, options: options)
+        animatedButton.img.setAlternateImage(with: Res.jpeg, options: options)
         #else
-        animatedButton.img.setImage(with: Res.jpeg, for: .normal, filters: filters, options: options)
-        animatedButton.img.setImage(with: Res.jpeg, for: .highlighted, filters: filters2, options: options)
-        animatedButton.img.setImage(with: Res.gif, for: .selected, filters: filters2, options: options)
+        animatedButton.img.setImage(with: Res.jpeg, for: .normal, options: options)
+        animatedButton.img.setImage(with: Res.gif, for: .selected, options: options)
         #endif
     }
     

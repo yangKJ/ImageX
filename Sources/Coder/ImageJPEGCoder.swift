@@ -22,7 +22,6 @@ public struct ImageJPEGCoder: ImageCodering {
     
     public init(data: Data) {
         self.data = data
-        self.setupImageSource(data: data)
     }
     
     public func canDecoderBrokenData() -> Bool {

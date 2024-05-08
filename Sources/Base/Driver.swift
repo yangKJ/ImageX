@@ -11,31 +11,26 @@ import CacheX
 
 struct Driver {
     
-    static func setImage(named: String?, to view: AsAnimatable, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
-        guard let named = named, named.isEmpty == false else {
+    static func setImage(named: String?, to view: AsAnimatable, options: ImageXOptions, other: Others?) {
+        guard let named = named, !named.isEmpty else {
             view.hasAnimator?.prepareForReuse()
-            Driver.setPlaceholder(to: view, options: options, other: other)
+            options.setPlaceholder(to: view, other: other)
             return
         }
-        let options = Driver.setPlaceholder(to: view, options: options, other: other)
+        let options = options.setPlaceholder(to: view, other: other)
         if R.verifyLink(named), let url = URL(string: named) {
-            Driver.setImage(url: url, to: view, filters: filters, options: options, other: other)
+            Driver.setImage(url: url, to: view, options: options, other: other)
         } else if let data = R.gifData(named, forResource: options.moduleName) {
-            Driver.setImage(data: data, to: view, filters: filters, options: options, other: other)
+            Driver.setImage(data: data, to: view, options: options, other: other)
         } else if let image = R.image(named, forResource: options.moduleName) {
             view.hasAnimator?.prepareForReuse()
-            let options = Driver.setViewContentMode(to: view, options: options)
+            let options = options.setViewContentMode(to: view)
             let reimage = options.resizingMode.resizeImage(image, size: options.thumbnailPixelSize)
-            let dest = HarbethIO(element: reimage, filters: filters)
-            if let outImage = try? dest.output() {
+            let dest = HarbethIO(element: reimage, filters: options.filters)
+            dest.transmitOutput(success: { outImage in
+                options.removeViewPlaceholder(form: view, other: other)
                 view.setContentImage(outImage, other: other)
-                switch options.placeholder {
-                case .view:
-                    options.placeholder.remove(from: view, other: other)
-                default:
-                    break
-                }
-            }
+            })
         }
     }
     
@@ -43,25 +38,23 @@ struct Driver {
         data: Data?,
         to view: AsAnimatable,
         finished: Bool = true,
-        filters: [Harbeth.C7FilterProtocol],
         options: ImageXOptions,
         other: Others?
     ) -> AssetType {
         view.hasAnimator?.prepareForReuse()
-        let options_ = Driver.setViewContentMode(to: view, options: options)
-        let options = Driver.setPlaceholder(to: view, options: options_, other: other)
+        let options = options.setViewContentMode(to: view).setPlaceholder(to: view, other: other)
         guard let data = data else {
             return .unknow
         }
-        let decoder = fetchDecoder(data: data, options: options)
+        let decoder = options.fetchDecoder(data: data)
         if options.Animated.frameType == .animated, let decoder = decoder as? AnimatedCodering, decoder.isAnimatedImages() {
-            view.play(decoder: decoder, filters: filters, options: options, other: other)
+            view.setStartPlay(decoder: decoder, options: options, other: other, prepared: {
+                options.removeViewPlaceholder(form: view, other: other)
+            })
         } else {
-            let coderOptions = options.setupDecoderOptions(filters, finished: finished)
-            decoder?.decodedImage(options: coderOptions, onNext: { image in
-                guard let image = image else {
-                    return
-                }
+            let imageCoderOptions = options.setupDecoderOptions(finished: finished)
+            decoder?.decodedImage(options: imageCoderOptions, onNext: { image in
+                options.removeViewPlaceholder(form: view, other: other)
                 view.setContentImage(image, other: other)
             })
         }
@@ -71,71 +64,46 @@ struct Driver {
     @discardableResult static func setImage(
         url: URL?,
         to view: AsAnimatable,
-        filters: [Harbeth.C7FilterProtocol],
         options: ImageXOptions,
         other: Others?
     ) -> ImageX.Task? {
+        view.hasAnimator?.prepareForReuse()
         guard let url = url else {
-            Driver.setPlaceholder(to: view, options: options, other: other)
+            options.setPlaceholder(to: view, other: other)
             return nil
         }
-        let options = Driver.setPlaceholder(to: view, options: options, other: other)
+        let options = options.setPlaceholder(to: view, other: other)
         let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
         if var data = Cached.shared.storage.read(key: key, options: options.Cache.cacheOption) {
             data = options.Cache.cacheDataZip.decompress(data: data)
             DispatchQueue.main.img.safeAsync {
                 options.Network.progressBlock?(1.0)
-                Driver.setImage(data: data, to: view, filters: filters, options: options, other: other)
+                Driver.setImage(data: data, to: view, options: options, other: other)
             }
             return nil
         }
         let task = Networking.shared.addDownloadURL(url, options: options, downloadBlock: { result in
             switch result {
             case .success(let res):
-                DispatchQueue.main.img.safeAsync {
-                    let finished = res.downloadStatus == .complete ? true : false
-                    Driver.setImage(data: res.data, to: view, finished: finished, filters: filters, options: options, other: other)
-                }
-                if res.downloadStatus == .complete {
+                switch res.downloadStatus {
+                case .downloading:
+                    DispatchQueue.main.img.safeAsync {
+                        Driver.setImage(data: res.data, to: view, finished: false, options: options, other: other)
+                    }
+                case .complete:
+                    DispatchQueue.main.img.safeAsync {
+                        Driver.setImage(data: res.data, to: view, options: options, other: other)
+                    }
                     let zipData = options.Cache.cacheDataZip.compressed(data: res.data)
                     Cached.shared.storage.write(key: key, value: zipData, options: options.Cache.cacheOption)
                 }
             case .failure(let error):
-                DispatchQueue.main.img.safeAsync {
-                    Driver.setPlaceholder(to: view, options: options, other: other)
-                }
+                options.setPlaceholder(to: view, other: other)
                 options.Network.failed?(error)
             }
         })
         task.priority = options.Network.downloadPriority
         return ImageX.Task(key: key, url: url, task: task)
-    }
-}
-
-extension Driver {
-    
-    @discardableResult static func setPlaceholder(to view: AsAnimatable, options: ImageXOptions, other: Others?) -> ImageXOptions {
-        guard options.displayed == false else {
-            return options
-        }
-        let options = options.setDisplayed(placeholder: true)
-        options.placeholder.display(to: view, resizingMode: options.resizingMode, other: other)
-        return options
-    }
-    
-    /// Fixed the setting  `options.resizingMode` attributes cannot be filled.
-    static func setViewContentMode(to view: AsAnimatable, options: ImageXOptions) -> ImageXOptions {
-        if options.resizingMode == .original {
-            return options
-        }
-        #if canImport(UIKit)
-        view.contentMode = .scaleAspectFit
-        #endif
-        if options.thumbnailPixelSize == .zero {
-            let realsize = realViewFrame(to: view).size
-            return options.mutating({ $0.thumbnailPixelSize = realsize })
-        }
-        return options
     }
     
     /// Get the real frame of the view.
@@ -159,34 +127,5 @@ extension Driver {
         }
         #endif
         return view.frame
-    }
-    
-    static func fetchDecoder(data: Data?, options: ImageXOptions) -> ImageCodering? {
-        guard let data = data else {
-            return nil
-        }
-        if var appointCoder = options.appointCoder {
-            appointCoder.data = data
-            appointCoder.setupImageSource(data: data)
-            return appointCoder
-        } else {
-            let format = AssetType(data: data)
-            switch format {
-            case .jpeg:
-                return ImageJPEGCoder.init(data: data)
-            case .png:
-                return AnimatedAPNGCoder.init(data: data)
-            case .gif:
-                return AnimatedGIFsCoder.init(data: data)
-            case .webp:
-                return AnimatedWebPCoder.init(data: data)
-            case .heif, .heic:
-                return AnimatedHEICCoder.init(data: data)
-            case .tiff, .raw, .pdf, .bmp, .svg:
-                return ImageIOCoder.init(data: data, format: format)
-            default:
-                return nil
-            }
-        }
     }
 }

@@ -43,43 +43,8 @@ public protocol AsAnimatable: HasAnimatable {
     /// Prepare for animation and start play animated image.
     /// - Parameters:
     ///   - data: gif data.
-    ///   - filters: Harbeth filters apply to image or animated image frame.
     ///   - options: Represents animated image playback creating options used in ImageX.
-    func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions)
-}
-
-extension AsAnimatable {
-    
-    /// Prepare for animation and start play animated images.
-    public func play(data: Data?, filters: [C7FilterProtocol], options: ImageXOptions) {
-        let options_ = Driver.setViewContentMode(to: self, options: options)
-        let options = Driver.setPlaceholder(to: self, options: options_, other: nil)
-        if let decoder = Driver.fetchDecoder(data: data, options: options) as? AnimatedCodering {
-            self.play(decoder: decoder, filters: filters, options: options, other: nil)
-        }
-    }
-    
-    /// Prepare for animation and start play animated images.
-    func play(decoder: AnimatedCodering, filters: [C7FilterProtocol], options: ImageXOptions, other: Others?) {
-        let options_ = Driver.setViewContentMode(to: self, options: options)
-        let options = Driver.setPlaceholder(to: self, options: options_, other: nil)
-        let store = FrameStore(decoder: decoder, filters: filters, options: options) { [weak self] _ in
-            guard let weakself = self else {
-                return
-            }
-            weakself.animator?.startAnimating()
-            switch options.placeholder {
-            case .view:
-                options.placeholder.remove(from: weakself, other: other)
-            default:
-                break
-            }
-        }
-        animator?.frameStore = store
-        animator?.options = options
-        animator?.other = other
-        animator?.animationBlock = options.Animated.animated
-    }
+    func play(data: Data?, options: ImageXOptions)
 }
 
 extension AsAnimatable {
@@ -118,5 +83,15 @@ extension AsAnimatable {
     
     public func stopAnimating() {
         animator?.stopAnimating()
+    }
+    
+    public func play(data: Data?, options: ImageXOptions) {
+        guard let decoder = options.fetchDecoder(data: data) as? AnimatedCodering else {
+            return
+        }
+        let options = options.setViewContentMode(to: self).setPlaceholder(to: self, other: nil)
+        self.setStartPlay(decoder: decoder, options: options, other: nil, prepared: { [weak self] in
+            options.removeViewPlaceholder(form: self, other: nil)
+        })
     }
 }

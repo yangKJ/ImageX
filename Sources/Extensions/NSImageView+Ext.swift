@@ -20,38 +20,27 @@ extension ImageXEngine where Base: NSImageView {
     /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - named: Picture or gif name.
-    ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
-    public func setImage(with named: String?, filters: [C7FilterProtocol] = [], options: ImageXOptions = .default) {
-        Driver.setImage(named: named, to: base, filters: filters, options: options, other: nil)
+    public func setImage(with named: String?, options: ImageXOptions = .default) {
+        Driver.setImage(named: named, to: base, options: options, other: nil)
     }
     
     /// Display image or gif and add the filters.
     /// - Parameters:
     ///   - data: Picture data.
-    ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
     /// - Returns: A uniform type identifier UTI.
-    @discardableResult public func setImage(
-        with data: Data?,
-        filters: [Harbeth.C7FilterProtocol] = [],
-        options: ImageXOptions = ImageXOptions.default
-    ) -> AssetType {
-        Driver.setImage(data: data, to: base, filters: filters, options: options, other: nil)
+    @discardableResult public func setImage(with data: Data?, options: ImageXOptions = .default) -> AssetType {
+        Driver.setImage(data: data, to: base, options: options, other: nil)
     }
     
     /// Display network image or gif and add the filters.
     /// - Parameters:
     ///   - url: Link url.
-    ///   - filters: Harbeth filters apply to image or gif frame.
     ///   - options: Represents creating options used in ImageX.
     /// - Returns: Current network URLSessionDataTask.
-    @discardableResult public func setImage(
-        with url: URL?,
-        filters: [Harbeth.C7FilterProtocol] = [],
-        options: ImageXOptions = ImageXOptions.default
-    ) -> ImageX.Task? {
-        Driver.setImage(url: url, to: base, filters: filters, options: options, other: nil)
+    @discardableResult public func setImage(with url: URL?, options: ImageXOptions = .default) -> ImageX.Task? {
+        Driver.setImage(url: url, to: base, options: options, other: nil)
     }
 }
 

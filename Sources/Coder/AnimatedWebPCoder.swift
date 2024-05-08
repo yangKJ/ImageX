@@ -46,7 +46,6 @@ public struct AnimatedWebPCoder: AnimatedCodering {
     
     public init(data: Data) {
         self.data = data
-        self.setupImageSource(data: data)
     }
     
     public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {

@@ -21,21 +21,15 @@ public struct ImageIOCoder: ImageCodering {
         self.type ?? AssetType(data: data)
     }
     
+    private var type: AssetType?
+    
     public init(data: Data) {
         self.data = data
-        self.setupImageSource(data: data)
     }
-    
-    private var type: AssetType?
     
     public init(data: Data, format: AssetType) {
         self.init(data: data)
         self.type = format
-    }
-    
-    public init(format: AssetType) {
-        let data = Data()
-        self.init(data: data, format: format)
     }
     
     public func decodedCGImage(options: ImageCoderOptions, index: Int) -> CGImage? {

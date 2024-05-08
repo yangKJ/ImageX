@@ -27,7 +27,7 @@ public protocol ImageCodering {
     /// The dictionary may be used to request additional creation options.
     var dataOptions: CFDictionary { get }
     
-    /// The image data to be decoded
+    /// The image data to be decoded.
     var data: Data { get set }
     
     /// The original image source.
@@ -35,14 +35,6 @@ public protocol ImageCodering {
     
     /// Total number animated frames.
     var frameCount: Int { get set }
-    
-    /// Initialization an coder decoding object, internal needs to be assigned to data.
-    /// It is mainly convenient for user appoint coder.
-    init()
-    
-    /// Initialization an coder decoding object.
-    /// - Parameter data: The data to be decoded
-    init(data: Data)
     
     /// Is it a animated images resource?
     func isAnimatedImages() -> Bool
@@ -55,9 +47,6 @@ public protocol ImageCodering {
     
     /// Real time decoder of incomplete data.
     func canDecoderBrokenData() -> Bool
-    
-    /// Set up the original image source and total number animated frames.
-    mutating func setupImageSource(data: Data)
     
     /// Decode the data to CGImage.
     /// - Parameters:
@@ -77,11 +66,6 @@ public protocol ImageCodering {
 }
 
 extension ImageCodering {
-    
-    public init() {
-        let data = Data()
-        self.init(data: data)
-    }
     
     public var dataOptions: CFDictionary {
         [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
@@ -107,8 +91,12 @@ extension ImageCodering {
     public func canDecoderBrokenData() -> Bool {
         return false
     }
+}
+
+extension ImageCodering {
     
-    public mutating func setupImageSource(data: Data) {
+    /// Set up the original image source and total number animated frames.
+    mutating func setupImageSource(data: Data) {
         if data.isEmpty == true {
             self.frameCount = 0
             self.imageSource = nil
@@ -126,9 +114,6 @@ extension ImageCodering {
             return
         }
     }
-}
-
-extension ImageCodering {
     
     /// Decode the data to image.
     /// - Parameters:
