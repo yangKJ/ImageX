@@ -76,7 +76,7 @@ struct Driver {
         let key = options.Cache.cacheCrypto.encryptedString(with: url.absoluteString)
         if var data = Cached.shared.storage.read(key: key, options: options.Cache.cacheOption) {
             data = options.Cache.cacheDataZip.decompress(data: data)
-            DispatchQueue.main.img.safeAsync {
+            DispatchQueue.main.async {
                 options.Network.progressBlock?(1.0)
                 Driver.setImage(data: data, to: view, options: options, other: other)
             }
@@ -87,11 +87,11 @@ struct Driver {
             case .success(let res):
                 switch res.downloadStatus {
                 case .downloading:
-                    DispatchQueue.main.img.safeAsync {
+                    DispatchQueue.main.async {
                         Driver.setImage(data: res.data, to: view, finished: false, options: options, other: other)
                     }
                 case .complete:
-                    DispatchQueue.main.img.safeAsync {
+                    DispatchQueue.main.async {
                         Driver.setImage(data: res.data, to: view, options: options, other: other)
                     }
                     let zipData = options.Cache.cacheDataZip.compressed(data: res.data)

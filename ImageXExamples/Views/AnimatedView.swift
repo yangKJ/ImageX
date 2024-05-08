@@ -117,7 +117,7 @@ fileprivate class AnimatedView__: CPView {
             print("Played end!!!")
         })
         options.Network.setNetworkProgress(block: { [weak self] progress in
-            DispatchQueue.main.img.safeAsync {
+            DispatchQueue.main.async {
                 if progress >= 1 {
                     self?.resultLabel.text = String("Downloaded")
                 } else {

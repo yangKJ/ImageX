@@ -80,7 +80,7 @@ extension ImageXOptions {
         if self.displayed {
             return self
         }
-        DispatchQueue.main.img.safeAsync {
+        DispatchQueue.main.async {
             self.placeholder.display(to: view, resizingMode: self.resizingMode, other: other)
         }
         return self.mutating({
@@ -94,7 +94,7 @@ extension ImageXOptions {
         }
         switch self.placeholder {
         case .view:
-            DispatchQueue.main.img.safeAsync {
+            DispatchQueue.main.async {
                 self.placeholder.remove(from: view, other: other)
             }
         default:
